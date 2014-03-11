@@ -1,0 +1,31 @@
+@using Incoding.MvcContrib
+@using MvdEndPoint.UI.Controllers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="form-search">
+        @{
+            string containerId = Guid.NewGuid().ToString();
+            string typeId = Guid.NewGuid().ToString();
+        }
+        <label>Type:</label>
+        @Html.DropDownList(typeId, typeof(EndPointItem.OfType).ToSelectList(), "All", Html.When(JqueryBind.Change)
+                                                                                          .Do()
+                                                                                          .Direct()
+                                                                                          .OnSuccess(dsl => dsl.WithId(containerId).Core().Trigger.Incoding())
+                                                                                          .AsHtmlAttributes())
+    </div>
+
+    @(Html.When(JqueryBind.InitIncoding)
+          .Do()
+          .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { type = Selector.Jquery.Name(typeId) }))
+          .OnSuccess(dsl =>
+                         {
+                             string url = Url.Dispatcher().AsView("~/Views/Home/Endpoint_Item_Tmpl.cshtml");
+                             dsl.Self().Core().Insert.WithTemplateByUrl(url).Html();
+                         })
+          .AsHtmlAttributes(new { id = containerId })
+          .ToDiv())
+</div>

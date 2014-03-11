@@ -1,0 +1,89 @@
+﻿@using Incoding.MetaLanguageContrib
+@using Incoding.MvcContrib
+@using MvdEndPoint.UI.Controllers
+@{
+    using (var template = Html.Incoding().Template<EndPointItem>())
+    {
+        string dialogId = Guid.NewGuid().ToString();
+        <div id="@dialogId"></div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Url</th>
+                    <th>Type</th>
+                    <th>Result</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @using (var each = template.ForEach())
+                {
+                    string trId = "tr" + each.For(r => r.Name);
+                    <tr>
+                        <td>
+                            @(Html.When(JqueryBind.Click)
+                                  .Do()
+                                  .Direct()
+                                  .OnSuccess(dsl =>
+                                                 {
+                                                     dsl.WithId(trId).Core().JQuery.Attributes.ToggleClass("hide");
+                                                     dsl.Self().Core().JQuery.Attributes.ToggleClass("icon-plus icon-minus");
+                                                 })
+                                  .AsHtmlAttributes(new { @class = "icon icon-plus" })
+                                  .ToI())
+                        </td>
+                        <td>@each.For(r => r.Name)</td>
+                        <td>
+                            <a href="@each.For(r => r.Url)">
+                                @each.For(r => r.Url)
+                            </a>
+                        </td>
+                        <td>@each.For(r => r.Type)</td>
+                        <td></td>
+                        <td>
+                            @(Html.When(JqueryBind.Click)
+                                  .Do()
+                                  .AjaxGet(Url.Action("Endpoint","Dispatcher",new { id = each.For(r=>r.Id) }))
+                                  .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
+                                                                                       {
+                                                                                           var urlSandbox = Url.Dispatcher().AsView("~/Views/Home/Sandbox_Item_Tmpl.cshtml");
+                                                                                           inDsl.Core().Insert.WithTemplateByUrl(urlSandbox).Html();
+                                                                                           inDsl.JqueryUI().Dialog.Open(options =>
+                                                                                                                            {
+                                                                                                                                options.Title = "Sandbox";
+                                                                                                                                options.Width = "500px;";
+                                                                                                                            });
+                                                                                       }))
+                                  .AsHtmlAttributes(new {@class="btn btn-primary"})
+                                  .ToButton("Sandbox"))
+                        </td>
+                    </tr>
+                    <tr id="@trId" class="hide">
+                        <td colspan="5">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @using (var innerEach = each.ForEach(r => r.Properties))
+                                    {
+                                        <tr>
+                                            <td>@innerEach.For(r => r.Name)</td>
+                                            <td>@innerEach.For(r => r.Type)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+}

@@ -1,0 +1,16 @@
+﻿@using Incoding.MvcContrib
+@{
+    using (var template = Html.Incoding().Template<IncodingResult.JsonModelStateData>())
+    {
+        <ul>
+            @using (var each = template.ForEach())
+            {
+                using (each.Not(r => r.isValid))
+                {
+                    <li>@each.For(r => r.name) : @each.For(r => r.errorMessage)</li>
+                }
+            }
+        </ul>
+    }
+
+}
