@@ -3,6 +3,7 @@
     #region << Using >>
 
     using Incoding.CQRS;
+    using Incoding.Extensions;
     using Incoding.MvcContrib;
 
     #endregion
@@ -17,7 +18,7 @@
 
         public override void Execute()
         {
-            throw IncWebException.For<TestModelStateCommand>(r => r.Prop, "Test validation");
+            throw IncWebException.For<TestModelStateCommand>(r => r.Prop, "Value {0} is wrong".F(Prop));
         }
     }
 }

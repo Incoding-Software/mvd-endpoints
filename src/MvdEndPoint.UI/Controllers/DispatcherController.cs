@@ -46,7 +46,9 @@ namespace MvdEndPoint.UI.Controllers
 
             public bool IsEnum { get; set; }
 
-            public bool IsSimple { get { return !IsBool && !IsEnum; } }
+            public bool IsSimple { get { return !(IsBool || IsEnum); } }
+
+            public string TypeId { get; set; }
 
             #endregion
         }
@@ -57,11 +59,11 @@ namespace MvdEndPoint.UI.Controllers
 
         public enum OfType
         {
-            Command, 
+            Command,
 
-            Query, 
+            Query,
 
-            View, 
+            View,
 
             Template
         }
@@ -93,25 +95,36 @@ namespace MvdEndPoint.UI.Controllers
                                                                     var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(Url.Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
                                                                     return new EndPointItem
                                                                                {
-                                                                                       Id = instanceType.GUID.ToString(), 
-                                                                                       Name = instanceType.Name, 
-                                                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(), 
-                                                                                       IsCommand = isCommand, 
-                                                                                       Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(), 
+                                                                                       Id = instanceType.GUID.ToString(),
+                                                                                       Name = instanceType.Name,
+                                                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
+                                                                                       IsCommand = isCommand,
+                                                                                       Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
                                                                                        Properties = instanceType.GetProperties()
                                                                                                                 .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
                                                                                                                 .Select(r => new EndPointItem.Property
                                                                                                                                  {
-                                                                                                                                         Name = r.Name, 
-                                                                                                                                         Type = r.PropertyType.Name, 
-                                                                                                                                         IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)), 
-                                                                                                                                         IsEnum = r.PropertyType.IsEnum, 
+                                                                                                                                         Name = r.Name,
+                                                                                                                                         Type = r.PropertyType.Name,
+                                                                                                                                         IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
+                                                                                                                                         IsEnum = r.PropertyType.IsEnum,
+                                                                                                                                         TypeId = r.PropertyType.GUID.ToString()
                                                                                                                                  })
                                                                                                                 .ToList()
                                                                                };
                                                                 })
                                                     .Where(r => !type.HasValue || r.Type == type.Value.ToLocalization());
             return IncJson(endPointItems);
+        }
+
+        [HttpGet]
+        public ActionResult FetchEnum(string typeId)
+        {
+            var type = typeof(Bootstrapper).Assembly
+                                           .GetTypes()
+                                           .FirstOrDefault(r => r.GUID == Guid.Parse(typeId));
+
+            return IncJson(type.ToKeyValueVm().ToOptGroup());
         }
 
         #endregion

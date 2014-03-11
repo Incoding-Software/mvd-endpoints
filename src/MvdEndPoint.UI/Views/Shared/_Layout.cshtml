@@ -31,7 +31,7 @@
                 $(collection).each(function () {
                     var current = this;
                     $.eachProperties(current, function () {
-                        res += "{0}:{1}".f(this, data[this]);
+                        res += "{0}:{1};".f(this, current[this]);
                     });
                 });
                 $(target).html(res);

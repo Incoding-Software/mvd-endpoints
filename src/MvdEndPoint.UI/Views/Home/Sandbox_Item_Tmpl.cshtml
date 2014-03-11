@@ -30,14 +30,24 @@
                         @Html.Label(innerEach.For(r => r.Name), new { @class = "control-label" })
                         <div class="controls">
                             @using (innerEach.Is(r => r.IsBool))
-                            { @Html.CheckBox(innerEach.For(r => r.Name)) }
+                            {
+                                @Html.CheckBox(innerEach.For(r => r.Name))
+                            }
                             
                             @using (innerEach.Is(r => r.IsEnum))
-                            { @Html.CheckBox(innerEach.For(r => r.Name)) }
+                            {
+                                @Html.DropDownList(innerEach.For(r => r.Name), new SelectList(new string[0]), Html.When(JqueryBind.InitIncoding)
+                                                                                                                  .Do()
+                                                                                                                  .AjaxGet(Url.Action("FetchEnum", "Dispatcher", new { TypeId = innerEach.For(r => r.TypeId) }))
+                                                                                                                  .OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplateById(IncodingHtmlHelper.DropDownTemplateId).Html())
+                                                                                                                  .AsHtmlAttributes())
+                            }
                             
 
-                            @using (innerEach.Is(r => r.IsEnum))
-                            { @Html.TextBox(innerEach.For(r => r.Name)) }
+                            @using (innerEach.Is(r => r.IsSimple))
+                            {
+                                @Html.TextBox(innerEach.For(r => r.Name))
+                            }
                         </div>
                     </div>
                 }         
