@@ -24,6 +24,8 @@ namespace MvdEndPoint.UI.Controllers
 
         public string Type { get; set; }
 
+        public string AssemblyQualifiedName { get; set; }
+
         public List<Property> Properties { get; set; }
 
         public bool IsCommand { get; set; }
@@ -100,6 +102,7 @@ namespace MvdEndPoint.UI.Controllers
                                                                                        Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
                                                                                        IsCommand = isCommand,
                                                                                        Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
+                                                                                       AssemblyQualifiedName = instanceType.AssemblyQualifiedName,
                                                                                        Properties = instanceType.GetProperties()
                                                                                                                 .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
                                                                                                                 .Select(r => new EndPointItem.Property
@@ -126,6 +129,13 @@ namespace MvdEndPoint.UI.Controllers
 
             return IncJson(type.ToKeyValueVm().ToOptGroup());
         }
+
+        [HttpGet]
+        public ActionResult AsContent(RequestCodeGenerateQuery generateQuery )
+        {
+            return Content(dispatcher.Query(generateQuery));
+        }
+
 
         #endregion
     }

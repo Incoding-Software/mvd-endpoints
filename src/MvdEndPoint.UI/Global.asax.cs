@@ -18,8 +18,8 @@ namespace MvdEndPoint.UI
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas(); 
- Bootstrapper.Start(); 
- new DispatcherController(); // init routes
+  
+ 
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

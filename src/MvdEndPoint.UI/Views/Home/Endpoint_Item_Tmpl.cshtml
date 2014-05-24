@@ -1,5 +1,6 @@
 ﻿@using Incoding.MetaLanguageContrib
 @using Incoding.MvcContrib
+@using MvdEndPoint.Domain
 @using MvdEndPoint.UI.Controllers
 @{
     using (var template = Html.Incoding().Template<EndPointItem>())
@@ -45,10 +46,10 @@
                         <td>
                             @(Html.When(JqueryBind.Click)
                                   .Do()
-                                  .AjaxGet(Url.Action("Endpoint","Dispatcher",new { id = each.For(r=>r.Id) }))
+                                  .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { id = each.For(r => r.Id) }))
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
-                                                                                           var urlSandbox = Url.Dispatcher().AsView("~/Views/Home/Sandbox_Item_Tmpl.cshtml");
+                                                                                           string urlSandbox = Url.Dispatcher().AsView("~/Views/Home/Sandbox_Item_Tmpl.cshtml");
                                                                                            inDsl.Core().Insert.WithTemplateByUrl(urlSandbox).Html();
                                                                                            inDsl.JqueryUI().Dialog.Open(options =>
                                                                                                                             {
@@ -56,8 +57,23 @@
                                                                                                                                 options.Width = "500px;";
                                                                                                                             });
                                                                                        }))
-                                  .AsHtmlAttributes(new {@class="btn btn-primary"})
+                                  .AsHtmlAttributes(new { @class = "btn btn-primary" })
                                   .ToButton("Sandbox"))
+
+                            @(Html.When(JqueryBind.Click)
+                                  .Do()
+                                  .AjaxGet(Url.Action("AsContent", "Dispatcher", new RequestCodeGenerateQuery { AssemblyQualifiedType = each.For(r => r.Type) }))
+                                  .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
+                                                                                       {
+                                                                                           inDsl.Core().Insert.Html();
+                                                                                           inDsl.JqueryUI().Dialog.Open(options =>
+                                                                                                                            {
+                                                                                                                                options.Title = "Sandbox";
+                                                                                                                                options.Width = "500px;";
+                                                                                                                            });
+                                                                                       }))
+                                  .AsHtmlAttributes(new { @class = "btn btn-primary" })
+                                  .ToButton("Download"))
                         </td>
                     </tr>
                     <tr id="@trId" class="hide">

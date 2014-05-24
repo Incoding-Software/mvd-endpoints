@@ -2,9 +2,9 @@
 {
     #region << Using >>
 
+    using Incoding;
     using Incoding.CQRS;
     using Incoding.Extensions;
-    using Incoding.MvcContrib;
 
     #endregion
 
