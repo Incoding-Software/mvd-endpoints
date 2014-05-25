@@ -8,7 +8,7 @@
  public class <#= Name #> {
 
   <# for (int i = 0; i < Properties.Count; i++) { #>
-  public <#= Properties[i].Key #> <#= Properties[i].Value #>
+  public <#= Properties[i].Key #> <#= Properties[i].Value #>;
   <# } #>                                                   
 
  }

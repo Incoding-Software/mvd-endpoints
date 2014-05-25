@@ -1,5 +1,7 @@
 ﻿namespace MvdEndPoint.Domain
 {
+    #region << Using >>
+
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
@@ -7,7 +9,9 @@
     using Incoding.Extensions;
     using System.Linq;
 
-    public class ConvertCSharpTypeToJava : QueryBase<string>
+    #endregion
+
+    public class ConvertCSharpTypeToJavaQuery : QueryBase<string>
     {
         public string Type { get; set; }
 
@@ -37,7 +41,7 @@
                                                                      .Where(r => r.Name != "Result")
                                                                      .Select(r =>
                                                                                  {
-                                                                                     string javaType = Dispatcher.Query(new ConvertCSharpTypeToJava
+                                                                                     string javaType = Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
                                                                                                                             {
                                                                                                                                     Type = r.PropertyType.Name
                                                                                                                             });

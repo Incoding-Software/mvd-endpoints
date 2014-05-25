@@ -56,7 +56,7 @@ namespace MvdEndPoint.Domain.Operations
             
             #line default
             #line hidden
-            this.Write("\r\n  ");
+            this.Write(";\r\n  ");
             
             #line 12 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Response.tt"
  } 

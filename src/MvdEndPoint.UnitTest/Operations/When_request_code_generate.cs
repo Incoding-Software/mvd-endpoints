@@ -44,13 +44,14 @@
                                       var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.AssemblyQualifiedType, typeof(GetCustomerQuery).AssemblyQualifiedName));
                                       expected = @" public class GetCustomerRequest {
 
-    public String Message
+    public TheSameString Message;
                                                      
 
  }";
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
-                                              .When(query);
+                                              .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string).Name)), Pleasure.Generator.TheSameString());
                                   };
 
         Because of = () => mockQuery.Original.Execute();
