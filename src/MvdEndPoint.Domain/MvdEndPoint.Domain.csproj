@@ -70,12 +70,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
-    <Compile Include="Operations\Android_Response.cs">
+    <Compile Include="Operations\Android_Dto.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Android_Response.tt</DependentUpon>
+      <DependentUpon>Android_Dto.tt</DependentUpon>
     </Compile>
-    <Compile Include="Operations\RequestCodeGenerateQuery.cs" />
+    <Compile Include="Operations\ConvertCSharpTypeToJavaQuery.cs" />
+    <Compile Include="Operations\GetPropertiesByTypeQuery.cs" />
+    <Compile Include="Operations\Android_Task.cs">
+      <DependentUpon>Android_Task.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\DtoCodeGenerateQuery.cs" />
+    <Compile Include="Operations\TaskCodeGenerateQuery.cs" />
     <Compile Include="TestModelStateCommand.cs" />
     <Compile Include="TestCollectionQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,9 +93,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Operations\Android_Response.tt">
+    <None Include="Operations\Android_Dto.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_Response.cs</LastGenOutput>
+      <LastGenOutput>Android_Dto.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Android_Task.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Android_Task.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

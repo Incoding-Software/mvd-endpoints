@@ -6,11 +6,12 @@
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
+    using Machine.Specifications.Annotations;
     using MvdEndPoint.Domain;
 
     #endregion
 
-    [Subject(typeof(RequestCodeGenerateQuery))]
+    [Subject(typeof(DtoCodeGenerateQuery))]
     public class When_request_code_generate
     {
         #region Fake classes
@@ -19,6 +20,7 @@
         {
             #region Properties
 
+            [UsedImplicitly]
             public string Message { get; set; }
 
             #endregion
@@ -33,7 +35,7 @@
 
         #region Establish value
 
-        static MockMessage<RequestCodeGenerateQuery, string> mockQuery;
+        static MockMessage<DtoCodeGenerateQuery, string> mockQuery;
 
         static string expected;
 
@@ -41,7 +43,8 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.AssemblyQualifiedType, typeof(GetCustomerQuery).AssemblyQualifiedName));
+                                      var query = Pleasure.Generator.Invent<DtoCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Prefix, "Request")
+                                                                                                            .Tuning(r => r.Type, typeof(GetCustomerQuery).AssemblyQualifiedName));
                                       expected = @" public class GetCustomerRequest {
 
     public TheSameString Message;
@@ -49,9 +52,9 @@
 
  }";
 
-                                      mockQuery = MockQuery<RequestCodeGenerateQuery, string>
+                                      mockQuery = MockQuery<DtoCodeGenerateQuery, string>
                                               .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string).Name)), Pleasure.Generator.TheSameString());
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string).Name)), Pleasure.Generator.TheSameString());
                                   };
 
         Because of = () => mockQuery.Original.Execute();

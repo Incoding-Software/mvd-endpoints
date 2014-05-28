@@ -62,7 +62,7 @@
 
                             @(Html.When(JqueryBind.Click)
                                   .Do()
-                                  .AjaxGet(Url.Action("AsContent", "Dispatcher", new RequestCodeGenerateQuery { AssemblyQualifiedType = each.For(r => r.Type) }))
+                                  .AjaxGet(Url.Action("AsContent", "Dispatcher", new DtoCodeGenerateQuery { Type = each.For(r => r.Type) }))
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
                                                                                            inDsl.Core().Insert.Html();

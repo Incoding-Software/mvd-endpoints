@@ -1,0 +1,66 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Listener" #>
+<#@ parameter type="System.String" name="Request" #>
+<#@ parameter type="System.String" name="Response" #>
+<#@ parameter type="System.Collections.Generic.List<KeyValuePair<string,string>>" name="Properties" #>
+
+public class <#= Name #> extends AsyncTask<String, Integer, String> {
+
+    public <#= Listener #> listener;
+
+    private <#= Request #> request;
+
+    public <#= Name #>(<#= Request #> request) {
+        this.request = request;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+
+
+        try {
+            <#= Response #> result = new <#= Response #>();
+
+            JSONObject jsonObject = new JSONObject(s);
+            JSONObject data = new JSONObject(jsonObject.getString("data"));
+              <# for (int i = 0; i < Properties.Count; i++) { #>
+             result.<#= Properties[i].Value #> = data.getString("<#= Properties[i].Value #>");
+              <# } #>   
+
+            listener.Success(result);
+
+        } catch (JSONException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+        HttpClient httpClient = new DefaultHttpClient();
+        String uri = String.format("http://mvd-endpoint.incframework.com//Dispatcher/Query?incType=GetCustomerByCriteriaQuery&Message=%",request.Message);
+        HttpGet httpGet = new HttpGet(uri);
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            String json = EntityUtils.toString(response.getEntity());
+            return json;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    public void On(IGetCustomerByCriteriaOn on)
+    {
+        listener = on;
+        execute();
+    }
+}

@@ -131,7 +131,7 @@ namespace MvdEndPoint.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult AsContent(RequestCodeGenerateQuery generateQuery )
+        public ActionResult AsContent(DtoCodeGenerateQuery generateQuery )
         {
             return Content(dispatcher.Query(generateQuery));
         }

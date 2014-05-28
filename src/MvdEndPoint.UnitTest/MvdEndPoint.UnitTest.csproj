@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\Class1.cs" />
     <Compile Include="Operations\When_request_code_generate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
