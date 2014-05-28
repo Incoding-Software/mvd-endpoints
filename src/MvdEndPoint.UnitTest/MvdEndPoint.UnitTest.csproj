@@ -91,7 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MSpecAssemblyContext.cs" />
-    <Compile Include="Operations\Class1.cs" />
+    <Compile Include="Operations\When_dispatcher_code_generator.cs" />
+    <Compile Include="Operations\When_on_code_generator.cs" />
     <Compile Include="Operations\When_get_name_from_type.cs" />
     <Compile Include="Operations\When_get_properties_by_type.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_java.cs" />

@@ -72,27 +72,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
-    <Compile Include="Operations\Android_Dto.cs">
+    <Compile Include="Operations\Code Generate\Android_Dto.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Android_Dto.tt</DependentUpon>
     </Compile>
-    <Compile Include="Operations\ConvertCSharpTypeToJavaQuery.cs" />
-    <Compile Include="Operations\Android_On.cs">
+    <Compile Include="Operations\Code Generate\ConvertCSharpTypeToJavaQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android_On.cs">
       <DependentUpon>Android_On.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\GetNameFromTypeQuery.cs" />
-    <Compile Include="Operations\GetPropertiesByTypeQuery.cs" />
-    <Compile Include="Operations\Android_Task.cs">
+    <Compile Include="Operations\Code Generate\Android_Disaptcher.cs">
+      <DependentUpon>Android_Disaptcher.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\GetNameFromTypeQuery.cs" />
+    <Compile Include="Operations\Code Generate\GetPropertiesByTypeQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android_Task.cs">
       <DependentUpon>Android_Task.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\DtoCodeGenerateQuery.cs" />
-    <Compile Include="Operations\OnCodeGeneratorQuery.cs" />
-    <Compile Include="Operations\TaskCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\DtoCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\OnCodeGeneratorQuery.cs" />
+    <Compile Include="Operations\Code Generate\DispatcherCodeGeneratorQuery.cs" />
+    <Compile Include="Operations\Code Generate\TaskCodeGenerateQuery.cs" />
+    <Compile Include="Persistence\Endpoint.cs" />
     <Compile Include="TestModelStateCommand.cs" />
     <Compile Include="TestCollectionQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,23 +109,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Operations\Android_Dto.tt">
+    <None Include="Operations\Code Generate\Android_Dto.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Dto.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Android_Task.tt">
+    <None Include="Operations\Code Generate\Android_Task.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Task.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Android_On.tt">
+    <None Include="Operations\Code Generate\Android_On.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_On.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Android_Disaptcher.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Android_Disaptcher.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

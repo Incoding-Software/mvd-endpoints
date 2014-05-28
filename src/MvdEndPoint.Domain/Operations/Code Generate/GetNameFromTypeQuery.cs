@@ -28,7 +28,9 @@
 
             Task,
 
-            Listener
+            Listener,
+
+            Method,
         }
 
         #endregion
@@ -47,6 +49,8 @@
                         return Type.Name + "Task";
                     case ModeOf.Listener:
                         return "I" + Type.Name + "On";
+                    case ModeOf.Method:
+                        return Type.Name;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

@@ -44,8 +44,7 @@
                         <td>@each.For(r => r.Type)</td>
                         <td></td>
                         <td>
-                            @(Html.When(JqueryBind.Click)
-                                  .Do()
+                            @(Html.When(JqueryBind.Click)                                  
                                   .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { id = each.For(r => r.Id) }))
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
@@ -60,9 +59,11 @@
                                   .AsHtmlAttributes(new { @class = "btn btn-primary" })
                                   .ToButton("Sandbox"))
 
-                            @(Html.When(JqueryBind.Click)
-                                  .Do()
-                                  .AjaxGet(Url.Action("AsContent", "Dispatcher", new DtoCodeGenerateQuery { Type = each.For(r => r.Type) }))
+                            
+                            
+                            
+                            @(Html.When(JqueryBind.Click)                                  
+                                  .AjaxGet(Url.Dispatcher().Query(new DtoCodeGenerateQuery { Type = each.For(r => r.AssemblyQualifiedName) }).AsJson())
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
                                                                                            inDsl.Core().Insert.Html();

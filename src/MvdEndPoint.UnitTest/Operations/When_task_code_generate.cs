@@ -104,7 +104,7 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+        return """";
     }
 
 

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvdEndPoint.UI", "MvdEndPoi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvdEndPoint.UnitTest", "MvdEndPoint.UnitTest\MvdEndPoint.UnitTest.csproj", "{F8511268-8196-46A4-9BDF-62451CEA19F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E5D6123C-C66C-4CCA-93E1-817D5790E9ED}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{401A0DED-1019-479E-80BA-E2CD9AA9CC75}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe

@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace MvdEndPoint.Domain.Operations
+namespace MvdEndPoint.Domain.Operations.Code_Generate
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace MvdEndPoint.Domain.Operations
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+    #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Android_Dto : Android_DtoBase
+    public partial class Android_Task : Android_TaskBase
     {
 #line hidden
         /// <summary>
@@ -28,46 +28,123 @@ namespace MvdEndPoint.Domain.Operations
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(" public class ");
+            this.Write("\r\npublic class ");
             
-            #line 8 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+            #line 12 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n\r\n  ");
+            this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    public ");
             
-            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
- foreach(var pair in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("  public ");
-            
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
+            #line 14 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write(" listener;\r\n\r\n    private ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+            #line 16 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
+            
+            #line default
+            #line hidden
+            this.Write(" request;\r\n\r\n    public ");
+            
+            #line 18 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write("(");
+            
+            #line 18 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
+            
+            #line default
+            #line hidden
+            this.Write(" request) {\r\n        this.request = request;\r\n    }\r\n\r\n    @Override\r\n    protect" +
+                    "ed void onPostExecute(String s) {\r\n        super.onPostExecute(s);\r\n\r\n\r\n        " +
+                    "try {\r\n            ");
+            
+            #line 28 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(" result = new ");
+            
+            #line 28 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write("();\r\n\r\n            JSONObject jsonObject = new JSONObject(s);\r\n            JSONOb" +
+                    "ject data = new JSONObject(jsonObject.getString(\"data\"));\r\n                ");
+            
+            #line 32 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ foreach(var pair in PropertiesByResponse) { 
+            
+            #line default
+            #line hidden
+            this.Write("             result.");
+            
+            #line 33 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
-            this.Write(";\r\n  ");
+            this.Write(" = data.getString(\"");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+            #line 33 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n                ");
+            
+            #line 34 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("                                                   \r\n\r\n }");
+            this.Write(@"   
+
+            listener.Success(result);
+
+        } catch (JSONException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+    }
+
+
+    @Override
+    protected String doInBackground(String... strings) {
+        HttpClient httpClient = new DefaultHttpClient();
+        String uri = String.format(""http://mvd-endpoint.incframework.com//Dispatcher/Query?incType=GetCustomerByCriteriaQuery&Message=%"",request.Message);
+        HttpGet httpGet = new HttpGet(uri);
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            String json = EntityUtils.toString(response.getEntity());
+            return json;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return """";
+    }
+
+
+    public void On(IGetCustomerByCriteriaOn on)
+    {
+        listener = on;
+        execute();
+    }
+}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+        #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
 
 private string _NameField;
 
@@ -82,16 +159,55 @@ private string Name
     }
 }
 
-private global::System.Collections.Generic.Dictionary<string,string> _PropertiesField;
+private string _ListenerField;
 
 /// <summary>
-/// Access the Properties parameter of the template.
+/// Access the Listener parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.Dictionary<string,string> Properties
+private string Listener
 {
     get
     {
-        return this._PropertiesField;
+        return this._ListenerField;
+    }
+}
+
+private string _RequestField;
+
+/// <summary>
+/// Access the Request parameter of the template.
+/// </summary>
+private string Request
+{
+    get
+    {
+        return this._RequestField;
+    }
+}
+
+private string _ResponseField;
+
+/// <summary>
+/// Access the Response parameter of the template.
+/// </summary>
+private string Response
+{
+    get
+    {
+        return this._ResponseField;
+    }
+}
+
+private global::System.Collections.Generic.Dictionary<string,string> _PropertiesByResponseField;
+
+/// <summary>
+/// Access the PropertiesByResponse parameter of the template.
+/// </summary>
+private global::System.Collections.Generic.Dictionary<string,string> PropertiesByResponse
+{
+    get
+    {
+        return this._PropertiesByResponseField;
     }
 }
 
@@ -133,33 +249,125 @@ if ((NameValueAcquired == false))
         }
     }
 }
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
+bool ListenerValueAcquired = false;
+if (this.Session.ContainsKey("Listener"))
 {
-    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Listener"].GetType()) == false))
     {
-        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                "\'Properties\' did not match the type of the data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Listener\' did not match the type of th" +
+                "e data passed to the template.");
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
+        this._ListenerField = ((string)(this.Session["Listener"]));
+        ListenerValueAcquired = true;
     }
 }
-if ((PropertiesValueAcquired == false))
+if ((ListenerValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Listener");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Listener\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._ListenerField = ((string)(data));
+        }
+    }
+}
+bool RequestValueAcquired = false;
+if (this.Session.ContainsKey("Request"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Request"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Request\' did not match the type of the" +
+                " data passed to the template.");
+    }
+    else
+    {
+        this._RequestField = ((string)(this.Session["Request"]));
+        RequestValueAcquired = true;
+    }
+}
+if ((RequestValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Request");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Request\' did not match the type of the" +
+                    " data passed to the template.");
+        }
+        else
+        {
+            this._RequestField = ((string)(data));
+        }
+    }
+}
+bool ResponseValueAcquired = false;
+if (this.Session.ContainsKey("Response"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Response"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._ResponseField = ((string)(this.Session["Response"]));
+        ResponseValueAcquired = true;
+    }
+}
+if ((ResponseValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._ResponseField = ((string)(data));
+        }
+    }
+}
+bool PropertiesByResponseValueAcquired = false;
+if (this.Session.ContainsKey("PropertiesByResponse"))
+{
+    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["PropertiesByResponse"].GetType()) == false))
+    {
+        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
+                "\'PropertiesByResponse\' did not match the type of the data passed to the template" +
+                ".");
+    }
+    else
+    {
+        this._PropertiesByResponseField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["PropertiesByResponse"]));
+        PropertiesByResponseValueAcquired = true;
+    }
+}
+if ((PropertiesByResponseValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("PropertiesByResponse");
     if ((data != null))
     {
         if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
         {
             this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                    "\'Properties\' did not match the type of the data passed to the template.");
+                    "\'PropertiesByResponse\' did not match the type of the data passed to the template" +
+                    ".");
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
+            this._PropertiesByResponseField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
         }
     }
 }
@@ -181,7 +389,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Android_DtoBase
+    public class Android_TaskBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

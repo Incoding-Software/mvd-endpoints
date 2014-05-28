@@ -25,7 +25,7 @@
                                { typeof(bool?).Name, "java.lang.Boolean" },
                                { typeof(byte).Name, "byte" },
                                { typeof(sbyte).Name, "byte" },
-                       }.GetOrDefault(Type.Name);
+                       }.GetOrDefault(Type.Name,Type.Name);
         }
     }
 }

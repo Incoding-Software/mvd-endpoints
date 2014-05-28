@@ -130,11 +130,6 @@ namespace MvdEndPoint.UI.Controllers
             return IncJson(type.ToKeyValueVm().ToOptGroup());
         }
 
-        [HttpGet]
-        public ActionResult AsContent(DtoCodeGenerateQuery generateQuery )
-        {
-            return Content(dispatcher.Query(generateQuery));
-        }
 
 
         #endregion

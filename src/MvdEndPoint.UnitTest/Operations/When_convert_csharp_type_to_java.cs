@@ -12,6 +12,12 @@
     [Subject(typeof(ConvertCSharpTypeToJavaQuery))]
     public class When_convert_csharp_type_to_java
     {
+        #region Fake classes
+
+        class FakeType { }
+
+        #endregion
+
         #region Establish value
 
         static void Compare(Type csharp, string java)
@@ -22,6 +28,8 @@
         }
 
         #endregion
+
+        It should_be_custom = () => Compare(typeof(FakeType), "FakeType");
 
         It should_be_bool = () => Compare(typeof(bool), "Boolean");
 

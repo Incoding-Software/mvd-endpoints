@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using Incoding.CQRS;
     using MvdEndPoint.Domain.Operations;
+    using MvdEndPoint.Domain.Operations.Code_Generate;
 
     #endregion
 

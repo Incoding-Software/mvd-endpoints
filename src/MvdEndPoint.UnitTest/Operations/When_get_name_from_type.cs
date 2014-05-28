@@ -42,6 +42,8 @@
 
         #endregion
 
+        It should_be_method = () => Compare(GetNameFromTypeQuery.ModeOf.Method, "FakeQuery");
+
         It should_be_request = () => Compare(GetNameFromTypeQuery.ModeOf.Request, "FakeQueryRequest");
 
         It should_be_listener = () => Compare(GetNameFromTypeQuery.ModeOf.Listener, "IFakeQueryOn");
