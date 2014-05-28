@@ -26,7 +26,7 @@
             dto.Session = new Dictionary<string, object>
                               {
                                       { "Name", type.Name.Replace("Query", Prefix) },
-                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = type.Name }) }
+                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = type }) }
                               };
             dto.Initialize();
             return dto.TransformText();

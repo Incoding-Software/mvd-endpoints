@@ -4,11 +4,11 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Name" #>
-<#@ parameter type="System.Collections.Generic.List<KeyValuePair<string,string>>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
  public class <#= Name #> {
 
-  <# for (int i = 0; i < Properties.Count; i++) { #>
-  public <#= Properties[i].Key #> <#= Properties[i].Value #>;
+  <# foreach(var pair in Properties) { #>
+  public <#= pair.Value #> <#= pair.Key #>;
   <# } #>                                                   
 
  }

@@ -1,33 +1,32 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
-    using System;
-    using Incoding.CQRS;
+    #region << Using >>
+
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
-    using It = Machine.Specifications.It;
 
-    [Subject(typeof(TaskCodeGenerateQuery))]
-    public class When_task_code_generate
+    #endregion
+
+    [Subject(typeof(OnCodeGeneratorQuery))]
+    public class When_on_code_generator
     {
-        public class FakeQuery : QueryBase<FakeQuery.Response>
+        #region Fake classes
+
+        class FakeQuery
         {
-            public string Id { get; set; }
+            #region Properties
 
-            public class Response
-            {
-                public string Name { get; set; }
-            }
+            public string Type { get; set; }
 
-            protected override Response ExecuteResult()
-            {
-                throw new NotImplementedException();
-            }
+            #endregion
         }
+
+        #endregion
 
         #region Establish value
 
-        static MockMessage<TaskCodeGenerateQuery, string> mockQuery;
+        static MockMessage<OnCodeGeneratorQuery, string> mockQuery;
 
         static string expected;
 
@@ -35,15 +34,22 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery).AssemblyQualifiedName));
-                                      expected = "";
+                                      var query = Pleasure.Generator.Invent<OnCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
+                                      expected = @"
+public interface FakeQueryOn {
+    void Success(FakeQueryResponse response);
+}";
 
-                                      mockQuery = MockQuery<TaskCodeGenerateQuery, string>
-                                              .When(query);
+                                      mockQuery = MockQuery<OnCodeGeneratorQuery, string>
+                                              .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                                                                                                   .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Listener)), "FakeQueryOn")
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                                                                                                   .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)), "FakeQueryResponse");
                                   };
 
         Because of = () => mockQuery.Original.Execute();
 
-        It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
+        It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }
 }

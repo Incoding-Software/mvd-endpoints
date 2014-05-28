@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -54,7 +55,10 @@
 
                                       mockQuery = MockQuery<DtoCodeGenerateQuery, string>
                                               .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string).Name)), Pleasure.Generator.TheSameString());
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new Dictionary<string, string>
+                                                                                                                                                                       {
+                                                                                                                                                                               { "Message", "TheSameString" }
+                                                                                                                                                                       });
                                   };
 
         Because of = () => mockQuery.Original.Execute();

@@ -2,6 +2,7 @@
 {
     #region << Using >>
 
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -9,23 +10,23 @@
 
     #endregion
 
-    public class GetPropertiesByTypeQuery : QueryBase<string>
+    public class GetPropertiesByTypeQuery : QueryBase<Dictionary<string, string>>
     {
-        public string Type { get; set; }
+        #region Properties
 
-        protected override string ExecuteResult()
+        public Type Type { get; set; }
+
+        #endregion
+
+        protected override Dictionary<string, string> ExecuteResult()
         {
-            System.Type.GetType(Type).GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
-                  .Where(r => r.CanWrite)
-                  .Select(r =>
-                              {
-                                  string javaType = Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
-                                                                         {
-                                                                                 Type = r.PropertyType.Name
-                                                                         });
-                                  return new KeyValuePair<string, string>(javaType, r.Name);
-                              })
-                  .ToList();
+            return Type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+                       .Where(r => r.CanWrite)
+                       .Select(r => new KeyValuePair<string, string>(r.Name, Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
+                                                                                                  {
+                                                                                                          Type = r.PropertyType
+                                                                                                  })))
+                       .ToDictionary(r => r.Key, r => r.Value);
         }
     }
 }

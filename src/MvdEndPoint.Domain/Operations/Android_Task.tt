@@ -7,7 +7,7 @@
 <#@ parameter type="System.String" name="Listener" #>
 <#@ parameter type="System.String" name="Request" #>
 <#@ parameter type="System.String" name="Response" #>
-<#@ parameter type="System.Collections.Generic.List<KeyValuePair<string,string>>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByResponse" #>
 
 public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
@@ -29,9 +29,9 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
             JSONObject jsonObject = new JSONObject(s);
             JSONObject data = new JSONObject(jsonObject.getString("data"));
-              <# for (int i = 0; i < Properties.Count; i++) { #>
-             result.<#= Properties[i].Value #> = data.getString("<#= Properties[i].Value #>");
-              <# } #>   
+                <# foreach(var pair in PropertiesByResponse) { #>
+             result.<#= pair.Key #> = data.getString("<#= pair.Key #>");
+                <# } #>   
 
             listener.Success(result);
 

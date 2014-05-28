@@ -18,9 +18,9 @@ namespace MvdEndPoint.Domain.Operations
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_On.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Android_Dto : Android_DtoBase
+    public partial class Android_On : Android_OnBase
     {
 #line hidden
         /// <summary>
@@ -28,46 +28,25 @@ namespace MvdEndPoint.Domain.Operations
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(" public class ");
+            this.Write("\r\npublic interface ");
             
-            #line 8 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_On.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n\r\n  ");
+            this.Write(" {\r\n    void Success(");
             
-            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
- foreach(var pair in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("  public ");
-            
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_On.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write(" ");
-            
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n  ");
-            
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("                                                   \r\n\r\n }");
+            this.Write(" response);\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Dto.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_On.tt"
 
 private string _NameField;
 
@@ -82,16 +61,16 @@ private string Name
     }
 }
 
-private global::System.Collections.Generic.Dictionary<string,string> _PropertiesField;
+private string _ResponseField;
 
 /// <summary>
-/// Access the Properties parameter of the template.
+/// Access the Response parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.Dictionary<string,string> Properties
+private string Response
 {
     get
     {
-        return this._PropertiesField;
+        return this._ResponseField;
     }
 }
 
@@ -133,33 +112,33 @@ if ((NameValueAcquired == false))
         }
     }
 }
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
+bool ResponseValueAcquired = false;
+if (this.Session.ContainsKey("Response"))
 {
-    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Response"].GetType()) == false))
     {
-        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                "\'Properties\' did not match the type of the data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                "e data passed to the template.");
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
+        this._ResponseField = ((string)(this.Session["Response"]));
+        ResponseValueAcquired = true;
     }
 }
-if ((PropertiesValueAcquired == false))
+if ((ResponseValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                    "\'Properties\' did not match the type of the data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                    "e data passed to the template.");
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
+            this._ResponseField = ((string)(data));
         }
     }
 }
@@ -181,7 +160,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Android_DtoBase
+    public class Android_OnBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

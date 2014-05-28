@@ -2,9 +2,8 @@
 {
     #region << Using >>
 
+    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using Incoding.CQRS;
     using MvdEndPoint.Domain.Operations;
 
@@ -14,34 +13,23 @@
     {
         #region Properties
 
-        public string Type { get; set; }
+        public Type Type { get; set; }
 
         #endregion
 
         protected override string ExecuteResult()
         {
-            var queryType = System.Type.GetType(Type);
-
             var task = new Android_Task();
+
+            var responseType = Type.BaseType.GetGenericArguments()[0];
             task.Session = new Dictionary<string, object>
                                {
-                                       { "Name", queryType.Name.Replace("Query", "Task") },
-                                       { "Listener", "I" + queryType.Name.Replace("Query", "On") },
-                                       { "Request", queryType.Name.Replace("Query", "Request") },
-                                       { "Response", queryType.BaseType.GetGenericArguments()[0].Name.Replace("Query", "Response") },
-                                       {
-                                               "ToJson", queryType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
-                                                                  .Where(r => r.CanWrite)
-                                                                  .Select(r =>
-                                                                              {
-                                                                                  string javaType = Dispatcher.Query(new GetPropertiesByTypeQuery
-                                                                                                                         {
-                                                                                                                                 Type = r.PropertyType.Name
-                                                                                                                         });
-                                                                                  return new KeyValuePair<string, string>(javaType, r.Name);
-                                                                              })
-                                                                  .ToList()
-                                       }
+                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Task, Type = Type }) },
+                                       { "Listener", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Listener, Type = Type }) },
+                                       { "Request", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Request, Type = Type }) },
+                                       { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Response, Type = Type }) },
+                                       { "PropertiesByResponse", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = responseType }) },
+                                       { "PropertiesByRequest", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type }) },
                                };
 
             task.Initialize();

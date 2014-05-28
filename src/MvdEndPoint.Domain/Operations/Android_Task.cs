@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Task : Android_TaskBase
     {
@@ -30,35 +30,35 @@ namespace MvdEndPoint.Domain.Operations
         {
             this.Write("\r\npublic class ");
             
-            #line 12 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    public ");
             
-            #line 14 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write(" listener;\r\n\r\n    private ");
             
-            #line 16 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request;\r\n\r\n    public ");
             
-            #line 18 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 18 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
@@ -67,43 +67,43 @@ namespace MvdEndPoint.Domain.Operations
                     "ed void onPostExecute(String s) {\r\n        super.onPostExecute(s);\r\n\r\n\r\n        " +
                     "try {\r\n            ");
             
-            #line 28 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
             this.Write(" result = new ");
             
-            #line 28 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
             this.Write("();\r\n\r\n            JSONObject jsonObject = new JSONObject(s);\r\n            JSONOb" +
-                    "ject data = new JSONObject(jsonObject.getString(\"data\"));\r\n              ");
+                    "ject data = new JSONObject(jsonObject.getString(\"data\"));\r\n                ");
             
-            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
- for (int i = 0; i < Properties.Count; i++) { 
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+ foreach(var pair in PropertiesByResponse) { 
             
             #line default
             #line hidden
             this.Write("             result.");
             
-            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Properties[i].Value));
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write(" = data.getString(\"");
             
-            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Properties[i].Value));
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
-            this.Write("\");\r\n              ");
+            this.Write("\");\r\n                ");
             
-            #line 34 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
  } 
             
             #line default
@@ -144,7 +144,7 @@ namespace MvdEndPoint.Domain.Operations
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Android_Task.tt"
 
 private string _NameField;
 
@@ -198,16 +198,16 @@ private string Response
     }
 }
 
-private global::System.Collections.Generic.List<KeyValuePair<string,string>> _PropertiesField;
+private global::System.Collections.Generic.Dictionary<string,string> _PropertiesByResponseField;
 
 /// <summary>
-/// Access the Properties parameter of the template.
+/// Access the PropertiesByResponse parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<KeyValuePair<string,string>> Properties
+private global::System.Collections.Generic.Dictionary<string,string> PropertiesByResponse
 {
     get
     {
-        return this._PropertiesField;
+        return this._PropertiesByResponseField;
     }
 }
 
@@ -339,33 +339,35 @@ if ((ResponseValueAcquired == false))
         }
     }
 }
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
+bool PropertiesByResponseValueAcquired = false;
+if (this.Session.ContainsKey("PropertiesByResponse"))
 {
-    if ((typeof(global::System.Collections.Generic.List<KeyValuePair<string,string>>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["PropertiesByResponse"].GetType()) == false))
     {
-        this.Error("The type \'System.Collections.Generic.List<KeyValuePair<string,string>>\' of the pa" +
-                "rameter \'Properties\' did not match the type of the data passed to the template.");
+        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
+                "\'PropertiesByResponse\' did not match the type of the data passed to the template" +
+                ".");
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<KeyValuePair<string,string>>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
+        this._PropertiesByResponseField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["PropertiesByResponse"]));
+        PropertiesByResponseValueAcquired = true;
     }
 }
-if ((PropertiesValueAcquired == false))
+if ((PropertiesByResponseValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("PropertiesByResponse");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.List<KeyValuePair<string,string>>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Collections.Generic.List<KeyValuePair<string,string>>\' of the pa" +
-                    "rameter \'Properties\' did not match the type of the data passed to the template.");
+            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
+                    "\'PropertiesByResponse\' did not match the type of the data passed to the template" +
+                    ".");
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.List<KeyValuePair<string,string>>)(data));
+            this._PropertiesByResponseField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
         }
     }
 }
