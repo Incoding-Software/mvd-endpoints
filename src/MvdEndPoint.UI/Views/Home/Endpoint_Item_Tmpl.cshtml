@@ -58,23 +58,6 @@
                                                                                        }))
                                   .AsHtmlAttributes(new { @class = "btn btn-primary" })
                                   .ToButton("Sandbox"))
-
-                            
-                            
-                            
-                            @(Html.When(JqueryBind.Click)                                  
-                                  .AjaxGet(Url.Dispatcher().Query(new DtoCodeGenerateQuery { Type = each.For(r => r.AssemblyQualifiedName) }).AsJson())
-                                  .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
-                                                                                       {
-                                                                                           inDsl.Core().Insert.Html();
-                                                                                           inDsl.JqueryUI().Dialog.Open(options =>
-                                                                                                                            {
-                                                                                                                                options.Title = "Sandbox";
-                                                                                                                                options.Width = "500px;";
-                                                                                                                            });
-                                                                                       }))
-                                  .AsHtmlAttributes(new { @class = "btn btn-primary" })
-                                  .ToButton("Download"))
                         </td>
                     </tr>
                     <tr id="@trId" class="hide">

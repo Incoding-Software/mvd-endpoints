@@ -58,8 +58,22 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
+                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r=>r.BaseUrl,"http://test.com")
+                                          .Tuning(r => r.Type, typeof(FakeQuery)));
+
                                       expected = @"
+import android.annotation.TargetApi;
+import android.os.AsyncTask;
+import android.os.Build;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+
 public class FakeTask extends AsyncTask<String, Integer, String> {
 
     public IFakeOn listener;
@@ -93,12 +107,10 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
 
 
     @Override
-    protected String doInBackground(String... strings) {
-        HttpClient httpClient = new DefaultHttpClient();
-        String uri = String.format(""http://mvd-endpoint.incframework.com//Dispatcher/Query?incType=GetCustomerByCriteriaQuery&Message=%"",request.Message);
-        HttpGet httpGet = new HttpGet(uri);
+    protected String doInBackground(String... strings) {        
+        HttpGet http = new HttpGet(""http://test.com/Dispatcher"");
         try {
-            HttpResponse response = httpClient.execute(httpGet);
+            HttpResponse response = new DefaultHttpClient().execute(http);
             String json = EntityUtils.toString(response.getEntity());
             return json;
         } catch (IOException e) {
@@ -115,15 +127,16 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
     }
 }";
 
-                                      Func<GetNameFromTypeQuery.ModeOf, GetNameFromTypeQuery> createByName = modeOf => Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, modeOf)
+                                      Func<GetNameFromTypeQuery.ModeOf, GetNameFromTypeQuery> createByName = modeOf => Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, modeOf)                                          
                                                                                                                                                                                  .Tuning(r => r.Type, query.Type));
 
                                       mockQuery = MockQuery<TaskCodeGenerateQuery, string>
-                                              .When(query)                                              
+                                              .When(query)
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Listener), "IFakeOn")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
+                                              .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), "/Dispatcher")
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new Dictionary<string, string>
                                                                                                                                                                      {
                                                                                                                                                                              { "Name", "Message" }

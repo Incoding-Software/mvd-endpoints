@@ -86,7 +86,7 @@ namespace MvdEndPoint.UI.Controllers
 
         [HttpGet]
         public ActionResult Endpoint(string id, EndPointItem.OfType? type)
-        {
+        {            
             var endPointItems = typeof(Bootstrapper).Assembly.GetTypes()
                                                     .Where(r => r.IsImplement<CommandBase>() || r.BaseType.Name.Contains("QueryBase"))
                                                     .Where(r => string.IsNullOrWhiteSpace(id) || r.GUID == Guid.Parse(id))

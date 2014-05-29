@@ -10,30 +10,32 @@
 
     #endregion
 
-    public class Endpoint : IncEntityBase
+    public class Assembly : IncEntityBase
     {
         #region Properties
 
-        public string AssemblyQualifiedName { get; set; }
+        public virtual string Name { get; set; }
+
+        public virtual byte[] File { get; set; }
+
+        public virtual string Domain { get; set; }
 
         #endregion
 
         #region Nested classes
 
         [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
-        public class Map : NHibernateEntityMap<Endpoint>
+        public class Map : NHibernateEntityMap<Assembly>
         {
-            ////ncrunch: no coverage start
             #region Constructors
 
             protected Map()
             {
-                MapEscaping(r => r.AssemblyQualifiedName);
+                IdGenerateByGuid(r => r.Id);
+                MapEscaping(r => r.File);
             }
 
             #endregion
-
-            ////ncrunch: no coverage end        
         }
 
         #endregion

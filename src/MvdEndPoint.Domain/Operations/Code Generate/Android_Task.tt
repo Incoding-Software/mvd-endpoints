@@ -7,7 +7,18 @@
 <#@ parameter type="System.String" name="Listener" #>
 <#@ parameter type="System.String" name="Request" #>
 <#@ parameter type="System.String" name="Response" #>
+<#@ parameter type="System.String" name="Url" #>
+<#@ parameter type="System.Boolean" name="IsGet" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByResponse" #>
+
+import android.os.AsyncTask;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
 
 public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
@@ -43,12 +54,24 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
 
     @Override
-    protected String doInBackground(String... strings) {
-        HttpClient httpClient = new DefaultHttpClient();
-        String uri = String.format("http://mvd-endpoint.incframework.com//Dispatcher/Query?incType=GetCustomerByCriteriaQuery&Message=%",request.Message);
-        HttpGet httpGet = new HttpGet(uri);
+    protected String doInBackground(String... strings) {        
+		<#  if (IsGet) {  #>
+        HttpGet http = new HttpGet("<#= Url #>");
+        <# } #>
+
+        <# if (!IsGet) {  #>
+        HttpPost http = new HttpPost(<#= Url #>);
+     	http.setHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	    List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+          <# foreach(var pair in PropertiesByResponse) { #>
+        parameters.add(new BasicNameValuePair(<#= pair.Key #>, String.valueOf(response.<#= pair.Key #>)));
+          <# } #>   
+        http.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+        <# } #>
+    
         try {
-            HttpResponse response = httpClient.execute(httpGet);
+            HttpResponse response = new DefaultHttpClient().execute(http);
             String json = EntityUtils.toString(response.getEntity());
             return json;
         } catch (IOException e) {
@@ -58,7 +81,7 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
     }
 
 
-    public void On(IGetCustomerByCriteriaOn on)
+    public void On(<#= Listener #> on)
     {
         listener = on;
         execute();
