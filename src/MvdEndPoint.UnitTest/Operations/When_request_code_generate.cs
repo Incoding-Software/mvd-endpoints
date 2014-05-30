@@ -12,7 +12,7 @@
 
     #endregion
 
-    [Subject(typeof(DtoCodeGenerateQuery))]
+    [Subject(typeof(RequestCodeGenerateQuery))]
     public class When_request_code_generate
     {
         #region Fake classes
@@ -36,7 +36,7 @@
 
         #region Establish value
 
-        static MockMessage<DtoCodeGenerateQuery, string> mockQuery;
+        static MockMessage<RequestCodeGenerateQuery, string> mockQuery;
 
         static string expected;
 
@@ -44,8 +44,7 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<DtoCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Prefix, "Request")
-                                                                                                            .Tuning(r => r.Type, typeof(GetCustomerQuery).AssemblyQualifiedName));
+                                      var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)));
                                       expected = @" public class GetCustomerRequest {
 
     public TheSameString Message;
@@ -53,12 +52,14 @@
 
  }";
 
-                                      mockQuery = MockQuery<DtoCodeGenerateQuery, string>
+                                      mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)
+                                                                                                                   .Tuning(r => r.Type, query.Type)), "GetCustomerRequest")
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new Dictionary<string, string>
-                                                                                                                                                                       {
-                                                                                                                                                                               { "Message", "TheSameString" }
-                                                                                                                                                                       });
+                                                                                                                                                                            {
+                                                                                                                                                                                    { "Message", "TheSameString" }
+                                                                                                                                                                            });
                                   };
 
         Because of = () => mockQuery.Original.Execute();

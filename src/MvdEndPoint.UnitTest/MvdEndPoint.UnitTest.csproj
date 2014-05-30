@@ -91,18 +91,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\When_get_url_by_type_as_command.cs" />
+    <Compile Include="Operations\When_get_url_by_type_as_query.cs" />
     <Compile Include="Operations\When_dispatcher_code_generator.cs" />
-    <Compile Include="Operations\When_on_code_generator.cs" />
+    <Compile Include="Operations\When_listener_code_generator.cs" />
     <Compile Include="Operations\When_get_name_from_type.cs" />
     <Compile Include="Operations\When_get_properties_by_type.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_java.cs" />
+    <Compile Include="Operations\When_response_code_generate.cs" />
     <Compile Include="Operations\When_task_code_generate.cs" />
     <Compile Include="Operations\When_request_code_generate.cs" />
+    <Compile Include="Operations\When_task_code_generate_without_request.cs" />
     <Compile Include="Persistence\When_save_Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

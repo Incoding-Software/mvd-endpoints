@@ -4,8 +4,9 @@
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Incoding.CQRS;
-    using Incoding.Extensions;
+    using Incoding.Maybe;
 
     #endregion
 
@@ -19,13 +20,16 @@
 
         protected override string ExecuteResult()
         {
-            return new Dictionary<string, string>
-                       {
-                               { typeof(bool).Name, "Boolean" },
-                               { typeof(bool?).Name, "java.lang.Boolean" },
-                               { typeof(byte).Name, "byte" },
-                               { typeof(sbyte).Name, "byte" },
-                       }.GetOrDefault(Type.Name,Type.Name);
+            var primitive = new List<Tuple<Type[], string>>
+                                {
+                                        new Tuple<Type[], string>(new[] { typeof(bool) }, "Boolean"),
+                                        new Tuple<Type[], string>(new[] { typeof(bool?) }, "java.lang.Boolean"),
+                                        new Tuple<Type[], string>(new[] { typeof(byte), typeof(sbyte) }, "byte"),
+                                        new Tuple<Type[], string>(new[] { typeof(int), typeof(Int16), typeof(Int32), typeof(Int64) }, "Integer"),
+                                }
+                    .SingleOrDefault(r => r.Item1.Contains(Type));
+
+            return primitive.With(r => r.Item2).Recovery(Type.Name);
         }
     }
 }

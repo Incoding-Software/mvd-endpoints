@@ -10,7 +10,7 @@
 
     #endregion
 
-    public class OnCodeGeneratorQuery : QueryBase<string>
+    public class ListenerCodeGeneratorQuery : QueryBase<string>
     {
         #region Properties
 

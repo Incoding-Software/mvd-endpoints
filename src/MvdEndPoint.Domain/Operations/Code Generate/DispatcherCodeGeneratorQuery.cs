@@ -26,8 +26,6 @@
 
             public string Task { get; set; }
 
-            public string Method { get; set; }
-
             public string Request { get; set; }
 
             #endregion
@@ -43,19 +41,14 @@
                                            {
                                                    "Methods", Types.Select(type => new Response
                                                                                        {
-                                                                                               Method = Dispatcher.Query(new GetNameFromTypeQuery
-                                                                                                                             {
-                                                                                                                                     Mode = GetNameFromTypeQuery.ModeOf.Method, 
-                                                                                                                                     Type = type
-                                                                                                                             }), 
                                                                                                Request = Dispatcher.Query(new GetNameFromTypeQuery
                                                                                                                               {
-                                                                                                                                      Mode = GetNameFromTypeQuery.ModeOf.Request, 
+                                                                                                                                      Mode = GetNameFromTypeQuery.ModeOf.Request,
                                                                                                                                       Type = type
-                                                                                                                              }), 
+                                                                                                                              }),
                                                                                                Task = Dispatcher.Query(new GetNameFromTypeQuery
                                                                                                                            {
-                                                                                                                                   Mode = GetNameFromTypeQuery.ModeOf.Task, 
+                                                                                                                                   Mode = GetNameFromTypeQuery.ModeOf.Task,
                                                                                                                                    Type = type
                                                                                                                            })
                                                                                        })

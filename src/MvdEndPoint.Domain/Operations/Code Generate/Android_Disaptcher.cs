@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Disaptcher : Android_DisaptcherBase
     {
@@ -30,42 +30,35 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write(" public class Dispatcher {\r\n\r\n   ");
             
-            #line 9 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
  foreach(var method in Methods) { 
             
             #line default
             #line hidden
             this.Write("  public ");
             
-            #line 10 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Task));
             
             #line default
             #line hidden
-            this.Write("  ");
+            this.Write("  Query(");
             
-            #line 10 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(method.Method));
-            
-            #line default
-            #line hidden
-            this.Write("(");
-            
-            #line 10 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Request));
             
             #line default
             #line hidden
             this.Write(" request) {\r\n        return new  ");
             
-            #line 11 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Task));
             
             #line default
             #line hidden
             this.Write("(request);\r\n    }\r\n\r\n  ");
             
-            #line 14 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
  } 
             
             #line default
@@ -74,7 +67,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Disaptcher.tt"
 
 private global::System.Collections.Generic.List<MvdEndPoint.Domain.DispatcherCodeGeneratorQuery.Response> _MethodsField;
 

@@ -1,4 +1,5 @@
-﻿@using Incoding.MetaLanguageContrib
+﻿@using Incoding.Extensions
+@using Incoding.MetaLanguageContrib
 @using Incoding.MvcContrib
 @using MvdEndPoint.Domain
 @using MvdEndPoint.UI.Controllers
@@ -6,7 +7,19 @@
     using (var template = Html.Incoding().Template<EndPointItem>())
     {
         string dialogId = Guid.NewGuid().ToString();
+        string downloadLinkId = Guid.NewGuid().ToString();
+        string baseUrlName = Guid.NewGuid().ToString();
+        string defaultUrl = "http://mvd-endpoint.incframework.com";
         <div id="@dialogId"></div>
+        <div class="form-inline">            
+            <div class="form-group">                                                
+                @(Html.When(JqueryBind.Change)
+                      .Direct()
+                      .OnSuccess(dsl => dsl.With(r => r.Id(downloadLinkId)).Core().Trigger.Invoke(JqueryBind.InitIncoding))
+                      .AsHtmlAttributes(new { name = baseUrlName, @class = "form-control" })
+                      .ToTextBox(value: defaultUrl))                    
+            </div>            
+        </div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -44,7 +57,7 @@
                         <td>@each.For(r => r.Type)</td>
                         <td></td>
                         <td>
-                            @(Html.When(JqueryBind.Click)                                  
+                            @(Html.When(JqueryBind.Click)
                                   .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { id = each.For(r => r.Id) }))
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
@@ -57,7 +70,24 @@
                                                                                                                             });
                                                                                        }))
                                   .AsHtmlAttributes(new { @class = "btn btn-primary" })
-                                  .ToButton("Sandbox"))
+                                  .ToButton("Sandbox")) 
+                            
+                            
+                            @(Html.When(JqueryBind.InitIncoding)
+                                  .Direct()
+                                  .OnSuccess(dsl =>
+                                                 {
+                                                     var url = Url.Dispatcher().Query(new MessageToPackageQuery
+                                                                                          {
+                                                                                                  AssemblyQualifiedName = each.For(r => r.AssemblyQualifiedName),
+                                                                                                  BaseUrl = Selector.Jquery.Name(baseUrlName)
+                                                                                          })
+                                                                  .AsFile(incFileDownloadName: each.For(r => r.Name))
+                                                                  .ToBuildUrl();
+                                                     dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
+                                                 })
+                                  .AsHtmlAttributes(new { id = downloadLinkId })
+                                  .ToLink("Download"))                                                              
                         </td>
                     </tr>
                     <tr id="@trId" class="hide">
@@ -85,5 +115,4 @@
             </tbody>
         </table>
     }
-
 }

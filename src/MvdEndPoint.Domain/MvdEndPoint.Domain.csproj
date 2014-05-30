@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Incoding.Framework.1.3.0.789-beta\lib\net40\Incoding.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.2\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net45\JetBrains.Annotations.dll</HintPath>
     </Reference>
@@ -72,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetCarsQuery.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Operations\Code Generate\Android_Dto.cs">
       <AutoGen>True</AutoGen>
@@ -96,18 +100,19 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\DtoCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\RequestCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\GetUrlByTypeQuery.cs" />
     <Compile Include="Operations\Code Generate\MessageToPackageQuery.cs" />
-    <Compile Include="Operations\Code Generate\OnCodeGeneratorQuery.cs" />
+    <Compile Include="Operations\Code Generate\ListenerCodeGeneratorQuery.cs" />
     <Compile Include="Operations\Code Generate\DispatcherCodeGeneratorQuery.cs" />
+    <Compile Include="Operations\Code Generate\ResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\TaskCodeGenerateQuery.cs" />
     <Compile Include="Persistence\Assembly.cs" />
     <Compile Include="TestModelStateCommand.cs" />
     <Compile Include="TestCollectionQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCommand.cs" />
-    <Compile Include="TestQuery.cs" />
+    <Compile Include="GetCarByIdQuery.cs" />
     <Compile Include="TestServerErrorCommand.cs" />
   </ItemGroup>
   <ItemGroup>

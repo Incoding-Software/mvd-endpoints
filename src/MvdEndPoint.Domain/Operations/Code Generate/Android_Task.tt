@@ -9,7 +9,9 @@
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.Boolean" name="IsGet" #>
+<#@ parameter type="System.Boolean" name="HasRequest" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByResponse" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByRequest" #>
 
 import android.os.AsyncTask;
 import org.apache.http.HttpResponse;
@@ -24,10 +26,14 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
     public <#= Listener #> listener;
 
-    private <#= Request #> request;
+    <# if(HasRequest) { #>
+private <#= Request #> request;
+	<# } #> 
 
-    public <#= Name #>(<#= Request #> request) {
-        this.request = request;
+    public <#= Name #>(<# if(HasRequest) { #><#= Request #> request <# } #>  ) {
+    <# if(HasRequest) { #>
+	this.request = request;
+    <# } #> 
     }
 
     @Override
@@ -54,9 +60,17 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
 
     @Override
-    protected String doInBackground(String... strings) {        
+    protected String doInBackground(String... strings) {        		
 		<#  if (IsGet) {  #>
-        HttpGet http = new HttpGet("<#= Url #>");
+
+		<#  if (HasRequest) {  #>
+		String uri = String.format("<#= Url #>"<# foreach(var pair in PropertiesByRequest) { #> ,request.<#= pair.Key #> <# } #>); 
+        <# } #>
+		<#  if (!HasRequest) {  #>
+		String uri = "<#= Url #>";
+        <# } #>
+		
+        HttpGet http = new HttpGet(uri);         
         <# } #>
 
         <# if (!IsGet) {  #>
@@ -64,7 +78,7 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
      	http.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
 	    List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-          <# foreach(var pair in PropertiesByResponse) { #>
+          <# foreach(var pair in PropertiesByRequest) { #>
         parameters.add(new BasicNameValuePair(<#= pair.Key #>, String.valueOf(response.<#= pair.Key #>)));
           <# } #>   
         http.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
@@ -75,6 +89,8 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
             String json = EntityUtils.toString(response.getEntity());
             return json;
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";

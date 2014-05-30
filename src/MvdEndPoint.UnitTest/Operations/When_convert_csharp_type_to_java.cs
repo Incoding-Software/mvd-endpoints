@@ -38,5 +38,13 @@
         It should_be_byte = () => Compare(typeof(byte), "byte");
 
         It should_be_sbyte = () => Compare(typeof(sbyte), "byte");
+
+        It should_be_int = () => Compare(typeof(int), "Integer");
+
+        It should_be_int_32 = () => Compare(typeof(Int32), "Integer");
+
+        It should_be_int_16 = () => Compare(typeof(Int16), "Integer");
+
+        It should_be_int_64 = () => Compare(typeof(Int64), "Integer");
     }
 }

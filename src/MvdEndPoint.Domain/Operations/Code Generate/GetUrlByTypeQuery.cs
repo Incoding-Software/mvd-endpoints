@@ -1,28 +1,39 @@
 ﻿namespace MvdEndPoint.Domain
 {
+    #region << Using >>
+
     using System;
     using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
+    using System.Reflection;
     using Incoding.CQRS;
     using Incoding.Extensions;
-    using Incoding.MvcContrib;
-    using Incoding.MvcContrib.MVD;
+
+    #endregion
 
     public class GetUrlByTypeQuery : QueryBase<string>
     {
+        #region Properties
+
         public Type Type { get; set; }
+
+        public string BaseUrl { get; set; }
+
+        #endregion
 
         protected override string ExecuteResult()
         {
-            var url = new UrlHelper(HttpContext.Current.Request.RequestContext);
-
             bool isCommand = Type.IsImplement<CommandBase>();
-            var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
-            var getUrl = methodInfo.MakeGenericMethod(Type).Invoke(url.Dispatcher(), new[] { Activator.CreateInstance(Type) });
-            return isCommand
-                           ? getUrl.ToString().Split("?".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[0]
-                           : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString();
+            string url = "{0}/Dispatcher/".F(BaseUrl)
+                                          .AppendSegment(isCommand ? "Push" : "Query")
+                                          .AppendToQueryString(new { incType = Type.Name });
+            if (isCommand)
+                return url;
+
+            return Dispatcher.Query(new GetPropertiesByTypeQuery
+                                        {
+                                                Type = Type,
+                                        })
+                             .Aggregate(url, (current, property) => current + "&{0}=%s".F(property.Key));
         }
     }
 }

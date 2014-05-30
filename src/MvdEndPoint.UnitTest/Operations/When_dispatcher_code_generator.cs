@@ -38,25 +38,23 @@
                                                                                                                                               }));
                                       expected = @" public class Dispatcher {
 
-     public CustomerTask  GetCustomer(CustomerRequest request) {
+     public CustomerTask  Query(CustomerRequest request) {
         return new  CustomerTask(request);
     }
 
-    public ProductTask  GetProduct(ProductRequest request) {
+    public ProductTask  Query(ProductRequest request) {
         return new  ProductTask(request);
     }
 
         
 }";
-                                      Func<GetNameFromTypeQuery.ModeOf, Type, GetNameFromTypeQuery> getName = (modeOf, type) => Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, modeOf)
+                                      Func<GetNameFromTypeQuery.ModeOf, Type, GetNameFromTypeQuery> getName = (modeOf, type) => Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, modeOf)                                          
                                                                                                                                                                                           .Tuning(r => r.Type, type));
 
                                       mockQuery = MockQuery<DispatcherCodeGeneratorQuery, string>
-                                              .When(query)
-                                              .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Method, typeof(FakeQuery)), "GetCustomer")
+                                              .When(query)                                              
                                               .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Task, typeof(FakeQuery)), "CustomerTask")
-                                              .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Request, typeof(FakeQuery)), "CustomerRequest")
-                                              .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Method, typeof(Fake2Query)), "GetProduct")
+                                              .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Request, typeof(FakeQuery)), "CustomerRequest")                                              
                                               .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Task, typeof(Fake2Query)), "ProductTask")
                                               .StubQuery(getName(GetNameFromTypeQuery.ModeOf.Request, typeof(Fake2Query)), "ProductRequest");
                                   };

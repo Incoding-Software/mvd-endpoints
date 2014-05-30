@@ -7,7 +7,7 @@
  public class Dispatcher {
 
    <# foreach(var method in Methods) { #>
-  public <#= method.Task #>  <#= method.Method #>(<#= method.Request #> request) {
+  public <#= method.Task #>  Query(<#= method.Request #> request) {
         return new  <#= method.Task #>(request);
     }
 

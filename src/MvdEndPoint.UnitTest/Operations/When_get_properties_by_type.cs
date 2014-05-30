@@ -2,6 +2,7 @@
 {
     #region << Using >>
 
+    using System;
     using System.Collections.Generic;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -32,32 +33,28 @@
 
         #region Establish value
 
-        static MockMessage<GetPropertiesByTypeQuery, Dictionary<string, string>> mockQuery;
+        static void Verify(Type type)
+        {
+            var query = Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
-        static string stringType;
-
-        static string intType;
+            string stringType = Pleasure.Generator.String();
+            string intType = Pleasure.Generator.String();
+            var mockQuery = MockQuery<GetPropertiesByTypeQuery, Dictionary<string, string>>
+                    .When(query)
+                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string))), stringType)
+                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(int))), intType);
+            mockQuery.Original.Execute();
+            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new Dictionary<string, string>
+                                                                                        {
+                                                                                                { "Name", stringType },
+                                                                                                { "Sort", intType },
+                                                                                        }));
+        }
 
         #endregion
 
-        Establish establish = () =>
-                                  {
-                                      var query = Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeClass)));
+        It should_be_by_type = () => Verify(typeof(FakeClass));
 
-                                      stringType = Pleasure.Generator.String();
-                                      intType = Pleasure.Generator.String();
-                                      mockQuery = MockQuery<GetPropertiesByTypeQuery, Dictionary<string, string>>
-                                              .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string))), stringType)
-                                              .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(int))), intType);
-                                  };
-
-        Because of = () => mockQuery.Original.Execute();
-
-        It should_be_result = () => mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new Dictionary<string, string>
-                                                                                                                {
-                                                                                                                        { "Name", stringType },
-                                                                                                                        { "Sort", intType },
-                                                                                                                }));
+        It should_be_by_ienumerable_type = () => Verify(typeof(IList<FakeClass>));
     }
 }

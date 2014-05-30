@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections;
     using Incoding.CQRS;
     using Incoding.Extensions;
 
@@ -29,34 +30,35 @@
             Task,
 
             Listener,
-
-            Method,
         }
 
         #endregion
 
         protected override string ExecuteResult()
         {
-            if (Type.BaseType.Name.Contains("QueryBase"))
+            string res;
+            switch (Mode)
             {
-                switch (Mode)
-                {
-                    case ModeOf.Request:
-                        return Type.Name + "Request";
-                    case ModeOf.Response:
-                        return "{0}_{1}".F(Type.Name, Type.BaseType.GenericTypeArguments[0].Name);
-                    case ModeOf.Task:
-                        return Type.Name + "Task";
-                    case ModeOf.Listener:
-                        return "I" + Type.Name + "On";
-                    case ModeOf.Method:
-                        return Type.Name;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                case ModeOf.Request:
+                    res = Type.Name + "Request";
+                    break;
+                case ModeOf.Response:
+                    if (Type.BaseType.GenericTypeArguments[0].IsImplement<IEnumerable>())
+                        res = Type.Name + Type.BaseType.GenericTypeArguments[0].GenericTypeArguments[0].Name;
+                    else
+                        res = Type.Name + Type.BaseType.GenericTypeArguments[0].Name;
+                    break;
+                case ModeOf.Task:
+                    res = Type.Name + "Task";
+                    break;
+                case ModeOf.Listener:
+                    res = "I" + Type.Name + "Listener";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("modeOf", "Can't resolve name for type {0}".F(Type.Name));
             }
 
-            throw new ArgumentOutOfRangeException("modeOf", "Can't resolve name for type {0}".F(Type.Name));
+            return res;
         }
     }
 }

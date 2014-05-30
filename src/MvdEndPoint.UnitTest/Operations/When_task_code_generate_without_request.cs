@@ -7,36 +7,20 @@
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using Machine.Specifications.Annotations;
     using MvdEndPoint.Domain;
 
     #endregion
 
     [Subject(typeof(TaskCodeGenerateQuery))]
-    public class When_task_code_generate
+    public class When_task_code_generate_without_request
     {
         #region Fake classes
 
         class FakeQuery : QueryBase<FakeQuery.Response>
         {
-            #region Properties
-
-            [UsedImplicitly]
-            public string Id { get; set; }
-
-            #endregion
-
             #region Nested classes
 
-            public class Response
-            {
-                #region Properties
-
-                [UsedImplicitly]
-                public string Name { get; set; }
-
-                #endregion
-            }
+            public class Response { }
 
             #endregion
 
@@ -75,11 +59,9 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
 
     public IFakeOn listener;
 
-    private FakeRequest request;
-	 
+     
 
-    public FakeTask(FakeRequest request   ) {
-    	this.request = request;
+    public FakeTask(  ) {
      
     }
 
@@ -93,8 +75,6 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
 
             JSONObject jsonObject = new JSONObject(s);
             JSONObject data = new JSONObject(jsonObject.getString(""data""));
-                             result.Title = data.getString(""Title"");
-                             result.Number = data.getString(""Number"");
                    
 
             listener.Success(result);
@@ -109,8 +89,8 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... strings) {        		
 		
-				String uri = String.format(""http://localhost/Dispatcher"" ,request.Id  ,request.Title ); 
-        				
+						String uri = ""http://localhost/Dispatcher"";
+        		
         HttpGet http = new HttpGet(uri);         
         
             
@@ -145,16 +125,8 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
                                               .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                 .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new Dictionary<string, string>
-                                                                                                                                                                     {
-                                                                                                                                                                             { "Id", "String" },
-                                                                                                                                                                             { "Title", "String" },
-                                                                                                                                                                     })
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery.Response))), new Dictionary<string, string>
-                                                                                                                                                                              {
-                                                                                                                                                                                      { "Title", "String" },
-                                                                                                                                                                                      { "Number", "Integer" },
-                                                                                                                                                                              });
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new Dictionary<string, string>())
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery.Response))), new Dictionary<string, string>());
                                   };
 
         Because of = () => mockQuery.Original.Execute();

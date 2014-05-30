@@ -8,8 +8,8 @@
 
     #endregion
 
-    [Subject(typeof(OnCodeGeneratorQuery))]
-    public class When_on_code_generator
+    [Subject(typeof(ListenerCodeGeneratorQuery))]
+    public class When_listener_code_generator
     {
         #region Fake classes
 
@@ -26,7 +26,7 @@
 
         #region Establish value
 
-        static MockMessage<OnCodeGeneratorQuery, string> mockQuery;
+        static MockMessage<ListenerCodeGeneratorQuery, string> mockQuery;
 
         static string expected;
 
@@ -34,16 +34,16 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<OnCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
+                                      var query = Pleasure.Generator.Invent<ListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
                                       expected = @"
-public interface FakeQueryOn {
+public interface FakeQueryListener {
     void Success(FakeQueryResponse response);
 }";
 
-                                      mockQuery = MockQuery<OnCodeGeneratorQuery, string>
+                                      mockQuery = MockQuery<ListenerCodeGeneratorQuery, string>
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
-                                                                                                                   .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Listener)), "FakeQueryOn")
+                                                                                                                   .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Listener)), "FakeQueryListener")
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)), "FakeQueryResponse");
                                   };
