@@ -13,89 +13,54 @@
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByResponse" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByRequest" #>
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
 
 public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
-    public <#= Listener #> listener;
+    private <#= Listener #> listener;
 
-    <# if(HasRequest) { #>
-private <#= Request #> request;
-	<# } #> 
+    private <#= Request #> request <# if(PropertiesByRequest.Count == 0) { #> = new <#= Request #>() <# } #>;
 
-    public <#= Name #>(<# if(HasRequest) { #><#= Request #> request <# } #>  ) {
-    <# if(HasRequest) { #>
-	this.request = request;
-    <# } #> 
+	<# if(PropertiesByRequest.Count > 0) { #>
+    public <#= Name #>(<#= Request #> request) {    
+	this.request = request;    
     }
-
-    @Override
+	<# } #> 
+	
+	@Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
-
         try {
-            <#= Response #> result = new <#= Response #>();
-
             JSONObject jsonObject = new JSONObject(s);
             JSONObject data = new JSONObject(jsonObject.getString("data"));
-                <# foreach(var pair in PropertiesByResponse) { #>
-             result.<#= pair.Key #> = data.getString("<#= pair.Key #>");
-                <# } #>   
-
-            listener.Success(result);
-
-        } catch (JSONException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            listener.Success(<#= Response #>.Create(data));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
-
-    @Override
-    protected String doInBackground(String... strings) {        		
-		<#  if (IsGet) {  #>
-
-		<#  if (HasRequest) {  #>
-		String uri = String.format("<#= Url #>"<# foreach(var pair in PropertiesByRequest) { #> ,request.<#= pair.Key #> <# } #>); 
-        <# } #>
-		<#  if (!HasRequest) {  #>
-		String uri = "<#= Url #>";
-        <# } #>
-		
-        HttpGet http = new HttpGet(uri);         
-        <# } #>
-
-        <# if (!IsGet) {  #>
-        HttpPost http = new HttpPost(<#= Url #>);
-     	http.setHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	    List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-          <# foreach(var pair in PropertiesByRequest) { #>
-        parameters.add(new BasicNameValuePair(<#= pair.Key #>, String.valueOf(response.<#= pair.Key #>)));
-          <# } #>   
-        http.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-        <# } #>
-    
+	@Override
+    protected String doInBackground(String... strings) {
         try {
-            HttpResponse response = new DefaultHttpClient().execute(http);
+            HttpResponse response = request.execute();
+            Header[] cookieHeader = response.getHeaders("Set-Cookie");
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(new MainActivity());
+            for (Header header : cookieHeader) {
+                preferences.edit().putString(header.getName(), header.getValue());
+            }
             String json = EntityUtils.toString(response.getEntity());
             return json;
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
     }
-
 
     public void On(<#= Listener #> on)
     {

@@ -52,12 +52,24 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)));
-                                      expected = @" public class GetCustomerResponse {
+                                      expected = @"
+import org.json.JSONException;
+import org.json.JSONObject;	
 
-    public TheSameString Message;
+public class GetCustomerResponse {
+
+    public String Title;
+    public int Number;
+      
+  public static GetCustomerResponse Create(JSONObject data) throws JSONException { 
+    GetCustomerResponse result = new GetCustomerResponse();
+    result.Title = data.getString(""Title"");
+    result.Number = data.getInt(""Number"");
+   
+    return result;  
+   }              
                                                      
-
- }";
+}";
 
                                       mockQuery = MockQuery<ResponseCodeGenerateQuery, string>
                                               .When(query)
@@ -65,12 +77,13 @@
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerResponse")
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), new Dictionary<string, string>
                                                                                                                                                                                      {
-                                                                                                                                                                                             { "Message", "TheSameString" }
+                                                                                                                                                                                             { "Title", ConvertCSharpTypeToJavaQuery.String }, 
+                                                                                                                                                                                             { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
                                                                                                                                                                                      });
                                   };
 
         Because of = () => mockQuery.Original.Execute();
 
-        It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
+        It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }
 }

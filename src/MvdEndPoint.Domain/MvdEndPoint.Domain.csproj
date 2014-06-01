@@ -77,10 +77,10 @@
   <ItemGroup>
     <Compile Include="GetCarsQuery.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
-    <Compile Include="Operations\Code Generate\Android_Dto.cs">
+    <Compile Include="Operations\Code Generate\Android_Request.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Android_Dto.tt</DependentUpon>
+      <DependentUpon>Android_Request.tt</DependentUpon>
     </Compile>
     <Compile Include="Operations\Code Generate\ConvertCSharpTypeToJavaQuery.cs" />
     <Compile Include="Operations\Code Generate\Android_On.cs">
@@ -93,6 +93,17 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Operations\Code Generate\Android_Resonse.cs">
+      <DependentUpon>Android_Resonse.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Android_Enum.cs">
+      <DependentUpon>Android_Enum.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\EnumCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\GetNameFromTypeQuery.cs" />
     <Compile Include="Operations\Code Generate\GetPropertiesByTypeQuery.cs" />
     <Compile Include="Operations\Code Generate\Android_Task.cs">
@@ -108,6 +119,7 @@
     <Compile Include="Operations\Code Generate\ResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\TaskCodeGenerateQuery.cs" />
     <Compile Include="Persistence\Assembly.cs" />
+    <Compile Include="SignCommand.cs" />
     <Compile Include="TestModelStateCommand.cs" />
     <Compile Include="TestCollectionQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,9 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Operations\Code Generate\Android_Dto.tt">
+    <None Include="Operations\Code Generate\Android_Request.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_Dto.cs</LastGenOutput>
+      <LastGenOutput>Android_Request.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android_Task.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -132,6 +144,14 @@
     <None Include="Operations\Code Generate\Android_Disaptcher.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Disaptcher.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Android_Resonse.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Android_Resonse.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Android_Enum.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Android_Enum.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

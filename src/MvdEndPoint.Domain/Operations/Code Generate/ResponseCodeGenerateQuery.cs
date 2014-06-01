@@ -19,7 +19,7 @@
 
         protected override string ExecuteResult()
         {
-            var dto = new Android_Dto();
+            var dto = new Android_Resonse();
             dto.Session = new Dictionary<string, object>
                               {
                                       {
@@ -28,6 +28,15 @@
                                                                                    Type = Type,
                                                                                    Mode = GetNameFromTypeQuery.ModeOf.Response
                                                                            })
+                                      },
+                                      {
+                                              "MappingJsonMethodByType", new Dictionary<string, string>
+                                                                             {
+                                                                                     { ConvertCSharpTypeToJavaQuery.String, "getString" },
+                                                                                     { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
+                                                                                     { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
+                                                                                     { typeof(long).Name, "getLong" },
+                                                                             }
                                       },
                                       {
                                               "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery

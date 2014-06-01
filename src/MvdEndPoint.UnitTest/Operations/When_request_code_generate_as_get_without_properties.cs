@@ -7,25 +7,17 @@
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using Machine.Specifications.Annotations;
     using MvdEndPoint.Domain;
 
     #endregion
 
     [Subject(typeof(RequestCodeGenerateQuery))]
-    public class When_request_code_generate
+    public class When_request_code_generate_as_get_without_properties
     {
         #region Fake classes
 
-        public class GetCustomerQuery : QueryBase<string>
+        class GetCustomerQuery : QueryBase<string>
         {
-            #region Properties
-
-            [UsedImplicitly]
-            public string Message { get; set; }
-
-            #endregion
-
             protected override string ExecuteResult()
             {
                 throw new NotImplementedException();
@@ -45,25 +37,34 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)));
-                                      expected = @" public class GetCustomerRequest {
+                                      expected = @"
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
-    public TheSameString Message;
-                                                     
+public class GetCustomerRequest {
 
- }";
+     
+     public HttpResponse execute() throws IOException {        
+	
+				String uri = ""http://localhost/Dispatcher"";
+                HttpGet http = new HttpGet(uri);
+        return new DefaultHttpClient().execute(http);
+    }
+                                                        
+}";
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerRequest")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new Dictionary<string, string>
-                                                                                                                                                                            {
-                                                                                                                                                                                    { "Message", "TheSameString" }
-                                                                                                                                                                            });
+                                              .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
+                                                                                                                .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new Dictionary<string, string>());
                                   };
 
         Because of = () => mockQuery.Original.Execute();
 
-        It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
+        It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }
 }

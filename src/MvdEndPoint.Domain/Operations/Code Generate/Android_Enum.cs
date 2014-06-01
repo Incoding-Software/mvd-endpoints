@@ -18,9 +18,9 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
+    #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Android_Dto : Android_DtoBase
+    public partial class Android_Enum : Android_EnumBase
     {
 #line hidden
         /// <summary>
@@ -28,46 +28,52 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(" public class ");
+            this.Write("public enum ");
             
-            #line 8 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
+            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n\r\n  ");
+            this.Write(" { ");
             
-            #line 10 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
- foreach(var pair in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("  public ");
-            
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
+            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+ foreach(var value in Values) { 
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("  ");
             
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
+            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(value));
             
             #line default
             #line hidden
-            this.Write(";\r\n  ");
+            this.Write(",  ");
             
-            #line 12 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
+            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("                                                   \r\n\r\n }");
+            this.Write(" }\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Dto.tt"
+        #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+
+private global::System.Collections.Generic.List<string> _ValuesField;
+
+/// <summary>
+/// Access the Values parameter of the template.
+/// </summary>
+private global::System.Collections.Generic.List<string> Values
+{
+    get
+    {
+        return this._ValuesField;
+    }
+}
 
 private string _NameField;
 
@@ -82,19 +88,6 @@ private string Name
     }
 }
 
-private global::System.Collections.Generic.Dictionary<string,string> _PropertiesField;
-
-/// <summary>
-/// Access the Properties parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.Dictionary<string,string> Properties
-{
-    get
-    {
-        return this._PropertiesField;
-    }
-}
-
 
 /// <summary>
 /// Initialize the template
@@ -103,6 +96,36 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
+bool ValuesValueAcquired = false;
+if (this.Session.ContainsKey("Values"))
+{
+    if ((typeof(global::System.Collections.Generic.List<string>).IsAssignableFrom(this.Session["Values"].GetType()) == false))
+    {
+        this.Error("The type \'System.Collections.Generic.List<string>\' of the parameter \'Values\' did " +
+                "not match the type of the data passed to the template.");
+    }
+    else
+    {
+        this._ValuesField = ((global::System.Collections.Generic.List<string>)(this.Session["Values"]));
+        ValuesValueAcquired = true;
+    }
+}
+if ((ValuesValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Values");
+    if ((data != null))
+    {
+        if ((typeof(global::System.Collections.Generic.List<string>).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Collections.Generic.List<string>\' of the parameter \'Values\' did " +
+                    "not match the type of the data passed to the template.");
+        }
+        else
+        {
+            this._ValuesField = ((global::System.Collections.Generic.List<string>)(data));
+        }
+    }
+}
 bool NameValueAcquired = false;
 if (this.Session.ContainsKey("Name"))
 {
@@ -133,36 +156,6 @@ if ((NameValueAcquired == false))
         }
     }
 }
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
-{
-    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                "\'Properties\' did not match the type of the data passed to the template.");
-    }
-    else
-    {
-        this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
-    }
-}
-if ((PropertiesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                    "\'Properties\' did not match the type of the data passed to the template.");
-        }
-        else
-        {
-            this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
-        }
-    }
-}
 
 
     }
@@ -181,7 +174,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Android_DtoBase
+    public class Android_EnumBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

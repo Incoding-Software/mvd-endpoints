@@ -30,35 +30,31 @@
             Task,
 
             Listener,
+
+            Enum
         }
 
         #endregion
 
         protected override string ExecuteResult()
         {
-            string res;
             switch (Mode)
             {
                 case ModeOf.Request:
-                    res = Type.Name + "Request";
-                    break;
+                    return Type.Name + "Request";
                 case ModeOf.Response:
-                    if (Type.BaseType.GenericTypeArguments[0].IsImplement<IEnumerable>())
-                        res = Type.Name + Type.BaseType.GenericTypeArguments[0].GenericTypeArguments[0].Name;
-                    else
-                        res = Type.Name + Type.BaseType.GenericTypeArguments[0].Name;
-                    break;
+                    return Type.IsImplement<CommandBase>() ? ConvertCSharpTypeToJavaQuery.Object : (Type.BaseType.GenericTypeArguments[0].IsImplement<IEnumerable>()
+                                                                                     ? Type.Name + Type.BaseType.GenericTypeArguments[0].GenericTypeArguments[0].Name
+                                                                                     : Type.Name + Type.BaseType.GenericTypeArguments[0].Name);
                 case ModeOf.Task:
-                    res = Type.Name + "Task";
-                    break;
+                    return Type.Name + "Task";
                 case ModeOf.Listener:
-                    res = "I" + Type.Name + "Listener";
-                    break;
+                    return "I" + Type.Name + "Listener";
+                case ModeOf.Enum:
+                    return Type.FullName.Replace(Type.Namespace + ".", "").Replace("+", "_");
                 default:
                     throw new ArgumentOutOfRangeException("modeOf", "Can't resolve name for type {0}".F(Type.Name));
             }
-
-            return res;
         }
     }
 }

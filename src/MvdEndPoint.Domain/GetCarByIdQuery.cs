@@ -42,9 +42,9 @@
         {
             return new Response
                        {
-                               Id = Id,
-                               Brand = "Audi",
-                               Model = "A4",
+                               Id = Id, 
+                               Brand = "Audi", 
+                               Model = "A4", 
                                Seating = 4
                        };
         }

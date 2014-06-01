@@ -42,70 +42,53 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.BaseUrl, "http://test.com")
-                                                                                                             .Tuning(r => r.Type, typeof(FakeQuery)));
+                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
 
                                       expected = @"
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
 
 public class FakeTask extends AsyncTask<String, Integer, String> {
 
-    public IFakeOn listener;
+    private IFakeOn listener;
 
-     
+    private FakeRequest request  = new FakeRequest() ;
 
-    public FakeTask(  ) {
-     
-    }
-
-    @Override
+	 
+	
+	@Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
-
         try {
-            Response result = new Response();
-
             JSONObject jsonObject = new JSONObject(s);
             JSONObject data = new JSONObject(jsonObject.getString(""data""));
-                   
-
-            listener.Success(result);
-
-        } catch (JSONException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            listener.Success(Response.Create(data));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
-
-    @Override
-    protected String doInBackground(String... strings) {        		
-		
-						String uri = ""http://localhost/Dispatcher"";
-        		
-        HttpGet http = new HttpGet(uri);         
-        
-            
+	@Override
+    protected String doInBackground(String... strings) {
         try {
-            HttpResponse response = new DefaultHttpClient().execute(http);
+            HttpResponse response = request.execute();
+            Header[] cookieHeader = response.getHeaders(""Set-Cookie"");
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(new MainActivity());
+            for (Header header : cookieHeader) {
+                preferences.edit().putString(header.getName(), header.getValue());
+            }
             String json = EntityUtils.toString(response.getEntity());
             return json;
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return """";
     }
-
 
     public void On(IFakeOn on)
     {
@@ -122,9 +105,7 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Listener), "IFakeOn")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")
-                                              .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
-                                              .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
-                                                                                                                .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
+                                              .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")                                              
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new Dictionary<string, string>())
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery.Response))), new Dictionary<string, string>());
                                   };

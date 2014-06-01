@@ -12,15 +12,21 @@
     #endregion
 
     [Subject(typeof(GetNameFromTypeQuery))]
-    public class When_get_name_from_type
+    public class When_get_name_from_type_as_query
     {
         #region Fake classes
+
 
         class FakeQuery : QueryBase<FakeQuery.Response>
         {
             #region Nested classes
 
             public class Response { }
+
+            public enum NestedEnum
+            {
+                
+            }
 
             #endregion
 
@@ -65,6 +71,10 @@
         It should_be_task = () => Compare(GetNameFromTypeQuery.ModeOf.Task, "FakeQueryTask");
 
         It should_be_response = () => Compare(GetNameFromTypeQuery.ModeOf.Response, "FakeQueryResponse");
+
+        It should_be_enum = () => Compare(GetNameFromTypeQuery.ModeOf.Enum, "OuterEnum", typeof(OuterEnum));
+
+        It should_be_enum_as_nested = () => Compare(GetNameFromTypeQuery.ModeOf.Enum, "When_get_name_from_type_as_query_FakeQuery_NestedEnum", typeof(FakeQuery.NestedEnum));
 
         It should_be_response_as_list = () => Compare(GetNameFromTypeQuery.ModeOf.Response, "FakeWithListQueryResponse", type: typeof(FakeWithListQuery));
     }

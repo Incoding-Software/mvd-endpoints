@@ -15,21 +15,25 @@
 
         public Type Type { get; set; }
 
+        public string BaseUrl { get; set; }
+
         #endregion
 
         protected override string ExecuteResult()
         {
-            var dto = new Android_Dto();
+            var dto = new Android_Request();
             dto.Session = new Dictionary<string, object>
                               {
                                       {
                                               "Name", Dispatcher.Query(new GetNameFromTypeQuery
                                                                            {
-                                                                                   Type = Type,
+                                                                                   Type = Type, 
                                                                                    Mode = GetNameFromTypeQuery.ModeOf.Request
                                                                            })
-                                      },
-                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type }) }
+                                      }, 
+                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type }) }, 
+                                      { "IsGet", Type.BaseType.Name.Contains("QueryBase") }, 
+                                      { "Url", Dispatcher.Query(new GetUrlByTypeQuery { Type = Type, BaseUrl = BaseUrl }) }, 
                               };
             dto.Initialize();
             return dto.TransformText();
