@@ -83,8 +83,8 @@
       <DependentUpon>Android_Request.tt</DependentUpon>
     </Compile>
     <Compile Include="Operations\Code Generate\ConvertCSharpTypeToJavaQuery.cs" />
-    <Compile Include="Operations\Code Generate\Android_On.cs">
-      <DependentUpon>Android_On.tt</DependentUpon>
+    <Compile Include="Operations\Code Generate\Android_Listener.cs">
+      <DependentUpon>Android_Listener.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -138,9 +138,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Task.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_On.tt">
+    <None Include="Operations\Code Generate\Android_Listener.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_On.cs</LastGenOutput>
+      <LastGenOutput>Android_Listener.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android_Disaptcher.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

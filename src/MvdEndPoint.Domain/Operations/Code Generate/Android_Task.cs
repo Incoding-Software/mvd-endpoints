@@ -64,7 +64,7 @@ public class ");
             this.Write(" request ");
             
             #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
- if(HasRequest) { 
+ if(!HasRequest) { 
             
             #line default
             #line hidden

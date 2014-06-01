@@ -1,25 +1,29 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
-    #region << Using >>
-
+    using System;
+    using System.Collections.Generic;
+    using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
-    #endregion
-
     [Subject(typeof(ListenerCodeGeneratorQuery))]
-    public class When_listener_code_generator
+    public class When_listener_code_generator_for_query_with_array
     {
         #region Fake classes
 
-        class FakeQuery
+        class FakeQuery : QueryBase<List<FakeQuery.Response>>
         {
-            #region Properties
+            #region Nested classes
 
-            public string Type { get; set; }
+            internal class Response { }
 
             #endregion
+
+            protected override List<Response> ExecuteResult()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         #endregion
@@ -37,7 +41,8 @@
                                       var query = Pleasure.Generator.Invent<ListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
                                       expected = @"
 public interface FakeQueryListener {
-    void Success(FakeQueryResponse response);
+    	void Success(FakeQueryResponse[] response);
+	
 }";
 
                                       mockQuery = MockQuery<ListenerCodeGeneratorQuery, string>

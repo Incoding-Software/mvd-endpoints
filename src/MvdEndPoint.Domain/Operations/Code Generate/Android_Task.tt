@@ -27,7 +27,7 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
     private <#= Listener #> listener;
 
-    private <#= Request #> request <# if(HasRequest) { #> = new <#= Request #>() <# } #>;
+    private <#= Request #> request <# if(!HasRequest) { #> = new <#= Request #>() <# } #>;
 	
     public <#= Name #>(Context context<# if(HasRequest) { #>, <#= Request #> request <# } #>) {    
 	  this.context= context;

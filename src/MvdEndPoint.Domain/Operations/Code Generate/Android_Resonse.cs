@@ -30,131 +30,182 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\t\r\n\r\npublic class ");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n\r\n  ");
             
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  if(!IsCommand) { 
             
             #line default
             #line hidden
-            this.Write("  ");
+            this.Write("    ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("  public ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
-            this.Write(";\r\n  ");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("    \r\n  ");
+            this.Write(";\r\n    ");
             
             #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  public static ");
+            this.Write("    \r\n  ");
             
             #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+ } 
             
             #line default
             #line hidden
-            this.Write(" Create(JSONObject data) throws JSONException { \r\n    ");
+            this.Write("    \r\n\r\n  ");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  if(IsCommand) { 
             
             #line default
             #line hidden
-            this.Write("  \r\n\treturn data;\r\n\t");
+            this.Write("  \r\n      public static ");
             
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" Create(JSONObject data) throws JSONException { \r\n       return data;\r\n      }\r\n " +
+                    " ");
+            
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+ } else {
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n      ");
+            
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+ if(IsArray) {
+            
+            #line default
+            #line hidden
+            this.Write("      public static ");
+            
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(@" Create(JSONObject data) throws JSONException {       	    
+		  int length = data.length();
+          GetCarsQueryResponse[] result = new GetCarsQueryResponse[length];
+          for (int i = 0; i < length; i++) {
+              JSONObject item = data.getJSONObject(i);
+		  
+              GetCarsQueryResponse response = new GetCarsQueryResponse();
+              response.Brand = item.getString(""Brand"");
+              response.Model = item.getString(""Model"");
+              response.Seating = item.getInt(""Seating"");
+              response.Id = item.getString(""Id"");
+              result[i] = response;
+          }	    
+		return result;     
+      } 
+	  ");
+            
+            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  } else { 
             
             #line default
             #line hidden
-            this.Write("\t");
+            this.Write("\t     public static ");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" Create(JSONObject data) throws JSONException {     \r\n\t      ");
+            
+            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" result = new ");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write("();\r\n  ");
+            this.Write("();\r\n          ");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
-            this.Write("  result.");
+            this.Write("           result.");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write(" = data.");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(MappingJsonMethodByType[pair.Value]));
             
             #line default
             #line hidden
             this.Write("(\"");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
-            this.Write("\");\r\n  ");
+            this.Write("\");\r\n          ");
             
-            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 50 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  } 
             
             #line default
             #line hidden
-            this.Write(" \r\n    return result;  \r\n\t");
+            this.Write("      \r\n\t\t  }     \r\n\t  ");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  }              \r\n                                                     \r\n}");
+            this.Write("   \t     \r\n  ");
+            
+            #line 53 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Resonse.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("          \r\n                                                     \r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -183,6 +234,19 @@ private bool IsCommand
     get
     {
         return this._IsCommandField;
+    }
+}
+
+private bool _IsArrayField;
+
+/// <summary>
+/// Access the IsArray parameter of the template.
+/// </summary>
+private bool IsArray
+{
+    get
+    {
+        return this._IsArrayField;
     }
 }
 
@@ -277,6 +341,36 @@ if ((IsCommandValueAcquired == false))
         else
         {
             this._IsCommandField = ((bool)(data));
+        }
+    }
+}
+bool IsArrayValueAcquired = false;
+if (this.Session.ContainsKey("IsArray"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsArrayField = ((bool)(this.Session["IsArray"]));
+        IsArrayValueAcquired = true;
+    }
+}
+if ((IsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsArrayField = ((bool)(data));
         }
     }
 }

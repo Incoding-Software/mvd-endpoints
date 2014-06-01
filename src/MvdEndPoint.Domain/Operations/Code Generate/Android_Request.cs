@@ -36,9 +36,10 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
             #line default
             #line hidden
             this.Write("import org.apache.http.HttpResponse;\r\nimport org.apache.http.client.methods.HttpG" +
-                    "et;\r\nimport org.apache.http.impl.client.DefaultHttpClient;\r\n");
+                    "et;\r\nimport org.apache.http.impl.client.DefaultHttpClient;\r\nimport java.io.IOExc" +
+                    "eption;\r\n");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } else { 
             
             #line default
@@ -55,112 +56,112 @@ import java.util.ArrayList;
 import java.util.List;
 ");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\npublic class ");
             
-            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n\r\n  ");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("  public ");
             
-            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write(";\r\n  ");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("   \r\n  ");
             
-            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  if(IsGet) { 
             
             #line default
             #line hidden
             this.Write("   public HttpResponse execute() throws IOException {        \t\r\n\t\t");
             
-            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
   if (Properties.Count > 0) {  
             
             #line default
             #line hidden
             this.Write("String uri = String.format(\"");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
             this.Write("\"");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write(" ,this.");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("); \r\n        ");
             
-            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 38 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t");
             
-            #line 38 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 39 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
   if (Properties.Count == 0) {  
             
             #line default
             #line hidden
             this.Write("String uri = \"");
             
-            #line 39 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 40 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
             this.Write("\";\r\n        ");
             
-            #line 40 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 41 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
@@ -168,7 +169,7 @@ import java.util.List;
             this.Write("        HttpGet http = new HttpGet(uri);\r\n        return new DefaultHttpClient()." +
                     "execute(http);\r\n    }\r\n  ");
             
-            #line 44 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
 } else {
             
             #line default
@@ -176,7 +177,7 @@ import java.util.List;
             this.Write("    public HttpResponse execute() throws IOException {        \t        \r\n        " +
                     "HttpPost http = new HttpPost(\"");
             
-            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
@@ -184,7 +185,7 @@ import java.util.List;
             this.Write("\");\t\t        \r\n        http.setHeader(\"Content-Type\", \"application/x-www-form-url" +
                     "encoded\");\r\n\t\t");
             
-            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
   if (Properties.Count > 0) {  
             
             #line default
@@ -192,42 +193,42 @@ import java.util.List;
             this.Write("        List<NameValuePair> parameters = new ArrayList<NameValuePair>();\r\n       " +
                     " ");
             
-            #line 50 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t\tparameters.add(new BasicNameValuePair(\"");
             
-            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write("\", String.valueOf(this.");
             
-            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write(")));\r\n\t\t");
             
-            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 53 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));\r\n\t\t");
             
-            #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 55 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("        return new DefaultHttpClient().execute(http);\r\n   } \r\n  ");
             
-            #line 57 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 58 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default

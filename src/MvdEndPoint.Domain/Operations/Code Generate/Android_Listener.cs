@@ -18,9 +18,9 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_On.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Android_On : Android_OnBase
+    public partial class Android_Listener : Android_ListenerBase
     {
 #line hidden
         /// <summary>
@@ -30,23 +30,51 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("\r\npublic interface ");
             
-            #line 9 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_On.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n    void Success(");
+            this.Write(" {\r\n    ");
             
-            #line 10 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_On.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+if (IsArray) { 
+            
+            #line default
+            #line hidden
+            this.Write("\tvoid Success(");
+            
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write(" response);\r\n}");
+            this.Write("[] response);\r\n\t");
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("\tvoid Success(");
+            
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(" response);\r\n\t");
+            
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_On.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
 
 private string _NameField;
 
@@ -58,6 +86,19 @@ private string Name
     get
     {
         return this._NameField;
+    }
+}
+
+private bool _IsArrayField;
+
+/// <summary>
+/// Access the IsArray parameter of the template.
+/// </summary>
+private bool IsArray
+{
+    get
+    {
+        return this._IsArrayField;
     }
 }
 
@@ -112,6 +153,36 @@ if ((NameValueAcquired == false))
         }
     }
 }
+bool IsArrayValueAcquired = false;
+if (this.Session.ContainsKey("IsArray"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsArrayField = ((bool)(this.Session["IsArray"]));
+        IsArrayValueAcquired = true;
+    }
+}
+if ((IsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsArrayField = ((bool)(data));
+        }
+    }
+}
 bool ResponseValueAcquired = false;
 if (this.Session.ContainsKey("Response"))
 {
@@ -160,7 +231,7 @@ if ((ResponseValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Android_OnBase
+    public class Android_ListenerBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

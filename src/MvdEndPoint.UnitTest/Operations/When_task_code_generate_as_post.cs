@@ -49,7 +49,7 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
 
     private IFakeOn listener;
 
-    private FakeRequest request  = new FakeRequest() ;
+    private FakeRequest request ;
 	
     public FakeTask(Context context, FakeRequest request ) {    
 	  this.context= context;
