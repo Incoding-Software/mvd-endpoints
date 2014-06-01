@@ -1,11 +1,10 @@
-Message by 01.06.2014 11:57:15:Date:01.06.2014 11:57:15
+Message by 01.06.2014 12:53:36:Date:01.06.2014 12:53:36
 Body:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
-   at MvdEndPoint.Domain.GetNameFromTypeQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\GetNameFromTypeQuery.cs:line 46
+   at MvdEndPoint.Domain.ResponseCodeGenerateQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\ResponseCodeGenerateQuery.cs:line 23
    at Incoding.CQRS.QueryBase`1.Execute()
    at Incoding.CQRS.DefaultDispatcher.Push(CommandComposite composite)
    at Incoding.CQRS.DefaultDispatcher.Query[TResult](QueryBase`1 message, MessageExecuteSetting executeSetting)
    at Incoding.CQRS.MessageBase`1.MessageDispatcher.Query[TQueryResult](QueryBase`1 query, Action`1 configuration)
-   at MvdEndPoint.Domain.MessageToPackageQuery.<>c__DisplayClassc.<ExecuteResult>b__7(ModeOf of) in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\MessageToPackageQuery.cs:line 28
    at MvdEndPoint.Domain.MessageToPackageQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\MessageToPackageQuery.cs:line 33
    at Incoding.CQRS.QueryBase`1.Execute()
    at Incoding.CQRS.DefaultDispatcher.Push(CommandComposite composite)
@@ -48,24 +47,22 @@ Body:System.Reflection.TargetInvocationException: Exception has been thrown by t
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Inner Exception: System.IndexOutOfRangeException: Index was outside the bounds of the array.
-   at MvdEndPoint.Domain.GetNameFromTypeQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\GetNameFromTypeQuery.cs:line 46
+   at MvdEndPoint.Domain.ResponseCodeGenerateQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\ResponseCodeGenerateQuery.cs:line 23
    at Incoding.CQRS.QueryBase`1.Execute()
    at Incoding.CQRS.DefaultDispatcher.Push(CommandComposite composite)
    at Incoding.CQRS.DefaultDispatcher.Query[TResult](QueryBase`1 message, MessageExecuteSetting executeSetting)
    at Incoding.CQRS.MessageBase`1.MessageDispatcher.Query[TQueryResult](QueryBase`1 query, Action`1 configuration)
-   at MvdEndPoint.Domain.MessageToPackageQuery.<>c__DisplayClassc.<ExecuteResult>b__7(ModeOf of) in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\MessageToPackageQuery.cs:line 28
    at MvdEndPoint.Domain.MessageToPackageQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\MessageToPackageQuery.cs:line 33
    at Incoding.CQRS.QueryBase`1.Execute()
    at Incoding.CQRS.DefaultDispatcher.Push(CommandComposite composite)
    at Incoding.CQRS.DefaultDispatcher.Query[TResult](QueryBase`1 message, MessageExecuteSetting executeSetting)
 
-Exception by 01.06.2014 11:57:15:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
-   at MvdEndPoint.Domain.GetNameFromTypeQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\GetNameFromTypeQuery.cs:line 46
+Exception by 01.06.2014 12:53:36:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at MvdEndPoint.Domain.ResponseCodeGenerateQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\ResponseCodeGenerateQuery.cs:line 23
    at Incoding.CQRS.QueryBase`1.Execute()
    at Incoding.CQRS.DefaultDispatcher.Push(CommandComposite composite)
    at Incoding.CQRS.DefaultDispatcher.Query[TResult](QueryBase`1 message, MessageExecuteSetting executeSetting)
    at Incoding.CQRS.MessageBase`1.MessageDispatcher.Query[TQueryResult](QueryBase`1 query, Action`1 configuration)
-   at MvdEndPoint.Domain.MessageToPackageQuery.<>c__DisplayClassc.<ExecuteResult>b__7(ModeOf of) in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\MessageToPackageQuery.cs:line 28
    at MvdEndPoint.Domain.MessageToPackageQuery.ExecuteResult() in c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\MessageToPackageQuery.cs:line 33
    at Incoding.CQRS.QueryBase`1.Execute()
    at Incoding.CQRS.DefaultDispatcher.Push(CommandComposite composite)

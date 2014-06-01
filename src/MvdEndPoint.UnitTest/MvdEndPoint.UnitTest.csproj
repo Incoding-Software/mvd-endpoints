@@ -103,6 +103,7 @@
     <Compile Include="Operations\When_convert_csharp_type_to_java.cs" />
     <Compile Include="Operations\When_request_code_generate_as_get_without_properties.cs" />
     <Compile Include="Operations\When_response_code_generate.cs" />
+    <Compile Include="Operations\When_response_code_generate_as_command.cs" />
     <Compile Include="Operations\When_task_code_generate.cs" />
     <Compile Include="Operations\When_request_code_generate_as_get.cs" />
     <Compile Include="Operations\When_task_code_generate_without_request.cs" />

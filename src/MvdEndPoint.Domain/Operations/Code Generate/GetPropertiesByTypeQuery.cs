@@ -21,7 +21,7 @@
         #endregion
 
         protected override Dictionary<string, string> ExecuteResult()
-        {
+        {            
             return (Type.IsImplement<IEnumerable>() ? Type.GenericTypeArguments[0] : Type)
                     .GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                     .Where(r => r.CanWrite)
