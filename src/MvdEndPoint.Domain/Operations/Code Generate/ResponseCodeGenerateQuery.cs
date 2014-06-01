@@ -20,33 +20,28 @@
 
         protected override string ExecuteResult()
         {
-            var dto = new Android_Resonse();
+            var dto = new Android_Response();
+            var responseType = Type.BaseType.GenericTypeArguments[0];
             dto.Session = new Dictionary<string, object>
                               {
+                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) }, 
+                                      { "IsArray", responseType.IsImplement(typeof(IEnumerable<>)) }, 
                                       {
-                                              "Name", Dispatcher.Query(new GetNameFromTypeQuery
-                                                                           {
-                                                                                   Type = Type,
-                                                                                   Mode = GetNameFromTypeQuery.ModeOf.Response
-                                                                           })
-                                      },
-                                      { "IsCommand", Type.IsImplement<CommandBase>() }
+                                              "MappingJsonMethodByType", new Dictionary<string, string>
+                                                                             {
+                                                                                     { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
+                                                                                     { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
+                                                                                     { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
+                                                                                     { typeof(long).Name, "getLong" }, 
+                                                                             }
+                                      }, 
+                                      {
+                                              "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
+                                                                                 {
+                                                                                         Type = responseType
+                                                                                 })
+                                      }
                               };
-
-            if (!Type.IsImplement<CommandBase>())
-            {
-                dto.Session.Add("MappingJsonMethodByType", new Dictionary<string, string>
-                                                               {
-                                                                       { ConvertCSharpTypeToJavaQuery.String, "getString" },
-                                                                       { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
-                                                                       { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
-                                                                       { typeof(long).Name, "getLong" },
-                                                               });
-                dto.Session.Add("Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
-                                                                   {
-                                                                           Type = Type.BaseType.GenericTypeArguments[0]
-                                                                   }));
-            }
             dto.Initialize();
             return dto.TransformText();
         }

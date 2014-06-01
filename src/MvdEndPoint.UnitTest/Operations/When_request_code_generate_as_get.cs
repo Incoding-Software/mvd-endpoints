@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -37,24 +38,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)));
-                                      expected = @"
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import java.io.IOException;
-
-public class GetCustomerRequest {
-
-    public TheSameString Message;
-    public Number Title;
-     
-     public HttpResponse execute() throws IOException {        	
-		String uri = String.format(""http://localhost/Dispatcher"" ,this.Message  ,this.Title ); 
-        		        HttpGet http = new HttpGet(uri);
-        return new DefaultHttpClient().execute(http);
-    }
-                                                        
-}";
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_request_code_generate_as_get).Name));
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)

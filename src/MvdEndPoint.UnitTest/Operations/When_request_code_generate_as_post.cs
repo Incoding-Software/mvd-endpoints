@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -31,34 +32,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand)));
-                                      expected = @"
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-public class AddCustomerCommand {
-
-    public TheSameString Message;
-    public Number Title;
-     
-      public HttpResponse execute() throws IOException {        	        
-        HttpPost http = new HttpPost(""http://localhost/Dispatcher"");		        
-        http.setHeader(""Content-Type"", ""application/x-www-form-urlencoded"");
-		        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-        		parameters.add(new BasicNameValuePair(""Message"", String.valueOf(this.Message)));
-				parameters.add(new BasicNameValuePair(""Title"", String.valueOf(this.Title)));
-		        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));
-		        return new DefaultHttpClient().execute(http);
-   } 
-                                                        
-}";
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_request_code_generate_as_post).Name));
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)

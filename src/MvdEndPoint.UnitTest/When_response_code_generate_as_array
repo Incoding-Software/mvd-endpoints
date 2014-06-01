@@ -1,0 +1,28 @@
+﻿
+import org.json.JSONException;
+import org.json.JSONObject;	
+   import org.json.JSONArray;
+	  
+public class GetCustomersResponse {
+        public String Title;
+        public int Number;
+            
+             public static GetCustomersResponse[] Create(JSONObject result) throws JSONException {     
+		     if(result.isNull("data"))
+               return new  GetCustomersResponse[0];
+
+             JSONArray data = result.getJSONArray("data");
+     		 int length = data.length();
+             GetCustomersResponse[] res = new GetCustomersResponse[length];
+             for (int i = 0; i < length; i++) {
+                 JSONObject item = data.getJSONObject(i);		  
+                 GetCustomersResponse response = new GetCustomersResponse();
+                             response.Title = item.getString("Title");
+                             response.Number = item.getInt("Number");
+                  
+                 res[i] = response;
+             }	    
+     		return res;     
+         } 
+       	                                                           
+}

@@ -93,8 +93,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android_Resonse.cs">
-      <DependentUpon>Android_Resonse.tt</DependentUpon>
+    <Compile Include="Operations\Code Generate\Android_Response.cs">
+      <DependentUpon>Android_Response.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -146,9 +146,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Disaptcher.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_Resonse.tt">
+    <None Include="Operations\Code Generate\Android_Response.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_Resonse.cs</LastGenOutput>
+      <LastGenOutput>Android_Response.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android_Enum.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

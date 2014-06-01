@@ -4,10 +4,10 @@
 
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using Machine.Specifications.Annotations;
     using MvdEndPoint.Domain;
 
     #endregion
@@ -17,19 +17,11 @@
     {
         #region Fake classes
 
-        public class GetCustomerQuery : QueryBase<GetCustomerQuery.Response>
+        class GetCustomerQuery : QueryBase<GetCustomerQuery.Response>
         {
             #region Nested classes
 
-            public class Response
-            {
-                #region Properties
-
-                [UsedImplicitly]
-                public string Message { get; set; }
-
-                #endregion
-            }
+            public class Response { }
 
             #endregion
 
@@ -52,24 +44,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)));
-                                      expected = @"
-import org.json.JSONException;
-import org.json.JSONObject;	
-
-public class GetCustomerResponse {
-
-      public String Title;
-    public int Number;
-      
-    public static GetCustomerResponse Create(JSONObject data) throws JSONException { 
-    	GetCustomerResponse result = new GetCustomerResponse();
-    result.Title = data.getString(""Title"");
-    result.Number = data.getInt(""Number"");
-   
-    return result;  
-	  }              
-                                                     
-}";
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_response_code_generate).Name));
 
                                       mockQuery = MockQuery<ResponseCodeGenerateQuery, string>
                                               .When(query)
@@ -77,8 +52,8 @@ public class GetCustomerResponse {
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerResponse")
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), new Dictionary<string, string>
                                                                                                                                                                                      {
-                                                                                                                                                                                             { "Title", ConvertCSharpTypeToJavaQuery.String },
-                                                                                                                                                                                             { "Number", ConvertCSharpTypeToJavaQuery.Int },
+                                                                                                                                                                                             { "Title", ConvertCSharpTypeToJavaQuery.String }, 
+                                                                                                                                                                                             { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
                                                                                                                                                                                      });
                                   };
 

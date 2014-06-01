@@ -1,0 +1,51 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.Boolean" name="IsArray" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
+
+import org.json.JSONException;
+import org.json.JSONObject;	
+   <# if(IsArray) {#>
+import org.json.JSONArray;
+	<# } #>  
+public class <#= Name #> {
+    <# foreach(var pair in Properties) { #>
+    public <#= pair.Value #> <#= pair.Key #>;
+    <# } #>        
+    <# if(IsArray) {#>
+         public static <#= Name #>[] Create(JSONObject result) throws JSONException {     
+		     if(result.isNull("data"))
+               return new  <#= Name #>[0];
+
+             JSONArray data = result.getJSONArray("data");
+     		 int length = data.length();
+             <#= Name #>[] res = new <#= Name #>[length];
+             for (int i = 0; i < length; i++) {
+                 JSONObject item = data.getJSONObject(i);		  
+                 <#= Name #> response = new <#= Name #>();
+                 <# foreach(var pair in Properties) { #>
+            response.<#= pair.Key #> = item.<#= MappingJsonMethodByType[pair.Value] #>("<#= pair.Key #>");
+                 <# } #> 
+                 res[i] = response;
+             }	    
+     		return res;     
+         } 
+    <# } else { #>
+	     public static <#= Name #> Create(JSONObject result) throws JSONException { 
+		     if(result.isNull("data"))
+			  return  new <#= Name #>();
+
+		     JSONObject data = new JSONObject(result.getString("data"));    
+	         <#= Name #> res = new <#= Name #>();
+             <# foreach(var pair in Properties) { #>
+             res.<#= pair.Key #> = data.<#= MappingJsonMethodByType[pair.Value] #>("<#= pair.Key #>");
+             <# } #> 
+		     return res;       
+		  }     
+	<# } #>   	                                                           
+}

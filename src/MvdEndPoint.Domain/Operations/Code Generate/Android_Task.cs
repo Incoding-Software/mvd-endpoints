@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Task : Android_TaskBase
     {
@@ -41,7 +41,7 @@ import org.json.JSONObject;
 
 public class ");
             
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 23 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
@@ -49,121 +49,90 @@ public class ");
             this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    private Context context;\r\n\r\n" +
                     "    private ");
             
-            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 27 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write(" listener;\r\n\r\n    private ");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request ");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  if(!HasRequest) { 
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write("() ");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
             this.Write(";\r\n\t\r\n    public ");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("(Context context");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  if(HasRequest) { 
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request ");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
             this.Write(") {    \r\n\t  this.context= context;\r\n\t  ");
             
-            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  if(HasRequest) { 
             
             #line default
             #line hidden
             this.Write("\t  this.request = request;    \r\n\t  ");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
-            this.Write(@"    }
-	
-	
-	@Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        try {
-            JSONObject jsonObject = new JSONObject(s);
-            JSONObject data = jsonObject.isNull(""data"")
-                    ? new JSONObject()
-                    : new JSONObject(jsonObject.getString(""data""));            
-			listener.Success(");
+            this.Write("    }\r\n\t\t\r\n\t@Override\r\n    protected void onPostExecute(String s) {\r\n        supe" +
+                    "r.onPostExecute(s);\r\n        try {\r\n            listener.Success( ");
             
-            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
- if (IsGet) { 
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 42 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write(".Create(data) ");
-            
-            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write(" data ");
-            
-            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write(@");									
+            this.Write(@".Create(new JSONObject(s)) );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,13 +141,8 @@ public class ");
 	@Override
     protected String doInBackground(String... strings) {
         try {
-            HttpResponse response = request.execute();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            for (Header header : response.getHeaders(""Set-Cookie"")) {
-                preferences.edit().putString(header.getName(), header.getValue());
-            }
-            String json = EntityUtils.toString(response.getEntity());
-            return json;
+            HttpResponse response = request.execute(context);            
+            return EntityUtils.toString(response.getEntity());            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,7 +151,7 @@ public class ");
 
     public void On(");
             
-            #line 70 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 59 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
@@ -196,7 +160,7 @@ public class ");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
 
 private string _NameField;
 
@@ -260,19 +224,6 @@ private string Url
     get
     {
         return this._UrlField;
-    }
-}
-
-private bool _IsGetField;
-
-/// <summary>
-/// Access the IsGet parameter of the template.
-/// </summary>
-private bool IsGet
-{
-    get
-    {
-        return this._IsGetField;
     }
 }
 
@@ -444,36 +395,6 @@ if ((UrlValueAcquired == false))
         else
         {
             this._UrlField = ((string)(data));
-        }
-    }
-}
-bool IsGetValueAcquired = false;
-if (this.Session.ContainsKey("IsGet"))
-{
-    if ((typeof(bool).IsAssignableFrom(this.Session["IsGet"].GetType()) == false))
-    {
-        this.Error("The type \'System.Boolean\' of the parameter \'IsGet\' did not match the type of the " +
-                "data passed to the template.");
-    }
-    else
-    {
-        this._IsGetField = ((bool)(this.Session["IsGet"]));
-        IsGetValueAcquired = true;
-    }
-}
-if ((IsGetValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsGet");
-    if ((data != null))
-    {
-        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Boolean\' of the parameter \'IsGet\' did not match the type of the " +
-                    "data passed to the template.");
-        }
-        else
-        {
-            this._IsGetField = ((bool)(data));
         }
     }
 }

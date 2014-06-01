@@ -90,6 +90,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_response_code_generate_as_array">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_response_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\When_listener_code_generator_for_query_with_array.cs" />
     <Compile Include="Operations\When_message_to_package_query.cs" />
@@ -105,15 +111,28 @@
     <Compile Include="Operations\When_convert_csharp_type_to_java.cs" />
     <Compile Include="Operations\When_request_code_generate_as_get_without_properties.cs" />
     <Compile Include="Operations\When_request_code_generate_as_post.cs" />
-    <Compile Include="Operations\When_request_code_generate_as_post_without_properties.cs" />
     <Compile Include="Operations\When_response_code_generate.cs" />
-    <Compile Include="Operations\When_response_code_generate_as_command.cs" />
+    <Compile Include="Operations\When_response_code_generate_as_array.cs" />
     <Compile Include="Operations\When_task_code_generate.cs" />
     <Compile Include="Operations\When_request_code_generate_as_get.cs" />
-    <Compile Include="Operations\When_task_code_generate_as_post.cs" />
     <Compile Include="Operations\When_task_code_generate_without_request.cs" />
     <Compile Include="Persistence\When_save_Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="When_task_code_generate_without_request">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_task_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_request_code_generate_as_get_without_properties">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_request_code_generate_as_post">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_request_code_generate_as_get">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

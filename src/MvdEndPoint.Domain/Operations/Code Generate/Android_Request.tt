@@ -9,11 +9,19 @@
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
 
 <# if(IsGet) { #>
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 <# } else { #>
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -31,29 +39,35 @@ public class <#= Name #> {
   <# foreach(var pair in Properties) { #>
   public <#= pair.Value #> <#= pair.Key #>;
   <# } #>   
-  <# if(IsGet) { #>
-   public HttpResponse execute() throws IOException {        	
+
+   public HttpResponse execute(Context context) throws IOException {   
+     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+	<# if(IsGet) { #>    	        
 		<#  if (Properties.Count > 0) {  #>
-String uri = String.format("<#= Url #>"<# foreach(var pair in Properties) { #> ,this.<#= pair.Key #> <# } #>); 
-        <# } #>
-		<#  if (Properties.Count == 0) {  #>
-String uri = "<#= Url #>";
-        <# } #>
-        HttpGet http = new HttpGet(uri);
-        return new DefaultHttpClient().execute(http);
-    }
-  <#} else {#>
-    public HttpResponse execute() throws IOException {        	        
+        String uri = String.format("<#= Url #>"<# foreach(var pair in Properties) { #> ,this.<#= pair.Key #> <# } #>); 
+        <# } else { #>		
+        String uri = "<#= Url #>";
+        <# } #>        
+	    HttpGet http = new HttpGet(uri);		            
+  <#} else {#>     	        	    
         HttpPost http = new HttpPost("<#= Url #>");		        
-        http.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		<#  if (Properties.Count > 0) {  #>
+        http.setHeader("Content-Type", "application/x-www-form-urlencoded");				
         List<NameValuePair> parameters = new ArrayList<NameValuePair>();
         <# foreach(var pair in Properties) { #>
 		parameters.add(new BasicNameValuePair("<#= pair.Key #>", String.valueOf(this.<#= pair.Key #>)));
 		<# } #>
-        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));
-		<# } #>
-        return new DefaultHttpClient().execute(http);
+        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));		
+  <# } #>               
+        http.setHeader("Set-Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
+        HttpResponse response = new DefaultHttpClient().execute(http);
+		Header cookieAsHeader = response.getFirstHeader("Set-Cookie");
+        if (cookieAsHeader != null) {
+		    SharedPreferences.Editor edit = preferences.edit();
+            edit.putString(cookieAsHeader.getName(), cookieAsHeader.getValue());
+            edit.commit();
+        }
+
+        return response;
    } 
-  <# } #>                                                      
+                                         
 }
