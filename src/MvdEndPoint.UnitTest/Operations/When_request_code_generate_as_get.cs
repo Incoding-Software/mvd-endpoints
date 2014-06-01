@@ -16,7 +16,7 @@
     {
         #region Fake classes
 
-         class GetCustomerQuery : QueryBase<string>
+        class GetCustomerQuery : QueryBase<string>
         {
             protected override string ExecuteResult()
             {
@@ -47,8 +47,7 @@ public class GetCustomerRequest {
     public TheSameString Message;
     public Number Title;
      
-     public HttpResponse execute() throws IOException {        
-	
+     public HttpResponse execute() throws IOException {        	
 		String uri = String.format(""http://localhost/Dispatcher"" ,this.Message  ,this.Title ); 
         		        HttpGet http = new HttpGet(uri);
         return new DefaultHttpClient().execute(http);

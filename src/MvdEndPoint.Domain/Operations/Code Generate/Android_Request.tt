@@ -8,9 +8,22 @@
 <#@ parameter type="System.Boolean" name="IsGet" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
 
+<# if(IsGet) { #>
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+<# } else { #>
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+<# } #>
 
 public class <#= Name #> {
 
@@ -18,8 +31,7 @@ public class <#= Name #> {
   public <#= pair.Value #> <#= pair.Key #>;
   <# } #>   
   <# if(IsGet) { #>
-   public HttpResponse execute() throws IOException {        
-	
+   public HttpResponse execute() throws IOException {        	
 		<#  if (Properties.Count > 0) {  #>
 String uri = String.format("<#= Url #>"<# foreach(var pair in Properties) { #> ,this.<#= pair.Key #> <# } #>); 
         <# } #>
@@ -29,5 +41,18 @@ String uri = "<#= Url #>";
         HttpGet http = new HttpGet(uri);
         return new DefaultHttpClient().execute(http);
     }
+  <#} else {#>
+    public HttpResponse execute() throws IOException {        	        
+        HttpPost http = new HttpPost("<#= Url #>");		        
+        http.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		<#  if (Properties.Count > 0) {  #>
+        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        <# foreach(var pair in Properties) { #>
+		parameters.add(new BasicNameValuePair("<#= pair.Key #>", String.valueOf(this.<#= pair.Key #>)));
+		<# } #>
+        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));
+		<# } #>
+        return new DefaultHttpClient().execute(http);
+   } 
   <# } #>                                                      
 }

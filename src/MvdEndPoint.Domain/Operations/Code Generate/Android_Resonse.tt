@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.Boolean" name="IsCommand" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 
@@ -12,15 +13,21 @@ import org.json.JSONObject;
 
 public class <#= Name #> {
 
+  <# if(!IsCommand) { #>
   <# foreach(var pair in Properties) { #>
   public <#= pair.Value #> <#= pair.Key #>;
   <# } #>    
+  <# } #>
   public static <#= Name #> Create(JSONObject data) throws JSONException { 
-    <#= Name #> result = new <#= Name #>();
+    <# if(IsCommand) { #>  
+	return data;
+	<# } else { #>
+	<#= Name #> result = new <#= Name #>();
   <# foreach(var pair in Properties) { #>
   result.<#= pair.Key #> = data.<#= MappingJsonMethodByType[pair.Value] #>("<#= pair.Key #>");
   <# } #> 
     return result;  
-   }              
+	<# } #>
+  }              
                                                      
 }

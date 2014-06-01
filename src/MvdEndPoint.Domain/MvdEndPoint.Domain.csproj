@@ -118,6 +118,7 @@
     <Compile Include="Operations\Code Generate\DispatcherCodeGeneratorQuery.cs" />
     <Compile Include="Operations\Code Generate\ResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\TaskCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\ZipQuery.cs" />
     <Compile Include="Persistence\Assembly.cs" />
     <Compile Include="SignCommand.cs" />
     <Compile Include="TestModelStateCommand.cs" />

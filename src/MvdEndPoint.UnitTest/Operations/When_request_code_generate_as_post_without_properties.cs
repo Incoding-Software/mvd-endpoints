@@ -12,13 +12,13 @@
     #endregion
 
     [Subject(typeof(RequestCodeGenerateQuery))]
-    public class When_request_code_generate_as_get_without_properties
+    public class When_request_code_generate_as_post_without_properties
     {
         #region Fake classes
 
-        class GetCustomerQuery : QueryBase<string>
+        class AddCustomerCommand : CommandBase
         {
-            protected override string ExecuteResult()
+            public override void Execute()
             {
                 throw new NotImplementedException();
             }
@@ -36,30 +36,37 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)));
+                                      var query = Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand)));
                                       expected = @"
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GetCustomerRequest {
+public class AddCustomerCommand {
 
      
-     public HttpResponse execute() throws IOException {        	
-				String uri = ""http://localhost/Dispatcher"";
-                HttpGet http = new HttpGet(uri);
-        return new DefaultHttpClient().execute(http);
-    }
+      public HttpResponse execute() throws IOException {        	        
+        HttpPost http = new HttpPost(""http://localhost/Dispatcher"");		        
+        http.setHeader(""Content-Type"", ""application/x-www-form-urlencoded"");
+		        return new DefaultHttpClient().execute(http);
+   } 
                                                         
 }";
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)
-                                                                                                                   .Tuning(r => r.Type, query.Type)), "GetCustomerRequest")
+                                                                                                                   .Tuning(r => r.Type, query.Type)), "AddCustomerCommand")
                                               .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                 .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new Dictionary<string, string>());
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))), new Dictionary<string, string>());
                                   };
 
         Because of = () => mockQuery.Original.Execute();

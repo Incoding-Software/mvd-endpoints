@@ -58,16 +58,16 @@ import org.json.JSONObject;
 
 public class GetCustomerResponse {
 
-    public String Title;
+      public String Title;
     public int Number;
       
-  public static GetCustomerResponse Create(JSONObject data) throws JSONException { 
-    GetCustomerResponse result = new GetCustomerResponse();
+    public static GetCustomerResponse Create(JSONObject data) throws JSONException { 
+    	GetCustomerResponse result = new GetCustomerResponse();
     result.Title = data.getString(""Title"");
     result.Number = data.getInt(""Number"");
    
     return result;  
-   }              
+	  }              
                                                      
 }";
 
@@ -77,8 +77,8 @@ public class GetCustomerResponse {
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerResponse")
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), new Dictionary<string, string>
                                                                                                                                                                                      {
-                                                                                                                                                                                             { "Title", ConvertCSharpTypeToJavaQuery.String }, 
-                                                                                                                                                                                             { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
+                                                                                                                                                                                             { "Title", ConvertCSharpTypeToJavaQuery.String },
+                                                                                                                                                                                             { "Number", ConvertCSharpTypeToJavaQuery.Int },
                                                                                                                                                                                      });
                                   };
 

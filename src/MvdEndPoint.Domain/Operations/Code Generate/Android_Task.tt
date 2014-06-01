@@ -10,9 +10,9 @@
 <#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.Boolean" name="IsGet" #>
 <#@ parameter type="System.Boolean" name="HasRequest" #>
-<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByResponse" #>
-<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="PropertiesByRequest" #>
 
+
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -23,23 +23,29 @@ import org.json.JSONObject;
 
 public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
+    private Context context;
+
     private <#= Listener #> listener;
 
-    private <#= Request #> request <# if(PropertiesByRequest.Count == 0) { #> = new <#= Request #>() <# } #>;
-
-	<# if(PropertiesByRequest.Count > 0) { #>
-    public <#= Name #>(<#= Request #> request) {    
-	this.request = request;    
+    private <#= Request #> request <# if(HasRequest) { #> = new <#= Request #>() <# } #>;
+	
+    public <#= Name #>(Context context<# if(HasRequest) { #>, <#= Request #> request <# } #>) {    
+	  this.context= context;
+	  <# if(HasRequest) { #>
+	  this.request = request;    
+	  <# } #>
     }
-	<# } #> 
+	
 	
 	@Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONObject data = new JSONObject(jsonObject.getString("data"));
-            listener.Success(<#= Response #>.Create(data));
+            JSONObject data = jsonObject.isNull("data")
+                    ? new JSONObject()
+                    : new JSONObject(jsonObject.getString("data"));            
+			listener.Success(<# if (IsGet) { #> <#= Response #>.Create(data) <# } else { #> data <# } #>);									
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,9 +55,8 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... strings) {
         try {
             HttpResponse response = request.execute();
-            Header[] cookieHeader = response.getHeaders("Set-Cookie");
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(new MainActivity());
-            for (Header header : cookieHeader) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            for (Header header : response.getHeaders("Set-Cookie")) {
                 preferences.edit().putString(header.getName(), header.getValue());
             }
             String json = EntityUtils.toString(response.getEntity());

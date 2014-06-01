@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
+    using Incoding.Extensions;
     using MvdEndPoint.Domain.Operations.Code_Generate;
 
     #endregion
@@ -29,22 +30,23 @@
                                                                                    Mode = GetNameFromTypeQuery.ModeOf.Response
                                                                            })
                                       },
-                                      {
-                                              "MappingJsonMethodByType", new Dictionary<string, string>
-                                                                             {
-                                                                                     { ConvertCSharpTypeToJavaQuery.String, "getString" },
-                                                                                     { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
-                                                                                     { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
-                                                                                     { typeof(long).Name, "getLong" },
-                                                                             }
-                                      },
-                                      {
-                                              "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
-                                                                                 {
-                                                                                         Type = Type.BaseType.GenericTypeArguments[0]
-                                                                                 })
-                                      }
+                                      { "IsCommand", Type.IsImplement<CommandBase>() }
                               };
+
+            if (!Type.IsImplement<CommandBase>())
+            {
+                dto.Session.Add("MappingJsonMethodByType", new Dictionary<string, string>
+                                                               {
+                                                                       { ConvertCSharpTypeToJavaQuery.String, "getString" },
+                                                                       { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
+                                                                       { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
+                                                                       { typeof(long).Name, "getLong" },
+                                                               });
+                dto.Session.Add("Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
+                                                                   {
+                                                                           Type = Type.BaseType.GenericTypeArguments[0]
+                                                                   }));
+            }
             dto.Initialize();
             return dto.TransformText();
         }

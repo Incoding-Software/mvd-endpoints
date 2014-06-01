@@ -1,50 +1,23 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
-    #region << Using >>
-
     using System;
+    using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using Machine.Specifications.Annotations;
     using MvdEndPoint.Domain;
 
-    #endregion
-
     [Subject(typeof(TaskCodeGenerateQuery))]
-    public class When_task_code_generate
+    public class When_task_code_generate_as_post
     {
         #region Fake classes
 
-        class FakeQuery : QueryBase<FakeQuery.Response>
-        {
-            #region Properties
-
-            [UsedImplicitly]
-            public string Id { get; set; }
-
-            #endregion
-
-            #region Nested classes
-
-            public class Response
-            {
-                #region Properties
-
-                [UsedImplicitly]
-                public string Name { get; set; }
-
-                #endregion
-            }
-
-            #endregion
-
-            protected override Response ExecuteResult()
+        class FakeCommand:CommandBase {
+            public override void Execute()
             {
                 throw new NotImplementedException();
             }
         }
-
         #endregion
 
         #region Establish value
@@ -57,7 +30,7 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
+                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand)));
 
                                       expected = @"
 
@@ -92,7 +65,7 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
             JSONObject data = jsonObject.isNull(""data"")
                     ? new JSONObject()
                     : new JSONObject(jsonObject.getString(""data""));            
-			listener.Success( Response.Create(data) );									
+			listener.Success( data );									
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +103,7 @@ public class FakeTask extends AsyncTask<String, Integer, String> {
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), Pleasure.ToDictionary(Pleasure.Generator.KeyValuePair()));
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand))), Pleasure.ToDictionary(Pleasure.Generator.KeyValuePair()));
                                   };
 
         Because of = () => mockQuery.Original.Execute();

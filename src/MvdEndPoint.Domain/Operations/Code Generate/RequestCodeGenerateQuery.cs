@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
+    using Incoding.Extensions;
     using MvdEndPoint.Domain.Operations.Code_Generate;
 
     #endregion
@@ -27,13 +28,13 @@
                                       {
                                               "Name", Dispatcher.Query(new GetNameFromTypeQuery
                                                                            {
-                                                                                   Type = Type, 
+                                                                                   Type = Type,
                                                                                    Mode = GetNameFromTypeQuery.ModeOf.Request
                                                                            })
-                                      }, 
-                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type }) }, 
-                                      { "IsGet", Type.BaseType.Name.Contains("QueryBase") }, 
-                                      { "Url", Dispatcher.Query(new GetUrlByTypeQuery { Type = Type, BaseUrl = BaseUrl }) }, 
+                                      },
+                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type }) },
+                                      { "IsGet", !Type.IsImplement<CommandBase>() },
+                                      { "Url", Dispatcher.Query(new GetUrlByTypeQuery { Type = Type, BaseUrl = BaseUrl }) },
                               };
             dto.Initialize();
             return dto.TransformText();

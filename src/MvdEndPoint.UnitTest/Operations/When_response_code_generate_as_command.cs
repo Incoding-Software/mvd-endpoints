@@ -43,11 +43,10 @@ import org.json.JSONObject;
 
 public class AddCustomerResponse {
 
-  public static GetCustomerResponse Create(JSONObject data) throws JSONException { 
-    Object result = new Object();
-    result = data;       
-    return result;  
-   }              
+    public static AddCustomerResponse Create(JSONObject data) throws JSONException { 
+      
+	return data;
+	  }              
                                                      
 }";
 

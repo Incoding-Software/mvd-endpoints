@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Task : Android_TaskBase
     {
@@ -29,6 +29,8 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         public virtual string TransformText()
         {
             this.Write(@"
+
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -39,90 +41,129 @@ import org.json.JSONObject;
 
 public class ");
             
-            #line 24 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    private ");
+            this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    private Context context;\r\n\r\n" +
+                    "    private ");
             
-            #line 26 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write(" listener;\r\n\r\n    private ");
             
-            #line 28 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request ");
             
-            #line 28 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
- if(PropertiesByRequest.Count == 0) { 
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ if(HasRequest) { 
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 28 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write("() ");
             
-            #line 28 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
-            this.Write(";\r\n\r\n\t");
+            this.Write(";\r\n\t\r\n    public ");
             
-            #line 30 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
- if(PropertiesByRequest.Count > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("    public ");
-            
-            #line 31 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write("(");
+            this.Write("(Context context");
             
-            #line 31 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ if(HasRequest) { 
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
-            this.Write(" request) {    \r\n\tthis.request = request;    \r\n    }\r\n\t");
+            this.Write(" request ");
             
-            #line 34 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
-            this.Write(@" 
+            this.Write(") {    \r\n\t  this.context= context;\r\n\t  ");
+            
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ if(HasRequest) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t  this.request = request;    \r\n\t  ");
+            
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write(@"    }
+	
 	
 	@Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONObject data = new JSONObject(jsonObject.getString(""data""));
-            listener.Success(");
+            JSONObject data = jsonObject.isNull(""data"")
+                    ? new JSONObject()
+                    : new JSONObject(jsonObject.getString(""data""));            
+			listener.Success(");
             
-            #line 42 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ if (IsGet) { 
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write(@".Create(data));
+            this.Write(".Create(data) ");
+            
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write(" data ");
+            
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write(@");									
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,9 +173,8 @@ public class ");
     protected String doInBackground(String... strings) {
         try {
             HttpResponse response = request.execute();
-            Header[] cookieHeader = response.getHeaders(""Set-Cookie"");
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(new MainActivity());
-            for (Header header : cookieHeader) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            for (Header header : response.getHeaders(""Set-Cookie"")) {
                 preferences.edit().putString(header.getName(), header.getValue());
             }
             String json = EntityUtils.toString(response.getEntity());
@@ -147,7 +187,7 @@ public class ");
 
     public void On(");
             
-            #line 65 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 70 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
@@ -156,7 +196,7 @@ public class ");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
 
 private string _NameField;
 
@@ -246,32 +286,6 @@ private bool HasRequest
     get
     {
         return this._HasRequestField;
-    }
-}
-
-private global::System.Collections.Generic.Dictionary<string,string> _PropertiesByResponseField;
-
-/// <summary>
-/// Access the PropertiesByResponse parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.Dictionary<string,string> PropertiesByResponse
-{
-    get
-    {
-        return this._PropertiesByResponseField;
-    }
-}
-
-private global::System.Collections.Generic.Dictionary<string,string> _PropertiesByRequestField;
-
-/// <summary>
-/// Access the PropertiesByRequest parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.Dictionary<string,string> PropertiesByRequest
-{
-    get
-    {
-        return this._PropertiesByRequestField;
     }
 }
 
@@ -490,70 +504,6 @@ if ((HasRequestValueAcquired == false))
         else
         {
             this._HasRequestField = ((bool)(data));
-        }
-    }
-}
-bool PropertiesByResponseValueAcquired = false;
-if (this.Session.ContainsKey("PropertiesByResponse"))
-{
-    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["PropertiesByResponse"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                "\'PropertiesByResponse\' did not match the type of the data passed to the template" +
-                ".");
-    }
-    else
-    {
-        this._PropertiesByResponseField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["PropertiesByResponse"]));
-        PropertiesByResponseValueAcquired = true;
-    }
-}
-if ((PropertiesByResponseValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("PropertiesByResponse");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                    "\'PropertiesByResponse\' did not match the type of the data passed to the template" +
-                    ".");
-        }
-        else
-        {
-            this._PropertiesByResponseField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
-        }
-    }
-}
-bool PropertiesByRequestValueAcquired = false;
-if (this.Session.ContainsKey("PropertiesByRequest"))
-{
-    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["PropertiesByRequest"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                "\'PropertiesByRequest\' did not match the type of the data passed to the template." +
-                "");
-    }
-    else
-    {
-        this._PropertiesByRequestField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["PropertiesByRequest"]));
-        PropertiesByRequestValueAcquired = true;
-    }
-}
-if ((PropertiesByRequestValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("PropertiesByRequest");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                    "\'PropertiesByRequest\' did not match the type of the data passed to the template." +
-                    "");
-        }
-        else
-        {
-            this._PropertiesByRequestField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
         }
     }
 }
