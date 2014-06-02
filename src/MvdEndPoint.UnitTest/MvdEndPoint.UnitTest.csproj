@@ -90,6 +90,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_response_code_generate_as_command">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_response_code_generate_as_array">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -113,6 +116,7 @@
     <Compile Include="Operations\When_request_code_generate_as_post.cs" />
     <Compile Include="Operations\When_response_code_generate.cs" />
     <Compile Include="Operations\When_response_code_generate_as_array.cs" />
+    <Compile Include="Operations\When_response_code_generate_as_command.cs" />
     <Compile Include="Operations\When_task_code_generate.cs" />
     <Compile Include="Operations\When_request_code_generate_as_get.cs" />
     <Compile Include="Operations\When_task_code_generate_without_request.cs" />

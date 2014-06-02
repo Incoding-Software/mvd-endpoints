@@ -21,27 +21,32 @@
         protected override string ExecuteResult()
         {
             var dto = new Android_Response();
-            var responseType = Type.BaseType.GenericTypeArguments[0];
+            bool isQuery = !Type.IsImplement<CommandBase>();
             dto.Session = new Dictionary<string, object>
                               {
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) }, 
-                                      { "IsArray", responseType.IsImplement(typeof(IEnumerable<>)) }, 
-                                      {
-                                              "MappingJsonMethodByType", new Dictionary<string, string>
-                                                                             {
-                                                                                     { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
-                                                                                     { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
-                                                                                     { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
-                                                                                     { typeof(long).Name, "getLong" }, 
-                                                                             }
-                                      }, 
-                                      {
-                                              "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
-                                                                                 {
-                                                                                         Type = responseType
-                                                                                 })
-                                      }
+                                      { "MappingJsonMethodByType", new Dictionary<string, string>() }, 
+                                      { "Properties", new Dictionary<string, string>() }, 
+                                      { "IsQuery", isQuery }, 
                               };
+
+            if (isQuery)
+            {
+                var responseType = Type.BaseType.GenericTypeArguments[0];
+                dto.Session.Add("IsArray", responseType.IsImplement(typeof(IEnumerable<>)));
+                dto.Session.Set("Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
+                                                                   {
+                                                                           Type = responseType
+                                                                   }));
+                dto.Session.Set("MappingJsonMethodByType", new Dictionary<string, string>
+                                                               {
+                                                                       { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
+                                                                       { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
+                                                                       { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
+                                                                       { typeof(long).Name, "getLong" }, 
+                                                               });
+            }
+
             dto.Initialize();
             return dto.TransformText();
         }

@@ -5,15 +5,19 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
+<#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 
 import org.json.JSONException;
 import org.json.JSONObject;	
+
+
    <# if(IsArray) {#>
 import org.json.JSONArray;
 	<# } #>  
 public class <#= Name #> {
+<# if(IsQuery) { #>
     <# foreach(var pair in Properties) { #>
     public <#= pair.Value #> <#= pair.Key #>;
     <# } #>        
@@ -47,5 +51,14 @@ public class <#= Name #> {
              <# } #> 
 		     return res;       
 		  }     
-	<# } #>   	                                                           
+	<# } #>  
+<# } else { #>
+    public JSONObject data;
+
+    public static <#= Name #> Create(JSONObject result) throws JSONException {
+        <#= Name #> response = new <#= Name #>();
+        response.data = result.isNull("data") ? new JSONObject() : new JSONObject(result.getString("data"));
+        return response;
+    }
+<# } #> 	                                                           
 }
