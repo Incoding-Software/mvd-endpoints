@@ -5,11 +5,11 @@ import org.json.JSONObject;
 
      
 public class AddCustomerResponse {
-    public JSONObject data;
+    public Object data;
 
     public static AddCustomerResponse Create(JSONObject result) throws JSONException {
         AddCustomerResponse response = new AddCustomerResponse();
-        response.data = result.isNull("data") ? new JSONObject() : new JSONObject(result.getString("data"));
+        response.data = result.isNull("data") ? null : result.get("data");
         return response;
     }
  	                                                           

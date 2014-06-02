@@ -53,11 +53,11 @@ public class <#= Name #> {
 		  }     
 	<# } #>  
 <# } else { #>
-    public JSONObject data;
+    public Object data;
 
     public static <#= Name #> Create(JSONObject result) throws JSONException {
         <#= Name #> response = new <#= Name #>();
-        response.data = result.isNull("data") ? new JSONObject() : new JSONObject(result.getString("data"));
+        response.data = result.isNull("data") ? null : result.get("data");
         return response;
     }
 <# } #> 	                                                           

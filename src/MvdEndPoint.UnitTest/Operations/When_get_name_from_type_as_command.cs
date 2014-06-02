@@ -43,6 +43,6 @@
 
         It should_be_task = () => Compare(GetNameFromTypeQuery.ModeOf.Task, "FakeCommandTask");
 
-        It should_be_response = () => Compare(GetNameFromTypeQuery.ModeOf.Response, "Object");
+        It should_be_response = () => Compare(GetNameFromTypeQuery.ModeOf.Response, "FakeCommandResponse");
     }
 }
