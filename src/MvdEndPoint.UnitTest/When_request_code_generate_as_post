@@ -30,13 +30,16 @@ public class AddCustomerCommand {
 				parameters.add(new BasicNameValuePair("Title", String.valueOf(this.Title)));
 		        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));		
                  
-        http.setHeader("Set-Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
+        http.setHeader("Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
 		http.setHeader("X-Requested-With" , "XMLHttpRequest");
         HttpResponse response = new DefaultHttpClient().execute(http);
-		Header cookieAsHeader = response.getFirstHeader("Set-Cookie");
-        if (cookieAsHeader != null) {
+		Header[] cookies = response.getHeaders("Set-Cookie");
+        if (cookies != null) {
 		    SharedPreferences.Editor edit = preferences.edit();
-            edit.putString(cookieAsHeader.getName(), cookieAsHeader.getValue());
+            String combineCookie = "";
+            for (Header header : cookies)
+                combineCookie += header.getValue() + ";";
+            edit.putString("Set-Cookie", combineCookie);
             edit.commit();
         }
 
