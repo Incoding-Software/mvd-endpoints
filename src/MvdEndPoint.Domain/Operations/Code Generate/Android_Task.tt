@@ -42,6 +42,8 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
             listener.Success( <#=Response#>.Create(new JSONObject(s)) );
         } catch (Exception e) {
             e.printStackTrace();
+        } catch (ModelStateException e) {
+            listener.Error(e.getState());
         }
     }
 

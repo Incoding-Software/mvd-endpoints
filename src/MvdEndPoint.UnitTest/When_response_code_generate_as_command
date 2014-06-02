@@ -7,7 +7,8 @@ import org.json.JSONObject;
 public class AddCustomerResponse {
     public Object data;
 
-    public static AddCustomerResponse Create(JSONObject result) throws JSONException {
+    public static AddCustomerResponse Create(JSONObject result) throws JSONException, ModelStateException {
+	    IncodingHelper.Verify(result);
         AddCustomerResponse response = new AddCustomerResponse();
         response.data = result.isNull("data") ? null : result.get("data");
         return response;

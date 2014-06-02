@@ -90,6 +90,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_class_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_listener_code_generator_for_query">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_listener_code_generator_for_query_with_array">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_response_code_generate_as_command">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -100,6 +109,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\When_incoding_helper_code_generate.cs" />
+    <Compile Include="Operations\When_model_state_exception_code_generate.cs" />
+    <Compile Include="Operations\When_class_code_generate.cs" />
     <Compile Include="Operations\When_listener_code_generator_for_query_with_array.cs" />
     <Compile Include="Operations\When_message_to_package_query.cs" />
     <Compile Include="Operations\OuterEnum.cs" />

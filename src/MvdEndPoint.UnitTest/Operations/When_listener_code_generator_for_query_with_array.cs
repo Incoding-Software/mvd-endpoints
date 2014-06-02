@@ -1,11 +1,16 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
+
+    #endregion
 
     [Subject(typeof(ListenerCodeGeneratorQuery))]
     public class When_listener_code_generator_for_query_with_array
@@ -39,11 +44,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<ListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
-                                      expected = @"
-public interface FakeQueryListener {
-    	void Success(FakeQueryResponse[] response);
-	
-}";
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_listener_code_generator_for_query_with_array).Name));
 
                                       mockQuery = MockQuery<ListenerCodeGeneratorQuery, string>
                                               .When(query)

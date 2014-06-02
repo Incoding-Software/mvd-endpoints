@@ -52,6 +52,7 @@
                                                                                                                                                                                             {
                                                                                                                                                                                                     { "Title", ConvertCSharpTypeToJavaQuery.String }, 
                                                                                                                                                                                                     { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
+                                                                                                                                                                                                    { "Custom", "MyClass" }, 
                                                                                                                                                                                             });
                                   };
 

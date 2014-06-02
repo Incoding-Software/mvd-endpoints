@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -42,11 +43,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<ListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
-                                      expected = @"
-public interface FakeQueryListener {
-    	void Success(FakeQueryResponse response);
-	
-}";
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_listener_code_generator_for_query).Name));
 
                                       mockQuery = MockQuery<ListenerCodeGeneratorQuery, string>
                                               .When(query)

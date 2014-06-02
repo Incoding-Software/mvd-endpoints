@@ -31,6 +31,7 @@ public class AddCustomerCommand {
 		        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));		
                  
         http.setHeader("Set-Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
+		http.setHeader("X-Requested-With" , "XMLHttpRequest");
         HttpResponse response = new DefaultHttpClient().execute(http);
 		Header cookieAsHeader = response.getFirstHeader("Set-Cookie");
         if (cookieAsHeader != null) {

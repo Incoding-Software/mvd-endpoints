@@ -9,7 +9,7 @@
         string dialogId = Guid.NewGuid().ToString();
         string downloadLinkId = Guid.NewGuid().ToString();
         string baseUrlName = Guid.NewGuid().ToString();
-        string defaultUrl = "http://mvd-endpoint.incframework.com";
+        string defaultUrl = "http://bmapp.incoding.biz";
         <div id="@dialogId"></div>
         <div class="form-inline">            
             <div class="form-group">                                                
@@ -82,7 +82,7 @@
                                                                                                   AssemblyQualifiedName = each.For(r => r.AssemblyQualifiedName),
                                                                                                   BaseUrl = Selector.Jquery.Name(baseUrlName)
                                                                                           })
-                                                                  .AsFile(incFileDownloadName: each.For(r => r.Name))
+                                                                  .AsFile(incFileDownloadName: each.For(r => r.Name) + ".zip")
                                                                   .ToBuildUrl();
                                                      dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
                                                  })

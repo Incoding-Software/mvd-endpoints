@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
+    using Incoding.MvcContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
@@ -49,9 +50,15 @@
                                       string listenerContent = Pleasure.Generator.String();
                                       string taskContent = Pleasure.Generator.String();
                                       string responseContent = Pleasure.Generator.String();
+                                      string jsonModelStateClassContent = Pleasure.Generator.String();
+                                      string modelStateExceptionContent = Pleasure.Generator.String();
+                                      string incodingHelperContent = Pleasure.Generator.String();
 
                                       mockQuery = MockQuery<MessageToPackageQuery, byte[]>
                                               .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<IncodingHelperCodeGenerateQuery>(), incodingHelperContent)
+                                              .StubQuery(Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>(), modelStateExceptionContent)
+                                              .StubQuery(Pleasure.Generator.Invent<ClassCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(IncodingResult.JsonModelStateData))), jsonModelStateClassContent)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)), "Request")
                                               .StubQuery(Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
@@ -67,10 +74,13 @@
                                               .StubQuery(Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), responseContent)
                                               .StubQuery(Pleasure.Generator.Invent<ToZipQuery>(dsl => dsl.Tuning(r => r.Entries, new Dictionary<string, string>
                                                                                                                                      {
-                                                                                                                                             { "Request.java", requestContent },
-                                                                                                                                             { "Listener.java", listenerContent },
-                                                                                                                                             { "Task.java", taskContent },
-                                                                                                                                             { "Response.java", responseContent },
+                                                                                                                                             { "IncodingHelper.java", incodingHelperContent }, 
+                                                                                                                                             { "ModelStateException.java", modelStateExceptionContent }, 
+                                                                                                                                             { "JsonModelStateData.java", jsonModelStateClassContent }, 
+                                                                                                                                             { "Request.java", requestContent }, 
+                                                                                                                                             { "Listener.java", listenerContent }, 
+                                                                                                                                             { "Task.java", taskContent }, 
+                                                                                                                                             { "Response.java", responseContent }, 
                                                                                                                                      })), expected);
                                   };
 

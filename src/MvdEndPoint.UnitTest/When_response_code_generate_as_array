@@ -8,12 +8,14 @@ import org.json.JSONObject;
 public class GetCustomersResponse {
         public String Title;
         public int Number;
+        public MyClass Custom;
             
-             public static GetCustomersResponse[] Create(JSONObject result) throws JSONException {     
-		     if(result.isNull("data"))
+         public static GetCustomersResponse[] Create(JSONObject result) throws JSONException, ModelStateException  {     
+		     IncodingHelper.Verify(result);
+			 if(result.isNull("data"))
                return new  GetCustomersResponse[0];
 
-             JSONArray data = result.getJSONArray("data");
+		             JSONArray data = result.getJSONArray("data");
      		 int length = data.length();
              GetCustomersResponse[] res = new GetCustomersResponse[length];
              for (int i = 0; i < length; i++) {
@@ -21,11 +23,13 @@ public class GetCustomersResponse {
                  GetCustomersResponse response = new GetCustomersResponse();
                              response.Title = item.getString("Title");
                              response.Number = item.getInt("Number");
+                             response.Custom = item.get("Custom");
                   
                  res[i] = response;
              }	    
-     		return res;     
-         } 
-      
+     		return res;   
+	      
+         }   
+
  	                                                           
 }

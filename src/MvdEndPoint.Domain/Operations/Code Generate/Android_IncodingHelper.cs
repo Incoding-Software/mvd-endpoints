@@ -18,9 +18,9 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Android_Listener : Android_ListenerBase
+    public partial class Android_IncodingHelper : Android_IncodingHelperBase
     {
 #line hidden
         /// <summary>
@@ -28,185 +28,32 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\npublic interface ");
-            
-            #line 10 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" {\r\n\tvoid Success(");
-            
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
-            
-            #line default
-            #line hidden
-            
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
-if(IsArray){ 
-            
-            #line default
-            #line hidden
-            this.Write("[]");
-            
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
- }
-            
-            #line default
-            #line hidden
-            this.Write(" response);\t\r\n\tvoid Error(JsonModelStateData[] modelState);\r\n}");
+            this.Write(@"
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class IncodingHelper
+{
+    public static void Verify(JSONObject result) throws JSONException, ModelStateException {
+        if (!result.getBoolean(""success"")) {
+            JSONArray errors = result.isNull(""data"") ? new JSONArray() : result.getJSONArray(""data"");
+            JsonModelStateData[] state = new JsonModelStateData[errors.length()];
+            for (int i = 0; i < errors.length(); i++) {
+                JSONObject itemError = errors.getJSONObject(i);
+                JsonModelStateData jsonModelStateData = new JsonModelStateData();
+                jsonModelStateData.errorMessage = itemError.getString(""errorMessage"");
+                jsonModelStateData.isValid = itemError.getBoolean(""isValid"");
+                jsonModelStateData.name = itemError.getString(""name"");
+                state[i] = jsonModelStateData;
+            }
+            throw new ModelStateException(state);
+        }
+    }
+}
+");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
-
-private string _NameField;
-
-/// <summary>
-/// Access the Name parameter of the template.
-/// </summary>
-private string Name
-{
-    get
-    {
-        return this._NameField;
-    }
-}
-
-private bool _IsArrayField;
-
-/// <summary>
-/// Access the IsArray parameter of the template.
-/// </summary>
-private bool IsArray
-{
-    get
-    {
-        return this._IsArrayField;
-    }
-}
-
-private string _ResponseField;
-
-/// <summary>
-/// Access the Response parameter of the template.
-/// </summary>
-private string Response
-{
-    get
-    {
-        return this._ResponseField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool NameValueAcquired = false;
-if (this.Session.ContainsKey("Name"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["Name"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                "ta passed to the template.");
-    }
-    else
-    {
-        this._NameField = ((string)(this.Session["Name"]));
-        NameValueAcquired = true;
-    }
-}
-if ((NameValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Name");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                    "ta passed to the template.");
-        }
-        else
-        {
-            this._NameField = ((string)(data));
-        }
-    }
-}
-bool IsArrayValueAcquired = false;
-if (this.Session.ContainsKey("IsArray"))
-{
-    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
-    {
-        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
-                "e data passed to the template.");
-    }
-    else
-    {
-        this._IsArrayField = ((bool)(this.Session["IsArray"]));
-        IsArrayValueAcquired = true;
-    }
-}
-if ((IsArrayValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
-    if ((data != null))
-    {
-        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
-                    "e data passed to the template.");
-        }
-        else
-        {
-            this._IsArrayField = ((bool)(data));
-        }
-    }
-}
-bool ResponseValueAcquired = false;
-if (this.Session.ContainsKey("Response"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["Response"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
-                "e data passed to the template.");
-    }
-    else
-    {
-        this._ResponseField = ((string)(this.Session["Response"]));
-        ResponseValueAcquired = true;
-    }
-}
-if ((ResponseValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
-                    "e data passed to the template.");
-        }
-        else
-        {
-            this._ResponseField = ((string)(data));
-        }
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default
@@ -216,7 +63,7 @@ if ((ResponseValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Android_ListenerBase
+    public class Android_IncodingHelperBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

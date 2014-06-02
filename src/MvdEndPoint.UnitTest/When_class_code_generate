@@ -1,0 +1,6 @@
+﻿
+public class ClassCodeGenerateQuery {
+        public String Name;
+        public Int Number;
+         
+}

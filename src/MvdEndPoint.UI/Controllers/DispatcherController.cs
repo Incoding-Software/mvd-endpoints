@@ -86,37 +86,37 @@ namespace MvdEndPoint.UI.Controllers
 
         [HttpGet]
         public ActionResult Endpoint(string id, EndPointItem.OfType? type)
-        {            
-            var endPointItems = typeof(Bootstrapper).Assembly.GetTypes()
-                                                    .Where(r => r.IsImplement<CommandBase>() || r.BaseType.Name.Contains("QueryBase"))
-                                                    .Where(r => string.IsNullOrWhiteSpace(id) || r.GUID == Guid.Parse(id))
-                                                    .Select(instanceType =>
-                                                                {
-                                                                    bool isCommand = instanceType.IsImplement<CommandBase>();
-                                                                    var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
-                                                                    var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(Url.Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
-                                                                    return new EndPointItem
-                                                                               {
-                                                                                       Id = instanceType.GUID.ToString(),
-                                                                                       Name = instanceType.Name,
-                                                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
-                                                                                       IsCommand = isCommand,
-                                                                                       Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
-                                                                                       AssemblyQualifiedName = instanceType.AssemblyQualifiedName,
-                                                                                       Properties = instanceType.GetProperties()
-                                                                                                                .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
-                                                                                                                .Select(r => new EndPointItem.Property
-                                                                                                                                 {
-                                                                                                                                         Name = r.Name,
-                                                                                                                                         Type = r.PropertyType.Name,
-                                                                                                                                         IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                                                                                                                         IsEnum = r.PropertyType.IsEnum,
-                                                                                                                                         TypeId = r.PropertyType.GUID.ToString()
-                                                                                                                                 })
-                                                                                                                .ToList()
-                                                                               };
-                                                                })
-                                                    .Where(r => !type.HasValue || r.Type == type.Value.ToLocalization());
+        {
+            var endPointItems = typeof(BmApp.Domain.Bootstrapper).Assembly.GetTypes()
+                                                                 .Where(r => r.IsImplement<CommandBase>() || r.BaseType.Name.Contains("QueryBase"))
+                                                                 .Where(r => string.IsNullOrWhiteSpace(id) || r.GUID == Guid.Parse(id))
+                                                                 .Select(instanceType =>
+                                                                             {
+                                                                                 bool isCommand = instanceType.IsImplement<CommandBase>();
+                                                                                 var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
+                                                                                 var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(Url.Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
+                                                                                 return new EndPointItem
+                                                                                            {
+                                                                                                    Id = instanceType.GUID.ToString(),
+                                                                                                    Name = instanceType.Name,
+                                                                                                    Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
+                                                                                                    IsCommand = isCommand,
+                                                                                                    Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
+                                                                                                    AssemblyQualifiedName = instanceType.AssemblyQualifiedName,
+                                                                                                    Properties = instanceType.GetProperties()
+                                                                                                                             .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
+                                                                                                                             .Select(r => new EndPointItem.Property
+                                                                                                                                              {
+                                                                                                                                                      Name = r.Name,
+                                                                                                                                                      Type = r.PropertyType.Name,
+                                                                                                                                                      IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
+                                                                                                                                                      IsEnum = r.PropertyType.IsEnum,
+                                                                                                                                                      TypeId = r.PropertyType.GUID.ToString()
+                                                                                                                                              })
+                                                                                                                             .ToList()
+                                                                                            };
+                                                                             })
+                                                                 .Where(r => !type.HasValue || r.Type == type.Value.ToLocalization());
             return IncJson(endPointItems);
         }
 

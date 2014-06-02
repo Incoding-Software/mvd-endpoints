@@ -9,7 +9,7 @@
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
-
+    
     #endregion
 
     [Subject(typeof(ResponseCodeGenerateQuery))]
@@ -54,6 +54,7 @@
                                                                                                                                                                                      {
                                                                                                                                                                                              { "Title", ConvertCSharpTypeToJavaQuery.String }, 
                                                                                                                                                                                              { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
+                                                                                                                                                                                             { "Custom", "MyClass" }, 
                                                                                                                                                                                      });
                                   };
 

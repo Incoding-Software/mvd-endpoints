@@ -3,6 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
@@ -21,11 +22,12 @@ public class <#= Name #> {
     <# foreach(var pair in Properties) { #>
     public <#= pair.Value #> <#= pair.Key #>;
     <# } #>        
-    <# if(IsArray) {#>
-         public static <#= Name #>[] Create(JSONObject result) throws JSONException {     
-		     if(result.isNull("data"))
+         public static <#= Name #>[] Create(JSONObject result) throws JSONException, ModelStateException  {     
+		     IncodingHelper.Verify(result);
+			 if(result.isNull("data"))
                return new  <#= Name #>[0];
 
+		<# if(IsArray) {#>
              JSONArray data = result.getJSONArray("data");
      		 int length = data.length();
              <#= Name #>[] res = new <#= Name #>[length];
@@ -33,29 +35,26 @@ public class <#= Name #> {
                  JSONObject item = data.getJSONObject(i);		  
                  <#= Name #> response = new <#= Name #>();
                  <# foreach(var pair in Properties) { #>
-            response.<#= pair.Key #> = item.<#= MappingJsonMethodByType[pair.Value] #>("<#= pair.Key #>");
+            response.<#= pair.Key #> = item.<#= MappingJsonMethodByType.GetOrDefault(pair.Value,"get") #>("<#= pair.Key #>");
                  <# } #> 
                  res[i] = response;
              }	    
-     		return res;     
-         } 
-    <# } else { #>
-	     public static <#= Name #> Create(JSONObject result) throws JSONException { 
-		     if(result.isNull("data"))
-			  return  new <#= Name #>();
-
+     		return res;   
+	    <# } else { #>  
 		     JSONObject data = new JSONObject(result.getString("data"));    
 	         <#= Name #> res = new <#= Name #>();
              <# foreach(var pair in Properties) { #>
-             res.<#= pair.Key #> = data.<#= MappingJsonMethodByType[pair.Value] #>("<#= pair.Key #>");
+             res.<#= pair.Key #> = data.<#= MappingJsonMethodByType.GetOrDefault(pair.Value,"get") #>("<#= pair.Key #>");
              <# } #> 
-		     return res;       
-		  }     
-	<# } #>  
+		     return res;   
+	    <# } #>  
+         }   
+
 <# } else { #>
     public Object data;
 
-    public static <#= Name #> Create(JSONObject result) throws JSONException {
+    public static <#= Name #> Create(JSONObject result) throws JSONException, ModelStateException {
+	    IncodingHelper.Verify(result);
         <#= Name #> response = new <#= Name #>();
         response.data = result.isNull("data") ? null : result.get("data");
         return response;

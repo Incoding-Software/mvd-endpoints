@@ -224,6 +224,7 @@ import java.util.List;
             #line hidden
             this.Write(@"               
         http.setHeader(""Set-Cookie"", preferences.getString(""Set-Cookie"", ""Set-Cookie""));
+		http.setHeader(""X-Requested-With"" , ""XMLHttpRequest"");
         HttpResponse response = new DefaultHttpClient().execute(http);
 		Header cookieAsHeader = response.getFirstHeader(""Set-Cookie"");
         if (cookieAsHeader != null) {

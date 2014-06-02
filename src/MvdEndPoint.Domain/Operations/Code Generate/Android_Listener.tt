@@ -8,10 +8,6 @@
 <#@ parameter type="System.String" name="Response" #>
 
 public interface <#= Name #> {
-    <#if (IsArray) { #>
-	void Success(<#= Response #>[] response);
-	<# } else { #>
-	void Success(<#= Response #> response);
-	<# } #>
-
+	void Success(<#= Response #><#if(IsArray){ #>[]<# }#> response);	
+	void Error(JsonModelStateData[] modelState);
 }
