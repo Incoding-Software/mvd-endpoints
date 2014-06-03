@@ -46,6 +46,8 @@
 
         public const string FloatAsNull = "java.lang.Float";
 
+        public const string Date = "java.util.Date";
+
         #endregion
 
         #region Properties
@@ -82,6 +84,7 @@
                                         new Tuple<Type[], string>(new[] { typeof(byte?), typeof(sbyte?) }, ByteAsNullable), 
                                         new Tuple<Type[], string>(new[] { typeof(int), typeof(Int32), typeof(short), typeof(ushort), typeof(uint) }, Int), 
                                         new Tuple<Type[], string>(new[] { typeof(int?), typeof(Int32?), typeof(short?), typeof(ushort?), typeof(uint?) }, IntAsNull), 
+                                        new Tuple<Type[], string>(new[] { typeof(DateTime), typeof(DateTime?)}, Date), 
                                 }
                     .SingleOrDefault(r => r.Item1.Contains(Type));
 

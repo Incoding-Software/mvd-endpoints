@@ -1,13 +1,14 @@
 ﻿
 import org.json.JSONException;
 import org.json.JSONObject;	
+import java.text.ParseException;
 
 
      
 public class AddCustomerResponse {
     public Object data;
 
-    public static AddCustomerResponse Create(JSONObject result) throws JSONException, ModelStateException {
+    public static AddCustomerResponse Create(JSONObject result) throws JSONException, ModelStateException, ParseException {
 	    IncodingHelper.Verify(result);
         AddCustomerResponse response = new AddCustomerResponse();
         response.data = result.isNull("data") ? null : result.get("data");

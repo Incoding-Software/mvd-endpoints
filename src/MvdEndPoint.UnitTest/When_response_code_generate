@@ -1,6 +1,7 @@
 ﻿
 import org.json.JSONException;
 import org.json.JSONObject;	
+import java.text.ParseException;
 
 
      
@@ -8,8 +9,9 @@ public class GetCustomerResponse {
         public String Title;
         public int Number;
         public MyEnum Type;
+        public java.util.Date CreateDt;
             
-         public static GetCustomerResponse[] Create(JSONObject result) throws JSONException, ModelStateException  {     
+         public static GetCustomerResponse[] Create(JSONObject result) throws JSONException, ModelStateException, ParseException  {     
 		     IncodingHelper.Verify(result);
 			 if(result.isNull("data"))
                return new  GetCustomerResponse[0];
@@ -20,6 +22,7 @@ public class GetCustomerResponse {
                                  			    response.Title = data.getString("Title");
 			                                             			    response.Number = data.getInt("Number");
 			                                             			    response.Type = MyEnum.valueOf(data.getInt("Type"));
+				                                                         response.CreateDt = IncodingHelper.getDate(data.getString("CreateDt"));
 			                          
 		     return res;   
 	      

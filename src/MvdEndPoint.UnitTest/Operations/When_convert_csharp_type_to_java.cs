@@ -96,5 +96,9 @@
         It should_be_char = () => Compare(typeof(char), ConvertCSharpTypeToJavaQuery.Char);
 
         It should_be_char_as_nullable = () => Compare(typeof(char?), ConvertCSharpTypeToJavaQuery.CharAsNullable);
+
+        It should_be_date_time = () => Compare(typeof(DateTime), ConvertCSharpTypeToJavaQuery.Date);
+
+        It should_be_date_time_as_nullable = () => Compare(typeof(DateTime?), ConvertCSharpTypeToJavaQuery.Date);
     }
 }

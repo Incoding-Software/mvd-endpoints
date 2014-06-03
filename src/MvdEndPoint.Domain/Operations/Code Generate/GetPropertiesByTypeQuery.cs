@@ -32,6 +32,8 @@
 
             public bool IsEnum { get; set; }
 
+            public bool IsDateTime { get; set; }
+
             #endregion
         }
 
@@ -49,7 +51,8 @@
                                                                          {
                                                                                  Type = r.PropertyType
                                                                          }),
-                                             IsEnum = r.PropertyType.IsEnum
+                                             IsEnum = r.PropertyType.IsEnum,
+                                             IsDateTime = r.PropertyType == typeof(DateTime)
                                      })
                     .ToList();
         }

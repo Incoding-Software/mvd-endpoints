@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_IncodingHelper : Android_IncodingHelperBase
     {
@@ -32,6 +32,8 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class IncodingHelper
 {
@@ -49,6 +51,10 @@ public class IncodingHelper
             }
             throw new ModelStateException(state);
         }
+    }
+
+    public static java.util.Date getDate(String dateAsString) throws ParseException {
+        return new SimpleDateFormat(""yyyy-MM-dd'T'HH:mm:ss"").parse(dateAsString);
     }
 }
 ");

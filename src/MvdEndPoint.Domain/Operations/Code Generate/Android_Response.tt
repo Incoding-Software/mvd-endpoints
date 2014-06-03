@@ -12,6 +12,7 @@
 
 import org.json.JSONException;
 import org.json.JSONObject;	
+import java.text.ParseException;
 
 
    <# if(IsArray) {#>
@@ -22,7 +23,7 @@ public class <#= Name #> {
     <# foreach(var prop in Properties) { #>
     public <#= prop.Type #> <#= prop.Name #>;
     <# } #>        
-         public static <#= Name #>[] Create(JSONObject result) throws JSONException, ModelStateException  {     
+         public static <#= Name #>[] Create(JSONObject result) throws JSONException, ModelStateException, ParseException  {     
 		     IncodingHelper.Verify(result);
 			 if(result.isNull("data"))
                return new  <#= Name #>[0];
@@ -37,7 +38,9 @@ public class <#= Name #> {
                  <# foreach(var prop in Properties) { #>
                     <#if(prop.IsEnum) { #>
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(item.getInt("<#= prop.Name #>"));
-			        <# } else { #>
+			        <# } else if(prop.IsDateTime) { #>
+                response.<#= prop.Name #> = IncodingHelper.getDate(item.getString("<#= prop.Name #>"));
+					<# } else { #>
 			    response.<#= prop.Name #> = item.<#= MappingJsonMethodByType[prop.Type] #>("<#= prop.Name #>");
 			        <# } #>
                  <# } #> 
@@ -50,6 +53,8 @@ public class <#= Name #> {
              <# foreach(var prop in Properties) { #>
                     <#if(prop.IsEnum) { #>
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(data.getInt("<#= prop.Name #>"));
+				    <# } else if(prop.IsDateTime) { #>
+                response.<#= prop.Name #> = IncodingHelper.getDate(data.getString("<#= prop.Name #>"));
 			        <# } else { #>
 			    response.<#= prop.Name #> = data.<#= MappingJsonMethodByType[prop.Type] #>("<#= prop.Name #>");
 			        <# } #>
@@ -61,7 +66,7 @@ public class <#= Name #> {
 <# } else { #>
     public Object data;
 
-    public static <#= Name #> Create(JSONObject result) throws JSONException, ModelStateException {
+    public static <#= Name #> Create(JSONObject result) throws JSONException, ModelStateException, ParseException {
 	    IncodingHelper.Verify(result);
         <#= Name #> response = new <#= Name #>();
         response.data = result.isNull("data") ? null : result.get("data");

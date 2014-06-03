@@ -55,6 +55,7 @@
                                                                                                                                                                                                     new GetPropertiesByTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String },
                                                                                                                                                                                                     new GetPropertiesByTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int },
                                                                                                                                                                                                     new GetPropertiesByTypeQuery.Response { Name = "Type", Type = "MyEnum",IsEnum = true},
+                                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "CreateDt", Type = "java.util.Date", IsDateTime = true }
                                                                                                                                                                                             });
                                   };
 
