@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
@@ -70,7 +71,7 @@
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), Pleasure.ToDictionary(Pleasure.Generator.KeyValuePair()));
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new List<GetPropertiesByTypeQuery.Response>() { Pleasure.Generator.Invent<GetPropertiesByTypeQuery.Response>() });
                                   };
 
         Because of = () => mockQuery.Original.Execute();

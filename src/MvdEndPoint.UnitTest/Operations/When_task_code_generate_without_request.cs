@@ -56,7 +56,7 @@
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new Dictionary<string, string>());
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new List<GetPropertiesByTypeQuery.Response>());
                                   };
 
         Because of = () => mockQuery.Original.Execute();

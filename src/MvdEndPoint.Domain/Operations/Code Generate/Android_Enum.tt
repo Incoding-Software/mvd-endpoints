@@ -3,6 +3,26 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ parameter type="System.Collections.Generic.List<string>" name="Values" #>
+<#@ parameter type="System.Collections.Generic.List<Tuple<string,string,bool>>" name="Values" #>
 <#@ parameter type="System.String" name="Name" #>
-public enum <#= Name #> { <# foreach(var value in Values) { #>  <#=value #>,  <# } #> }
+public enum <#= Name #> { 
+   <# foreach(var value in Values) { #>  
+     <#=value.Item1 #>(<#= value.Item2 #>) <#= (value.Item3 ? ";" : ",") #>    
+   <# } #> 
+
+    private final int value;
+
+    private <#= Name #>(final int value) {
+        this.value = value;
+    }
+
+	public static <#= Name #> valueOf(int value) {
+       <#= Name #>[] valueEnums = <#= Name #>.values();
+       for (<#= Name #> valueEnum : valueEnums) {
+           if (valueEnum.value == value) {
+               return valueEnum;
+           }
+       }
+       throw new IllegalArgumentException();
+    }
+}

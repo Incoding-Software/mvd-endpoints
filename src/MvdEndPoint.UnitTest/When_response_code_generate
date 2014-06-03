@@ -7,7 +7,7 @@ import org.json.JSONObject;
 public class GetCustomerResponse {
         public String Title;
         public int Number;
-        public MyClass Custom;
+        public MyEnum Type;
             
          public static GetCustomerResponse[] Create(JSONObject result) throws JSONException, ModelStateException  {     
 		     IncodingHelper.Verify(result);
@@ -17,10 +17,10 @@ public class GetCustomerResponse {
 		  
 		     JSONObject data = new JSONObject(result.getString("data"));    
 	         GetCustomerResponse res = new GetCustomerResponse();
-                          res.Title = data.getString("Title");
-                          res.Number = data.getInt("Number");
-                          res.Custom = data.get("Custom");
-              
+                                 			    response.Title = data.getString("Title");
+			                                             			    response.Number = data.getInt("Number");
+			                                             			    response.Type = MyEnum.valueOf(data.getInt("Type"));
+			                          
 		     return res;   
 	      
          }   

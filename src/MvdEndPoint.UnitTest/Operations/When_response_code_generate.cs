@@ -9,7 +9,7 @@
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
-    
+
     #endregion
 
     [Subject(typeof(ResponseCodeGenerateQuery))]
@@ -50,11 +50,11 @@
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerResponse")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), new Dictionary<string, string>
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), new List<GetPropertiesByTypeQuery.Response>
                                                                                                                                                                                      {
-                                                                                                                                                                                             { "Title", ConvertCSharpTypeToJavaQuery.String }, 
-                                                                                                                                                                                             { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
-                                                                                                                                                                                             { "Custom", "MyClass" }, 
+                                                                                                                                                                                             new GetPropertiesByTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String },
+                                                                                                                                                                                             new GetPropertiesByTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int },
+                                                                                                                                                                                             new GetPropertiesByTypeQuery.Response { Name = "Type", Type = "MyEnum",IsEnum = true},
                                                                                                                                                                                      });
                                   };
 

@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Enum : Android_EnumBase
     {
@@ -30,44 +30,95 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("public enum ");
             
-            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 8 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" { ");
+            this.Write(" { \r\n   ");
             
-            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
  foreach(var value in Values) { 
             
             #line default
             #line hidden
-            this.Write("  ");
+            this.Write("  \r\n     ");
             
-            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(value));
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(value.Item1));
             
             #line default
             #line hidden
-            this.Write(",  ");
+            this.Write("(");
             
-            #line 8 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(value.Item2));
+            
+            #line default
+            #line hidden
+            this.Write(") ");
+            
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture((value.Item3 ? ";" : ",")));
+            
+            #line default
+            #line hidden
+            this.Write("    \r\n   ");
+            
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
  } 
             
             #line default
             #line hidden
-            this.Write(" }\r\n");
+            this.Write(" \r\n\r\n    private final int value;\r\n\r\n    private ");
+            
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write("(final int value) {\r\n        this.value = value;\r\n    }\r\n\r\n\tpublic static ");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" valueOf(int value) {\r\n       ");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write("[] valueEnums = ");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(".values();\r\n       for (");
+            
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" valueEnum : valueEnums) {\r\n           if (valueEnum.value == value) {\r\n         " +
+                    "      return valueEnum;\r\n           }\r\n       }\r\n       throw new IllegalArgumen" +
+                    "tException();\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "c:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
 
-private global::System.Collections.Generic.List<string> _ValuesField;
+private global::System.Collections.Generic.List<Tuple<string,string,bool>> _ValuesField;
 
 /// <summary>
 /// Access the Values parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<string> Values
+private global::System.Collections.Generic.List<Tuple<string,string,bool>> Values
 {
     get
     {
@@ -99,14 +150,14 @@ public virtual void Initialize()
 bool ValuesValueAcquired = false;
 if (this.Session.ContainsKey("Values"))
 {
-    if ((typeof(global::System.Collections.Generic.List<string>).IsAssignableFrom(this.Session["Values"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.List<Tuple<string,string,bool>>).IsAssignableFrom(this.Session["Values"].GetType()) == false))
     {
-        this.Error("The type \'System.Collections.Generic.List<string>\' of the parameter \'Values\' did " +
-                "not match the type of the data passed to the template.");
+        this.Error("The type \'System.Collections.Generic.List<Tuple<string,string,bool>>\' of the para" +
+                "meter \'Values\' did not match the type of the data passed to the template.");
     }
     else
     {
-        this._ValuesField = ((global::System.Collections.Generic.List<string>)(this.Session["Values"]));
+        this._ValuesField = ((global::System.Collections.Generic.List<Tuple<string,string,bool>>)(this.Session["Values"]));
         ValuesValueAcquired = true;
     }
 }
@@ -115,14 +166,14 @@ if ((ValuesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Values");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.List<string>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.List<Tuple<string,string,bool>>).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Collections.Generic.List<string>\' of the parameter \'Values\' did " +
-                    "not match the type of the data passed to the template.");
+            this.Error("The type \'System.Collections.Generic.List<Tuple<string,string,bool>>\' of the para" +
+                    "meter \'Values\' did not match the type of the data passed to the template.");
         }
         else
         {
-            this._ValuesField = ((global::System.Collections.Generic.List<string>)(data));
+            this._ValuesField = ((global::System.Collections.Generic.List<Tuple<string,string,bool>>)(data));
         }
     }
 }

@@ -12,7 +12,7 @@
 
     #endregion
 
-    public class GetPropertiesByTypeQuery : QueryBase<Dictionary<string, string>>
+    public class GetPropertiesByTypeQuery : QueryBase<List<GetPropertiesByTypeQuery.Response>>
     {
         #region Properties
 
@@ -20,16 +20,38 @@
 
         #endregion
 
-        protected override Dictionary<string, string> ExecuteResult()
-        {            
+        #region Nested classes
+
+        public class Response
+        {
+            #region Properties
+
+            public string Name { get; set; }
+
+            public string Type { get; set; }
+
+            public bool IsEnum { get; set; }
+
+            #endregion
+        }
+
+        #endregion
+
+        protected override List<Response> ExecuteResult()
+        {
             return (Type.IsImplement<IEnumerable>() ? Type.GenericTypeArguments[0] : Type)
                     .GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                     .Where(r => r.CanWrite)
-                    .Select(r => new KeyValuePair<string, string>(r.Name, Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
-                                                                                               {
-                                                                                                       Type = r.PropertyType
-                                                                                               })))
-                    .ToDictionary(r => r.Key, r => r.Value);
+                    .Select(r => new Response
+                                     {
+                                             Name = r.Name,
+                                             Type = Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
+                                                                         {
+                                                                                 Type = r.PropertyType
+                                                                         }),
+                                             IsEnum = r.PropertyType.IsEnum
+                                     })
+                    .ToList();
         }
     }
 }

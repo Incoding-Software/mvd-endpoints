@@ -1,0 +1,25 @@
+﻿public enum MyEnum { 
+     
+     Value(1) ,    
+     
+     Value2(2) ,    
+     
+     Value3(3) ;    
+    
+
+    private final int value;
+
+    private MyEnum(final int value) {
+        this.value = value;
+    }
+
+	public static MyEnum valueOf(int value) {
+       MyEnum[] valueEnums = MyEnum.values();
+       for (MyEnum valueEnum : valueEnums) {
+           if (valueEnum.value == value) {
+               return valueEnum;
+           }
+       }
+       throw new IllegalArgumentException();
+    }
+}

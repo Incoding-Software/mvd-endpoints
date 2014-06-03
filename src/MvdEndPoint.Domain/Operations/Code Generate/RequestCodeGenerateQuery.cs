@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Incoding.CQRS;
     using Incoding.Extensions;
     using MvdEndPoint.Domain.Operations.Code_Generate;
@@ -32,7 +33,10 @@
                                                                                    Mode = GetNameFromTypeQuery.ModeOf.Request
                                                                            })
                                       },
-                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type }) },
+                                      {
+                                              "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type })
+                                                                      .ToDictionary(r => r.Name, r => r.Type)
+                                      },
                                       { "IsGet", !Type.IsImplement<CommandBase>() },
                                       { "Url", Dispatcher.Query(new GetUrlByTypeQuery { Type = Type, BaseUrl = BaseUrl }) },
                               };

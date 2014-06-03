@@ -1,5 +1,7 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -7,6 +9,8 @@
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
+
+    #endregion
 
     [Subject(typeof(ResponseCodeGenerateQuery))]
     public class When_response_code_generate_as_array
@@ -17,13 +21,11 @@
         {
             #region Nested classes
 
-            public class Response
-            {
-            }
+            public class Response { }
 
             #endregion
 
-            protected override List<GetCustomersQuery.Response> ExecuteResult()
+            protected override List<Response> ExecuteResult()
             {
                 throw new NotImplementedException();
             }
@@ -42,17 +44,17 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomersQuery)));
-                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_response_code_generate_as_array).Name)); 
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_response_code_generate_as_array).Name));
 
                                       mockQuery = MockQuery<ResponseCodeGenerateQuery, string>
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomersResponse")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(List<GetCustomersQuery.Response>))), new Dictionary<string, string>
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(List<GetCustomersQuery.Response>))), new List<GetPropertiesByTypeQuery.Response>
                                                                                                                                                                                             {
-                                                                                                                                                                                                    { "Title", ConvertCSharpTypeToJavaQuery.String }, 
-                                                                                                                                                                                                    { "Number", ConvertCSharpTypeToJavaQuery.Int }, 
-                                                                                                                                                                                                    { "Custom", "MyClass" }, 
+                                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String },
+                                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int },
+                                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Type", Type = "MyEnum",IsEnum = true},
                                                                                                                                                                                             });
                                   };
 

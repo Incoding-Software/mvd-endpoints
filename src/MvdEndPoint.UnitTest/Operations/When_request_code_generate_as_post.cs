@@ -1,5 +1,7 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -8,17 +10,21 @@
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
+    #endregion
+
     [Subject(typeof(RequestCodeGenerateQuery))]
     public class When_request_code_generate_as_post
     {
         #region Fake classes
 
-        class AddCustomerCommand:CommandBase {
+        class AddCustomerCommand : CommandBase
+        {
             public override void Execute()
             {
                 throw new NotImplementedException();
             }
         }
+
         #endregion
 
         #region Establish value
@@ -40,10 +46,10 @@
                                                                                                                    .Tuning(r => r.Type, query.Type)), "AddCustomerCommand")
                                               .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                 .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))), new Dictionary<string, string>
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesByTypeQuery.Response>
                                                                                                                                                                               {
-                                                                                                                                                                                      { "Message", "TheSameString" },
-                                                                                                                                                                                      { "Title", "Number" }
+                                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Message", Type = "TheSameString" },
+                                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Title", Type = "Number" },
                                                                                                                                                                               });
                                   };
 

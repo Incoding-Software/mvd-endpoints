@@ -42,10 +42,10 @@
                                       mockQuery = MockQuery<GetUrlByTypeQuery, string>
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)),
-                                                         new Dictionary<string, string>
+                                                         new List<GetPropertiesByTypeQuery.Response>
                                                              {
-                                                                     { "Param", Pleasure.Generator.String() },
-                                                                     { "Param2", Pleasure.Generator.String() }
+                                                                     new GetPropertiesByTypeQuery.Response { Name = "Param", Type = Pleasure.Generator.String() },
+                                                                     new GetPropertiesByTypeQuery.Response { Name = "Param2", Type = Pleasure.Generator.String() }
                                                              });
                                   };
 

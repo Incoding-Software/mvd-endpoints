@@ -29,10 +29,10 @@
 
                                       mockQuery = MockQuery<ClassCodeGenerateQuery, string>
                                               .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new Dictionary<string, string>
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new List<GetPropertiesByTypeQuery.Response>
                                                                                                                                                               {
-                                                                                                                                                                      { "Name", "String" }, 
-                                                                                                                                                                      { "Number", "Int" }
+                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Name", Type = "String" },
+                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Number", Type = "Int" }
                                                                                                                                                               });
                                   };
 

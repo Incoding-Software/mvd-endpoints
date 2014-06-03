@@ -7,7 +7,7 @@
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
-<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 
 import org.json.JSONException;
@@ -19,8 +19,8 @@ import org.json.JSONArray;
 	<# } #>  
 public class <#= Name #> {
 <# if(IsQuery) { #>
-    <# foreach(var pair in Properties) { #>
-    public <#= pair.Value #> <#= pair.Key #>;
+    <# foreach(var prop in Properties) { #>
+    public <#= prop.Type #> <#= prop.Name #>;
     <# } #>        
          public static <#= Name #>[] Create(JSONObject result) throws JSONException, ModelStateException  {     
 		     IncodingHelper.Verify(result);
@@ -34,8 +34,12 @@ public class <#= Name #> {
              for (int i = 0; i < length; i++) {
                  JSONObject item = data.getJSONObject(i);		  
                  <#= Name #> response = new <#= Name #>();
-                 <# foreach(var pair in Properties) { #>
-            response.<#= pair.Key #> = item.<#= MappingJsonMethodByType.GetOrDefault(pair.Value,"get") #>("<#= pair.Key #>");
+                 <# foreach(var prop in Properties) { #>
+                    <#if(prop.IsEnum) { #>
+			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(item.getInt("<#= prop.Name #>"));
+			        <# } else { #>
+			    response.<#= prop.Name #> = item.<#= MappingJsonMethodByType[prop.Type] #>("<#= prop.Name #>");
+			        <# } #>
                  <# } #> 
                  res[i] = response;
              }	    
@@ -43,9 +47,13 @@ public class <#= Name #> {
 	    <# } else { #>  
 		     JSONObject data = new JSONObject(result.getString("data"));    
 	         <#= Name #> res = new <#= Name #>();
-             <# foreach(var pair in Properties) { #>
-             res.<#= pair.Key #> = data.<#= MappingJsonMethodByType.GetOrDefault(pair.Value,"get") #>("<#= pair.Key #>");
-             <# } #> 
+             <# foreach(var prop in Properties) { #>
+                    <#if(prop.IsEnum) { #>
+			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(data.getInt("<#= prop.Name #>"));
+			        <# } else { #>
+			    response.<#= prop.Name #> = data.<#= MappingJsonMethodByType[prop.Type] #>("<#= prop.Name #>");
+			        <# } #>
+                 <# } #> 
 		     return res;   
 	    <# } #>  
          }   

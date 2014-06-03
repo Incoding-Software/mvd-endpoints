@@ -108,6 +108,9 @@
     <None Include="When_response_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="When_enum_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\When_incoding_helper_code_generate.cs" />
     <Compile Include="Operations\When_model_state_exception_code_generate.cs" />

@@ -1,26 +1,35 @@
 ﻿namespace MvdEndPoint.Domain
 {
+    #region << Using >>
+
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Incoding.CQRS;
     using MvdEndPoint.Domain.Operations.Code_Generate;
-    using Incoding.MvcContrib;
-    using System.Linq;
+
+    #endregion
 
     public class EnumCodeGenerateQuery : QueryBase<string>
     {
+        #region Properties
+
         public Type Type { get; set; }
+
+        #endregion
 
         protected override string ExecuteResult()
         {
             var template = new Android_Enum();
+            var allValues = Enum.GetValues(Type).Cast<Enum>()
+                                .ToList();
             template.Session = new Dictionary<string, object>
                                    {
                                            { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Enum }) },
                                            {
-                                                   "Values", Type.ToKeyValueVm()
-                                                                 .Select(r => r.Value)
-                                                                 .ToList()
+                                                   "Values", allValues
+                                                   .Select((r, i) => new Tuple<string, string, bool>(r.ToString(), r.ToString("d"), i == allValues.Count - 1))
+                                                   .ToList()
                                            }
                                    };
             template.Initialize();

@@ -33,7 +33,7 @@
                                         {
                                                 Type = Type,
                                         })
-                             .Aggregate(url, (current, property) => current + "&{0}=%s".F(property.Key));
+                             .Aggregate(url, (current, property) => current + "&{0}=%s".F(property.Name));
         }
     }
 }

@@ -2,6 +2,8 @@
 {
     #region << Using >>
 
+    using System;
+    using System.IO;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
@@ -15,11 +17,11 @@
 
         enum MyEnum
         {
-            Value, 
+            Value = 1,
 
-            Value2, 
+            Value2 = 2,
 
-            Value3
+            Value3 = 3
         }
 
         static MockMessage<EnumCodeGenerateQuery, string> mockQuery;
@@ -31,8 +33,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<EnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(MyEnum)));
-                                      expected = @"public enum MyEnum {   Value,    Value2,    Value3,   }
-";
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_enum_code_generate).Name));
 
                                       mockQuery = MockQuery<EnumCodeGenerateQuery, string>
                                               .When(query)

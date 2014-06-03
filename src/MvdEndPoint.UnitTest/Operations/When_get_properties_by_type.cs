@@ -39,15 +39,15 @@
 
             string stringType = Pleasure.Generator.String();
             string intType = Pleasure.Generator.String();
-            var mockQuery = MockQuery<GetPropertiesByTypeQuery, Dictionary<string, string>>
+            var mockQuery = MockQuery<GetPropertiesByTypeQuery, List<GetPropertiesByTypeQuery.Response>>
                     .When(query)
                     .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string))), stringType)
                     .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(int))), intType);
             mockQuery.Original.Execute();
-            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new Dictionary<string, string>
+            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesByTypeQuery.Response>
                                                                                         {
-                                                                                                { "Name", stringType },
-                                                                                                { "Sort", intType },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Name", Type = stringType },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Sort", Type = intType }
                                                                                         }));
         }
 

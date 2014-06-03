@@ -46,10 +46,10 @@
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerRequest")
                                               .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                 .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new Dictionary<string, string>
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new List<GetPropertiesByTypeQuery.Response>
                                                                                                                                                                             {
-                                                                                                                                                                                    { "Message", "TheSameString" },
-                                                                                                                                                                                    { "Title", "Number" }
+                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Message", Type = "TheSameString" },
+                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Title", Type = "Number" }
                                                                                                                                                                             });
                                   };
 
