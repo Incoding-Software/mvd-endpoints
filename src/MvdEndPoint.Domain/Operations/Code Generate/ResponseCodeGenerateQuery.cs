@@ -43,7 +43,7 @@
                                                                        { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
                                                                        { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
                                                                        { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
-                                                                       { typeof(long).Name, "getLong" }, 
+                                                                       { typeof(long).Name, "getLong" },                                                                        
                                                                });
             }
 

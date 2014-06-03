@@ -21,7 +21,14 @@
         {
             #region Nested classes
 
-            internal class Response { }
+            internal class Response
+            {
+                #region Properties
+
+                public OuterEnum Value { get; set; }
+
+                #endregion
+            }
 
             #endregion
 
@@ -53,6 +60,7 @@
                                       string jsonModelStateClassContent = Pleasure.Generator.String();
                                       string modelStateExceptionContent = Pleasure.Generator.String();
                                       string incodingHelperContent = Pleasure.Generator.String();
+                                      string enumContent = Pleasure.Generator.String();
 
                                       mockQuery = MockQuery<MessageToPackageQuery, byte[]>
                                               .When(query)
@@ -72,6 +80,9 @@
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)), "Response")
                                               .StubQuery(Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), responseContent)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(OuterEnum))
+                                                                                                                   .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Enum)), "OuterEnum")
+                                              .StubQuery(Pleasure.Generator.Invent<EnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(OuterEnum))), enumContent)
                                               .StubQuery(Pleasure.Generator.Invent<ToZipQuery>(dsl => dsl.Tuning(r => r.Entries, new Dictionary<string, string>
                                                                                                                                      {
                                                                                                                                              { "IncodingHelper.java", incodingHelperContent }, 
@@ -81,6 +92,7 @@
                                                                                                                                              { "Listener.java", listenerContent }, 
                                                                                                                                              { "Task.java", taskContent }, 
                                                                                                                                              { "Response.java", responseContent }, 
+                                                                                                                                             { "OuterEnum.java", enumContent }, 
                                                                                                                                      })), expected);
                                   };
 

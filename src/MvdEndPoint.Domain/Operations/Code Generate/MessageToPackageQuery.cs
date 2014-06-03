@@ -3,6 +3,8 @@
     #region << Using >>
 
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Incoding.CQRS;
@@ -39,7 +41,11 @@
 
             var allProperties = type.GetProperties(bindingFlags).ToList();
             if (!type.IsImplement<CommandBase>())
-                allProperties.AddRange(type.BaseType.GetGenericArguments()[0].GetProperties(bindingFlags));
+            {
+                var responseType = type.BaseType.GetGenericArguments()[0];
+                responseType = responseType.IsImplement<IEnumerable>() ? responseType.GetGenericArguments()[0] : responseType;
+                allProperties.AddRange(responseType.GetProperties(bindingFlags));
+            }
             foreach (var enumAsType in allProperties.Where(r => r.PropertyType.IsEnum)
                                                     .Select(r => r.PropertyType))
             {

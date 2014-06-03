@@ -14,8 +14,6 @@
     {
         #region Constants
 
-        public const string Object = "Object";
-
         public const string Boolean = "Boolean";
 
         public const string String = "String";
@@ -58,6 +56,15 @@
 
         protected override string ExecuteResult()
         {
+            if (Type.IsEnum)
+            {
+                return Dispatcher.Query(new GetNameFromTypeQuery
+                                            {
+                                                    Type = Type, 
+                                                    Mode = GetNameFromTypeQuery.ModeOf.Enum
+                                            });
+            }
+
             var primitive = new List<Tuple<Type[], string>>
                                 {
                                         new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean), 
