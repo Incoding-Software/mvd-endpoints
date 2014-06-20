@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.Generic;
+    using System.ServiceModel;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Incoding.MvcContrib;
@@ -12,11 +13,12 @@
 
     #endregion
 
-    [Subject(typeof(MessageToPackageQuery))]
+    [Subject(typeof(MessagesToPackageQuery))]
     public class When_message_to_package_query
     {
         #region Fake classes
 
+        [ServiceContract]
         class FakeQuery : QueryBase<FakeQuery.Response>
         {
             #region Nested classes
@@ -42,7 +44,7 @@
 
         #region Establish value
 
-        static MockMessage<MessageToPackageQuery, byte[]> mockQuery;
+        static MockMessage<MessagesToPackageQuery, byte[]> mockQuery;
 
         static byte[] expected;
 
@@ -50,7 +52,7 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<MessageToPackageQuery>(dsl => dsl.Tuning(r => r.AssemblyQualifiedName, typeof(FakeQuery).AssemblyQualifiedName));
+                                      var query = Pleasure.Generator.Invent<MessagesToPackageQuery>(dsl => dsl.Tuning(r => r.Names, typeof(FakeQuery).AssemblyQualifiedName));
                                       expected = Pleasure.Generator.Bytes();
 
                                       string requestContent = Pleasure.Generator.String();
@@ -62,7 +64,7 @@
                                       string incodingHelperContent = Pleasure.Generator.String();
                                       string enumContent = Pleasure.Generator.String();
 
-                                      mockQuery = MockQuery<MessageToPackageQuery, byte[]>
+                                      mockQuery = MockQuery<MessagesToPackageQuery, byte[]>
                                               .When(query)
                                               .StubQuery(Pleasure.Generator.Invent<IncodingHelperCodeGenerateQuery>(), incodingHelperContent)
                                               .StubQuery(Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>(), modelStateExceptionContent)
@@ -85,14 +87,14 @@
                                               .StubQuery(Pleasure.Generator.Invent<EnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(OuterEnum))), enumContent)
                                               .StubQuery(Pleasure.Generator.Invent<ToZipQuery>(dsl => dsl.Tuning(r => r.Entries, new Dictionary<string, string>
                                                                                                                                      {
-                                                                                                                                             { "IncodingHelper.java", incodingHelperContent }, 
-                                                                                                                                             { "ModelStateException.java", modelStateExceptionContent }, 
-                                                                                                                                             { "JsonModelStateData.java", jsonModelStateClassContent }, 
-                                                                                                                                             { "Request.java", requestContent }, 
-                                                                                                                                             { "Listener.java", listenerContent }, 
-                                                                                                                                             { "Task.java", taskContent }, 
-                                                                                                                                             { "Response.java", responseContent }, 
-                                                                                                                                             { "OuterEnum.java", enumContent }, 
+                                                                                                                                             { "IncodingHelper.java", incodingHelperContent },
+                                                                                                                                             { "ModelStateException.java", modelStateExceptionContent },
+                                                                                                                                             { "JsonModelStateData.java", jsonModelStateClassContent },
+                                                                                                                                             { "Request.java", requestContent },
+                                                                                                                                             { "Listener.java", listenerContent },
+                                                                                                                                             { "Task.java", taskContent },
+                                                                                                                                             { "Response.java", responseContent },
+                                                                                                                                             { "OuterEnum.java", enumContent },
                                                                                                                                      })), expected);
                                   };
 

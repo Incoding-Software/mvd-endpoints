@@ -5,9 +5,11 @@ namespace MvdEndPoint.UI.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
     using Incoding.CQRS;
     using Incoding.Extensions;
+    using Incoding.Maybe;
     using Incoding.MvcContrib;
     using Incoding.MvcContrib.MVD;
     using MvdEndPoint.Domain;
@@ -17,6 +19,8 @@ namespace MvdEndPoint.UI.Controllers
     public class EndPointItem
     {
         #region Properties
+
+        public Guid GUID { get; set; }
 
         public string Name { get; set; }
 
@@ -30,11 +34,26 @@ namespace MvdEndPoint.UI.Controllers
 
         public bool IsCommand { get; set; }
 
-        public string Id { get; set; }
-
         #endregion
 
         #region Nested classes
+
+        public class Tmpl
+        {
+            #region Properties
+
+            public string DefaultUrl { get; set; }
+
+            public string DownloadLinkId { get; set; }
+
+            public string BaseUrlName { get; set; }
+
+            public string CheckedTypeName { get; set; }
+
+            public string AllId { get; set; }
+
+            #endregion
+        }
 
         public class Property
         {
@@ -78,7 +97,11 @@ namespace MvdEndPoint.UI.Controllers
         #region Constructors
 
         public DispatcherController()
-                : base(typeof(Bootstrapper).Assembly) { }
+                : base(new[]
+                           {
+                                   typeof(Bootstrapper).Assembly,
+                                   typeof(DispatcherController).Assembly
+                           }) { }
 
         #endregion
 
@@ -87,36 +110,38 @@ namespace MvdEndPoint.UI.Controllers
         [HttpGet]
         public ActionResult Endpoint(string id, EndPointItem.OfType? type)
         {
-            var endPointItems = typeof(BmApp.Domain.Bootstrapper).Assembly.GetTypes()
-                                                                 .Where(r => r.IsImplement<CommandBase>() || r.BaseType.Name.Contains("QueryBase"))
-                                                                 .Where(r => string.IsNullOrWhiteSpace(id) || r.GUID == Guid.Parse(id))
-                                                                 .Select(instanceType =>
-                                                                             {
-                                                                                 bool isCommand = instanceType.IsImplement<CommandBase>();
-                                                                                 var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
-                                                                                 var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(Url.Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
-                                                                                 return new EndPointItem
-                                                                                            {
-                                                                                                    Id = instanceType.GUID.ToString(),
-                                                                                                    Name = instanceType.Name,
-                                                                                                    Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
-                                                                                                    IsCommand = isCommand,
-                                                                                                    Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
-                                                                                                    AssemblyQualifiedName = instanceType.AssemblyQualifiedName,
-                                                                                                    Properties = instanceType.GetProperties()
-                                                                                                                             .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
-                                                                                                                             .Select(r => new EndPointItem.Property
-                                                                                                                                              {
-                                                                                                                                                      Name = r.Name,
-                                                                                                                                                      Type = r.PropertyType.Name,
-                                                                                                                                                      IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                                                                                                                                      IsEnum = r.PropertyType.IsEnum,
-                                                                                                                                                      TypeId = r.PropertyType.GUID.ToString()
-                                                                                                                                              })
-                                                                                                                             .ToList()
-                                                                                            };
-                                                                             })
-                                                                 .Where(r => !type.HasValue || r.Type == type.Value.ToLocalization());
+            var enumerable = typeof(BmApp.Domain.Bootstrapper).Assembly.GetTypes()
+                                                              .Where(r => r.IsImplement<CommandBase>() || r.BaseType.With(s => s.Name).Recovery(string.Empty).Contains("QueryBase"))
+                                                              .Where(r => string.IsNullOrWhiteSpace(id) || r.GUID == Guid.Parse(id))
+                                                              .Where(r => !r.IsGenericType);
+            var endPointItems = enumerable
+                    .Select(instanceType =>
+                                {
+                                    bool isCommand = instanceType.IsImplement<CommandBase>();
+                                    var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
+                                    var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(Url.Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
+                                    return new EndPointItem
+                                               {
+                                                       GUID = instanceType.GUID,
+                                                       Name = instanceType.Name,
+                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
+                                                       IsCommand = isCommand,
+                                                       Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
+                                                       AssemblyQualifiedName = HttpUtility.UrlEncode(instanceType.AssemblyQualifiedName),
+                                                       Properties = instanceType.GetProperties()
+                                                                                .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
+                                                                                .Select(r => new EndPointItem.Property
+                                                                                                 {
+                                                                                                         Name = r.Name,
+                                                                                                         Type = r.PropertyType.Name,
+                                                                                                         IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
+                                                                                                         IsEnum = r.PropertyType.IsEnum,
+                                                                                                         TypeId = r.PropertyType.GUID.ToString()
+                                                                                                 })
+                                                                                .ToList()
+                                               };
+                                })
+                    .Where(r => !type.HasValue || r.Type == type.Value.ToLocalization());
             return IncJson(endPointItems);
         }
 
@@ -129,8 +154,6 @@ namespace MvdEndPoint.UI.Controllers
 
             return IncJson(type.ToKeyValueVm().ToOptGroup());
         }
-
-
 
         #endregion
     }

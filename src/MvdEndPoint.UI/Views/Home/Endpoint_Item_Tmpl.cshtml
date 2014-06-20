@@ -3,27 +3,17 @@
 @using Incoding.MvcContrib
 @using MvdEndPoint.Domain
 @using MvdEndPoint.UI.Controllers
+@model EndPointItem.Tmpl
 @{
     using (var template = Html.Incoding().Template<EndPointItem>())
     {
         string dialogId = Guid.NewGuid().ToString();
-        string downloadLinkId = Guid.NewGuid().ToString();
-        string baseUrlName = Guid.NewGuid().ToString();
-        string defaultUrl = "http://bmapp.incoding.biz";
+                        
         <div id="@dialogId"></div>
-        <div class="form-inline">            
-            <div class="form-group">                                                
-                @(Html.When(JqueryBind.Change)
-                      .Direct()
-                      .OnSuccess(dsl => dsl.With(r => r.Id(downloadLinkId)).Core().Trigger.Invoke(JqueryBind.InitIncoding))
-                      .AsHtmlAttributes(new { name = baseUrlName, @class = "form-control" })
-                      .ToTextBox(value: defaultUrl))                    
-            </div>            
-        </div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th></th>
+                    <th></th>       
                     <th>Name</th>
                     <th>Url</th>
                     <th>Type</th>
@@ -37,8 +27,14 @@
                     string trId = "tr" + each.For(r => r.Name);
                     <tr>
                         <td>
+                            @(Html.When(JqueryBind.Change)                                  
+                                  .Direct()
+                                  .OnSuccess(dsl => dsl.WithId(Model.AllId).Core().Trigger.None())
+                                  .AsHtmlAttributes(new { name = Model.CheckedTypeName, value = each.For(r => r.AssemblyQualifiedName) })
+                                  .ToCheckBox(false))
+                        </td>
+                   @*     <td>
                             @(Html.When(JqueryBind.Click)
-                                  .Do()
                                   .Direct()
                                   .OnSuccess(dsl =>
                                                  {
@@ -47,7 +43,7 @@
                                                  })
                                   .AsHtmlAttributes(new { @class = "icon icon-plus" })
                                   .ToI())
-                        </td>
+                        </td>*@
                         <td>@each.For(r => r.Name)</td>
                         <td>
                             <a href="@each.For(r => r.Url)">
@@ -58,7 +54,7 @@
                         <td></td>
                         <td>
                             @(Html.When(JqueryBind.Click)
-                                  .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { id = each.For(r => r.Id) }))
+                                  .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { id = each.For(r => r.GUID) }))
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
                                                                                            string urlSandbox = Url.Dispatcher().AsView("~/Views/Home/Sandbox_Item_Tmpl.cshtml");
@@ -77,16 +73,16 @@
                                   .Direct()
                                   .OnSuccess(dsl =>
                                                  {
-                                                     var url = Url.Dispatcher().Query(new MessageToPackageQuery
-                                                                                          {
-                                                                                                  AssemblyQualifiedName = each.For(r => r.AssemblyQualifiedName),
-                                                                                                  BaseUrl = Selector.Jquery.Name(baseUrlName)
-                                                                                          })
+                                                     var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
+                                                                                                                  {
+                                                                                                                          Names = each.For(r => r.AssemblyQualifiedName),
+                                                                                                                          BaseUrl = Selector.Jquery.Name(Model.CheckedTypeName)
+                                                                                                                  })
                                                                   .AsFile(incFileDownloadName: each.For(r => r.Name) + ".zip")
                                                                   .ToBuildUrl();
                                                      dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
                                                  })
-                                  .AsHtmlAttributes(new { id = downloadLinkId })
+                                  .AsHtmlAttributes(new { id = Model.DownloadLinkId })
                                   .ToLink("Download"))                                                              
                         </td>
                     </tr>
