@@ -1,12 +1,11 @@
-﻿
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import org.apache.http.Header;
+﻿import android.content.Context;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import Incoding.IncodingHelper;
 
 public class GetCustomerRequest {
 
@@ -14,27 +13,12 @@ public class GetCustomerRequest {
     public Number Title;
      
 
-   public HttpResponse execute(Context context) throws IOException {   
-     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-	    	        
-		        String uri = String.format("http://localhost/Dispatcher" ,this.Message  ,this.Title ); 
-                
-	    HttpGet http = new HttpGet(uri);		            
-                 
-        http.setHeader("Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
-		http.setHeader("X-Requested-With" , "XMLHttpRequest");
-        HttpResponse response = new DefaultHttpClient().execute(http);
-		Header[] cookies = response.getHeaders("Set-Cookie");
-        if (cookies != null) {
-		    SharedPreferences.Editor edit = preferences.edit();
-            String combineCookie = "";
-            for (Header header : cookies)
-                combineCookie += header.getValue() + ";";
-            edit.putString("Set-Cookie", combineCookie);
-            edit.commit();
-        }
-
-        return response;
+   public HttpResponse execute(Context context) throws IOException {       
+	List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+	    parameters.add(new BasicNameValuePair(Message, String.valueOf(TheSameString)));
+        parameters.add(new BasicNameValuePair(Title, String.valueOf(Number)));
+       
+	return IncodingHelper.Execute(context, false, "http://localhost/Dispatcher", parameters);
    } 
                                          
 }

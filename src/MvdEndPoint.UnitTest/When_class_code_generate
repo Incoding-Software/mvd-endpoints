@@ -1,4 +1,5 @@
-﻿
+﻿package com.qabenchmarking.android.models
+
 public class ClassCodeGenerateQuery {
         public String Name;
         public Int Number;

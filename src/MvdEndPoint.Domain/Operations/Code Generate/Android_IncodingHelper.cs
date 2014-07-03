@@ -9,16 +9,13 @@
 // ------------------------------------------------------------------------------
 namespace MvdEndPoint.Domain.Operations.Code_Generate
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
+    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_IncodingHelper : Android_IncodingHelperBase
     {
@@ -28,38 +25,129 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-public class IncodingHelper
-{
-    public static void Verify(JSONObject result) throws JSONException, ModelStateException {
-        if (!result.getBoolean(""success"")) {
-            JSONArray errors = result.isNull(""data"") ? new JSONArray() : result.getJSONArray(""data"");
-            JsonModelStateData[] state = new JsonModelStateData[errors.length()];
-            for (int i = 0; i < errors.length(); i++) {
-                JSONObject itemError = errors.getJSONObject(i);
-                JsonModelStateData jsonModelStateData = new JsonModelStateData();
-                jsonModelStateData.errorMessage = itemError.getString(""errorMessage"");
-                jsonModelStateData.isValid = itemError.getBoolean(""isValid"");
-                jsonModelStateData.name = itemError.getString(""name"");
-                state[i] = jsonModelStateData;
-            }
-            throw new ModelStateException(state);
-        }
-    }
-
-    public static java.util.Date getDate(String dateAsString) throws ParseException {
-        return new SimpleDateFormat(""yyyy-MM-dd'T'HH:mm:ss"").parse(dateAsString);
-    }
-}
-");
+            this.Write("package ");
+            
+            #line 2 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\nimport android.content.Context;\r\nimport android.content.SharedPreferences;\r\n" +
+                    "import android.preference.PreferenceManager;\r\nimport org.apache.http.Header;\r\nim" +
+                    "port org.apache.http.HttpResponse;\r\nimport org.apache.http.NameValuePair;\r\nimpor" +
+                    "t org.apache.http.client.entity.UrlEncodedFormEntity;\r\nimport org.apache.http.cl" +
+                    "ient.methods.HttpGet;\r\nimport org.apache.http.client.methods.HttpPost;\r\nimport o" +
+                    "rg.apache.http.impl.client.DefaultHttpClient;\r\nimport org.apache.http.protocol.H" +
+                    "TTP;\r\nimport org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.jso" +
+                    "n.JSONObject;\r\nimport java.io.IOException;\r\nimport java.io.UnsupportedEncodingEx" +
+                    "ception;\r\nimport java.net.URLEncoder;\r\nimport java.text.ParseException;\r\nimport " +
+                    "java.text.SimpleDateFormat;\r\nimport java.util.List;\r\n\r\npublic class IncodingHelp" +
+                    "er {\r\n\r\n\r\n    public static void Verify(JSONObject result) throws JSONException," +
+                    " ModelStateException {\r\n        if (!result.getBoolean(\"success\")) {\r\n          " +
+                    "  JSONArray errors = result.isNull(\"data\") ? new JSONArray() : result.getJSONArr" +
+                    "ay(\"data\");\r\n            JsonModelStateData[] state = new JsonModelStateData[err" +
+                    "ors.length()];\r\n            for (int i = 0; i < errors.length(); i++) {\r\n       " +
+                    "         JSONObject itemError = errors.getJSONObject(i);\r\n                JsonMo" +
+                    "delStateData jsonModelStateData = new JsonModelStateData();\r\n                jso" +
+                    "nModelStateData.errorMessage = itemError.getString(\"errorMessage\");\r\n           " +
+                    "     jsonModelStateData.isValid = itemError.getBoolean(\"isValid\");\r\n            " +
+                    "    jsonModelStateData.name = itemError.getString(\"name\");\r\n                stat" +
+                    "e[i] = jsonModelStateData;\r\n            }\r\n            throw new ModelStateExcep" +
+                    "tion(state);\r\n        }\r\n    }\r\n\r\n    public static java.util.Date getDate(Strin" +
+                    "g dateAsString) throws ParseException {\r\n        return new SimpleDateFormat(\"yy" +
+                    "yy-MM-dd\'T\'HH:mm:ss\").parse(dateAsString);\r\n    }\r\n\r\n    public static HttpRespo" +
+                    "nse Execute(Context context, boolean isPost, String url, List<NameValuePair> par" +
+                    "ameters) throws IOException {\r\n        SharedPreferences preferences = Preferenc" +
+                    "eManager.getDefaultSharedPreferences(context);\r\n        HttpResponse response;\r\n" +
+                    "        if (isPost) {\r\n            HttpPost http = new HttpPost(url);\r\n         " +
+                    "   http.setHeader(\"Content-Type\", \"application/x-www-form-urlencoded\");\r\n       " +
+                    "     http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));\r\n        " +
+                    "    http.setHeader(\"Cookie\", preferences.getString(\"Set-Cookie\", \"Set-Cookie\"));" +
+                    "\r\n            http.setHeader(\"X-Requested-With\", \"XMLHttpRequest\");\r\n           " +
+                    " response = new DefaultHttpClient().execute(http);\r\n        } else {\r\n\r\n        " +
+                    "    HttpGet http = new HttpGet(url + getQuery(parameters));\r\n            http.se" +
+                    "tHeader(\"Cookie\", preferences.getString(\"Set-Cookie\", \"Set-Cookie\"));\r\n         " +
+                    "   http.setHeader(\"X-Requested-With\", \"XMLHttpRequest\");\r\n            response =" +
+                    " new DefaultHttpClient().execute(http);\r\n        }\r\n\r\n        Header[] cookies =" +
+                    " response.getHeaders(\"Set-Cookie\");\r\n        if (cookies != null && cookies.leng" +
+                    "th != 0) {\r\n            SharedPreferences.Editor edit = preferences.edit();\r\n   " +
+                    "         String combineCookie = preferences.getString(\"Set-Cookie\", \"Set-Cookie\"" +
+                    ");\r\n            for (Header header : cookies)\r\n                combineCookie += " +
+                    "header.getValue() + \";\";\r\n            edit.putString(\"Set-Cookie\", combineCookie" +
+                    ");\r\n            edit.commit();\r\n        }\r\n\r\n        return response;\r\n    }\r\n\r\n" +
+                    "    private static String getQuery(List<NameValuePair> params) throws Unsupporte" +
+                    "dEncodingException {\r\n        StringBuilder result = new StringBuilder();\r\n     " +
+                    "   boolean first = true;\r\n\r\n        for (NameValuePair pair : params) {\r\n       " +
+                    "     if (first)\r\n                first = false;\r\n            else\r\n             " +
+                    "   result.append(\"&\");\r\n\r\n            result.append(URLEncoder.encode(pair.getNa" +
+                    "me(), \"UTF-8\"));\r\n            result.append(\"=\");\r\n            result.append(URL" +
+                    "Encoder.encode(pair.getValue(), \"UTF-8\"));\r\n        }\r\n\r\n        return result.t" +
+                    "oString();\r\n    }\r\n\r\n\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_IncodingHelper.tt"
+
+private string _NamespaceField;
+
+/// <summary>
+/// Access the Namespace parameter of the template.
+/// </summary>
+private string Namespace
+{
+    get
+    {
+        return this._NamespaceField;
+    }
+}
+
+
+/// <summary>
+/// Initialize the template
+/// </summary>
+public virtual void Initialize()
+{
+    if ((this.Errors.HasErrors == false))
+    {
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
+    }
+    else
+    {
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
+    }
+}
+if ((NamespaceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
+        }
+        else
+        {
+            this._NamespaceField = ((string)(data));
+        }
+    }
+}
+
+
+    }
+}
+
+
+        
+        #line default
+        #line hidden
     }
     
     #line default

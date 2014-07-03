@@ -8,7 +8,7 @@
     #endregion
 
     public class ModelStateExceptionCodeGenerateQuery : QueryBase<string>
-    {
+    {        
         protected override string ExecuteResult()
         {
             var template = new Android_ModelStateException();

@@ -28,6 +28,13 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         /// </summary>
         public virtual string TransformText()
         {
+            this.Write("package ");
+            
+            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
             this.Write(@"
 
 import android.content.Context;
@@ -41,7 +48,7 @@ import org.json.JSONObject;
 
 public class ");
             
-            #line 23 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 24 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
@@ -49,77 +56,77 @@ public class ");
             this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    private Context context;\r\n\r\n" +
                     "    private ");
             
-            #line 27 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 28 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write(" listener;\r\n\r\n    private ");
             
-            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request ");
             
-            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  if(!HasRequest) { 
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write("() ");
             
-            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 30 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
             this.Write(";\r\n\t\r\n    public ");
             
-            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("(Context context");
             
-            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  if(HasRequest) { 
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request ");
             
-            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
             #line hidden
             this.Write(") {    \r\n\t  this.context= context;\r\n\t  ");
             
-            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 34 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  if(HasRequest) { 
             
             #line default
             #line hidden
             this.Write("\t  this.request = request;    \r\n\t  ");
             
-            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 36 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
  } 
             
             #line default
@@ -127,7 +134,7 @@ public class ");
             this.Write("    }\r\n\t\t\r\n\t@Override\r\n    protected void onPostExecute(String s) {\r\n        supe" +
                     "r.onPostExecute(s);\r\n        try {\r\n            listener.Success( ");
             
-            #line 42 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 43 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
@@ -153,7 +160,7 @@ public class ");
 
     public void On(");
             
-            #line 61 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
+            #line 62 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Task.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
@@ -239,6 +246,19 @@ private bool HasRequest
     get
     {
         return this._HasRequestField;
+    }
+}
+
+private string _NamespaceField;
+
+/// <summary>
+/// Access the Namespace parameter of the template.
+/// </summary>
+private string Namespace
+{
+    get
+    {
+        return this._NamespaceField;
     }
 }
 
@@ -427,6 +447,36 @@ if ((HasRequestValueAcquired == false))
         else
         {
             this._HasRequestField = ((bool)(data));
+        }
+    }
+}
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
+    }
+    else
+    {
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
+    }
+}
+if ((NamespaceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
+        }
+        else
+        {
+            this._NamespaceField = ((string)(data));
         }
     }
 }

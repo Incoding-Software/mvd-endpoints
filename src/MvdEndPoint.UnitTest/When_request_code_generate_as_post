@@ -1,18 +1,12 @@
-﻿
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import org.apache.http.Header;
+﻿import android.content.Context;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import Incoding.IncodingHelper;
+package cna4nmkmmed@mail.com2nlihhx2rx1@mail.comd4y4pcawvy
 
 public class AddCustomerCommand {
 
@@ -20,30 +14,14 @@ public class AddCustomerCommand {
     public Number Title;
      
 
-   public HttpResponse execute(Context context) throws IOException {   
-     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-	     	        	    
-        HttpPost http = new HttpPost("http://localhost/Dispatcher");		        
-        http.setHeader("Content-Type", "application/x-www-form-urlencoded");				
-        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-        		parameters.add(new BasicNameValuePair("Message", String.valueOf(this.Message)));
-				parameters.add(new BasicNameValuePair("Title", String.valueOf(this.Title)));
-		        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));		
-                 
-        http.setHeader("Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
-		http.setHeader("X-Requested-With" , "XMLHttpRequest");
-        HttpResponse response = new DefaultHttpClient().execute(http);
-		Header[] cookies = response.getHeaders("Set-Cookie");
-        if (cookies != null) {
-		    SharedPreferences.Editor edit = preferences.edit();
-            String combineCookie = "";
-            for (Header header : cookies)
-                combineCookie += header.getValue() + ";";
-            edit.putString("Set-Cookie", combineCookie);
-            edit.commit();
-        }
-
-        return response;
+   public HttpResponse execute(Context context) throws IOException {       
+	List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+		if (this.TheSameString != null)
+    parameters.add(new BasicNameValuePair("Message", String.valueOf(this.TheSameString)));
+    	if (this.Number != null)
+    parameters.add(new BasicNameValuePair("Title", String.valueOf(this.Number)));
+       
+	return IncodingHelper.Execute(context, true, "http://localhost/Dispatcher", parameters);
    } 
                                          
 }

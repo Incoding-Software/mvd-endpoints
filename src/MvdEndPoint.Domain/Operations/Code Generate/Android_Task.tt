@@ -9,7 +9,8 @@
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.Boolean" name="HasRequest" #>
-
+<#@ parameter type="System.String" name="Namespace" #>
+package <#= Namespace #>
 
 import android.content.Context;
 import android.content.SharedPreferences;

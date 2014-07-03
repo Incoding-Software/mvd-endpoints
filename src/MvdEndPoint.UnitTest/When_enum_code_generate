@@ -1,4 +1,6 @@
-﻿public enum MyEnum { 
+﻿package com.qabenchmarking.android.models
+
+public enum MyEnum { 
      
      Value(1) ,    
      

@@ -8,6 +8,7 @@ import java.text.ParseException;
 public class GetCustomerResponse {
         public String Title;
         public int Number;
+        public Boolean Boolean;
         public MyEnum Type;
         public java.util.Date CreateDt;
             
@@ -21,6 +22,7 @@ public class GetCustomerResponse {
 	         GetCustomerResponse res = new GetCustomerResponse();
                                  			    response.Title = data.getString("Title");
 			                                             			    response.Number = data.getInt("Number");
+			                                             			    response.Boolean = data.getBoolean("Boolean");
 			                                             			    response.Type = MyEnum.valueOf(data.getInt("Type"));
 				                                                         response.CreateDt = IncodingHelper.getDate(data.getString("CreateDt"));
 			                          

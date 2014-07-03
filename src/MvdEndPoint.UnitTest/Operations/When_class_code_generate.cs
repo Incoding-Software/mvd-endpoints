@@ -24,7 +24,8 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<ClassCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(ClassCodeGenerateQuery)));
+                                      var query = Pleasure.Generator.Invent<ClassCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
+                                          .Tuning(r => r.Type, typeof(ClassCodeGenerateQuery)));
                                       expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_class_code_generate).Name));
 
                                       mockQuery = MockQuery<ClassCodeGenerateQuery, string>

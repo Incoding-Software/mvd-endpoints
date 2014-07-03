@@ -37,12 +37,13 @@
             zipQuery.Entries.Add("JsonModelStateData.java", Dispatcher.Query(new ClassCodeGenerateQuery { Type = typeof(IncodingResult.JsonModelStateData) }));
             foreach (var type in types)
             {
+                var m
                 Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => Dispatcher.Query(new GetNameFromTypeQuery { Type = type, Mode = of, }) + ".java";
 
-                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new RequestCodeGenerateQuery { Type = type, BaseUrl = BaseUrl }));
-                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Listener), Dispatcher.Query(new ListenerCodeGeneratorQuery { Type = type, }));
-                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Task), Dispatcher.Query(new TaskCodeGenerateQuery { Type = type }));
-                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Response), Dispatcher.Query(new ResponseCodeGenerateQuery { Type = type }));
+                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new RequestCodeGenerateQuery { Type = type, BaseUrl = BaseUrl,Namespace = }));
+                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Listener), Dispatcher.Query(new ListenerCodeGeneratorQuery { Type = type, Namespace = Namespace }));
+                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Task), Dispatcher.Query(new TaskCodeGenerateQuery { Type = type, Namespace = Namespace }));
+                zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Response), Dispatcher.Query(new ResponseCodeGenerateQuery { Type = type, Namespace = Namespace }));
                 const BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
 
                 var allProperties = type.GetProperties(bindingFlags).ToList();
@@ -52,6 +53,7 @@
                     responseType = responseType.IsImplement<IEnumerable>() ? responseType.GetGenericArguments()[0] : responseType;
                     allProperties.AddRange(responseType.GetProperties(bindingFlags));
                 }
+
                 foreach (var enumAsType in allProperties.Where(r => r.PropertyType.IsEnum)
                                                         .Select(r => r.PropertyType))
                 {

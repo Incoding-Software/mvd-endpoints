@@ -92,6 +92,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_model_state_exception_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_incoding_helper_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -127,7 +130,6 @@
     <Compile Include="Operations\When_get_name_from_type_as_command.cs" />
     <Compile Include="Operations\When_get_url_by_type_as_command.cs" />
     <Compile Include="Operations\When_get_url_by_type_as_query.cs" />
-    <Compile Include="Operations\When_dispatcher_code_generator.cs" />
     <Compile Include="Operations\When_listener_code_generator_for_query.cs" />
     <Compile Include="Operations\When_get_name_from_type_as_query.cs" />
     <Compile Include="Operations\When_get_properties_by_type.cs" />

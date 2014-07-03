@@ -4,8 +4,10 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.String" name="Response" #>
+package <#= Namespace #>
 
 public interface <#= Name #> {
 	void Success(<#= Response #><#if(IsArray){ #>[]<# }#> response);	

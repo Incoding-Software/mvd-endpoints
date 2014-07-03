@@ -76,7 +76,7 @@
                                                      var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
                                                                                                                   {
                                                                                                                           Names = each.For(r => r.AssemblyQualifiedName),
-                                                                                                                          BaseUrl = Selector.Jquery.Name(Model.CheckedTypeName)
+                                                                                                                          BaseUrl = Selector.Jquery.Name(Model.BaseUrlName)
                                                                                                                   })
                                                                   .AsFile(incFileDownloadName: each.For(r => r.Name) + ".zip")
                                                                   .ToBuildUrl();

@@ -69,6 +69,7 @@
 
             var primitive = new List<Tuple<Type[], string>>
                                 {
+                                        new Tuple<Type[], string>(new[] { typeof(object) }, String), 
                                         new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean), 
                                         new Tuple<Type[], string>(new[] { typeof(bool?) }, BooleanAsNullable), 
                                         new Tuple<Type[], string>(new[] { typeof(char) }, Char), 

@@ -59,7 +59,8 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
+                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
+                                                                                                             .Tuning(r => r.Type, typeof(FakeQuery)));
                                       expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_task_code_generate).Name));
 
                                       Func<GetNameFromTypeQuery.ModeOf, GetNameFromTypeQuery> createByName = modeOf => Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, modeOf)
@@ -71,7 +72,7 @@
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Task), "FakeTask")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new List<GetPropertiesByTypeQuery.Response>() { Pleasure.Generator.Invent<GetPropertiesByTypeQuery.Response>() });
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), new List<GetPropertiesByTypeQuery.Response> { Pleasure.Generator.Invent<GetPropertiesByTypeQuery.Response>() });
                                   };
 
         Because of = () => mockQuery.Original.Execute();

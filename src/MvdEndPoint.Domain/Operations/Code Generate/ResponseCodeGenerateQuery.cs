@@ -16,6 +16,8 @@
 
         public Type Type { get; set; }
 
+        public string Namespace { get; set; }
+
         #endregion
 
         protected override string ExecuteResult()
@@ -24,6 +26,7 @@
             bool isQuery = !Type.IsImplement<CommandBase>();
             dto.Session = new Dictionary<string, object>
                               {
+                                      { "Namespace", Namespace }, 
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) }, 
                                       { "MappingJsonMethodByType", new Dictionary<string, string>() }, 
                                       { "Properties", new Dictionary<string, string>() }, 
@@ -43,7 +46,8 @@
                                                                        { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
                                                                        { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
                                                                        { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
-                                                                       { typeof(long).Name, "getLong" },                                                                        
+                                                                       { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" }, 
+                                                                       { typeof(long).Name, "getLong" }, 
                                                                });
             }
 

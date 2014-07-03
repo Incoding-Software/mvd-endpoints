@@ -43,9 +43,7 @@
                 case ModeOf.Request:
                     return Type.Name + "Request";
                 case ModeOf.Response:
-                    return Type.IsImplement<CommandBase>() ? Type.Name + "Response" : (Type.BaseType.GenericTypeArguments[0].IsImplement<IEnumerable>()
-                                                                                               ? Type.Name + Type.BaseType.GenericTypeArguments[0].GenericTypeArguments[0].Name
-                                                                                               : Type.Name + Type.BaseType.GenericTypeArguments[0].Name);
+                    return Type.Name + "Response";
                 case ModeOf.Task:
                     return Type.Name + "Task";
                 case ModeOf.Listener:

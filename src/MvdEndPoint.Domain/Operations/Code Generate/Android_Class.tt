@@ -4,7 +4,9 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
+package <#= Namespace #>
 
 public class <#= Name #> {
     <# foreach(var pair in Properties) { #>

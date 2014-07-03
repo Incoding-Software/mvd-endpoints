@@ -86,14 +86,9 @@
       <DependentUpon>Android_Request.tt</DependentUpon>
     </Compile>
     <Compile Include="Operations\Code Generate\ClassCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\ConvertCSharpTypeToJavaQuery.cs" />
+    <Compile Include="Operations\Utilites\ConvertCSharpTypeToJavaQuery.cs" />
     <Compile Include="Operations\Code Generate\Android_Listener.cs">
       <DependentUpon>Android_Listener.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Operations\Code Generate\Android_Disaptcher.cs">
-      <DependentUpon>Android_Disaptcher.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -104,11 +99,6 @@
     </Compile>
     <Compile Include="Operations\Code Generate\Android_Enum.cs">
       <DependentUpon>Android_Enum.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Operations\Code Generate\Android_Helper.cs">
-      <DependentUpon>Android_Helper.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -128,8 +118,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\EnumCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\GetNameFromTypeQuery.cs" />
-    <Compile Include="Operations\Code Generate\GetPropertiesByTypeQuery.cs" />
+    <Compile Include="Operations\Utilites\GetNameFromTypeQuery.cs" />
+    <Compile Include="Operations\Utilites\GetPropertiesByTypeQuery.cs" />
     <Compile Include="Operations\Code Generate\Android_Task.cs">
       <DependentUpon>Android_Task.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -138,13 +128,12 @@
     <Compile Include="Operations\Code Generate\IncodingHelperCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\ModelStateExceptionCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\RequestCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\GetUrlByTypeQuery.cs" />
+    <Compile Include="Operations\Utilites\GetUrlByTypeQuery.cs" />
     <Compile Include="Operations\Code Generate\MessageToPackageQuery.cs" />
     <Compile Include="Operations\Code Generate\ListenerCodeGeneratorQuery.cs" />
-    <Compile Include="Operations\Code Generate\DispatcherCodeGeneratorQuery.cs" />
     <Compile Include="Operations\Code Generate\ResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\TaskCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\ZipQuery.cs" />
+    <Compile Include="Operations\Utilites\ZipQuery.cs" />
     <Compile Include="Persistence\Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -161,10 +150,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Listener.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_Disaptcher.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_Disaptcher.cs</LastGenOutput>
-    </None>
     <None Include="Operations\Code Generate\Android_Response.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Response.cs</LastGenOutput>
@@ -172,10 +157,6 @@
     <None Include="Operations\Code Generate\Android_Enum.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Enum.cs</LastGenOutput>
-    </None>
-    <None Include="Operations\Code Generate\Android_Helper.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_Helper.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android_Class.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

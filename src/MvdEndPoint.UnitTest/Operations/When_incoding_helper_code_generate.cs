@@ -23,7 +23,7 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<IncodingHelperCodeGenerateQuery>();
+                                      var query = Pleasure.Generator.Invent<IncodingHelperCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
                                       expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_incoding_helper_code_generate).Name));
 
                                       mockQuery = MockQuery<IncodingHelperCodeGenerateQuery, string>

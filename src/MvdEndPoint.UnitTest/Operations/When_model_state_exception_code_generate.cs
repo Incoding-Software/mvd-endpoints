@@ -1,9 +1,14 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
+    using System;
+    using System.IO;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
-    using It = Machine.Specifications.It;
+
+    #endregion
 
     [Subject(typeof(ModelStateExceptionCodeGenerateQuery))]
     public class When_model_state_exception_code_generate
@@ -18,24 +23,11 @@
 
         Establish establish = () =>
                                   {
-                                      ModelStateExceptionCodeGenerateQuery query = Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>();
-                                      expected = @"
-public class ModelStateException extends Throwable {
-    private JsonModelStateData[] state;
-
-    public ModelStateException(JsonModelStateData[] state) {
-        this.state = state;
-    }
-
-    public JsonModelStateData[] getState() {
-        return state;
-    }
-}
-";
+                                      var query = Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>();
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_model_state_exception_code_generate).Name));
 
                                       mockQuery = MockQuery<ModelStateExceptionCodeGenerateQuery, string>
                                               .When(query);
-
                                   };
 
         Because of = () => mockQuery.Original.Execute();

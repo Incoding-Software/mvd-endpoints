@@ -1,6 +1,4 @@
-﻿<#@ template language="C#" #>
-<#@ parameter type="System.String" name="Namespace" #>
-package <#= Namespace #>
+﻿package com.qabenchmarking.android.models
 
 public class ModelStateException extends Throwable {
     private JsonModelStateData[] state;

@@ -16,6 +16,8 @@
 
         public Type Type { get; set; }
 
+        public string Namespace { get; set; }
+
         #endregion
 
         protected override string ExecuteResult()
@@ -23,7 +25,8 @@
             var androidClass = new Android_Class();
             androidClass.Session = new Dictionary<string, object>
                                        {
-                                               { "Name", Type.Name },
+                                               { "Namespace", Namespace }, 
+                                               { "Name", Type.Name }, 
                                                {
                                                        "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type })
                                                                                .ToDictionary(r => r.Name, r => r.Type)

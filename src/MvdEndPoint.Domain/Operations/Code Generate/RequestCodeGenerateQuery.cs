@@ -19,6 +19,8 @@
 
         public string BaseUrl { get; set; }
 
+        public string Namespace { get; set; }
+
         #endregion
 
         protected override string ExecuteResult()
@@ -26,19 +28,20 @@
             var dto = new Android_Request();
             dto.Session = new Dictionary<string, object>
                               {
+                                      { "Namespace", Namespace }, 
                                       {
                                               "Name", Dispatcher.Query(new GetNameFromTypeQuery
                                                                            {
-                                                                                   Type = Type,
+                                                                                   Type = Type, 
                                                                                    Mode = GetNameFromTypeQuery.ModeOf.Request
                                                                            })
-                                      },
+                                      }, 
                                       {
                                               "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type })
                                                                       .ToDictionary(r => r.Name, r => r.Type)
-                                      },
-                                      { "IsGet", !Type.IsImplement<CommandBase>() },
-                                      { "Url", Dispatcher.Query(new GetUrlByTypeQuery { Type = Type, BaseUrl = BaseUrl }) },
+                                      }, 
+                                      { "IsGet", !Type.IsImplement<CommandBase>() }, 
+                                      { "Url", Dispatcher.Query(new GetUrlByTypeQuery { Type = Type, BaseUrl = BaseUrl }) }, 
                               };
             dto.Initialize();
             return dto.TransformText();

@@ -5,6 +5,7 @@ namespace MvdEndPoint.UI.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.ServiceModel;
     using System.Web;
     using System.Web.Mvc;
     using Incoding.CQRS;
@@ -80,11 +81,11 @@ namespace MvdEndPoint.UI.Controllers
 
         public enum OfType
         {
-            Command,
+            Command, 
 
-            Query,
+            Query, 
 
-            View,
+            View, 
 
             Template
         }
@@ -99,7 +100,7 @@ namespace MvdEndPoint.UI.Controllers
         public DispatcherController()
                 : base(new[]
                            {
-                                   typeof(Bootstrapper).Assembly,
+                                   typeof(Bootstrapper).Assembly, 
                                    typeof(DispatcherController).Assembly
                            }) { }
 
@@ -112,6 +113,7 @@ namespace MvdEndPoint.UI.Controllers
         {
             var enumerable = typeof(BmApp.Domain.Bootstrapper).Assembly.GetTypes()
                                                               .Where(r => r.IsImplement<CommandBase>() || r.BaseType.With(s => s.Name).Recovery(string.Empty).Contains("QueryBase"))
+                                                              .Where(r => r.HasAttribute<ServiceContractAttribute>())
                                                               .Where(r => string.IsNullOrWhiteSpace(id) || r.GUID == Guid.Parse(id))
                                                               .Where(r => !r.IsGenericType);
             var endPointItems = enumerable
@@ -122,20 +124,20 @@ namespace MvdEndPoint.UI.Controllers
                                     var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(Url.Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
                                     return new EndPointItem
                                                {
-                                                       GUID = instanceType.GUID,
-                                                       Name = instanceType.Name,
-                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
-                                                       IsCommand = isCommand,
-                                                       Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(),
-                                                       AssemblyQualifiedName = HttpUtility.UrlEncode(instanceType.AssemblyQualifiedName),
+                                                       GUID = instanceType.GUID, 
+                                                       Name = instanceType.Name, 
+                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(), 
+                                                       IsCommand = isCommand, 
+                                                       Type = instanceType.IsImplement<CommandBase>() ? EndPointItem.OfType.Command.ToLocalization() : EndPointItem.OfType.Query.ToLocalization(), 
+                                                       AssemblyQualifiedName = HttpUtility.UrlEncode(instanceType.AssemblyQualifiedName), 
                                                        Properties = instanceType.GetProperties()
                                                                                 .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
                                                                                 .Select(r => new EndPointItem.Property
                                                                                                  {
-                                                                                                         Name = r.Name,
-                                                                                                         Type = r.PropertyType.Name,
-                                                                                                         IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                                                                                         IsEnum = r.PropertyType.IsEnum,
+                                                                                                         Name = r.Name, 
+                                                                                                         Type = r.PropertyType.Name, 
+                                                                                                         IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)), 
+                                                                                                         IsEnum = r.PropertyType.IsEnum, 
                                                                                                          TypeId = r.PropertyType.GUID.ToString()
                                                                                                  })
                                                                                 .ToList()

@@ -7,9 +7,10 @@
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
+<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
-
+package <#= Namespace #>
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;

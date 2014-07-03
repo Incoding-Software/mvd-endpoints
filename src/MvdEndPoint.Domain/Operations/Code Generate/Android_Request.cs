@@ -28,218 +28,107 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n");
-            
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- if(IsGet) { 
-            
-            #line default
-            #line hidden
             this.Write(@"import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import java.io.IOException;
-");
-            
-            #line 20 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write(@"import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-");
+import Incoding.IncodingHelper;
+package ");
             
-            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- } 
+            #line 19 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write("\r\npublic class ");
+            this.Write("\r\n\r\npublic class ");
             
-            #line 37 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 21 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n\r\n  ");
             
-            #line 39 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 23 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("  public ");
             
-            #line 40 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 24 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 40 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 24 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write(";\r\n  ");
             
-            #line 41 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 25 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("   \r\n\r\n   public HttpResponse execute(Context context) throws IOException {   \r\n " +
-                    "    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreference" +
-                    "s(context);\r\n\t");
+            this.Write("   \r\n\r\n   public HttpResponse execute(Context context) throws IOException {      " +
+                    " \r\n\tList<NameValuePair> parameters = new ArrayList<NameValuePair>();\r\n\t");
             
-            #line 45 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- if(IsGet) { 
-            
-            #line default
-            #line hidden
-            this.Write("    \t        \r\n\t\t");
-            
-            #line 46 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-  if (Properties.Count > 0) {  
-            
-            #line default
-            #line hidden
-            this.Write("        String uri = String.format(\"");
-            
-            #line 47 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Url));
-            
-            #line default
-            #line hidden
-            this.Write("\"");
-            
-            #line 47 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
-            this.Write(" ,this.");
+            this.Write("\tif (this.");
             
-            #line 47 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 47 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- } 
+            #line 30 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
             
             #line default
             #line hidden
-            this.Write("); \r\n        ");
+            this.Write(" != null)\r\n    parameters.add(new BasicNameValuePair(\"");
             
-            #line 48 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\r\n        String uri = \"");
-            
-            #line 49 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Url));
-            
-            #line default
-            #line hidden
-            this.Write("\";\r\n        ");
-            
-            #line 50 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("        \r\n\t    HttpGet http = new HttpGet(uri);\t\t            \r\n  ");
-            
-            #line 52 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-} else {
-            
-            #line default
-            #line hidden
-            this.Write("     \t        \t    \r\n        HttpPost http = new HttpPost(\"");
-            
-            #line 53 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Url));
-            
-            #line default
-            #line hidden
-            this.Write("\");\t\t        \r\n        http.setHeader(\"Content-Type\", \"application/x-www-form-url" +
-                    "encoded\");\t\t\t\t\r\n        List<NameValuePair> parameters = new ArrayList<NameValue" +
-                    "Pair>();\r\n        ");
-            
-            #line 56 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- foreach(var pair in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tparameters.add(new BasicNameValuePair(\"");
-            
-            #line 57 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write("\", String.valueOf(this.");
             
-            #line 57 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
+            #line 31 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
             
             #line default
             #line hidden
-            this.Write(")));\r\n\t\t");
+            this.Write(")));\r\n    ");
             
-            #line 58 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("        http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));\t\t\r\n  ");
+            this.Write("   \r\n\treturn IncodingHelper.Execute(context, ");
             
-            #line 60 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
- } 
+            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(IsGet  ? "false" : "true"));
             
             #line default
             #line hidden
-            this.Write(@"               
-        http.setHeader(""Cookie"", preferences.getString(""Set-Cookie"", ""Set-Cookie""));
-		http.setHeader(""X-Requested-With"" , ""XMLHttpRequest"");
-        HttpResponse response = new DefaultHttpClient().execute(http);
-		Header[] cookies = response.getHeaders(""Set-Cookie"");
-        if (cookies != null) {
-		    SharedPreferences.Editor edit = preferences.edit();
-            String combineCookie = """";
-            for (Header header : cookies)
-                combineCookie += header.getValue() + "";"";
-            edit.putString(""Set-Cookie"", combineCookie);
-            edit.commit();
-        }
-
-        return response;
-   } 
-                                         
-}");
+            this.Write(", \"");
+            
+            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Url));
+            
+            #line default
+            #line hidden
+            this.Write("\", parameters);\r\n   } \r\n                                         \r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -268,6 +157,19 @@ private string Url
     get
     {
         return this._UrlField;
+    }
+}
+
+private string _NamespaceField;
+
+/// <summary>
+/// Access the Namespace parameter of the template.
+/// </summary>
+private string Namespace
+{
+    get
+    {
+        return this._NamespaceField;
     }
 }
 
@@ -362,6 +264,36 @@ if ((UrlValueAcquired == false))
         else
         {
             this._UrlField = ((string)(data));
+        }
+    }
+}
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
+    }
+    else
+    {
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
+    }
+}
+if ((NamespaceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
+        }
+        else
+        {
+            this._NamespaceField = ((string)(data));
         }
     }
 }

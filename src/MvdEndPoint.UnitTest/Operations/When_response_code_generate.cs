@@ -7,6 +7,7 @@
     using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
+    using Incoding.MvcContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
@@ -54,6 +55,7 @@
                                                                                                                                                                                      {
                                                                                                                                                                                              new GetPropertiesByTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String },
                                                                                                                                                                                              new GetPropertiesByTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int },
+                                                                                                                                                                                             new GetPropertiesByTypeQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToJavaQuery.Boolean },
                                                                                                                                                                                              new GetPropertiesByTypeQuery.Response { Name = "Type", Type = "MyEnum", IsEnum = true },
                                                                                                                                                                                              new GetPropertiesByTypeQuery.Response { Name = "CreateDt", Type = "java.util.Date", IsDateTime = true },
                                                                                                                                                                                      });
@@ -63,4 +65,5 @@
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }
+
 }

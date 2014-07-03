@@ -33,6 +33,8 @@
 
         It should_be_string = () => Compare(typeof(string), ConvertCSharpTypeToJavaQuery.String);
 
+        It should_be_object_as_string = () => Compare(typeof(object), ConvertCSharpTypeToJavaQuery.String);
+
         It should_be_bool = () => Compare(typeof(bool), ConvertCSharpTypeToJavaQuery.Boolean);
 
         It should_be_bool_nullable = () => Compare(typeof(bool?), ConvertCSharpTypeToJavaQuery.BooleanAsNullable);
