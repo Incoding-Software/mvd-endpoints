@@ -1,26 +1,18 @@
-﻿import android.content.Context;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+﻿package com.qabenchmarking.android.models.AddCustomerCommand;
+
+import android.content.Context;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import Incoding.IncodingHelper;
-package cna4nmkmmed@mail.com2nlihhx2rx1@mail.comd4y4pcawvy
+import org.apache.http.HttpResponse;
+import com.qabenchmarking.android.models.Incoding.IncodingHelper;
 
 public class AddCustomerCommand {
 
-    public TheSameString Message;
-    public Number Title;
      
 
    public HttpResponse execute(Context context) throws IOException {       
-	List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-		if (this.TheSameString != null)
-    parameters.add(new BasicNameValuePair("Message", String.valueOf(this.TheSameString)));
-    	if (this.Number != null)
-    parameters.add(new BasicNameValuePair("Title", String.valueOf(this.Number)));
-       
+	java.util.HashMap<String, Object> parameters = new java.util.HashMap<String, Object>();	
+	parameters.put("incType","AddCustomerCommand");
+	   
 	return IncodingHelper.Execute(context, true, "http://localhost/Dispatcher", parameters);
    } 
                                          

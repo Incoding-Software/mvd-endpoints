@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using Incoding.CQRS;
     using Incoding.Maybe;
 
@@ -15,6 +16,8 @@
         #region Constants
 
         public const string Boolean = "Boolean";
+
+        public const string ByteAsArray = "java.lang.Byte[]";
 
         public const string String = "String";
 
@@ -69,6 +72,7 @@
 
             var primitive = new List<Tuple<Type[], string>>
                                 {
+                                        new Tuple<Type[], string>(new[] { typeof(HttpPostedFileBase) }, ByteAsArray), 
                                         new Tuple<Type[], string>(new[] { typeof(object) }, String), 
                                         new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean), 
                                         new Tuple<Type[], string>(new[] { typeof(bool?) }, BooleanAsNullable), 

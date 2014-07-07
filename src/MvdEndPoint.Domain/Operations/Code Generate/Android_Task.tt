@@ -10,16 +10,15 @@
 <#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.Boolean" name="HasRequest" #>
 <#@ parameter type="System.String" name="Namespace" #>
-package <#= Namespace #>
+<#@ parameter type="System.String" name="Package" #>
+package <#= Package #>;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import android.content.Context;
+import android.os.AsyncTask;
+import <#= Namespace #>.Incoding.ModelStateException;
 
 public class <#= Name #> extends AsyncTask<String, Integer, String> {
 

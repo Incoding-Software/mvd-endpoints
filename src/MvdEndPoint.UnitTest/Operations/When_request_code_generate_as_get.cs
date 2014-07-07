@@ -42,14 +42,22 @@
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))),
+                                                         Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "GetCustomerQuery")
+                                                                                                                            .Tuning(r => r.Package, "com.qabenchmarking.android.models.GetCustomerQuery")
+                                                                                                                            .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)
                                                                                                                    .Tuning(r => r.Type, query.Type)), "GetCustomerRequest")
                                               .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                 .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
                                               .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), new List<GetPropertiesByTypeQuery.Response>
                                                                                                                                                                             {
-                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Message", Type = "TheSameString" },
-                                                                                                                                                                                    new GetPropertiesByTypeQuery.Response { Name = "Title", Type = "Number" }
+                                                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Message")
+                                                                                                                                                                                                                                                           .Tuning(r => r.IsCanNull, true)
+                                                                                                                                                                                                                                                           .Tuning(r => r.Type, "TheSameString")),
+                                                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Title")
+                                                                                                                                                                                                                                                           .Tuning(r => r.IsCanNull, false)
+                                                                                                                                                                                                                                                           .Tuning(r => r.Type, "Number"))
                                                                                                                                                                             });
                                   };
 

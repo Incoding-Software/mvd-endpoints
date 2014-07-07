@@ -1,0 +1,11 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Text" #>
+<#@ parameter type="System.String" name="Namespace" #>
+package <#= Namespace #>.Incoding;
+public class JsonModelStateData {
+        public String name;
+        public Boolean isValid;
+        public String errorMessage;
+         
+}

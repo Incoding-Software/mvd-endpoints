@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Enum : Android_EnumBase
     {
@@ -30,84 +30,84 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("package ");
             
-            #line 9 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Package));
             
             #line default
             #line hidden
-            this.Write("\r\n\r\npublic enum ");
+            this.Write(";\r\n\r\npublic enum ");
             
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" { \r\n   ");
             
-            #line 12 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
  foreach(var value in Values) { 
             
             #line default
             #line hidden
             this.Write("  \r\n     ");
             
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(value.Item1));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(value.Item2));
             
             #line default
             #line hidden
             this.Write(") ");
             
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((value.Item3 ? ";" : ",")));
             
             #line default
             #line hidden
             this.Write("    \r\n   ");
             
-            #line 14 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
  } 
             
             #line default
             #line hidden
             this.Write(" \r\n\r\n    private final int value;\r\n\r\n    private ");
             
-            #line 18 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("(final int value) {\r\n        this.value = value;\r\n    }\r\n\r\n\tpublic static ");
             
-            #line 22 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" valueOf(int value) {\r\n       ");
             
-            #line 23 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("[] valueEnums = ");
             
-            #line 23 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(".values();\r\n       for (");
             
-            #line 24 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
@@ -118,7 +118,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Enum.tt"
 
 private global::System.Collections.Generic.List<Tuple<string,string,bool>> _ValuesField;
 
@@ -146,16 +146,16 @@ private string Name
     }
 }
 
-private string _NamespaceField;
+private string _PackageField;
 
 /// <summary>
-/// Access the Namespace parameter of the template.
+/// Access the Package parameter of the template.
 /// </summary>
-private string Namespace
+private string Package
 {
     get
     {
-        return this._NamespaceField;
+        return this._PackageField;
     }
 }
 
@@ -227,33 +227,33 @@ if ((NameValueAcquired == false))
         }
     }
 }
-bool NamespaceValueAcquired = false;
-if (this.Session.ContainsKey("Namespace"))
+bool PackageValueAcquired = false;
+if (this.Session.ContainsKey("Package"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Package"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
-                "he data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Package\' did not match the type of the" +
+                " data passed to the template.");
     }
     else
     {
-        this._NamespaceField = ((string)(this.Session["Namespace"]));
-        NamespaceValueAcquired = true;
+        this._PackageField = ((string)(this.Session["Package"]));
+        PackageValueAcquired = true;
     }
 }
-if ((NamespaceValueAcquired == false))
+if ((PackageValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
-                    "he data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'Package\' did not match the type of the" +
+                    " data passed to the template.");
         }
         else
         {
-            this._NamespaceField = ((string)(data));
+            this._PackageField = ((string)(data));
         }
     }
 }

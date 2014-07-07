@@ -81,6 +81,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -98,7 +99,7 @@
     <None Include="When_incoding_helper_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_class_code_generate">
+    <None Include="When_json_model_state_data_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="When_listener_code_generator_for_query">

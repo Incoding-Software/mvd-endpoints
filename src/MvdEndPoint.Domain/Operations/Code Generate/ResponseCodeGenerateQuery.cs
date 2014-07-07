@@ -16,21 +16,21 @@
 
         public Type Type { get; set; }
 
-        public string Namespace { get; set; }
-
         #endregion
 
         protected override string ExecuteResult()
         {
             var dto = new Android_Response();
             bool isQuery = !Type.IsImplement<CommandBase>();
+            var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
             dto.Session = new Dictionary<string, object>
                               {
-                                      { "Namespace", Namespace }, 
-                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) }, 
-                                      { "MappingJsonMethodByType", new Dictionary<string, string>() }, 
-                                      { "Properties", new Dictionary<string, string>() }, 
-                                      { "IsQuery", isQuery }, 
+                                      { "Namespace", meta.Namespace },
+                                      { "Package", meta.Package },
+                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
+                                      { "MappingJsonMethodByType", new Dictionary<string, string>() },
+                                      { "Properties", new Dictionary<string, string>() },
+                                      { "IsQuery", isQuery },
                               };
 
             if (isQuery)
@@ -43,11 +43,11 @@
                                                                    }));
                 dto.Session.Set("MappingJsonMethodByType", new Dictionary<string, string>
                                                                {
-                                                                       { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
-                                                                       { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
-                                                                       { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
-                                                                       { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" }, 
-                                                                       { typeof(long).Name, "getLong" }, 
+                                                                       { ConvertCSharpTypeToJavaQuery.String, "getString" },
+                                                                       { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
+                                                                       { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
+                                                                       { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" },
+                                                                       { typeof(long).Name, "getLong" },
                                                                });
             }
 

@@ -16,7 +16,7 @@
 
         public Type Type { get; set; }
 
-        public string Namespace { get; set; }
+        public string Package { get; set; }
 
         #endregion
 
@@ -27,8 +27,8 @@
                                 .ToList();
             template.Session = new Dictionary<string, object>
                                    {
-                                           { "Namespace", Namespace }, 
-                                           { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Enum }) }, 
+                                           { "Package", this.Package },
+                                           { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Enum }) },
                                            {
                                                    "Values", allValues
                                                    .Select((r, i) => new Tuple<string, string, bool>(r.ToString(), r.ToString("d"), i == allValues.Count - 1))

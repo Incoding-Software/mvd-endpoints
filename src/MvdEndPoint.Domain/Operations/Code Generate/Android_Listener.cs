@@ -18,7 +18,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_Listener : Android_ListenerBase
     {
@@ -30,34 +30,41 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("package ");
             
-            #line 10 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Package));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\nimport ");
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write("\r\n\r\npublic interface ");
+            this.Write(".Incoding.JsonModelStateData;\r\npublic interface ");
             
-            #line 12 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n\tvoid Success(");
             
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
             
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
 if(IsArray){ 
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
  }
             
             #line default
@@ -66,7 +73,7 @@ if(IsArray){
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Listener.tt"
 
 private string _NameField;
 
@@ -91,6 +98,19 @@ private string Namespace
     get
     {
         return this._NamespaceField;
+    }
+}
+
+private string _PackageField;
+
+/// <summary>
+/// Access the Package parameter of the template.
+/// </summary>
+private string Package
+{
+    get
+    {
+        return this._PackageField;
     }
 }
 
@@ -185,6 +205,36 @@ if ((NamespaceValueAcquired == false))
         else
         {
             this._NamespaceField = ((string)(data));
+        }
+    }
+}
+bool PackageValueAcquired = false;
+if (this.Session.ContainsKey("Package"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Package"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Package\' did not match the type of the" +
+                " data passed to the template.");
+    }
+    else
+    {
+        this._PackageField = ((string)(this.Session["Package"]));
+        PackageValueAcquired = true;
+    }
+}
+if ((PackageValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Package\' did not match the type of the" +
+                    " data passed to the template.");
+        }
+        else
+        {
+            this._PackageField = ((string)(data));
         }
     }
 }

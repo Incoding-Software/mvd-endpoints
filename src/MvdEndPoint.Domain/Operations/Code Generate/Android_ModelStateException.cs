@@ -15,7 +15,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_ModelStateException.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_ModelStateException.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class Android_ModelStateException : Android_ModelStateExceptionBase
     {
@@ -27,13 +27,12 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("package ");
             
-            #line 3 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_ModelStateException.tt"
+            #line 3 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_ModelStateException.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(@"
-
+            this.Write(@".Incoding;
 public class ModelStateException extends Throwable {
     private JsonModelStateData[] state;
 
@@ -49,7 +48,7 @@ public class ModelStateException extends Throwable {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_ModelStateException.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_ModelStateException.tt"
 
 private string _NamespaceField;
 

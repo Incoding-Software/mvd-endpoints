@@ -18,11 +18,13 @@
 
         protected override string ExecuteResult()
         {
-            var template = new Android_IncodingHelper();
-            template.Session = new Dictionary<string, object>
-                                   {
-                                           { "Namespace", Namespace }
-                                   };
+            var template = new Android_IncodingHelper
+                               {
+                                       Session = new Dictionary<string, object>
+                                                     {
+                                                             { "Namespace", Namespace }
+                                                     }
+                               };
             template.Initialize();
             return template.TransformText();
         }

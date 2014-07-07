@@ -8,14 +8,16 @@
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
-package <#= Namespace #>
+package <#= Package #>;
+
+import <#= Namespace #>.Incoding.IncodingHelper;
+import <#= Namespace #>.Incoding.ModelStateException;
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;
-
-
    <# if(IsArray) {#>
 import org.json.JSONArray;
 	<# } #>  

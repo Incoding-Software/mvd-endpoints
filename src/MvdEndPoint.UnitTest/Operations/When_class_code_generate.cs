@@ -3,7 +3,6 @@
     #region << Using >>
 
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -11,12 +10,12 @@
 
     #endregion
 
-    [Subject(typeof(ClassCodeGenerateQuery))]
-    public class When_class_code_generate
+    [Subject(typeof(JsonModelStateDataCodeGenerateQuery))]
+    public class When_json_model_state_data_code_generate
     {
         #region Establish value
 
-        static MockMessage<ClassCodeGenerateQuery, string> mockQuery;
+        static MockMessage<JsonModelStateDataCodeGenerateQuery, string> mockQuery;
 
         static string expected;
 
@@ -24,17 +23,11 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<ClassCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
-                                          .Tuning(r => r.Type, typeof(ClassCodeGenerateQuery)));
-                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_class_code_generate).Name));
+                                      var query = Pleasure.Generator.Invent<JsonModelStateDataCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_json_model_state_data_code_generate).Name));
 
-                                      mockQuery = MockQuery<ClassCodeGenerateQuery, string>
-                                              .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new List<GetPropertiesByTypeQuery.Response>
-                                                                                                                                                              {
-                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Name", Type = "String" },
-                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Number", Type = "Int" }
-                                                                                                                                                              });
+                                      mockQuery = MockQuery<JsonModelStateDataCodeGenerateQuery, string>
+                                              .When(query);
                                   };
 
         Because of = () => mockQuery.Original.Execute();

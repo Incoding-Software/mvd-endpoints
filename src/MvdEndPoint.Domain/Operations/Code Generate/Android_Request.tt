@@ -3,32 +3,32 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Type" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.String" name="Url" #>
+<#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsGet" #>
-<#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
+package <#= Package #>;
+
 import android.content.Context;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import Incoding.IncodingHelper;
-package <#= Namespace #>
+import org.apache.http.HttpResponse;
+import <#= Namespace #>.Incoding.IncodingHelper;
 
 public class <#= Name #> {
 
   <# foreach(var pair in Properties) { #>
-  public <#= pair.Value #> <#= pair.Key #>;
+  public <#= pair.Type #> <#= pair.Name #>;
   <# } #>   
 
    public HttpResponse execute(Context context) throws IOException {       
-	List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+	java.util.HashMap<String, Object> parameters = new java.util.HashMap<String, Object>();	
+	parameters.put("incType","<#= Type #>");
 	<# foreach(var pair in Properties) { #>
-	if (this.<#= pair.Value #> != null)
-    parameters.add(new BasicNameValuePair("<#= pair.Key #>", String.valueOf(this.<#= pair.Value #>)));
+	<# if(pair.IsCanNull) { #> if (this.<#= pair.Name #> != null) <# } #>
+    parameters.put("<#= pair.Name #>",this.<#= pair.Name #>);
     <# } #>   
 	return IncodingHelper.Execute(context, <#= IsGet  ? "false" : "true"  #>, "<#= Url #>", parameters);
    } 

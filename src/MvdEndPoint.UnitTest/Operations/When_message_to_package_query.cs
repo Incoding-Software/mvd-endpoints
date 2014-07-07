@@ -7,7 +7,6 @@
     using System.ServiceModel;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
-    using Incoding.MvcContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
@@ -18,7 +17,7 @@
     {
         #region Fake classes
 
-        [ServiceContract]
+        [ServiceContract(Namespace = IncodingTest)]
         class FakeQuery : QueryBase<FakeQuery.Response>
         {
             #region Nested classes
@@ -44,6 +43,8 @@
 
         #region Establish value
 
+        public const string IncodingTest = "incoding.test";
+
         static MockMessage<MessagesToPackageQuery, byte[]> mockQuery;
 
         static byte[] expected;
@@ -52,7 +53,8 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<MessagesToPackageQuery>(dsl => dsl.Tuning(r => r.Names, typeof(FakeQuery).AssemblyQualifiedName));
+                                      var mainType = typeof(FakeQuery);
+                                      var query = Pleasure.Generator.Invent<MessagesToPackageQuery>(dsl => dsl.Tuning(r => r.Names, mainType.AssemblyQualifiedName));
                                       expected = Pleasure.Generator.Bytes();
 
                                       string requestContent = Pleasure.Generator.String();
@@ -64,27 +66,30 @@
                                       string incodingHelperContent = Pleasure.Generator.String();
                                       string enumContent = Pleasure.Generator.String();
 
+                                      var metaFromType = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>();
                                       mockQuery = MockQuery<MessagesToPackageQuery, byte[]>
                                               .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<IncodingHelperCodeGenerateQuery>(), incodingHelperContent)
-                                              .StubQuery(Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>(), modelStateExceptionContent)
-                                              .StubQuery(Pleasure.Generator.Invent<ClassCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(IncodingResult.JsonModelStateData))), jsonModelStateClassContent)
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<IncodingHelperCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, IncodingTest)), incodingHelperContent)
+                                              .StubQuery(Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, IncodingTest)), modelStateExceptionContent)
+                                              .StubQuery(Pleasure.Generator.Invent<JsonModelStateDataCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, IncodingTest)), jsonModelStateClassContent)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)), "Request")
-                                              .StubQuery(Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<RequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)
                                                                                                                        .Tuning(r => r.BaseUrl, query.BaseUrl)), requestContent)
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Listener)), "Listener")
-                                              .StubQuery(Pleasure.Generator.Invent<ListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), listenerContent)
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<ListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), listenerContent)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Task)), "Task")
-                                              .StubQuery(Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), taskContent)
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), taskContent)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)), "Response")
-                                              .StubQuery(Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))), responseContent)
+                                              .StubQuery(Pleasure.Generator.Invent<ResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), responseContent)
+                                              .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), metaFromType)
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(OuterEnum))
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Enum)), "OuterEnum")
-                                              .StubQuery(Pleasure.Generator.Invent<EnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(OuterEnum))), enumContent)
+                                              .StubQuery(Pleasure.Generator.Invent<EnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Package, metaFromType.Package)
+                                                                                                                    .Tuning(r => r.Type, typeof(OuterEnum))), enumContent)
                                               .StubQuery(Pleasure.Generator.Invent<ToZipQuery>(dsl => dsl.Tuning(r => r.Entries, new Dictionary<string, string>
                                                                                                                                      {
                                                                                                                                              { "IncodingHelper.java", incodingHelperContent },

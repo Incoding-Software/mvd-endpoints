@@ -2,7 +2,6 @@
 {
     #region << Using >>
 
-    using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -37,16 +36,10 @@
                                   {
                                       var query = Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
                                                                                                          .Tuning(r => r.BaseUrl, "http://localhost:48801"));
-                                      expected = "http://localhost:48801/Dispatcher/Query?incType=FakeQuery&Param=%s&Param2=%s";
+                                      expected = "http://localhost:48801/Dispatcher/Query";
 
                                       mockQuery = MockQuery<GetUrlByTypeQuery, string>
-                                              .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)),
-                                                         new List<GetPropertiesByTypeQuery.Response>
-                                                             {
-                                                                     new GetPropertiesByTypeQuery.Response { Name = "Param", Type = Pleasure.Generator.String() },
-                                                                     new GetPropertiesByTypeQuery.Response { Name = "Param2", Type = Pleasure.Generator.String() }
-                                                             });
+                                              .When(query);
                                   };
 
         Because of = () => mockQuery.Original.Execute();

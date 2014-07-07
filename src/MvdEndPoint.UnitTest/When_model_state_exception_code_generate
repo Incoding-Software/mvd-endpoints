@@ -1,5 +1,4 @@
-﻿package com.qabenchmarking.android.models
-
+﻿package com.qabenchmarking.android.models.Incoding;
 public class ModelStateException extends Throwable {
     private JsonModelStateData[] state;
 

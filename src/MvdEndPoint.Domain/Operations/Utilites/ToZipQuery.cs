@@ -29,7 +29,7 @@
         protected override byte[] ExecuteResult()
         {
             using (var zip = new ZipFile())
-            {
+            {                
                 foreach (var pair in Entries)
                     zip.AddEntry(pair.Key, pair.Value);
                 using (var stream = new MemoryStream())

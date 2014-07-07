@@ -9,18 +9,16 @@
 // ------------------------------------------------------------------------------
 namespace MvdEndPoint.Domain.Operations.Code_Generate
 {
-    using System.Linq;
     using System.Text;
-    using System.Collections.Generic;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_JsonModelStateData.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Android_Class : Android_ClassBase
+    public partial class Android_JsonModelStateData : Android_JsonModelStateDataBase
     {
 #line hidden
         /// <summary>
@@ -30,64 +28,17 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
         {
             this.Write("package ");
             
-            #line 9 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
+            #line 5 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_JsonModelStateData.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write("\r\n\r\npublic class ");
-            
-            #line 11 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" {\r\n    ");
-            
-            #line 12 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
- foreach(var pair in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("    public ");
-            
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Value));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 13 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n    ");
-            
-            #line 14 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("     \r\n}");
+            this.Write(".Incoding;\r\npublic class JsonModelStateData {\r\n        public String name;\r\n     " +
+                    "   public Boolean isValid;\r\n        public String errorMessage;\r\n         \r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Class.tt"
-
-private string _NameField;
-
-/// <summary>
-/// Access the Name parameter of the template.
-/// </summary>
-private string Name
-{
-    get
-    {
-        return this._NameField;
-    }
-}
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_JsonModelStateData.tt"
 
 private string _NamespaceField;
 
@@ -102,19 +53,6 @@ private string Namespace
     }
 }
 
-private global::System.Collections.Generic.Dictionary<string,string> _PropertiesField;
-
-/// <summary>
-/// Access the Properties parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.Dictionary<string,string> Properties
-{
-    get
-    {
-        return this._PropertiesField;
-    }
-}
-
 
 /// <summary>
 /// Initialize the template
@@ -123,36 +61,6 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool NameValueAcquired = false;
-if (this.Session.ContainsKey("Name"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["Name"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                "ta passed to the template.");
-    }
-    else
-    {
-        this._NameField = ((string)(this.Session["Name"]));
-        NameValueAcquired = true;
-    }
-}
-if ((NameValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Name");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                    "ta passed to the template.");
-        }
-        else
-        {
-            this._NameField = ((string)(data));
-        }
-    }
-}
 bool NamespaceValueAcquired = false;
 if (this.Session.ContainsKey("Namespace"))
 {
@@ -183,36 +91,6 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
-{
-    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                "\'Properties\' did not match the type of the data passed to the template.");
-    }
-    else
-    {
-        this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
-    }
-}
-if ((PropertiesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
-                    "\'Properties\' did not match the type of the data passed to the template.");
-        }
-        else
-        {
-            this._PropertiesField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
-        }
-    }
-}
 
 
     }
@@ -231,7 +109,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Android_ClassBase
+    public class Android_JsonModelStateDataBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

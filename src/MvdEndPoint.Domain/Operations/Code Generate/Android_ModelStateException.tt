@@ -1,7 +1,6 @@
 ﻿<#@ template language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
-package <#= Namespace #>
-
+package <#= Namespace #>.Incoding;
 public class ModelStateException extends Throwable {
     private JsonModelStateData[] state;
 

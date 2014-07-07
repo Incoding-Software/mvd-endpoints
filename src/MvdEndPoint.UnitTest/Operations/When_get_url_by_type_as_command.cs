@@ -33,7 +33,7 @@
                                   {
                                       var query = Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand))
                                                                                                          .Tuning(r => r.BaseUrl, "http://localhost:48801"));
-                                      expected = "http://localhost:48801/Dispatcher/Push?incType=FakeCommand";
+                                      expected = "http://localhost:48801/Dispatcher/Push";
 
                                       mockQuery = MockQuery<GetUrlByTypeQuery, string>
                                               .When(query);

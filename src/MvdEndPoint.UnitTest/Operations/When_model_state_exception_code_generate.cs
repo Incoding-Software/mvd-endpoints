@@ -23,7 +23,7 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>();
+                                      var query = Pleasure.Generator.Invent<ModelStateExceptionCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
                                       expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_model_state_exception_code_generate).Name));
 
                                       mockQuery = MockQuery<ModelStateExceptionCodeGenerateQuery, string>

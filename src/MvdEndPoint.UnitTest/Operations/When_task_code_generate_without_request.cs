@@ -43,8 +43,7 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
-                                                                                                             .Tuning(r => r.Type, typeof(FakeQuery)));
+                                      var query = Pleasure.Generator.Invent<TaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
 
                                       expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_task_code_generate_without_request).Name));
 
@@ -53,6 +52,9 @@
 
                                       mockQuery = MockQuery<TaskCodeGenerateQuery, string>
                                               .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)),
+                                                         Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
+                                                                                                                            .Tuning(r => r.Package, "com.qabenchmarking.android.models.Fake")))
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Listener), "IFakeOn")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Request), "FakeRequest")
                                               .StubQuery(createByName(GetNameFromTypeQuery.ModeOf.Response), "Response")

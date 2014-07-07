@@ -42,15 +42,15 @@
 
                                       mockQuery = MockQuery<RequestCodeGenerateQuery, string>
                                               .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))),
+                                                         Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "AddCustomerCommand")
+                                                                                                                            .Tuning(r => r.Package, "com.qabenchmarking.android.models.AddCustomerCommand")
+                                                                                                                            .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)
                                                                                                                    .Tuning(r => r.Type, query.Type)), "AddCustomerCommand")
                                               .StubQuery(Pleasure.Generator.Invent<GetUrlByTypeQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                 .Tuning(r => r.Type, query.Type)), "http://localhost/Dispatcher")
-                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesByTypeQuery.Response>
-                                                                                                                                                                              {
-                                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Message", Type = "TheSameString" },
-                                                                                                                                                                                      new GetPropertiesByTypeQuery.Response { Name = "Title", Type = "Number" },
-                                                                                                                                                                              });
+                                              .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesByTypeQuery.Response>());
                                   };
 
         Because of = () => mockQuery.Original.Execute();

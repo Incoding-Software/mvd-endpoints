@@ -1,9 +1,10 @@
-﻿
+﻿package com.qabenchmarking.android.models.GetCustomerQuery;
+
+import com.qabenchmarking.android.models.Incoding.IncodingHelper;
+import com.qabenchmarking.android.models.Incoding.ModelStateException;
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;
-
-
      
 public class GetCustomerResponse {
         public String Title;

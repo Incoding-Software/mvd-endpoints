@@ -1,17 +1,19 @@
 ﻿<#@ parameter type="System.String" name="Namespace" #>
-package <#= Namespace #>;
+package <#= Namespace #>.Incoding;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +22,29 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class IncodingHelper {
 
 
+	public static String ToValue(Object ob) throws UnsupportedEncodingException {
+		if(ob instanceof java.util.Date)
+			return new SimpleDateFormat("dd/MM/yyyy").format(ob);
+				
+		return String.valueOf(ob);
+	}
+	
+	public static ContentBody ToPart(Object ob) throws UnsupportedEncodingException {
+		if(ob instanceof java.util.Date)
+			return new StringBody(new SimpleDateFormat("dd/MM/yyyy").format(ob));
+		if(ob instanceof Byte[])
+			return new ByteArrayBody((byte[]) ob,"file");
+		
+		return new StringBody(String.valueOf(ob));
+	}
+
+	
     public static void Verify(JSONObject result) throws JSONException, ModelStateException {
         if (!result.getBoolean("success")) {
             JSONArray errors = result.isNull("data") ? new JSONArray() : result.getJSONArray("data");
@@ -45,13 +65,19 @@ public class IncodingHelper {
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dateAsString);
     }
 
-    public static HttpResponse Execute(Context context, boolean isPost, String url, List<NameValuePair> parameters) throws IOException {
+    public static HttpResponse Execute(Context context, boolean isPost, String url, HashMap<String,Object> parameters) throws IOException {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         HttpResponse response;
         if (isPost) {
             HttpPost http = new HttpPost(url);
-            http.setHeader("Content-Type", "application/x-www-form-urlencoded");
-            http.setEntity(new UrlEncodedFormEntity(parameters, HTTP.UTF_8));
+            http.setHeader("Content-Type", "application/x-www-form-urlencoded");    
+            http.setHeader("enctype", "multipart/form-data");
+     	    MultipartEntityBuilder entity = MultipartEntityBuilder.create(); 
+     	    entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+     	   for(Entry<String, Object> entry : parameters.entrySet()) {     		    
+     		    entity.addPart(entry.getKey(),ToPart(entry.getValue()));
+     		}
+            http.setEntity(entity.build());
             http.setHeader("Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
             http.setHeader("X-Requested-With", "XMLHttpRequest");
             response = new DefaultHttpClient().execute(http);
@@ -76,19 +102,19 @@ public class IncodingHelper {
         return response;
     }
 
-    private static String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
+    private static String getQuery(HashMap<String,Object> params) throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         boolean first = true;
 
-        for (NameValuePair pair : params) {
+        for(Entry<String, Object> entry : params.entrySet()) {
             if (first)
                 first = false;
             else
                 result.append("&");
 
-            result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
-            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+            result.append(URLEncoder.encode(ToValue(entry.getValue()), "UTF-8"));
         }
 
         return result.toString();

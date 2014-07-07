@@ -1,4 +1,4 @@
-﻿package com.qabenchmarking.android.models
+﻿package com.qabenchmarking.android.models;
 
 public enum MyEnum { 
      

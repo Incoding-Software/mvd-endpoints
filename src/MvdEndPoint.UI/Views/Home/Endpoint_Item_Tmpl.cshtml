@@ -3,17 +3,32 @@
 @using Incoding.MvcContrib
 @using MvdEndPoint.Domain
 @using MvdEndPoint.UI.Controllers
-@model EndPointItem.Tmpl
+@model MvdEndPoint.UI.Controllers.EndPointItem.Tmpl
 @{
     using (var template = Html.Incoding().Template<EndPointItem>())
     {
         string dialogId = Guid.NewGuid().ToString();
-                        
+
         <div id="@dialogId"></div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th></th>       
+                    <th>
+                        @(Html.When(JqueryBind.Click)
+                              .Direct()
+                              .OnSuccess(dsl =>
+                                             {
+                                                 dsl.WithName(Model.CheckedTypeName)
+                                                    .Behaviors(inDsl =>
+                                                                   {
+                                                                       inDsl.Core().JQuery.Attributes.RemoveAttr(HtmlAttribute.Checked);
+                                                                       inDsl.Core().JQuery.Attributes.SetAttr(HtmlAttribute.Checked).If(() => Selector.Jquery.Self());
+                                                                   });
+                                                 dsl.WithId(Model.AllId).Core().Trigger.None();
+                                             })
+                              .AsHtmlAttributes()
+                              .ToCheckBox(false))
+                    </th>       
                     <th>Name</th>
                     <th>Url</th>
                     <th>Type</th>
@@ -27,13 +42,13 @@
                     string trId = "tr" + each.For(r => r.Name);
                     <tr>
                         <td>
-                            @(Html.When(JqueryBind.Change)                                  
+                            @(Html.When(JqueryBind.Change)
                                   .Direct()
                                   .OnSuccess(dsl => dsl.WithId(Model.AllId).Core().Trigger.None())
                                   .AsHtmlAttributes(new { name = Model.CheckedTypeName, value = each.For(r => r.AssemblyQualifiedName) })
                                   .ToCheckBox(false))
                         </td>
-                   @*     <td>
+                        @*     <td>
                             @(Html.When(JqueryBind.Click)
                                   .Direct()
                                   .OnSuccess(dsl =>

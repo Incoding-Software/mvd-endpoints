@@ -1,9 +1,10 @@
-﻿
+﻿package com.qabenchmarking.android.models.AddCustomerCommand;
+
+import com.qabenchmarking.android.models.Incoding.IncodingHelper;
+import com.qabenchmarking.android.models.Incoding.ModelStateException;
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;
-
-
      
 public class AddCustomerResponse {
     public Object data;

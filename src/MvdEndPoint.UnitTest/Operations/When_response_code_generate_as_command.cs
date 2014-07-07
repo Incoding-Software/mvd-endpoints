@@ -1,11 +1,15 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
     using System;
     using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
+
+    #endregion
 
     [Subject(typeof(ResponseCodeGenerateQuery))]
     public class When_response_code_generate_as_command
@@ -37,6 +41,10 @@
 
                                       mockQuery = MockQuery<ResponseCodeGenerateQuery, string>
                                               .When(query)
+                                              .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))),
+                                                         Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "AddCustomerCommand")
+                                                                                                                            .Tuning(r => r.Package, "com.qabenchmarking.android.models.AddCustomerCommand")
+                                                                                                                            .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                                               .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)
                                                                                                                    .Tuning(r => r.Type, query.Type)), "AddCustomerResponse");
                                   };

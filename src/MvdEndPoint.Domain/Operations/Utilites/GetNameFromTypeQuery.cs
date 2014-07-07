@@ -3,7 +3,6 @@
     #region << Using >>
 
     using System;
-    using System.Collections;
     using Incoding.CQRS;
     using Incoding.Extensions;
 
@@ -31,7 +30,7 @@
 
             Listener,
 
-            Enum
+            Enum,            
         }
 
         #endregion
@@ -39,7 +38,7 @@
         protected override string ExecuteResult()
         {
             switch (Mode)
-            {
+            {                
                 case ModeOf.Request:
                     return Type.Name + "Request";
                 case ModeOf.Response:

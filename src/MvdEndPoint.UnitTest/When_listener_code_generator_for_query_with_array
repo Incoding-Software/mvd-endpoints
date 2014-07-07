@@ -1,5 +1,7 @@
-﻿
-public interface FakeQueryListener {
+﻿package com.qabenchmarking.android.models.FakeQuery;
+
+import com.qabenchmarking.android.models.Incoding.JsonModelStateData;
+public interface IFakeQueryListener {
 	void Success(FakeQueryResponse[] response);	
 	void Error(JsonModelStateData[] modelState);
 }
