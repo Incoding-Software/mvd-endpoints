@@ -17,7 +17,7 @@
 
         public const string Boolean = "Boolean";
 
-        public const string ByteAsArray = "java.lang.Byte[]";
+        public const string ByteAsArray = "Byte[]";
 
         public const string String = "String";
 

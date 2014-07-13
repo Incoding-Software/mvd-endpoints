@@ -32,71 +32,68 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
             
             #line default
             #line hidden
-            this.Write(".Incoding;\r\n\r\nimport android.content.Context;\r\nimport android.content.SharedPrefe" +
-                    "rences;\r\nimport android.preference.PreferenceManager;\r\nimport org.apache.http.He" +
-                    "ader;\r\nimport org.apache.http.HttpResponse;\r\nimport org.apache.http.client.metho" +
-                    "ds.HttpGet;\r\nimport org.apache.http.client.methods.HttpPost;\r\nimport org.apache." +
-                    "http.entity.mime.HttpMultipartMode;\r\nimport org.apache.http.entity.mime.Multipar" +
-                    "tEntityBuilder;\r\nimport org.apache.http.entity.mime.content.ByteArrayBody;\r\nimpo" +
-                    "rt org.apache.http.entity.mime.content.ContentBody;\r\nimport org.apache.http.enti" +
-                    "ty.mime.content.StringBody;\r\nimport org.apache.http.impl.client.DefaultHttpClien" +
-                    "t;\r\nimport org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.json." +
-                    "JSONObject;\r\nimport java.io.IOException;\r\nimport java.io.UnsupportedEncodingExce" +
-                    "ption;\r\nimport java.net.URLEncoder;\r\nimport java.text.ParseException;\r\nimport ja" +
-                    "va.text.SimpleDateFormat;\r\nimport java.util.HashMap;\r\nimport java.util.Map.Entry" +
-                    ";\r\n\r\npublic class IncodingHelper {\r\n\r\n\r\n\tpublic static String ToValue(Object ob)" +
-                    " throws UnsupportedEncodingException {\r\n\t\tif(ob instanceof java.util.Date)\r\n\t\t\tr" +
-                    "eturn new SimpleDateFormat(\"dd/MM/yyyy\").format(ob);\r\n\t\t\t\t\r\n\t\treturn String.valu" +
-                    "eOf(ob);\r\n\t}\r\n\t\r\n\tpublic static ContentBody ToPart(Object ob) throws Unsupported" +
-                    "EncodingException {\r\n\t\tif(ob instanceof java.util.Date)\r\n\t\t\treturn new StringBod" +
-                    "y(new SimpleDateFormat(\"dd/MM/yyyy\").format(ob));\r\n\t\tif(ob instanceof Byte[])\r\n\t" +
-                    "\t\treturn new ByteArrayBody((byte[]) ob,\"file\");\r\n\t\t\r\n\t\treturn new StringBody(Str" +
-                    "ing.valueOf(ob));\r\n\t}\r\n\r\n\t\r\n    public static void Verify(JSONObject result) thr" +
-                    "ows JSONException, ModelStateException {\r\n        if (!result.getBoolean(\"succes" +
-                    "s\")) {\r\n            JSONArray errors = result.isNull(\"data\") ? new JSONArray() :" +
-                    " result.getJSONArray(\"data\");\r\n            JsonModelStateData[] state = new Json" +
-                    "ModelStateData[errors.length()];\r\n            for (int i = 0; i < errors.length(" +
-                    "); i++) {\r\n                JSONObject itemError = errors.getJSONObject(i);\r\n    " +
-                    "            JsonModelStateData jsonModelStateData = new JsonModelStateData();\r\n " +
-                    "               jsonModelStateData.errorMessage = itemError.getString(\"errorMessa" +
-                    "ge\");\r\n                jsonModelStateData.isValid = itemError.getBoolean(\"isVali" +
-                    "d\");\r\n                jsonModelStateData.name = itemError.getString(\"name\");\r\n  " +
-                    "              state[i] = jsonModelStateData;\r\n            }\r\n            throw n" +
-                    "ew ModelStateException(state);\r\n        }\r\n    }\r\n\r\n    public static java.util." +
-                    "Date getDate(String dateAsString) throws ParseException {\r\n        return new Si" +
-                    "mpleDateFormat(\"yyyy-MM-dd\'T\'HH:mm:ss\").parse(dateAsString);\r\n    }\r\n\r\n    publi" +
-                    "c static HttpResponse Execute(Context context, boolean isPost, String url, HashM" +
-                    "ap<String,Object> parameters) throws IOException {\r\n        SharedPreferences pr" +
-                    "eferences = PreferenceManager.getDefaultSharedPreferences(context);\r\n        Htt" +
-                    "pResponse response;\r\n        if (isPost) {\r\n            HttpPost http = new Http" +
-                    "Post(url);\r\n            http.setHeader(\"Content-Type\", \"application/x-www-form-u" +
-                    "rlencoded\");    \r\n            http.setHeader(\"enctype\", \"multipart/form-data\");\r" +
-                    "\n     \t    MultipartEntityBuilder entity = MultipartEntityBuilder.create(); \r\n  " +
-                    "   \t    entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);\r\n     \t   for(Entr" +
-                    "y<String, Object> entry : parameters.entrySet()) {     \t\t    \r\n     \t\t    entity" +
-                    ".addPart(entry.getKey(),ToPart(entry.getValue()));\r\n     \t\t}\r\n            http.s" +
-                    "etEntity(entity.build());\r\n            http.setHeader(\"Cookie\", preferences.getS" +
-                    "tring(\"Set-Cookie\", \"Set-Cookie\"));\r\n            http.setHeader(\"X-Requested-Wit" +
-                    "h\", \"XMLHttpRequest\");\r\n            response = new DefaultHttpClient().execute(h" +
-                    "ttp);\r\n        } else {\r\n\r\n            HttpGet http = new HttpGet(url + getQuery" +
-                    "(parameters));\r\n            http.setHeader(\"Cookie\", preferences.getString(\"Set-" +
-                    "Cookie\", \"Set-Cookie\"));\r\n            http.setHeader(\"X-Requested-With\", \"XMLHtt" +
-                    "pRequest\");\r\n            response = new DefaultHttpClient().execute(http);\r\n    " +
-                    "    }\r\n\r\n        Header[] cookies = response.getHeaders(\"Set-Cookie\");\r\n        " +
-                    "if (cookies != null && cookies.length != 0) {\r\n            SharedPreferences.Edi" +
-                    "tor edit = preferences.edit();\r\n            String combineCookie = preferences.g" +
-                    "etString(\"Set-Cookie\", \"Set-Cookie\");\r\n            for (Header header : cookies)" +
-                    "\r\n                combineCookie += header.getValue() + \";\";\r\n            edit.pu" +
-                    "tString(\"Set-Cookie\", combineCookie);\r\n            edit.commit();\r\n        }\r\n\r\n" +
-                    "        return response;\r\n    }\r\n\r\n    private static String getQuery(HashMap<St" +
-                    "ring,Object> params) throws UnsupportedEncodingException {\r\n        StringBuilde" +
-                    "r result = new StringBuilder();\r\n        boolean first = true;\r\n\r\n        for(En" +
-                    "try<String, Object> entry : params.entrySet()) {\r\n            if (first)\r\n      " +
-                    "          first = false;\r\n            else\r\n                result.append(\"&\");\r" +
-                    "\n\r\n            result.append(URLEncoder.encode(entry.getKey(), \"UTF-8\"));\r\n     " +
-                    "       result.append(\"=\");\r\n            result.append(URLEncoder.encode(ToValue(" +
-                    "entry.getValue()), \"UTF-8\"));\r\n        }\r\n\r\n        return result.toString();\r\n " +
-                    "   }\r\n\r\n\r\n}");
+            this.Write(".Incoding;\r\n\r\n\r\nimport android.content.Context;\r\nimport android.content.SharedPre" +
+                    "ferences;\r\nimport android.preference.PreferenceManager;\r\nimport org.apache.http." +
+                    "Header;\r\nimport org.apache.http.HttpResponse;\r\nimport org.apache.http.client.met" +
+                    "hods.HttpGet;\r\nimport org.apache.http.client.methods.HttpPost;\r\nimport org.apach" +
+                    "e.http.entity.mime.HttpMultipartMode;\r\nimport org.apache.http.entity.mime.Multip" +
+                    "artEntityBuilder;\r\nimport org.apache.http.impl.client.DefaultHttpClient;\r\nimport" +
+                    " org.json.JSONArray;\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject" +
+                    ";\r\nimport java.io.IOException;\r\nimport java.io.UnsupportedEncodingException;\r\nim" +
+                    "port java.net.URLEncoder;\r\nimport java.text.ParseException;\r\nimport java.text.Si" +
+                    "mpleDateFormat;\r\nimport java.util.HashMap;\r\nimport java.util.Map.Entry;\r\n\r\npubli" +
+                    "c class IncodingHelper {\r\n\r\n\r\n\tpublic static String ToValue(Object ob) throws Un" +
+                    "supportedEncodingException {\r\n\t\tif(ob instanceof java.util.Date)\r\n\t\t\treturn new " +
+                    "SimpleDateFormat(\"dd/MM/yyyy\").format(ob);\r\n\t\t\t\t\r\n\t\treturn String.valueOf(ob);\r\n" +
+                    "\t}\r\n\t\r\n\t\r\n    public static void Verify(JSONObject result) throws JSONException," +
+                    " ModelStateException {\r\n        if (!result.getBoolean(\"success\")) {\r\n          " +
+                    "  JSONArray errors = result.isNull(\"data\") ? new JSONArray() : result.getJSONArr" +
+                    "ay(\"data\");\r\n            JsonModelStateData[] state = new JsonModelStateData[err" +
+                    "ors.length()];\r\n            for (int i = 0; i < errors.length(); i++) {\r\n       " +
+                    "         JSONObject itemError = errors.getJSONObject(i);\r\n                JsonMo" +
+                    "delStateData jsonModelStateData = new JsonModelStateData();\r\n                jso" +
+                    "nModelStateData.errorMessage = itemError.getString(\"errorMessage\");\r\n           " +
+                    "     jsonModelStateData.isValid = itemError.getBoolean(\"isValid\");\r\n            " +
+                    "    jsonModelStateData.name = itemError.getString(\"name\");\r\n                stat" +
+                    "e[i] = jsonModelStateData;\r\n            }\r\n            throw new ModelStateExcep" +
+                    "tion(state);\r\n        }\r\n    }\r\n\r\n    public static java.util.Date getDate(Strin" +
+                    "g dateAsString) throws ParseException {\r\n        return new SimpleDateFormat(\"yy" +
+                    "yy-MM-dd\'T\'HH:mm:ss\").parse(dateAsString);\r\n    }\r\n\r\n    public static HttpRespo" +
+                    "nse Execute(Context context, boolean isPost, String url, HashMap<String,Object> " +
+                    "parameters) throws IOException {\r\n        SharedPreferences preferences = Prefer" +
+                    "enceManager.getDefaultSharedPreferences(context);\r\n        HttpResponse response" +
+                    ";\r\n        if (isPost) {\r\n            HttpPost http = new HttpPost(url);        " +
+                    "    \r\n            http.setHeader(\"Content-Type\",\"multipart/form-data; boundary=-" +
+                    "---WebKitFormBoundaryEk4quBtC5W6dT4RW\");            \r\n            http.setHeader" +
+                    "(\"Cookie\", preferences.getString(\"Set-Cookie\", \"Set-Cookie\"));\r\n            http" +
+                    ".setHeader(\"X-Requested-With\", \"XMLHttpRequest\");            \r\n     \t    Multipa" +
+                    "rtEntityBuilder entity = MultipartEntityBuilder.create();      \t    \r\n     \t    " +
+                    "entity.setBoundary(\"----WebKitFormBoundaryEk4quBtC5W6dT4RW\");\r\n     \t    entity." +
+                    "setMode(HttpMultipartMode.BROWSER_COMPATIBLE);\r\n     \t   for(Entry<String, Objec" +
+                    "t> entry : parameters.entrySet()) {     \r\n     \t\t   if(entry.getValue() instance" +
+                    "of byte[])\r\n     \t\t\t  entity.addPart(entry.getKey(),new ByteArrayBody((byte[])en" +
+                    "try.getValue(),\"filename\"));\r\n     \t\t   else\r\n     \t\t\t  entity.addTextBody(entry" +
+                    ".getKey(), ToValue(entry.getValue()));     \t\t    \r\n     \t\t}     \t    \r\n         " +
+                    "   http.setEntity(entity.build());\r\n            \r\n            response = new Def" +
+                    "aultHttpClient().execute(http);\r\n        } else {\r\n\r\n            HttpGet http = " +
+                    "new HttpGet(url + \"?\" + getQuery(parameters));\r\n            http.setHeader(\"Cook" +
+                    "ie\", preferences.getString(\"Set-Cookie\", \"Set-Cookie\"));\r\n            http.setHe" +
+                    "ader(\"X-Requested-With\", \"XMLHttpRequest\");\r\n            response = new DefaultH" +
+                    "ttpClient().execute(http);\r\n        }\r\n\r\n        Header[] cookies = response.get" +
+                    "Headers(\"Set-Cookie\");\r\n        if (cookies != null && cookies.length != 0) {\r\n " +
+                    "           SharedPreferences.Editor edit = preferences.edit();\r\n            Stri" +
+                    "ng combineCookie = preferences.getString(\"Set-Cookie\", \"Set-Cookie\");\r\n         " +
+                    "   for (Header header : cookies)\r\n                combineCookie += header.getVal" +
+                    "ue() + \";\";\r\n            edit.putString(\"Set-Cookie\", combineCookie);\r\n         " +
+                    "   edit.commit();\r\n        }\r\n\r\n        return response;\r\n    }\r\n\r\n    private s" +
+                    "tatic String getQuery(HashMap<String,Object> params) throws UnsupportedEncodingE" +
+                    "xception {\r\n        StringBuilder result = new StringBuilder();\r\n        boolean" +
+                    " first = true;\r\n\r\n        for(Entry<String, Object> entry : params.entrySet()) {" +
+                    "\r\n            if (first)\r\n                first = false;\r\n            else\r\n    " +
+                    "            result.append(\"&\");\r\n\r\n            result.append(URLEncoder.encode(e" +
+                    "ntry.getKey(), \"UTF-8\"));\r\n            result.append(\"=\");\r\n            result.a" +
+                    "ppend(URLEncoder.encode(ToValue(entry.getValue()), \"UTF-8\"));\r\n        }\r\n\r\n    " +
+                    "    return result.toString();\r\n    }\r\n\r\n\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

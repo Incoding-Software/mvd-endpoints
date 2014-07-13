@@ -1,5 +1,6 @@
 ﻿package com.qabenchmarking.android.models.Incoding;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -9,9 +10,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,15 +32,6 @@ public class IncodingHelper {
 		return String.valueOf(ob);
 	}
 	
-	public static ContentBody ToPart(Object ob) throws UnsupportedEncodingException {
-		if(ob instanceof java.util.Date)
-			return new StringBody(new SimpleDateFormat("dd/MM/yyyy").format(ob));
-		if(ob instanceof Byte[])
-			return new ByteArrayBody((byte[]) ob,"file");
-		
-		return new StringBody(String.valueOf(ob));
-	}
-
 	
     public static void Verify(JSONObject result) throws JSONException, ModelStateException {
         if (!result.getBoolean("success")) {
@@ -68,21 +57,25 @@ public class IncodingHelper {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         HttpResponse response;
         if (isPost) {
-            HttpPost http = new HttpPost(url);
-            http.setHeader("Content-Type", "application/x-www-form-urlencoded");    
-            http.setHeader("enctype", "multipart/form-data");
-     	    MultipartEntityBuilder entity = MultipartEntityBuilder.create(); 
-     	    entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-     	   for(Entry<String, Object> entry : parameters.entrySet()) {     		    
-     		    entity.addPart(entry.getKey(),ToPart(entry.getValue()));
-     		}
-            http.setEntity(entity.build());
+            HttpPost http = new HttpPost(url);            
+            http.setHeader("Content-Type","multipart/form-data; boundary=----WebKitFormBoundaryEk4quBtC5W6dT4RW");            
             http.setHeader("Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
-            http.setHeader("X-Requested-With", "XMLHttpRequest");
+            http.setHeader("X-Requested-With", "XMLHttpRequest");            
+     	    MultipartEntityBuilder entity = MultipartEntityBuilder.create();      	    
+     	    entity.setBoundary("----WebKitFormBoundaryEk4quBtC5W6dT4RW");
+     	    entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+     	   for(Entry<String, Object> entry : parameters.entrySet()) {     
+     		   if(entry.getValue() instanceof byte[])
+     			  entity.addPart(entry.getKey(),new ByteArrayBody((byte[])entry.getValue(),"filename"));
+     		   else
+     			  entity.addTextBody(entry.getKey(), ToValue(entry.getValue()));     		    
+     		}     	    
+            http.setEntity(entity.build());
+            
             response = new DefaultHttpClient().execute(http);
         } else {
 
-            HttpGet http = new HttpGet(url + getQuery(parameters));
+            HttpGet http = new HttpGet(url + "?" + getQuery(parameters));
             http.setHeader("Cookie", preferences.getString("Set-Cookie", "Set-Cookie"));
             http.setHeader("X-Requested-With", "XMLHttpRequest");
             response = new DefaultHttpClient().execute(http);

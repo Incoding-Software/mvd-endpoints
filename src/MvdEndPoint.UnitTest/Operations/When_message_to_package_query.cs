@@ -92,14 +92,14 @@
                                                                                                                     .Tuning(r => r.Type, typeof(OuterEnum))), enumContent)
                                               .StubQuery(Pleasure.Generator.Invent<ToZipQuery>(dsl => dsl.Tuning(r => r.Entries, new Dictionary<string, string>
                                                                                                                                      {
-                                                                                                                                             { "IncodingHelper.java", incodingHelperContent },
-                                                                                                                                             { "ModelStateException.java", modelStateExceptionContent },
-                                                                                                                                             { "JsonModelStateData.java", jsonModelStateClassContent },
-                                                                                                                                             { "Request.java", requestContent },
-                                                                                                                                             { "Listener.java", listenerContent },
-                                                                                                                                             { "Task.java", taskContent },
-                                                                                                                                             { "Response.java", responseContent },
-                                                                                                                                             { "OuterEnum.java", enumContent },
+                                                                                                                                             { "Incoding/IncodingHelper.java", incodingHelperContent },
+                                                                                                                                             { "Incoding/ModelStateException.java", modelStateExceptionContent },
+                                                                                                                                             { "Incoding/JsonModelStateData.java", jsonModelStateClassContent },
+                                                                                                                                             { "FakeQuery/Request.java", requestContent },
+                                                                                                                                             { "FakeQuery/Listener.java", listenerContent },
+                                                                                                                                             { "FakeQuery/Task.java", taskContent },
+                                                                                                                                             { "FakeQuery/Response.java", responseContent },
+                                                                                                                                             { "FakeQuery/OuterEnum.java", enumContent },
                                                                                                                                      })), expected);
                                   };
 

@@ -87,7 +87,7 @@
       <DependentUpon>Android_Request.tt</DependentUpon>
     </Compile>
     <Compile Include="Operations\Code Generate\JsonModelStateDataCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\GetMetaFromTypeQuery.cs" />
+    <Compile Include="Operations\Utilites\GetMetaFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\ConvertCSharpTypeToJavaQuery.cs" />
     <Compile Include="Operations\Code Generate\Android_Listener.cs">
       <DependentUpon>Android_Listener.tt</DependentUpon>

@@ -20,6 +20,9 @@
 
         #region Establish value
 
+        enum FakeEnum
+        { }
+
         static void Compare(Type csharp, string java)
         {
             var query = Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, csharp));
@@ -102,5 +105,16 @@
         It should_be_date_time = () => Compare(typeof(DateTime), ConvertCSharpTypeToJavaQuery.Date);
 
         It should_be_date_time_as_nullable = () => Compare(typeof(DateTime?), ConvertCSharpTypeToJavaQuery.Date);
+
+        It should_be_enum = () =>
+                                {
+                                    string result = Pleasure.Generator.String();
+                                    var mockQuery = MockQuery<ConvertCSharpTypeToJavaQuery, string>
+                                            .When(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))))
+                                            .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))
+                                                                                                                 .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Enum)), result);
+                                    mockQuery.Original.Execute();
+                                    mockQuery.ShouldBeIsResult(result);
+                                };
     }
 }

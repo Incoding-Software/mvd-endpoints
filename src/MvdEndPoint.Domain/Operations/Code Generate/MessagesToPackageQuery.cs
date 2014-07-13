@@ -33,12 +33,12 @@
             var avrNamespace = types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
                                     .First();
             var zipQuery = new ToZipQuery();
-            zipQuery.Entries.Add("IncodingHelper.java", Dispatcher.Query(new IncodingHelperCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
-            zipQuery.Entries.Add("ModelStateException.java", Dispatcher.Query(new ModelStateExceptionCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
-            zipQuery.Entries.Add("JsonModelStateData.java", Dispatcher.Query(new JsonModelStateDataCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
+            zipQuery.Entries.Add("Incoding/IncodingHelper.java", Dispatcher.Query(new IncodingHelperCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
+            zipQuery.Entries.Add("Incoding/ModelStateException.java", Dispatcher.Query(new ModelStateExceptionCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
+            zipQuery.Entries.Add("Incoding/JsonModelStateData.java", Dispatcher.Query(new JsonModelStateDataCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
             foreach (var type in types)
             {
-                Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => Dispatcher.Query(new GetNameFromTypeQuery { Type = type, Mode = of, }) + ".java";                
+                Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery { Type = type, Mode = of, }));
                 zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new RequestCodeGenerateQuery { Type = type, BaseUrl = BaseUrl }));
                 zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Listener), Dispatcher.Query(new ListenerCodeGeneratorQuery { Type = type }));
                 zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Task), Dispatcher.Query(new TaskCodeGenerateQuery { Type = type }));
@@ -57,7 +57,7 @@
                 foreach (var enumAsType in allProperties.Where(r => r.PropertyType.IsEnum)
                                                         .Select(r => r.PropertyType))
                 {
-                    string enumAsFileName = Dispatcher.Query(new GetNameFromTypeQuery { Type = enumAsType, Mode = GetNameFromTypeQuery.ModeOf.Enum, }) + ".java";
+                    string enumAsFileName = "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery { Type = enumAsType, Mode = GetNameFromTypeQuery.ModeOf.Enum, }));
                     zipQuery.Entries.Add(enumAsFileName, Dispatcher.Query(new EnumCodeGenerateQuery
                                                                               {
                                                                                       Type = enumAsType,
