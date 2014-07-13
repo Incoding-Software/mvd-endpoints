@@ -34,6 +34,8 @@
 
         It should_be_custom = () => Compare(typeof(FakeType), "FakeType");
 
+        It should_be_string_as_array = () => Compare(typeof(string[]), ConvertCSharpTypeToJavaQuery.StringAsArray);
+
         It should_be_string = () => Compare(typeof(string), ConvertCSharpTypeToJavaQuery.String);
 
         It should_be_object_as_string = () => Compare(typeof(object), ConvertCSharpTypeToJavaQuery.String);

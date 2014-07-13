@@ -20,6 +20,8 @@
         public const string ByteAsArray = "Byte[]";
 
         public const string String = "String";
+        
+        public const string StringAsArray = "String[]";
 
         public const string Char = "char";
 
@@ -74,6 +76,7 @@
                                 {
                                         new Tuple<Type[], string>(new[] { typeof(HttpPostedFileBase) }, ByteAsArray), 
                                         new Tuple<Type[], string>(new[] { typeof(object) }, String), 
+                                        new Tuple<Type[], string>(new[] { typeof(String[]) }, StringAsArray), 
                                         new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean), 
                                         new Tuple<Type[], string>(new[] { typeof(bool?) }, BooleanAsNullable), 
                                         new Tuple<Type[], string>(new[] { typeof(char) }, Char), 

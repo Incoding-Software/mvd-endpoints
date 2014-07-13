@@ -64,6 +64,19 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
             
             #line default
             #line hidden
+            
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+ if(pair.IsArray) {
+            
+            #line default
+            #line hidden
+            this.Write("[]");
+            
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"
+}
+            
+            #line default
+            #line hidden
             this.Write(" ");
             
             #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android_Request.tt"

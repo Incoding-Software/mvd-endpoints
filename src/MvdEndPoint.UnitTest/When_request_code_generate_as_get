@@ -9,6 +9,7 @@ public class GetCustomerRequest {
 
     public TheSameString Message;
     public Number Title;
+    public String[] Ids;
      
 
    public HttpResponse execute(Context context) throws IOException {       
@@ -16,6 +17,7 @@ public class GetCustomerRequest {
 	parameters.put("incType","GetCustomerQuery");
 		 if (this.Message != null)     parameters.put("Message",this.Message);
     	    parameters.put("Title",this.Title);
+    	    parameters.put("Ids",this.Ids);
        
 	return IncodingHelper.Execute(context, false, "http://localhost/Dispatcher", parameters);
    } 

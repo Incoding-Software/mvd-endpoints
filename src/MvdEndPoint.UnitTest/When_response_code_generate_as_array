@@ -5,13 +5,14 @@ import com.qabenchmarking.android.models.Incoding.ModelStateException;
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;
-   import org.json.JSONArray;
-	  
+import org.json.JSONArray;
+
 public class GetCustomersResponse {
         public String Title;
         public int Number;
         public MyEnum Type;
         public java.util.Date CreateDt;
+        public String[] Ids;
             
          public static GetCustomersResponse[] Create(JSONObject result) throws JSONException, ModelStateException, ParseException  {     
 		     IncodingHelper.Verify(result);
@@ -28,6 +29,12 @@ public class GetCustomersResponse {
 			                                             			    response.Number = item.getInt("Number");
 			                                             			    response.Type = MyEnum.valueOf(item.getInt("Type"));
 			                                                             response.CreateDt = IncodingHelper.getDate(item.getString("CreateDt"));
+				                                         				JSONArray IdsAsArray = item.getJSONArray("Ids");
+			    response.Ids = new String[IdsAsArray.length()];
+			    for(int IdsOni = 0;IdsOni < IdsAsArray.length();IdsOni++)
+			    {
+			    response.Ids[IdsOni]	= IdsAsArray.getString(IdsOni);
+			    }
 					                  
                  res[i] = response;
              }	    

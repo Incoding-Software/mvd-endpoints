@@ -18,13 +18,12 @@ import <#= Namespace #>.Incoding.ModelStateException;
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;
-   <# if(IsArray) {#>
 import org.json.JSONArray;
-	<# } #>  
+
 public class <#= Name #> {
 <# if(IsQuery) { #>
     <# foreach(var prop in Properties) { #>
-    public <#= prop.Type #> <#= prop.Name #>;
+    public <#= prop.Type #><# if(prop.IsArray) {#>[]<#}#> <#= prop.Name #>;
     <# } #>        
          public static <#= Name #>[] Create(JSONObject result) throws JSONException, ModelStateException, ParseException  {     
 		     IncodingHelper.Verify(result);
@@ -43,6 +42,13 @@ public class <#= Name #> {
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(item.getInt("<#= prop.Name #>"));
 			        <# } else if(prop.IsDateTime) { #>
                 response.<#= prop.Name #> = IncodingHelper.getDate(item.getString("<#= prop.Name #>"));
+				    <# } else if(prop.IsArray) { #>
+				JSONArray <#= prop.Name #>AsArray = item.getJSONArray("<#= prop.Name #>");
+			    response.<#= prop.Name #> = new <#=prop.Type#>[<#= prop.Name #>AsArray.length()];
+			    for(int <#= prop.Name #>Oni = 0;<#= prop.Name #>Oni < <#= prop.Name #>AsArray.length();<#= prop.Name #>Oni++)
+			    {
+			    response.<#= prop.Name #>[<#= prop.Name #>Oni]	= <#= prop.Name #>AsArray.<#= MappingJsonMethodByType[prop.Type] #>(<#= prop.Name #>Oni);
+			    }
 					<# } else { #>
 			    response.<#= prop.Name #> = item.<#= MappingJsonMethodByType[prop.Type] #>("<#= prop.Name #>");
 			        <# } #>
@@ -56,6 +62,13 @@ public class <#= Name #> {
              <# foreach(var prop in Properties) { #>
                     <#if(prop.IsEnum) { #>
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(data.getInt("<#= prop.Name #>"));
+				    <# } else if(prop.IsArray) { #>
+				JSONArray <#= prop.Name #>AsArray = item.getJSONArray("<#= prop.Name #>");
+			    response.<#= prop.Name #> = new <#=prop.Type#>[<#= prop.Name #>AsArray.length()];
+			    for(int <#= prop.Name #>Oni = 0;<#= prop.Name #>Oni < <#= prop.Name #>AsArray.length();<#= prop.Name #>Oni++)
+			    {
+			    response.<#= prop.Name #>[<#= prop.Name #>Oni]	= <#= prop.Name #>AsArray.<#= MappingJsonMethodByType[prop.Type] #>(<#= prop.Name #>Oni);
+			    }
 				    <# } else if(prop.IsDateTime) { #>
                 response.<#= prop.Name #> = IncodingHelper.getDate(data.getString("<#= prop.Name #>"));
 			        <# } else { #>

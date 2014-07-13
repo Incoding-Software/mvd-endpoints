@@ -71,29 +71,34 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate
                     "entity.setBoundary(\"----WebKitFormBoundaryEk4quBtC5W6dT4RW\");\r\n     \t    entity." +
                     "setMode(HttpMultipartMode.BROWSER_COMPATIBLE);\r\n     \t   for(Entry<String, Objec" +
                     "t> entry : parameters.entrySet()) {     \r\n     \t\t   if(entry.getValue() instance" +
-                    "of byte[])\r\n     \t\t\t  entity.addPart(entry.getKey(),new ByteArrayBody((byte[])en" +
-                    "try.getValue(),\"filename\"));\r\n     \t\t   else\r\n     \t\t\t  entity.addTextBody(entry" +
-                    ".getKey(), ToValue(entry.getValue()));     \t\t    \r\n     \t\t}     \t    \r\n         " +
-                    "   http.setEntity(entity.build());\r\n            \r\n            response = new Def" +
-                    "aultHttpClient().execute(http);\r\n        } else {\r\n\r\n            HttpGet http = " +
-                    "new HttpGet(url + \"?\" + getQuery(parameters));\r\n            http.setHeader(\"Cook" +
-                    "ie\", preferences.getString(\"Set-Cookie\", \"Set-Cookie\"));\r\n            http.setHe" +
-                    "ader(\"X-Requested-With\", \"XMLHttpRequest\");\r\n            response = new DefaultH" +
-                    "ttpClient().execute(http);\r\n        }\r\n\r\n        Header[] cookies = response.get" +
-                    "Headers(\"Set-Cookie\");\r\n        if (cookies != null && cookies.length != 0) {\r\n " +
-                    "           SharedPreferences.Editor edit = preferences.edit();\r\n            Stri" +
-                    "ng combineCookie = preferences.getString(\"Set-Cookie\", \"Set-Cookie\");\r\n         " +
-                    "   for (Header header : cookies)\r\n                combineCookie += header.getVal" +
-                    "ue() + \";\";\r\n            edit.putString(\"Set-Cookie\", combineCookie);\r\n         " +
-                    "   edit.commit();\r\n        }\r\n\r\n        return response;\r\n    }\r\n\r\n    private s" +
-                    "tatic String getQuery(HashMap<String,Object> params) throws UnsupportedEncodingE" +
-                    "xception {\r\n        StringBuilder result = new StringBuilder();\r\n        boolean" +
-                    " first = true;\r\n\r\n        for(Entry<String, Object> entry : params.entrySet()) {" +
-                    "\r\n            if (first)\r\n                first = false;\r\n            else\r\n    " +
-                    "            result.append(\"&\");\r\n\r\n            result.append(URLEncoder.encode(e" +
-                    "ntry.getKey(), \"UTF-8\"));\r\n            result.append(\"=\");\r\n            result.a" +
-                    "ppend(URLEncoder.encode(ToValue(entry.getValue()), \"UTF-8\"));\r\n        }\r\n\r\n    " +
-                    "    return result.toString();\r\n    }\r\n\r\n\r\n}");
+                    "of byte[]){\r\n     \t\t\t  entity.addPart(entry.getKey(),new ByteArrayBody((byte[])e" +
+                    "ntry.getValue(),\"filename\"));//     \t\t\t  \r\n     \t\t   }\r\n     \t\t   else if(entry." +
+                    "getValue() instanceof String[])\r\n     \t\t   {\r\n     \t\t\t  String[] valueAsArray = " +
+                    " (String[])entry.getValue();\r\n     \t\t\t  for(int i = 0; i  < valueAsArray.length;" +
+                    " i++)\r\n     \t\t\t  {\r\n     \t\t\t\t entity.addTextBody( \"[\"+ String.valueOf(i) + \"].\" " +
+                    "+ entry.getKey(), ToValue(valueAsArray[i]));  \r\n     \t\t\t  }\r\n     \t\t   }\r\n     \t" +
+                    "\t   else\r\n     \t\t\t  entity.addTextBody(entry.getKey(), ToValue(entry.getValue())" +
+                    ");     \t\t    \r\n     \t\t}     \t    \r\n            http.setEntity(entity.build());\r\n" +
+                    "            \r\n            response = new DefaultHttpClient().execute(http);\r\n   " +
+                    "     } else {\r\n\r\n            HttpGet http = new HttpGet(url + \"?\" + getQuery(par" +
+                    "ameters));\r\n            http.setHeader(\"Cookie\", preferences.getString(\"Set-Cook" +
+                    "ie\", \"Set-Cookie\"));\r\n            http.setHeader(\"X-Requested-With\", \"XMLHttpReq" +
+                    "uest\");\r\n            response = new DefaultHttpClient().execute(http);\r\n        " +
+                    "}\r\n\r\n        Header[] cookies = response.getHeaders(\"Set-Cookie\");\r\n        if (" +
+                    "cookies != null && cookies.length != 0) {\r\n            SharedPreferences.Editor " +
+                    "edit = preferences.edit();\r\n            String combineCookie = preferences.getSt" +
+                    "ring(\"Set-Cookie\", \"Set-Cookie\");\r\n            for (Header header : cookies)\r\n  " +
+                    "              combineCookie += header.getValue() + \";\";\r\n            edit.putStr" +
+                    "ing(\"Set-Cookie\", combineCookie);\r\n            edit.commit();\r\n        }\r\n\r\n    " +
+                    "    return response;\r\n    }\r\n\r\n    private static String getQuery(HashMap<String" +
+                    ",Object> params) throws UnsupportedEncodingException {\r\n        StringBuilder re" +
+                    "sult = new StringBuilder();\r\n        boolean first = true;\r\n\r\n        for(Entry<" +
+                    "String, Object> entry : params.entrySet()) {\r\n            if (first)\r\n          " +
+                    "      first = false;\r\n            else\r\n                result.append(\"&\");\r\n\r\n " +
+                    "           result.append(URLEncoder.encode(entry.getKey(), \"UTF-8\"));\r\n         " +
+                    "   result.append(\"=\");\r\n            result.append(URLEncoder.encode(ToValue(entr" +
+                    "y.getValue()), \"UTF-8\"));\r\n        }\r\n\r\n        return result.toString();\r\n    }" +
+                    "\r\n\r\n\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

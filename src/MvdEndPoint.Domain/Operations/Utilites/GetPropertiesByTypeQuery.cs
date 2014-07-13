@@ -37,6 +37,8 @@
 
             public bool IsCanNull { get; set; }
 
+            public bool IsArray { get; set; }
+
             #endregion
         }
 
@@ -44,21 +46,26 @@
 
         protected override List<Response> ExecuteResult()
         {
-            return (Type.IsImplement<IEnumerable>() ? Type.GenericTypeArguments[0] : Type)
+            return (Type.IsImplement<IEnumerable>() ? Type.GetGenericArguments()[0] : Type)
                     .GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                     .Where(r => !r.HasAttribute<IgnoreDataMemberAttribute>())
                     .Where(r => r.CanWrite)
-                    .Select(r => new Response
-                                     {
-                                             Name = r.Name,
-                                             Type = Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
-                                                                         {
-                                                                                 Type = r.PropertyType
-                                                                         }),
-                                             IsEnum = r.PropertyType.IsEnum,
-                                             IsCanNull = r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime)) || !(r.PropertyType.IsPrimitive() || r.PropertyType.IsEnum),
-                                             IsDateTime = r.PropertyType == typeof(DateTime)
-                                     })
+                    .Select(r =>
+                                {
+                                    bool isArray = r.PropertyType != typeof(string) && r.PropertyType.IsImplement<IEnumerable>();
+                                    return new Response
+                                               {
+                                                       Name = r.Name,
+                                                       Type = Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
+                                                                                   {
+                                                                                           Type = isArray ? r.PropertyType.GetElementType() : r.PropertyType
+                                                                                   }),
+                                                       IsEnum = r.PropertyType.IsEnum,
+                                                       IsCanNull = r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime)) || !(r.PropertyType.IsPrimitive() || r.PropertyType.IsEnum),
+                                                       IsDateTime = r.PropertyType == typeof(DateTime),
+                                                       IsArray = isArray
+                                               };
+                                })
                     .ToList();
         }
     }

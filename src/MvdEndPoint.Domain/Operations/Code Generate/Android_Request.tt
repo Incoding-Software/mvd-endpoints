@@ -20,7 +20,7 @@ import <#= Namespace #>.Incoding.IncodingHelper;
 public class <#= Name #> {
 
   <# foreach(var pair in Properties) { #>
-  public <#= pair.Type #> <#= pair.Name #>;
+  public <#= pair.Type #><# if(pair.IsArray) {#>[]<#}#> <#= pair.Name #>;
   <# } #>   
 
    public HttpResponse execute(Context context) throws IOException {       
