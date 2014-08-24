@@ -1,0 +1,10 @@
+﻿#import "GetCustomerResponse.h"
+
+@implementation GetCustomerResponse
+	@synthesize Title;    
+	@synthesize Number;    
+	@synthesize Boolean;    
+	@synthesize Type;    
+	@synthesize CreateDt;    
+	@synthesize Ids;    
+

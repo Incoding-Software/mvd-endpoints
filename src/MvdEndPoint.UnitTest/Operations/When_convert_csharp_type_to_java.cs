@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Web;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
@@ -35,6 +36,10 @@
         It should_be_custom = () => Compare(typeof(FakeType), "FakeType");
 
         It should_be_string_as_array = () => Compare(typeof(string[]), ConvertCSharpTypeToJavaQuery.StringAsArray);
+
+        It should_be_byte_as_array = () => Compare(typeof(byte[]), ConvertCSharpTypeToJavaQuery.ByteAsArray);
+
+        It should_be_http_post_file_base = () => Compare(typeof(HttpPostedFileBase), ConvertCSharpTypeToJavaQuery.ByteAsArray);
 
         It should_be_string = () => Compare(typeof(string), ConvertCSharpTypeToJavaQuery.String);
 

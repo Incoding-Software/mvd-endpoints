@@ -49,9 +49,10 @@
         enum FakeEnum
         { }
 
-        static void Verify(Type type)
+        static void Verify(Type type, DeviceOfType device)
         {
-            var query = Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, type));
+            var query = Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, type)
+                                                                                      .Tuning(r => r.Device, device));
 
             string dateTimeType = Pleasure.Generator.String();
             string enumType = Pleasure.Generator.String();
@@ -59,11 +60,25 @@
             string intType = Pleasure.Generator.String();
 
             var mockQuery = MockQuery<GetPropertiesByTypeQuery, List<GetPropertiesByTypeQuery.Response>>
-                    .When(query)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string))), stringType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))), enumType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(DateTime))), dateTimeType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(int))), intType);
+                    .When(query);
+
+            switch (device)
+            {
+                case DeviceOfType.Android:
+                    mockQuery.StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string))), stringType)
+                             .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))), enumType)
+                             .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(DateTime))), dateTimeType)
+                             .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(int))), intType);
+                    break;
+                case DeviceOfType.Ios:
+                    mockQuery.StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToIosQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string))), stringType)
+                             .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToIosQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))), enumType)
+                             .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToIosQuery>(dsl => dsl.Tuning(r => r.Type, typeof(DateTime))), dateTimeType)
+                             .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToIosQuery>(dsl => dsl.Tuning(r => r.Type, typeof(int))), intType);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("device");
+            }
 
             mockQuery.Original.Execute();
             mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesByTypeQuery.Response>
@@ -78,8 +93,12 @@
 
         #endregion
 
-        It should_be_by_type = () => Verify(typeof(FakeClass));
+        It should_be_by_type_android = () => Verify(typeof(FakeClass), DeviceOfType.Android);
 
-        It should_be_by_ienumerable_type = () => Verify(typeof(IList<FakeClass>));
+        It should_be_by_ienumerable_type_android = () => Verify(typeof(IList<FakeClass>), DeviceOfType.Android);
+
+        It should_be_by_type_ios = () => Verify(typeof(FakeClass), DeviceOfType.Ios);
+
+        It should_be_by_ienumerable_type_ios = () => Verify(typeof(IList<FakeClass>), DeviceOfType.Ios);
     }
 }

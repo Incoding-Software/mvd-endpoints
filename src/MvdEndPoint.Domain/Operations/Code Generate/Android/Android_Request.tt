@@ -1,0 +1,31 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Type" #>
+<#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Url" #>
+<#@ parameter type="System.String" name="Package" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsGet" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
+package <#= Package #>;
+
+public class <#= Name #> {
+
+  <# foreach(var pair in Properties) { #>
+  public <#= pair.Type #><# if(pair.IsArray) {#>[]<#}#> <#= pair.Name #>;
+  <# } #>   
+
+   public java.util.HashMap<String, Object> GetParameters(Integer index) {
+	java.util.HashMap<String, Object> parameters = new java.util.HashMap<String, Object>();	
+	parameters.put("incType","<#= Type #>");
+	<# foreach(var pair in Properties) { #>
+	<# if(pair.IsCanNull) { #> if (this.<#= pair.Name #> != null) <# } #>
+    parameters.put(index == -1 ? "<#= pair.Name #>" : String.format("[%s].<#= pair.Name #>", index),this.<#= pair.Name #>);
+    <# } #>   
+	return parameters;
+   } 
+                                         
+}

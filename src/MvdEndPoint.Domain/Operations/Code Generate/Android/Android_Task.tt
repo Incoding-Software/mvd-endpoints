@@ -1,0 +1,95 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Listener" #>
+<#@ parameter type="System.String" name="Request" #>
+<#@ parameter type="System.String" name="Response" #>
+<#@ parameter type="System.Boolean" name="HasRequest" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="Package" #>
+<#@ parameter type="System.String" name="Type" #>
+package <#= Package #>;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import android.content.Context;
+import android.os.AsyncTask;
+import <#= Namespace #>.Incoding.ModelStateException;
+import <#= Namespace #>.Incoding.IncodingHelper;
+import java.util.HashMap;
+
+public class <#= Name #> extends AsyncTask<String, Integer, String> {
+
+    private Context context;
+
+    private <#= Listener #> listener;
+    	
+	<#if(HasRequest) { #>
+	
+	private <#= Request #>[] request = new <#= Request #>[0];
+
+	public <#= Name #>(Context context,<#= Request #> request)	
+	{		
+		this(context, new <#= Request #>[]{request});
+	}
+
+	public <#= Name #>(Context context,<#= Request #>[] request) {
+		this.context = context;
+		this.request = request;
+	}
+
+	<#} else { #>
+
+	private <#= Request #>[] request = new <#= Request #>[] {new <#= Request #>() };
+
+	public <#= Name #>(Context context)
+	{ this.context = context;	}
+
+	<# } #>
+		
+	@Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        try {
+            listener.Success( <#=Response#>.Create(new JSONObject(s)) );
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (ModelStateException e) {
+            listener.Error(e.getState());
+        }
+    }
+
+	@Override
+    protected String doInBackground(String... strings) {
+        try {
+		   
+		    HashMap<String, Object> params = new HashMap<String, Object>();			
+			String type = "<#=Type#>";
+			if (request.length == 1) {				
+				params = request[0].GetParameters(-1);
+			} else {
+				type = "Composite";
+				for (int index = 0; index < request.length; index++) {
+					params.putAll(request[index].GetParameters(index));
+				}
+			}
+
+            HttpResponse response = IncodingHelper.Execute(context, true,type,params);
+			return EntityUtils.toString(response.getEntity());
+			        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public void On(<#= Listener #> on)
+    {
+        listener = on;
+        execute();
+    }
+}

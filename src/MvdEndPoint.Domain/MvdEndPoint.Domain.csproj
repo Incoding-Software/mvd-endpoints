@@ -81,96 +81,118 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
-    <Compile Include="Operations\Code Generate\Android_Request.cs">
+    <Compile Include="Operations\Code Generate\Ios\Ios_Response_m.cs">
+      <DependentUpon>Ios_Response_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Packages\MessageToPackageAsAndroidQuery.cs" />
+    <Compile Include="Operations\ModeOf.cs" />
+    <Compile Include="Operations\Code Generate\Android\Android_Request.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Android_Request.tt</DependentUpon>
     </Compile>
-    <Compile Include="Operations\Code Generate\JsonModelStateDataCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Ios\Ios_Response_h.cs">
+      <DependentUpon>Ios_Response_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Android\AndroidJsonModelStateDataCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Packages\MessageToPackageAsIosQuery.cs" />
+    <Compile Include="Operations\Utilites\ConvertCSharpTypeToIosQuery.cs" />
     <Compile Include="Operations\Utilites\GetMetaFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\ConvertCSharpTypeToJavaQuery.cs" />
-    <Compile Include="Operations\Code Generate\Android_Listener.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_Listener.cs">
       <DependentUpon>Android_Listener.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android_Response.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_Response.cs">
       <DependentUpon>Android_Response.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android_Enum.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_Enum.cs">
       <DependentUpon>Android_Enum.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android_JsonModelStateData.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_JsonModelStateData.cs">
       <DependentUpon>Android_JsonModelStateData.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android_ModelStateException.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_ModelStateException.cs">
       <DependentUpon>Android_ModelStateException.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android_IncodingHelper.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_IncodingHelper.cs">
       <DependentUpon>Android_IncodingHelper.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\EnumCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidEnumCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\GetNameFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\GetPropertiesByTypeQuery.cs" />
-    <Compile Include="Operations\Code Generate\Android_Task.cs">
+    <Compile Include="Operations\Code Generate\Android\Android_Task.cs">
       <DependentUpon>Android_Task.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\IncodingHelperCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\ModelStateExceptionCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\RequestCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Utilites\GetUrlByTypeQuery.cs" />
-    <Compile Include="Operations\Code Generate\MessagesToPackageQuery.cs" />
-    <Compile Include="Operations\Code Generate\ListenerCodeGeneratorQuery.cs" />
-    <Compile Include="Operations\Code Generate\ResponseCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\TaskCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidIncodingHelperCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidModelStateExceptionCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidRequestCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Packages\MessagesToPackageQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidListenerCodeGeneratorQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidResponseCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidTaskCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\ToZipQuery.cs" />
     <Compile Include="Persistence\Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Operations\Code Generate\Android_Request.tt">
+    <None Include="Operations\Code Generate\Android\Android_Request.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Request.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_Task.tt">
+    <None Include="Operations\Code Generate\Android\Android_Task.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Task.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_Listener.tt">
+    <None Include="Operations\Code Generate\Android\Android_Listener.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Listener.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_Response.tt">
+    <None Include="Operations\Code Generate\Android\Android_Response.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Response.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_Enum.tt">
+    <None Include="Operations\Code Generate\Android\Android_Enum.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Enum.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_JsonModelStateData.tt">
+    <None Include="Operations\Code Generate\Android\Android_JsonModelStateData.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_JsonModelStateData.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_ModelStateException.tt">
+    <None Include="Operations\Code Generate\Android\Android_ModelStateException.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_ModelStateException.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android_IncodingHelper.tt">
+    <None Include="Operations\Code Generate\Android\Android_IncodingHelper.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_IncodingHelper.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Response_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Response_m.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Response_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Response_h.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

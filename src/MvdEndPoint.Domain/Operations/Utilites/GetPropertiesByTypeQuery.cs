@@ -19,6 +19,8 @@
 
         public Type Type { get; set; }
 
+        public DeviceOfType Device { get; set; }
+
         #endregion
 
         #region Nested classes
@@ -53,13 +55,13 @@
                     .Select(r =>
                                 {
                                     bool isArray = r.PropertyType != typeof(string) && r.PropertyType.IsImplement<IEnumerable>();
+                                    var type = isArray ? r.PropertyType.GetElementType() : r.PropertyType;
                                     return new Response
                                                {
                                                        Name = r.Name,
-                                                       Type = Dispatcher.Query(new ConvertCSharpTypeToJavaQuery
-                                                                                   {
-                                                                                           Type = isArray ? r.PropertyType.GetElementType() : r.PropertyType
-                                                                                   }),
+                                                       Type = this.Device == DeviceOfType.Android
+                                                                      ? Dispatcher.Query(new ConvertCSharpTypeToJavaQuery { Type = type })
+                                                                      : Dispatcher.Query(new ConvertCSharpTypeToIosQuery { Type = type }),
                                                        IsEnum = r.PropertyType.IsEnum,
                                                        IsCanNull = r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime)) || !(r.PropertyType.IsPrimitive() || r.PropertyType.IsEnum),
                                                        IsDateTime = r.PropertyType == typeof(DateTime),

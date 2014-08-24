@@ -3,25 +3,27 @@
     #region << Using >>
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using Incoding.CQRS;
+    using Incoding.Extensions;
     using Incoding.Maybe;
 
     #endregion
 
-    public class ConvertCSharpTypeToJavaQuery : QueryBase<string>
+    public class ConvertCSharpTypeToIosQuery : QueryBase<string>
     {
         #region Constants
 
-        public const string Boolean = "Boolean";
+        public const string Boolean = "BOOL";
 
-        public const string ByteAsArray = "byte[]";
+        public const string String = "NSString";
 
-        public const string String = "String";
+        public const string Array = "NSMutableArray";
 
-        public const string StringAsArray = "String[]";
+        public const string Data = "NSData";
 
         public const string Char = "char";
 
@@ -29,7 +31,7 @@
 
         public const string Decimal = "java.math.BigDecimal";
 
-        public const string Double = "Double";
+        public const string Double = "double";
 
         public const string DoubleAsNullable = "java.lang.Double";
 
@@ -45,13 +47,13 @@
 
         public const string Int = "int";
 
-        public const string IntAsNull = "java.lang.Integer";
+        public const string IntAsNull = "NSInteger";
 
         public const string Float = "float";
 
         public const string FloatAsNull = "java.lang.Float";
 
-        public const string Date = "java.util.Date";
+        public const string Date = "NSDate";
 
         #endregion
 
@@ -74,9 +76,8 @@
 
             var primitive = new List<Tuple<Type[], string>>
                                 {
-                                        new Tuple<Type[], string>(new[] { typeof(HttpPostedFileBase), typeof(byte[]) }, ByteAsArray),
-                                        new Tuple<Type[], string>(new[] { typeof(object) }, String),
-                                        new Tuple<Type[], string>(new[] { typeof(String[]) }, StringAsArray),
+                                        new Tuple<Type[], string>(new[] { typeof(HttpPostedFileBase), typeof(byte[]) }, Data),
+                                        new Tuple<Type[], string>(new[] { typeof(object), typeof(string) }, String),
                                         new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean),
                                         new Tuple<Type[], string>(new[] { typeof(bool?) }, BooleanAsNullable),
                                         new Tuple<Type[], string>(new[] { typeof(char) }, Char),
@@ -96,7 +97,7 @@
                                 }
                     .SingleOrDefault(r => r.Item1.Contains(Type));
 
-            return primitive.With(r => r.Item2).Recovery(Type.Name);
+            return primitive.With(r => r.Item2).Recovery(() => Type.IsImplement<IEnumerable>() ? Array : Type.Name);
         }
     }
 }
