@@ -1,0 +1,4 @@
+﻿
+@interface IncodingHelper:NSObject
++(NSDictionary *)execute:(NSString *) requestString;
+

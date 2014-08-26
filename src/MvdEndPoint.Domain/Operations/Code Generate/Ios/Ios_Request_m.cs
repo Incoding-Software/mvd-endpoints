@@ -19,9 +19,9 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Ios_Response_m : Ios_Response_mBase
+    public partial class Ios_Request_m : Ios_Request_mBase
     {
 #line hidden
         /// <summary>
@@ -31,93 +31,93 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         {
             this.Write("#import \"");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(".h\"\r\n\r\n@implementation ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t@synthesize ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(";    \r\n");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("+(");
+            this.Write("\r\n-(NSString *)asString\r\n{\r\n return [NSString stringWithFormat:@\"incType=@%");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *)create:(NSDictionary *)json\r\n{\r\n  ");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+ foreach(var prop in Properties) {
             
             #line default
             #line hidden
-            this.Write(" *res = [");
+            this.Write("&");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" new];\r\n  ");
-            
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("    res.");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write(" = json[@\"data\"][@\"");
+            this.Write("=@%");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\",\r\n                         \"");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write("\",  ");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+ foreach(var prop in Properties) {
+            
+            #line default
+            #line hidden
+            this.Write(",[self ");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write("\"];    \r\n  ");
+            this.Write("]");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- } 
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+}
             
             #line default
             #line hidden
-            this.Write("\r\n  return res;\r\n}\r\n@end\r\n");
+            this.Write("];  \r\n}\r\n@end\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 
 private string _NameField;
 
@@ -233,7 +233,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Ios_Response_mBase
+    public class Ios_Request_mBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -24,7 +24,7 @@
                                                                        inDsl.Core().JQuery.Attributes.RemoveAttr(HtmlAttribute.Checked);
                                                                        inDsl.Core().JQuery.Attributes.SetAttr(HtmlAttribute.Checked).If(() => Selector.Jquery.Self());
                                                                    });
-                                                 dsl.WithId(Model.AllId).Core().Trigger.None();
+                                                 dsl.WithName(Model.AllId).Core().Trigger.Invoke(JqueryBind.InitIncoding);
                                              })
                               .AsHtmlAttributes()
                               .ToCheckBox(false))
@@ -44,7 +44,7 @@
                         <td>
                             @(Html.When(JqueryBind.Change)
                                   .Direct()
-                                  .OnSuccess(dsl => dsl.WithId(Model.AllId).Core().Trigger.None())
+                                  .OnSuccess(dsl => dsl.WithId(Model.AllId).Core().Trigger.Invoke(JqueryBind.InitIncoding))
                                   .AsHtmlAttributes(new { name = Model.CheckedTypeName, value = each.For(r => r.AssemblyQualifiedName) })
                                   .ToCheckBox(false))
                         </td>
@@ -91,13 +91,14 @@
                                                      var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
                                                                                                                   {
                                                                                                                           Names = each.For(r => r.AssemblyQualifiedName),
-                                                                                                                          BaseUrl = Selector.Jquery.Name(Model.BaseUrlName)
+                                                                                                                          BaseUrl = Selector.Jquery.Name(Model.BaseUrlName),
+                                                                                                                          Device = Model.DeviceName.ToName()
                                                                                                                   })
                                                                   .AsFile(incFileDownloadName: each.For(r => r.Name) + ".zip")
                                                                   .ToBuildUrl();
                                                      dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
                                                  })
-                                  .AsHtmlAttributes(new { id = Model.DownloadLinkId })
+                                  .AsHtmlAttributes(new { name = Model.DownloadLinkName })
                                   .ToLink("Download"))                                                              
                         </td>
                     </tr>

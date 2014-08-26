@@ -81,6 +81,44 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Operations\Code Generate\Ios\IosRequestCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Ios\IosIncodingHelperCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Ios\IosTaskCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Ios\Ios_Request_h.cs">
+      <DependentUpon>Ios_Request_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Request_m.cs">
+      <DependentUpon>Ios_Request_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_IncodingHelper_m.cs">
+      <DependentUpon>Ios_IncodingHelper_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Task_m.cs">
+      <DependentUpon>Ios_Task_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_IncodingHelper_h.cs">
+      <DependentUpon>Ios_IncodingHelper_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Task_h.cs">
+      <DependentUpon>Ios_Task_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Listener_h1.cs">
+      <DependentUpon>Ios_Listener_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Operations\Code Generate\Ios\Ios_Response_m.cs">
       <DependentUpon>Ios_Response_m.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -185,6 +223,34 @@
     <None Include="Operations\Code Generate\Android\Android_IncodingHelper.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_IncodingHelper.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Request_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Request_h.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Request_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Request_m.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_IncodingHelper_m.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Task_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Task_m.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_IncodingHelper_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_IncodingHelper_h.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Task_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Task_h.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Listener_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Listener_h1.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Ios\Ios_Response_m.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

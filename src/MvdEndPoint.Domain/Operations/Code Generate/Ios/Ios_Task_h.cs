@@ -12,16 +12,15 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using Incoding.Extensions;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Ios_Response_m : Ios_Response_mBase
+    public partial class Ios_Task_h : Ios_Task_hBase
     {
 #line hidden
         /// <summary>
@@ -29,95 +28,46 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("#import \"");
+            this.Write("\r\ntypedef void (^Success");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(".h\"\r\n\r\n@implementation ");
+            this.Write(") (");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
+            
+            #line default
+            #line hidden
+            this.Write(" *result)\r\n\r\n@interface ");
+            
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write(": NSObject\r\n@property [nonatomic, strong] ");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t@synthesize ");
-            
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
-            this.Write(";    \r\n");
+            this.Write(" request;\r\n-(void)initRequest:(");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("+(");
-            
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
-            this.Write(" *)create:(NSDictionary *)json\r\n{\r\n  ");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *res = [");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" new];\r\n  ");
-            
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("    res.");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = json[@\"data\"][@\"");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"];    \r\n  ");
-            
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n  return res;\r\n}\r\n@end\r\n");
+            this.Write(" *) request;\r\n-(void)on:(Success)success;\r\n@end\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
 
 private string _NameField;
 
@@ -132,16 +82,94 @@ private string Name
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response> _PropertiesField;
+private string _ListenerField;
 
 /// <summary>
-/// Access the Properties parameter of the template.
+/// Access the Listener parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response> Properties
+private string Listener
 {
     get
     {
-        return this._PropertiesField;
+        return this._ListenerField;
+    }
+}
+
+private string _RequestField;
+
+/// <summary>
+/// Access the Request parameter of the template.
+/// </summary>
+private string Request
+{
+    get
+    {
+        return this._RequestField;
+    }
+}
+
+private string _ResponseField;
+
+/// <summary>
+/// Access the Response parameter of the template.
+/// </summary>
+private string Response
+{
+    get
+    {
+        return this._ResponseField;
+    }
+}
+
+private bool _HasRequestField;
+
+/// <summary>
+/// Access the HasRequest parameter of the template.
+/// </summary>
+private bool HasRequest
+{
+    get
+    {
+        return this._HasRequestField;
+    }
+}
+
+private string _NamespaceField;
+
+/// <summary>
+/// Access the Namespace parameter of the template.
+/// </summary>
+private string Namespace
+{
+    get
+    {
+        return this._NamespaceField;
+    }
+}
+
+private string _PackageField;
+
+/// <summary>
+/// Access the Package parameter of the template.
+/// </summary>
+private string Package
+{
+    get
+    {
+        return this._PackageField;
+    }
+}
+
+private string _TypeField;
+
+/// <summary>
+/// Access the Type parameter of the template.
+/// </summary>
+private string Type
+{
+    get
+    {
+        return this._TypeField;
     }
 }
 
@@ -183,35 +211,213 @@ if ((NameValueAcquired == false))
         }
     }
 }
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
+bool ListenerValueAcquired = false;
+if (this.Session.ContainsKey("Listener"))
 {
-    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Listener"].GetType()) == false))
     {
-        this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
-                "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
-                " passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Listener\' did not match the type of th" +
+                "e data passed to the template.");
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
+        this._ListenerField = ((string)(this.Session["Listener"]));
+        ListenerValueAcquired = true;
     }
 }
-if ((PropertiesValueAcquired == false))
+if ((ListenerValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Listener");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
-                    "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
-                    " passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'Listener\' did not match the type of th" +
+                    "e data passed to the template.");
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>)(data));
+            this._ListenerField = ((string)(data));
+        }
+    }
+}
+bool RequestValueAcquired = false;
+if (this.Session.ContainsKey("Request"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Request"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Request\' did not match the type of the" +
+                " data passed to the template.");
+    }
+    else
+    {
+        this._RequestField = ((string)(this.Session["Request"]));
+        RequestValueAcquired = true;
+    }
+}
+if ((RequestValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Request");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Request\' did not match the type of the" +
+                    " data passed to the template.");
+        }
+        else
+        {
+            this._RequestField = ((string)(data));
+        }
+    }
+}
+bool ResponseValueAcquired = false;
+if (this.Session.ContainsKey("Response"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Response"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._ResponseField = ((string)(this.Session["Response"]));
+        ResponseValueAcquired = true;
+    }
+}
+if ((ResponseValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._ResponseField = ((string)(data));
+        }
+    }
+}
+bool HasRequestValueAcquired = false;
+if (this.Session.ContainsKey("HasRequest"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["HasRequest"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'HasRequest\' did not match the type of" +
+                " the data passed to the template.");
+    }
+    else
+    {
+        this._HasRequestField = ((bool)(this.Session["HasRequest"]));
+        HasRequestValueAcquired = true;
+    }
+}
+if ((HasRequestValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("HasRequest");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'HasRequest\' did not match the type of" +
+                    " the data passed to the template.");
+        }
+        else
+        {
+            this._HasRequestField = ((bool)(data));
+        }
+    }
+}
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
+    }
+    else
+    {
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
+    }
+}
+if ((NamespaceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
+        }
+        else
+        {
+            this._NamespaceField = ((string)(data));
+        }
+    }
+}
+bool PackageValueAcquired = false;
+if (this.Session.ContainsKey("Package"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Package"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Package\' did not match the type of the" +
+                " data passed to the template.");
+    }
+    else
+    {
+        this._PackageField = ((string)(this.Session["Package"]));
+        PackageValueAcquired = true;
+    }
+}
+if ((PackageValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Package\' did not match the type of the" +
+                    " data passed to the template.");
+        }
+        else
+        {
+            this._PackageField = ((string)(data));
+        }
+    }
+}
+bool TypeValueAcquired = false;
+if (this.Session.ContainsKey("Type"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Type"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Type\' did not match the type of the da" +
+                "ta passed to the template.");
+    }
+    else
+    {
+        this._TypeField = ((string)(this.Session["Type"]));
+        TypeValueAcquired = true;
+    }
+}
+if ((TypeValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Type");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Type\' did not match the type of the da" +
+                    "ta passed to the template.");
+        }
+        else
+        {
+            this._TypeField = ((string)(data));
         }
     }
 }
@@ -233,7 +439,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Ios_Response_mBase
+    public class Ios_Task_hBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

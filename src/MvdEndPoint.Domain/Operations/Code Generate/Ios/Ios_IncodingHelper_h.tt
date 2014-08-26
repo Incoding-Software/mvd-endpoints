@@ -1,0 +1,14 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Url" #>
+
+typedef void (^IncodingDone)(NSDictionary *result)
+
+@interface IncodingHelper:NSObject
++(void)refreshSession;
++(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done;
+@end
+

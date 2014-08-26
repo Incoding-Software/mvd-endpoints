@@ -1,0 +1,15 @@
+﻿#import "GetCustomerRequest.h"
+
+@implementation GetCustomerRequest
+	@synthesize Message;    
+	@synthesize Title;    
+	@synthesize Ids;    
+
+-(NSString *)asString
+{
+
+ return [NSString stringWithFormat:@"incType=%@&%@Message=%@&%@Title=%@&%@Ids=%@",
+                         [incType GetCustomerRequest]
+                        , [Message [self Message]], [Title [self Title]], [Ids [self Ids]]];
+  
+}

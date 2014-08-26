@@ -1,0 +1,4 @@
+﻿@interface FakeTask: NSObject
+-(void)on:(FakeRequest *)request;
+@end
+

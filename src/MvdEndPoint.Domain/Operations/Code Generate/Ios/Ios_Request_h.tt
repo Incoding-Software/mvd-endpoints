@@ -6,19 +6,10 @@
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
-#import "<#= Name#>.h"
 
-@implementation <#= Name#>
-<# foreach(var prop in Properties) { #>
-	@synthesize <#= prop.Name#>;    
-<# } #>
-+(<#= Name #> *)create:(NSDictionary *)json
-{
-  <#= Name#> *res = [<#= Name#> new];
-  <# foreach(var prop in Properties) { #>
-    res.<#= prop.Name#> = json[@"data"][@"<#= prop.Name#>"];    
-  <# } #>
-
-  return res;
-}
+@interface <#= Name #> : NSObject
+    <# foreach(var prop in Properties) { #>
+	@property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    
+    <# } #>
+	-(NSString *)asString;
 @end

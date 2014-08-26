@@ -1,0 +1,22 @@
+﻿#import "IncodingHelper.h"
+
+@implementation IncodingHelper
++(NSDictionary *)execute:(NSString *) requestString
+{  
+  NSData *myRequestData = [ NSData dataWithBytes: [ requestString UTF8String ] length: [ requestString length ] ];
+  NSMutableURLRequest *request = [ [ NSMutableURLRequest alloc ] initWithURL: [ NSURL URLWithString: @"http://localhost:48801/Dispatcher" ] ]; 
+  [ request setHTTPMethod: @"POST" ];
+  [ request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+  [ request setHTTPBody: myRequestData ];
+  NSURLResponse *response;
+  NSError *err;
+  NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse:&response error:&err];
+  NSString *content = [NSString stringWithUTF8String:[returnData bytes]];
+  
+  NSData *jsonData = [content dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *e;
+  return [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
+}
+
+
+

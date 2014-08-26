@@ -12,16 +12,15 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using Incoding.Extensions;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Ios_Response_m : Ios_Response_mBase
+    public partial class Ios_IncodingHelper_m : Ios_IncodingHelper_mBase
     {
 #line hidden
         /// <summary>
@@ -29,119 +28,62 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("#import \"");
+            this.Write(@"#import ""IncodingHelper.h""
+
+@implementation IncodingHelper
+
++(void)refreshSession
+{
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];    
+    sessionConfig.timeoutIntervalForRequest = 30.0;
+    sessionConfig.timeoutIntervalForResource = 30.0;
+    sessionConfig.HTTPMaximumConnectionsPerHost = 15;
+    
+    _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+}
+
++(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
+{  
+  NSString *urlString = [NSString stringWithFormat:@""");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(".h\"\r\n\r\n@implementation ");
-            
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t@synthesize ");
-            
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
-            this.Write(";    \r\n");
-            
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("+(");
-            
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *)create:(NSDictionary *)json\r\n{\r\n  ");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *res = [");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" new];\r\n  ");
-            
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("    res.");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = json[@\"data\"][@\"");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"];    \r\n  ");
-            
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n  return res;\r\n}\r\n@end\r\n");
+            this.Write(@"/%@?%@"",type,requestString];
+  NSURL *url = [NSURL URLWithString:urlString];
+
+  if(!_session)
+ {
+   [self refreshSession];
+ }
+
+ NSURLSessionDataTask *getTask = [_session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                   NSError *jsonError;                                          
+                                   NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                                   done(result);     }];    
+ [getTask resume];
+}
+
+
+
+");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
 
-private string _NameField;
+private string _UrlField;
 
 /// <summary>
-/// Access the Name parameter of the template.
+/// Access the Url parameter of the template.
 /// </summary>
-private string Name
+private string Url
 {
     get
     {
-        return this._NameField;
-    }
-}
-
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response> _PropertiesField;
-
-/// <summary>
-/// Access the Properties parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response> Properties
-{
-    get
-    {
-        return this._PropertiesField;
+        return this._UrlField;
     }
 }
 
@@ -153,65 +95,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool NameValueAcquired = false;
-if (this.Session.ContainsKey("Name"))
+bool UrlValueAcquired = false;
+if (this.Session.ContainsKey("Url"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["Name"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Url"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                "ta passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Url\' did not match the type of the dat" +
+                "a passed to the template.");
     }
     else
     {
-        this._NameField = ((string)(this.Session["Name"]));
-        NameValueAcquired = true;
+        this._UrlField = ((string)(this.Session["Url"]));
+        UrlValueAcquired = true;
     }
 }
-if ((NameValueAcquired == false))
+if ((UrlValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Name");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Url");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                    "ta passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'Url\' did not match the type of the dat" +
+                    "a passed to the template.");
         }
         else
         {
-            this._NameField = ((string)(data));
-        }
-    }
-}
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
-{
-    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
-                "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
-                " passed to the template.");
-    }
-    else
-    {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
-    }
-}
-if ((PropertiesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
-                    "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
-                    " passed to the template.");
-        }
-        else
-        {
-            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>)(data));
+            this._UrlField = ((string)(data));
         }
     }
 }
@@ -233,7 +143,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Ios_Response_mBase
+    public class Ios_IncodingHelper_mBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

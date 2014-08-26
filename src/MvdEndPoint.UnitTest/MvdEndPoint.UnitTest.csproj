@@ -93,6 +93,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_ios_request_code_generate_as_get_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_request_code_generate_as_get_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_incoding_helper_code_generate_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_incoding_helper_code_generate_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_task_code_generate_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_task_code_generate_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_ios_response_code_generate_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -130,7 +148,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
-    <Compile Include="Operations\IOS\When_ios_response_code_generate_h.cs" />
+    <Compile Include="Operations\IOS\When_ios_request_code_generate_as_get.cs" />
+    <Compile Include="Operations\IOS\When_ios_incoding_helper_code_generate.cs" />
+    <Compile Include="Operations\IOS\When_ios_task_code_generate.cs" />
+    <Compile Include="Operations\IOS\When_ios_response_code_generate.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_ios.cs" />
     <Compile Include="Operations\Android\When_android_incoding_helper_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_model_state_exception_code_generate.cs" />

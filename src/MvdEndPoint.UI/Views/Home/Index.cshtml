@@ -9,8 +9,9 @@
     var tmpl = new EndPointItem.Tmpl
                    {
                            DefaultUrl = "http://ivg-benchmarking.knowitconsulting.co.uk",
-                           DownloadLinkId = Guid.NewGuid().ToString(),
+                           DownloadLinkName = Guid.NewGuid().ToString(),
                            BaseUrlName = Guid.NewGuid().ToString(),
+                           DeviceName = Guid.NewGuid().ToString(),
                            CheckedTypeName = Guid.NewGuid().ToString(),
                            AllId = Guid.NewGuid().ToString()
                    };
@@ -32,25 +33,37 @@
                                                                                               .Direct()
                                                                                               .OnSuccess(dsl => dsl.WithId(containerId).Core().Trigger.Incoding())
                                                                                               .AsHtmlAttributes())    
+        </div>    
+        <div class="col-md-2">                
+            <label>Device:</label>        
+            @Html.DropDownList(tmpl.DeviceName, typeof(DeviceOfType).ToSelectList(), Html.When(JqueryBind.Change)
+                                                                                         .Direct()
+                                                                                         .OnSuccess(dsl => dsl.WithId(tmpl.AllId)
+                                                                                                              .WithName(tmpl.DownloadLinkName)
+                                                                                                              .Core().Trigger.Invoke(JqueryBind.InitIncoding))
+                                                                                         .AsHtmlAttributes())    
         </div>
         <div class="col-md-5">
             <label>Url:</label>                
             @(Html.When(JqueryBind.Change)
                   .Direct()
-                  .OnSuccess(dsl => dsl.With(r => r.Id(tmpl.DownloadLinkId)).Core().Trigger.Invoke(JqueryBind.InitIncoding))
+                  .OnSuccess(dsl => dsl.WithName(tmpl.DefaultUrl)
+                                       .WithId(tmpl.AllId)
+                                       .Core().Trigger.Invoke(JqueryBind.InitIncoding))
                   .AsHtmlAttributes(new { name = tmpl.BaseUrlName, style = "width:350px" })
                   .ToTextBox(value: tmpl.DefaultUrl))     
                 
         </div>
         <div class="col-md-3 col-lg-offset-2"> 
-            @(Html.When(JqueryBind.None)
+            @(Html.When(JqueryBind.InitIncoding)
                   .Direct()
                   .OnSuccess(dsl =>
                                  {
                                      var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
                                                                                                   {
                                                                                                           Names = Selector.Jquery.Name(tmpl.CheckedTypeName),
-                                                                                                          BaseUrl = Selector.Jquery.Name(tmpl.BaseUrlName)
+                                                                                                          BaseUrl = Selector.Jquery.Name(tmpl.BaseUrlName),
+                                                                                                          Device = tmpl.DeviceName.ToName()
                                                                                                   })
                                                   .AsFile(incFileDownloadName: "all.zip")
                                                   .ToBuildUrl();

@@ -33,7 +33,7 @@
             var session = new Dictionary<string, object>
                               {
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
-                                      { "Properties", new Dictionary<string, string>() },
+                                      { "Properties", new List<GetPropertiesByTypeQuery.Response>() },
                                       { "IsQuery", isQuery },
                               };
 

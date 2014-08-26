@@ -8,7 +8,8 @@
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 
 @interface <#= Name #> : NSObject
-    <# foreach(var prop in Properties) { #>
-	@property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    
-    <# } #>
+<# foreach(var prop in Properties) { #>
+ @property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    
+<# } #>
++(<#= Name #> *)create:(NSDictionary *)json;
 @end

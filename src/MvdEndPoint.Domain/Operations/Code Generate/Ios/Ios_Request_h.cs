@@ -19,9 +19,9 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Ios_Response_m : Ios_Response_mBase
+    public partial class Ios_Request_h : Ios_Request_hBase
     {
 #line hidden
         /// <summary>
@@ -29,95 +29,46 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("#import \"");
+            this.Write("\r\n@interface ");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(".h\"\r\n\r\n@implementation ");
+            this.Write(" : NSObject\r\n    ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
-            this.Write("\t@synthesize ");
+            this.Write("\t@property (strong, nonatomic) ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+            
+            #line default
+            #line hidden
+            this.Write(" *");
+            
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write(";    \r\n");
+            this.Write(";    \r\n    ");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("+(");
-            
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *)create:(NSDictionary *)json\r\n{\r\n  ");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *res = [");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" new];\r\n  ");
-            
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("    res.");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = json[@\"data\"][@\"");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\"];    \r\n  ");
-            
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n  return res;\r\n}\r\n@end\r\n");
+            this.Write("\t-(NSString *)asString;\r\n@end");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
 
 private string _NameField;
 
@@ -233,7 +184,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Ios_Response_mBase
+    public class Ios_Request_hBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

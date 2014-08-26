@@ -7,8 +7,14 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace MvdEndPoint.Domain
+namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using Incoding.Extensions;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -26,18 +32,18 @@ namespace MvdEndPoint.Domain
             this.Write("\r\n@interface ");
             
             #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" : NSObject\r\n    ");
+            this.Write(" : NSObject\r\n");
             
             #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
- foreach(var prop in this.Properties) { 
+ foreach(var prop in Properties) { 
             
             #line default
             #line hidden
-            this.Write("\t@property (strong, nonatomic) ");
+            this.Write(" @property (strong, nonatomic) ");
             
             #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
@@ -51,14 +57,21 @@ namespace MvdEndPoint.Domain
             
             #line default
             #line hidden
-            this.Write(";    \r\n    ");
+            this.Write(";    \r\n");
             
             #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("@end");
+            this.Write("+(");
+            
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" *)create:(NSDictionary *)json;\r\n@end");
             return this.GenerationEnvironment.ToString();
         }
         

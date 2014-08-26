@@ -6,4 +6,6 @@
     	@property (strong, nonatomic) MyEnum *Type;    
     	@property (strong, nonatomic) NSDate *CreateDt;    
     	@property (strong, nonatomic) NSString *Ids;    
-    @end
+    
+	-(GetCustomerResponse *)create:(MSMutableArray *)json;
+@end

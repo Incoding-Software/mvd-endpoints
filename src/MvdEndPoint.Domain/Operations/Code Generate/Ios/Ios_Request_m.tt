@@ -12,13 +12,10 @@
 <# foreach(var prop in Properties) { #>
 	@synthesize <#= prop.Name#>;    
 <# } #>
-+(<#= Name #> *)create:(NSDictionary *)json
-{
-  <#= Name#> *res = [<#= Name#> new];
-  <# foreach(var prop in Properties) { #>
-    res.<#= prop.Name#> = json[@"data"][@"<#= prop.Name#>"];    
-  <# } #>
 
-  return res;
+-(NSString *)asString
+{
+ return [NSString stringWithFormat:@"incType=@%<# foreach(var prop in Properties) {#>&<#= prop.Name#>=@%<#}#>",
+                         "<#=Name#>",  <# foreach(var prop in Properties) {#>,[self <#= prop.Name#>]<#}#>];  
 }
 @end

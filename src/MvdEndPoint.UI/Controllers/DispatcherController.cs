@@ -45,13 +45,15 @@ namespace MvdEndPoint.UI.Controllers
 
             public string DefaultUrl { get; set; }
 
-            public string DownloadLinkId { get; set; }
+            public string DownloadLinkName { get; set; }
 
             public string BaseUrlName { get; set; }
 
             public string CheckedTypeName { get; set; }
 
             public string AllId { get; set; }
+
+            public string DeviceName { get; set; }
 
             #endregion
         }
