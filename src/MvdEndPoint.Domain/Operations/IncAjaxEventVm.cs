@@ -1,4 +1,4 @@
-﻿namespace MvdEndPoint.UI.Models
+﻿namespace MvdEndPoint.Domain
 {
     public class IncAjaxEventVm
     {

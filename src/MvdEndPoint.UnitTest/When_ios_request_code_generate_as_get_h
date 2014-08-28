@@ -3,6 +3,5 @@
     	@property (strong, nonatomic) TheSameString *Message;    
     	@property (strong, nonatomic) Number *Title;    
     	@property (strong, nonatomic) String *Ids;    
-    
-	-(NSString *)asString;
+    	-(NSString *)asString;
 @end

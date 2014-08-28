@@ -9,7 +9,11 @@
 
 @interface <#= Name #> : NSObject
     <# foreach(var prop in Properties) { #>
-	@property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    
+	  <#if(prop.IsCanNull){#>
+	   @property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    	  
+	  <#}else{#>
+	   @property (assign, nonatomic) <#= prop.Type#> <#= prop.Name#>;    
+	  <#}#>
     <# } #>
 	-(NSString *)asString;
 @end

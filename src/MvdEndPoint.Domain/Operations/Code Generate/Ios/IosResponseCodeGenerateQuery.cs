@@ -10,13 +10,6 @@
 
     #endregion
 
-    public enum FileOfIos
-    {
-        H,
-
-        M
-    }
-
     public class IosResponseCodeGenerateQuery : QueryBase<string>
     {
         #region Properties
@@ -34,6 +27,16 @@
                               {
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
                                       { "Properties", new List<GetPropertiesByTypeQuery.Response>() },
+                                      {
+                                              "MappingJsonMethodByType", new Dictionary<string, string>
+                                                                             {                                                                                     
+                                                                                     { ConvertCSharpTypeToIosQuery.String, "stringValue" },
+                                                                                     { ConvertCSharpTypeToIosQuery.Int, "intValue" },
+                                                                                     { ConvertCSharpTypeToIosQuery.Float, "floatValue" },
+                                                                                     { ConvertCSharpTypeToIosQuery.Double, "doubleValue" },
+                                                                                     { ConvertCSharpTypeToIosQuery.Boolean, "boolValue" },
+                                                                             }
+                                      },
                                       { "IsQuery", isQuery },
                               };
 

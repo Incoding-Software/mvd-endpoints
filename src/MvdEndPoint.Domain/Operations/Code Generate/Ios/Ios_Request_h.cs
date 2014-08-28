@@ -43,28 +43,63 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
             
             #line default
             #line hidden
-            this.Write("\t@property (strong, nonatomic) ");
+            this.Write("\t  ");
             
             #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+if(prop.IsCanNull){
+            
+            #line default
+            #line hidden
+            this.Write("\t   @property (strong, nonatomic) ");
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
             
             #line default
             #line hidden
             this.Write(" *");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write(";    \r\n    ");
+            this.Write(";    \t  \r\n\t  ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+}else{
+            
+            #line default
+            #line hidden
+            this.Write("\t   @property (assign, nonatomic) ");
+            
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write(";    \r\n\t  ");
+            
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("    ");
+            
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t-(NSString *)asString;\r\n@end");
+            this.Write("\t-(NSString *)asString;\r\n@end\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

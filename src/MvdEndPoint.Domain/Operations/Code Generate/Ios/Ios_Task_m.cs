@@ -38,47 +38,56 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
             this.Write(".h\"\r\n#import \"");
             
             #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(".h\"\r\n#import \"");
+            
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(".h\"\r\n#import \"IncodingHelper.h\"\r\n\r\n@implementation ");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(": NSObject\r\n@synthesize request;\r\n\r\n-(void)initRequest:(");
+            this.Write(": NSObject\r\n-(id)initWithRequest:(");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
-            this.Write(" *)request\r\n{\r\n  self.request = request;\r\n}\r\n\r\n-(void)on:(Success");
+            this.Write(" *)request\r\n{\r\n    self = [super init];\r\n    self.request = request;\r\n    return " +
+                    "self;\r\n}\r\n-(id)init\r\n{\r\n  self = [self initWithRequest:NULL];\r\n  return self;\r\n}" +
+                    "\r\n\r\n-(void)on:(Success");
             
-            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(")success\r\n{   \r\n       NSDictionary *json = [IncodingHelper execute:[_request asS" +
-                    "tring] type:@\"");
+            this.Write(")success\r\n{    \r\n    [[IncodingHelper sharedInstance] execute: [self.request asSt" +
+                    "ring] type:@\"");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Type));
             
             #line default
             #line hidden
             this.Write("\" done:^(NSDictionary *result){\r\n       success([");
             
-            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write(" create:json]);                \r\n\t     }];   \r\n}\r\n@end\r\n\r\n");
+            this.Write(" create:result]);\r\n\t     }];   \r\n}\r\n@end\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

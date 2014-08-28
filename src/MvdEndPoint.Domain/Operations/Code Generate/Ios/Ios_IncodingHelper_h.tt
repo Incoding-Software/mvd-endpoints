@@ -5,10 +5,12 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Url" #>
 
-typedef void (^IncodingDone)(NSDictionary *result)
+typedef void (^IncodingDone)(NSDictionary *result);
 
 @interface IncodingHelper:NSObject
-+(void)refreshSession;
-+(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done;
+@property (nonatomic, strong) NSURLSession *session;
++(id)sharedInstance;
+-(void)refreshSession;
+-(void)execute:(NSString *)requestString type:(NSString *)type done:(IncodingDone)done;
 @end
 

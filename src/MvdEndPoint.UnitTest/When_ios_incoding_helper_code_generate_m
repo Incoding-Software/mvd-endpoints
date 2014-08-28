@@ -1,22 +1,31 @@
 ﻿#import "IncodingHelper.h"
 
 @implementation IncodingHelper
-+(NSDictionary *)execute:(NSString *) requestString
-{  
-  NSData *myRequestData = [ NSData dataWithBytes: [ requestString UTF8String ] length: [ requestString length ] ];
-  NSMutableURLRequest *request = [ [ NSMutableURLRequest alloc ] initWithURL: [ NSURL URLWithString: @"http://localhost:48801/Dispatcher" ] ]; 
-  [ request setHTTPMethod: @"POST" ];
-  [ request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
-  [ request setHTTPBody: myRequestData ];
-  NSURLResponse *response;
-  NSError *err;
-  NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse:&response error:&err];
-  NSString *content = [NSString stringWithUTF8String:[returnData bytes]];
-  
-  NSData *jsonData = [content dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *e;
-  return [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
+
+-(void)refreshSession
+{
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];    
+    sessionConfig.timeoutIntervalForRequest = 30.0;
+    sessionConfig.timeoutIntervalForResource = 30.0;
+    sessionConfig.HTTPMaximumConnectionsPerHost = 15;
+    
+    _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
 }
 
+-(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
+{  
+  NSString *urlString = [NSString stringWithFormat:@"http://localhost:48801/Dispatcher/%@?%@",type,requestString];
+  NSURL *url = [NSURL URLWithString:urlString];
 
+  if(!_session)
+ {
+   [self refreshSession];
+ }
 
+ NSURLSessionDataTask *getTask = [_session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                   NSError *jsonError;                                          
+                                   NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                                   done(result);     }];    
+ [getTask resume];
+}
+@end

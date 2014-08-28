@@ -31,47 +31,68 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         {
             this.Write("\r\n@interface ");
             
-            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" : NSObject\r\n");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
             this.Write(" @property (strong, nonatomic) ");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
             
             #line default
             #line hidden
             this.Write(" *");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(";    \r\n");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("+(");
+            this.Write("\r\n");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+if(IsArray){
+            
+            #line default
+            #line hidden
+            this.Write("  +(NSMutableArray *)create:(NSDictionary *)json;  \r\n");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+}else{
+            
+            #line default
+            #line hidden
+            this.Write("  +(");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" *)create:(NSDictionary *)json;\r\n@end");
+            this.Write(" *)create:(NSDictionary *)json;\r\n");
+            
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n@end\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -87,6 +108,32 @@ private string Name
     get
     {
         return this._NameField;
+    }
+}
+
+private bool _IsQueryField;
+
+/// <summary>
+/// Access the IsQuery parameter of the template.
+/// </summary>
+private bool IsQuery
+{
+    get
+    {
+        return this._IsQueryField;
+    }
+}
+
+private bool _IsArrayField;
+
+/// <summary>
+/// Access the IsArray parameter of the template.
+/// </summary>
+private bool IsArray
+{
+    get
+    {
+        return this._IsArrayField;
     }
 }
 
@@ -138,6 +185,66 @@ if ((NameValueAcquired == false))
         else
         {
             this._NameField = ((string)(data));
+        }
+    }
+}
+bool IsQueryValueAcquired = false;
+if (this.Session.ContainsKey("IsQuery"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsQuery"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsQueryField = ((bool)(this.Session["IsQuery"]));
+        IsQueryValueAcquired = true;
+    }
+}
+if ((IsQueryValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsQuery");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsQueryField = ((bool)(data));
+        }
+    }
+}
+bool IsArrayValueAcquired = false;
+if (this.Session.ContainsKey("IsArray"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsArrayField = ((bool)(this.Session["IsArray"]));
+        IsArrayValueAcquired = true;
+    }
+}
+if ((IsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsArrayField = ((bool)(data));
         }
     }
 }

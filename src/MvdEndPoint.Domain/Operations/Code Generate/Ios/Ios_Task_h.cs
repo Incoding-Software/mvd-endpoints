@@ -28,42 +28,83 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\ntypedef void (^Success");
             
             #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+if(IsArray){
+            
+            #line default
+            #line hidden
+            this.Write("typedef void (^Success");
+            
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(") (NSMutableArray *result);\r\n");
+            
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+}else {
+            
+            #line default
+            #line hidden
+            this.Write("#import \"");
+            
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(".h\"\r\ntypedef void (^Success");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(") (");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write(" *result)\r\n\r\n@interface ");
+            this.Write(" *result);\r\n");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n@interface ");
+            
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(": NSObject\r\n@property [nonatomic, strong] ");
+            this.Write(": NSObject\r\n@property (atomic, strong) ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
-            this.Write(" request;\r\n-(void)initRequest:(");
+            this.Write(" *request;\r\n-(id)initWithRequest:(");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
-            this.Write(" *) request;\r\n-(void)on:(Success)success;\r\n@end\r\n\r\n");
+            this.Write(" *) request;\r\n-(void)on:(Success");
+            
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Task_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(")success;\r\n@end\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -131,6 +172,19 @@ private bool HasRequest
     get
     {
         return this._HasRequestField;
+    }
+}
+
+private bool _IsArrayField;
+
+/// <summary>
+/// Access the IsArray parameter of the template.
+/// </summary>
+private bool IsArray
+{
+    get
+    {
+        return this._IsArrayField;
     }
 }
 
@@ -328,6 +382,36 @@ if ((HasRequestValueAcquired == false))
         else
         {
             this._HasRequestField = ((bool)(data));
+        }
+    }
+}
+bool IsArrayValueAcquired = false;
+if (this.Session.ContainsKey("IsArray"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsArrayField = ((bool)(this.Session["IsArray"]));
+        IsArrayValueAcquired = true;
+    }
+}
+if ((IsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsArrayField = ((bool)(data));
         }
     }
 }

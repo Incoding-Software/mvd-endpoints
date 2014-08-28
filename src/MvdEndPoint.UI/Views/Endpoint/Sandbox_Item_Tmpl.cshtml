@@ -1,22 +1,19 @@
-﻿@using Incoding.MvcContrib
-@using MvdEndPoint.UI.Controllers
-@model EndPointItem
+﻿@model GetEndpointsQuery.Tmpl
 
 @{
-    using (var template = Html.Incoding().Template<EndPointItem>())
+    using (var template = Html.Incoding().Template<GetEndpointsQuery.Response>())
     {
         string resultId = Guid.NewGuid().ToString();
         using (var each = template.ForEach())
         {
-            using (Html.When(JqueryBind.IncAjaxError)
-                       .Do()
+            using (Html.When(JqueryBind.IncAjaxError)                       
                        .Event()
-                       .OnSuccess(dsl => dsl.WithId(resultId).Core().Insert.WithTemplateByUrl(this.Url.Dispatcher().AsView("~/Views/Home/Ajax_Response_Tmpl.cshtml")).Html())
+                       .OnSuccess(dsl => dsl.WithId(resultId).Core().Insert.WithTemplateByUrl(Url.Dispatcher().AsView("~/Views/Endpoint/Ajax_Response_Tmpl.cshtml")).Html())
                        .When(JqueryBind.Submit)
-                       .DoWithPreventDefault()
+                       .PreventDefault()
                        .Submit()
                        .OnSuccess(dsl => dsl.WithId(resultId).Core().Eval("DataToString(this.target,data)"))
-                       .OnError(dsl => dsl.WithId(resultId).Core().Insert.WithTemplateByUrl(Url.Dispatcher().AsView("~/Views/Home/ModelState_Tmpl.cshtml")).Html())
+                       .OnError(dsl => dsl.WithId(resultId).Core().Insert.WithTemplateByUrl(Url.Dispatcher().AsView("~/Views/Endpoint/ModelState_Tmpl.cshtml")).Html())
                        .AsHtmlAttributes(new { action = each.For(r => r.Url), method = HttpVerbs.Post, @class = "form-horizontal" })
                        .ToBeginTag(Html, HtmlTag.Form))
             {
@@ -38,7 +35,10 @@
                             {
                                 @Html.DropDownList(innerEach.For(r => r.Name), new SelectList(new string[0]), Html.When(JqueryBind.InitIncoding)
                                                                                                                   .Do()
-                                                                                                                  .AjaxGet(Url.Action("FetchEnum", "Dispatcher", new { TypeId = innerEach.For(r => r.TypeId) }))
+                                                                                                                  .AjaxGet(Url.Dispatcher().Query(new GetEnumForDD
+                                                                                                                                                      {
+                                                                                                                                                              TypeId = innerEach.For(r => r.TypeId)
+                                                                                                                                                      }).AsJson())
                                                                                                                   .OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplateById(IncodingHtmlHelper.DropDownTemplateId).Html())
                                                                                                                   .AsHtmlAttributes())
                             }
@@ -50,7 +50,7 @@
                             }
                         </div>
                     </div>
-                }         
+                }
                 <div class="form-actions">
                     <input type="submit" value="Run" class="btn btn-success"/>
                 </div>
@@ -59,5 +59,4 @@
 
         <div id="@resultId"></div>
     }
-
 }

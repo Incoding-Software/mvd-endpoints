@@ -5,6 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Type" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 #import "<#= Name#>.h"
 
@@ -15,7 +16,8 @@
 
 -(NSString *)asString
 {
- return [NSString stringWithFormat:@"incType=@%<# foreach(var prop in Properties) {#>&<#= prop.Name#>=@%<#}#>",
-                         "<#=Name#>",  <# foreach(var prop in Properties) {#>,[self <#= prop.Name#>]<#}#>];  
+ return [NSString stringWithFormat:@"incType=%@<# foreach(var prop in Properties) {#>&<#= prop.Name#>=%@<#}#>",
+                         @"<#=Type#>" <# foreach(var prop in Properties) {#>,self.<#= prop.Name#><#}#>];  
 }
 @end
+

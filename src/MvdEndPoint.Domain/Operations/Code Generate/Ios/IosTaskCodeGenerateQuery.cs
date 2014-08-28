@@ -29,9 +29,16 @@
                                       { "Request", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Request, Type = Type }) },
                                       { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Response, Type = Type }) },
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Task, Type = Type }) },
-                                      { "HasRequest", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type, Device = DeviceOfType.Ios }).Any() },                                      
+                                      { "HasRequest", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type, Device = DeviceOfType.Ios }).Any() },
+                                      { "IsArray", false },
                                       { "Type", Type.IsImplement<CommandBase>() ? "Push" : "Query" },
                               };
+            if (!Type.IsImplement<CommandBase>())
+            {
+                var responseType = Type.BaseType.GenericTypeArguments[0];
+                session.Set("IsArray", responseType.IsImplement(typeof(IEnumerable<>)));
+            }
+
             switch (File)
             {
                 case FileOfIos.H:

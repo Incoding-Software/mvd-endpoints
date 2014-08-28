@@ -1,4 +1,9 @@
 ﻿
+typedef void (^IncodingDone)(NSDictionary *result);
+
 @interface IncodingHelper:NSObject
-+(NSDictionary *)execute:(NSString *) requestString;
+@property (nonatomic, strong) NSURLSession *session;
+-(void)refreshSession;
+-(void)execute:(NSString *)requestString type:(NSString *)type done:(IncodingDone)done;
+@end
 

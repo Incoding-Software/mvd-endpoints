@@ -31,89 +31,88 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         {
             this.Write("#import \"");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(".h\"\r\n\r\n@implementation ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t@synthesize ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(";    \r\n");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n-(NSString *)asString\r\n{\r\n return [NSString stringWithFormat:@\"incType=@%");
+            this.Write("\r\n-(NSString *)asString\r\n{\r\n return [NSString stringWithFormat:@\"incType=%@");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) {
             
             #line default
             #line hidden
             this.Write("&");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write("=@%");
+            this.Write("=%@");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }
             
             #line default
             #line hidden
-            this.Write("\",\r\n                         \"");
+            this.Write("\",\r\n                         @\"");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
             
             #line default
             #line hidden
-            this.Write("\",  ");
+            this.Write("\" ");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) {
             
             #line default
             #line hidden
-            this.Write(",[self ");
+            this.Write(",self.");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write("]");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }
             
             #line default
             #line hidden
-            this.Write("];  \r\n}\r\n@end\r\n");
+            this.Write("];  \r\n}\r\n@end\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -129,6 +128,19 @@ private string Name
     get
     {
         return this._NameField;
+    }
+}
+
+private string _TypeField;
+
+/// <summary>
+/// Access the Type parameter of the template.
+/// </summary>
+private string Type
+{
+    get
+    {
+        return this._TypeField;
     }
 }
 
@@ -180,6 +192,36 @@ if ((NameValueAcquired == false))
         else
         {
             this._NameField = ((string)(data));
+        }
+    }
+}
+bool TypeValueAcquired = false;
+if (this.Session.ContainsKey("Type"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Type"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Type\' did not match the type of the da" +
+                "ta passed to the template.");
+    }
+    else
+    {
+        this._TypeField = ((string)(this.Session["Type"]));
+        TypeValueAcquired = true;
+    }
+}
+if ((TypeValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Type");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Type\' did not match the type of the da" +
+                    "ta passed to the template.");
+        }
+        else
+        {
+            this._TypeField = ((string)(data));
         }
     }
 }

@@ -162,7 +162,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\IncAjaxEventVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,15 +279,15 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Endpoint_Item_Tmpl.cshtml" />
-    <Content Include="Views\Home\Sandbox_Item_Tmpl.cshtml" />
-    <Content Include="Views\Home\ModelState_Tmpl.cshtml" />
-    <Content Include="Views\Home\Ajax_Response_Tmpl.cshtml" />
+    <Content Include="Views\Endpoint\Ajax_Response_Tmpl.cshtml" />
+    <Content Include="Views\Endpoint\Endpoint_Item_Tmpl.cshtml" />
+    <Content Include="Views\Endpoint\Index.cshtml" />
+    <Content Include="Views\Endpoint\ModelState_Tmpl.cshtml" />
+    <Content Include="Views\Endpoint\Sandbox_Item_Tmpl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

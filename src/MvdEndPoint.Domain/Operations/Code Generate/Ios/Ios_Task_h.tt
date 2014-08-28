@@ -8,15 +8,20 @@
 <#@ parameter type="System.String" name="Request" #>
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.Boolean" name="HasRequest" #>
+<#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.String" name="Type" #>
-
-typedef void (^Success<#=Name#>) (<#= Request#> *result)
+<#if(IsArray){#>
+typedef void (^Success<#=Name#>) (NSMutableArray *result);
+<#}else {#>
+#import "<#= Response#>.h"
+typedef void (^Success<#=Name#>) (<#= Response#> *result);
+<#}#>
 
 @interface <#= Name#>: NSObject
-@property [nonatomic, strong] <#= Request#> request;
--(void)initRequest:(<#= Request#> *) request;
--(void)on:(Success)success;
+@property (atomic, strong) <#= Request#> *request;
+-(id)initWithRequest:(<#= Request#> *) request;
+-(void)on:(Success<#=Name#>)success;
 @end
 

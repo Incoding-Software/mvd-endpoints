@@ -7,8 +7,17 @@
 #import "IncodingHelper.h"
 
 @implementation IncodingHelper
++(id)sharedInstance
+{
+  static dispatch_once_t pred;
+  static IncodingHelper *sharedInstance = nil;
+  dispatch_once(&pred, ^{
+   sharedInstance = [[IncodingHelper alloc] init];
+  });
+  return sharedInstance;
+}
 
-+(void)refreshSession
+-(void)refreshSession
 {
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];    
     sessionConfig.timeoutIntervalForRequest = 30.0;
@@ -18,7 +27,7 @@
     _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
 }
 
-+(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
+-(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
 {  
   NSString *urlString = [NSString stringWithFormat:@"<#=Url#>/%@?%@",type,requestString];
   NSURL *url = [NSURL URLWithString:urlString];
@@ -34,6 +43,4 @@
                                    done(result);     }];    
  [getTask resume];
 }
-
-
-
+@end

@@ -7,9 +7,8 @@
 
 -(NSString *)asString
 {
-
- return [NSString stringWithFormat:@"incType=%@&%@Message=%@&%@Title=%@&%@Ids=%@",
-                         [incType GetCustomerRequest]
-                        , [Message [self Message]], [Title [self Title]], [Ids [self Ids]]];
-  
+ return [NSString stringWithFormat:@"incType=%@&Message=%@&Title=%@&Ids=%@",
+                         @"GetCustomerQuery" ,[self Message],[self Title],[self Ids]];  
 }
+@end
+

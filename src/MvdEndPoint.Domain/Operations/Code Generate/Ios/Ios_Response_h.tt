@@ -5,11 +5,19 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.Boolean" name="IsQuery" #>
+<#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 
 @interface <#= Name #> : NSObject
 <# foreach(var prop in Properties) { #>
  @property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    
 <# } #>
-+(<#= Name #> *)create:(NSDictionary *)json;
+
+<#if(IsArray){#>
+  +(NSMutableArray *)create:(NSDictionary *)json;  
+<#}else{#>
+  +(<#= Name #> *)create:(NSDictionary *)json;
+<#}#>
+
 @end

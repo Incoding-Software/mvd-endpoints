@@ -1,11 +1,12 @@
 ﻿
 @interface GetCustomerResponse : NSObject
-    	@property (strong, nonatomic) NSString *Title;    
-    	@property (strong, nonatomic) int *Number;    
-    	@property (strong, nonatomic) BOOL *Boolean;    
-    	@property (strong, nonatomic) MyEnum *Type;    
-    	@property (strong, nonatomic) NSDate *CreateDt;    
-    	@property (strong, nonatomic) NSString *Ids;    
-    
-	-(GetCustomerResponse *)create:(MSMutableArray *)json;
+ @property (strong, nonatomic) NSString *Title;    
+ @property (strong, nonatomic) int *Number;    
+ @property (assign, nonatomic) BOOL Boolean;    
+ @property (strong, nonatomic) MyEnum *Type;    
+ @property (strong, nonatomic) NSDate *CreateDt;    
+ @property (strong, nonatomic) NSString *Ids;    
+
+  +(GetCustomerResponse *)create:(NSDictionary *)json;
+
 @end

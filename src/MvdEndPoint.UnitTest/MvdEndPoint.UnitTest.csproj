@@ -93,6 +93,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_ios_request_code_generate_as_get_without_properties_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_request_code_generate_as_get_without_properties_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_ios_request_code_generate_as_get_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

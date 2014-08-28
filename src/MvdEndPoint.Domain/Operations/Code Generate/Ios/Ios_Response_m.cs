@@ -31,89 +31,232 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         {
             this.Write("#import \"");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(".h\"\r\n\r\n@implementation ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t@synthesize ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(";    \r\n");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
  } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n   ");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+if(IsQuery) {
+            
+            #line default
+            #line hidden
+            this.Write("         \r\n\t\t ");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+if(IsArray){
+            
+            #line default
+            #line hidden
+            this.Write("\t\r\n+(NSMutableArray *)create:(NSDictionary *)json\r\n{   \r\n  NSMutableArray *res = " +
+                    "[[NSMutableArray alloc] init];\r\n  for(NSDictionary *innerJson in json[@\"data\"])\r" +
+                    "\n  {\r\n   ");
+            
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" *item = [");
+            
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" init];\r\n   ");
+            
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+ foreach(var prop in Properties) { 
+            
+            #line default
+            #line hidden
+            this.Write("     ");
+            
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+if(prop.IsDateTime) {
+            
+            #line default
+            #line hidden
+            this.Write("\t    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];\r\n        format" +
+                    "ter.dateFormat = @\"EEE, dd MMM yyyy HH:mm:ss ZZZ\";\r\n\t    item.");
+            
+            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = [formatter dateFromString:@\"yyyy-MM-dd\'T\'HH:mm:ss\"];\r\n\t  ");
+            
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+}else{
+            
+            #line default
+            #line hidden
+            this.Write("        item.");
+            
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = [innerJson[@\"");
+            
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\"] ");
+            
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(MappingJsonMethodByType[prop.Type]));
+            
+            #line default
+            #line hidden
+            this.Write("];    \r\n\t  ");
+            
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("   ");
+            
+            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n   [res addObject:item];\r\n  }    \r\n  return res;\r\n}\r\n        ");
+            
+            #line 40 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+}else{
             
             #line default
             #line hidden
             this.Write("+(");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 41 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" *)create:(NSDictionary *)json\r\n{\r\n  ");
+            this.Write(" *)create:(NSDictionary *)json\r\n{   \r\n  ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" *res = [");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" new];\r\n  ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 44 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
-            this.Write("    res.");
+            this.Write("    \r\n\tres.");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write(" = json[@\"data\"][@\"");
+            this.Write(" = [json[@\"data\"][@\"");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
-            this.Write("\"];    \r\n  ");
+            this.Write("\"] ");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(MappingJsonMethodByType[prop.Type]));
+            
+            #line default
+            #line hidden
+            this.Write("];    \r\n  ");
+            
+            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n  return res;\r\n}\r\n@end\r\n");
+            this.Write(" \r\n  return res;\r\n}\r\n\t\t");
+            
+            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n   ");
+            
+            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write("\r\n+(");
+            
+            #line 53 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" *)create:(NSDictionary *)json\r\n{  \r\n       return [");
+            
+            #line 55 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" init];   \r\n}\r\n   ");
+            
+            #line 57 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_m.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n@end\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -132,6 +275,32 @@ private string Name
     }
 }
 
+private bool _IsQueryField;
+
+/// <summary>
+/// Access the IsQuery parameter of the template.
+/// </summary>
+private bool IsQuery
+{
+    get
+    {
+        return this._IsQueryField;
+    }
+}
+
+private bool _IsArrayField;
+
+/// <summary>
+/// Access the IsArray parameter of the template.
+/// </summary>
+private bool IsArray
+{
+    get
+    {
+        return this._IsArrayField;
+    }
+}
+
 private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response> _PropertiesField;
 
 /// <summary>
@@ -142,6 +311,19 @@ private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetProperties
     get
     {
         return this._PropertiesField;
+    }
+}
+
+private global::System.Collections.Generic.Dictionary<string,string> _MappingJsonMethodByTypeField;
+
+/// <summary>
+/// Access the MappingJsonMethodByType parameter of the template.
+/// </summary>
+private global::System.Collections.Generic.Dictionary<string,string> MappingJsonMethodByType
+{
+    get
+    {
+        return this._MappingJsonMethodByTypeField;
     }
 }
 
@@ -183,6 +365,66 @@ if ((NameValueAcquired == false))
         }
     }
 }
+bool IsQueryValueAcquired = false;
+if (this.Session.ContainsKey("IsQuery"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsQuery"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsQueryField = ((bool)(this.Session["IsQuery"]));
+        IsQueryValueAcquired = true;
+    }
+}
+if ((IsQueryValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsQuery");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsQueryField = ((bool)(data));
+        }
+    }
+}
+bool IsArrayValueAcquired = false;
+if (this.Session.ContainsKey("IsArray"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsArrayField = ((bool)(this.Session["IsArray"]));
+        IsArrayValueAcquired = true;
+    }
+}
+if ((IsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsArrayField = ((bool)(data));
+        }
+    }
+}
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
@@ -212,6 +454,38 @@ if ((PropertiesValueAcquired == false))
         else
         {
             this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>)(data));
+        }
+    }
+}
+bool MappingJsonMethodByTypeValueAcquired = false;
+if (this.Session.ContainsKey("MappingJsonMethodByType"))
+{
+    if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(this.Session["MappingJsonMethodByType"].GetType()) == false))
+    {
+        this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
+                "\'MappingJsonMethodByType\' did not match the type of the data passed to the templ" +
+                "ate.");
+    }
+    else
+    {
+        this._MappingJsonMethodByTypeField = ((global::System.Collections.Generic.Dictionary<string,string>)(this.Session["MappingJsonMethodByType"]));
+        MappingJsonMethodByTypeValueAcquired = true;
+    }
+}
+if ((MappingJsonMethodByTypeValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("MappingJsonMethodByType");
+    if ((data != null))
+    {
+        if ((typeof(global::System.Collections.Generic.Dictionary<string,string>).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Collections.Generic.Dictionary<string,string>\' of the parameter " +
+                    "\'MappingJsonMethodByType\' did not match the type of the data passed to the templ" +
+                    "ate.");
+        }
+        else
+        {
+            this._MappingJsonMethodByTypeField = ((global::System.Collections.Generic.Dictionary<string,string>)(data));
         }
     }
 }

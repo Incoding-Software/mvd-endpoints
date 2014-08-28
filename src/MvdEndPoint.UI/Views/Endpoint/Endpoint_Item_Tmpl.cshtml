@@ -1,11 +1,6 @@
-﻿@using Incoding.Extensions
-@using Incoding.MetaLanguageContrib
-@using Incoding.MvcContrib
-@using MvdEndPoint.Domain
-@using MvdEndPoint.UI.Controllers
-@model MvdEndPoint.UI.Controllers.EndPointItem.Tmpl
+﻿@model GetEndpointsQuery.Tmpl
 @{
-    using (var template = Html.Incoding().Template<EndPointItem>())
+    using (var template = Html.Incoding().Template<GetEndpointsQuery.Response>())
     {
         string dialogId = Guid.NewGuid().ToString();
 
@@ -24,7 +19,7 @@
                                                                        inDsl.Core().JQuery.Attributes.RemoveAttr(HtmlAttribute.Checked);
                                                                        inDsl.Core().JQuery.Attributes.SetAttr(HtmlAttribute.Checked).If(() => Selector.Jquery.Self());
                                                                    });
-                                                 dsl.WithName(Model.AllId).Core().Trigger.Invoke(JqueryBind.InitIncoding);
+                                                 dsl.WithId(Model.AllId).Core().Trigger.Invoke(JqueryBind.InitIncoding);
                                              })
                               .AsHtmlAttributes()
                               .ToCheckBox(false))
@@ -47,18 +42,7 @@
                                   .OnSuccess(dsl => dsl.WithId(Model.AllId).Core().Trigger.Invoke(JqueryBind.InitIncoding))
                                   .AsHtmlAttributes(new { name = Model.CheckedTypeName, value = each.For(r => r.AssemblyQualifiedName) })
                                   .ToCheckBox(false))
-                        </td>
-                        @*     <td>
-                            @(Html.When(JqueryBind.Click)
-                                  .Direct()
-                                  .OnSuccess(dsl =>
-                                                 {
-                                                     dsl.WithId(trId).Core().JQuery.Attributes.ToggleClass("hide");
-                                                     dsl.Self().Core().JQuery.Attributes.ToggleClass("icon-plus icon-minus");
-                                                 })
-                                  .AsHtmlAttributes(new { @class = "icon icon-plus" })
-                                  .ToI())
-                        </td>*@
+                        </td>  
                         <td>@each.For(r => r.Name)</td>
                         <td>
                             <a href="@each.For(r => r.Url)">
@@ -69,10 +53,13 @@
                         <td></td>
                         <td>
                             @(Html.When(JqueryBind.Click)
-                                  .AjaxGet(Url.Action("Endpoint", "Dispatcher", new { id = each.For(r => r.GUID) }))
+                                  .AjaxGet(Url.Dispatcher().Query(new  GetEndpointsQuery()
+                                                                      {
+                                                                              Id = each.For(r => r.GUID)
+                                                                      }).AsJson())
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
                                                                                        {
-                                                                                           string urlSandbox = Url.Dispatcher().AsView("~/Views/Home/Sandbox_Item_Tmpl.cshtml");
+                                                                                           string urlSandbox = Url.Dispatcher().AsView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml");
                                                                                            inDsl.Core().Insert.WithTemplateByUrl(urlSandbox).Html();
                                                                                            inDsl.JqueryUI().Dialog.Open(options =>
                                                                                                                             {

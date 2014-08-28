@@ -1,11 +1,22 @@
 ﻿
 #import "FakeRequest.h"
+#import "Response.h"
+#import "FakeTask.h"
+#import "IncodingHelper.h"
 
 @implementation FakeTask: NSObject
--(void)on:(FakeRequest *)request
-{   
-   NSDictionary *json = [IncodingHelper execute:[request asString]]
-   return [Response create:json]            
+-(id)initWithRequest:(FakeRequest *)request
+{
+    self.request = request;
+    return self;
+}
+
+-(void)on:(SuccessFakeTask)success
+{
+    IncodingHelper *helper = [IncodingHelper init];
+    [helper execute: [self.request asString] type:@"Query" done:^(NSDictionary *result){
+       success([Response create:result]);
+	     }];   
 }
 @end
 

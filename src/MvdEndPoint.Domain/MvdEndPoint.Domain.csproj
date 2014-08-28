@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Operations\Code Generate\Ios\FileOfIos.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosRequestCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosIncodingHelperCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosTaskCodeGenerateQuery.cs" />
@@ -114,19 +115,17 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Ios\Ios_Listener_h1.cs">
-      <DependentUpon>Ios_Listener_h.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Operations\Code Generate\Ios\Ios_Response_m.cs">
       <DependentUpon>Ios_Response_m.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
+    <Compile Include="Operations\GetEndpointsQuery.cs" />
+    <Compile Include="Operations\GetEnumForDD.cs" />
+    <Compile Include="Operations\IncAjaxEventVm.cs" />
     <Compile Include="Operations\Packages\MessageToPackageAsAndroidQuery.cs" />
-    <Compile Include="Operations\ModeOf.cs" />
+    <Compile Include="Operations\DeviceOfType.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_Request.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,10 +246,6 @@
     <None Include="Operations\Code Generate\Ios\Ios_Task_h.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Ios_Task_h.cs</LastGenOutput>
-    </None>
-    <None Include="Operations\Code Generate\Ios\Ios_Listener_h.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Ios_Listener_h1.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Ios\Ios_Response_m.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

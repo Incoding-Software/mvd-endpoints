@@ -28,9 +28,17 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\ntypedef void (^IncodingDone)(NSDictionary *result)\r\n\r\n@interface IncodingHelper" +
-                    ":NSObject\r\n+(void)refreshSession;\r\n+(void)execute:(NSString *) requestString typ" +
-                    "e:(NSString *)type done:(IncodingDone)done;\r\n@end\r\n\r\n");
+            this.Write(@"
+typedef void (^IncodingDone)(NSDictionary *result);
+
+@interface IncodingHelper:NSObject
+@property (nonatomic, strong) NSURLSession *session;
++(id)sharedInstance;
+-(void)refreshSession;
+-(void)execute:(NSString *)requestString type:(NSString *)type done:(IncodingDone)done;
+@end
+
+");
             return this.GenerationEnvironment.ToString();
         }
         

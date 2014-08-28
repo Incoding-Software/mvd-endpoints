@@ -31,8 +31,17 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
             this.Write(@"#import ""IncodingHelper.h""
 
 @implementation IncodingHelper
++(id)sharedInstance
+{
+  static dispatch_once_t pred;
+  static IncodingHelper *sharedInstance = nil;
+  dispatch_once(&pred, ^{
+   sharedInstance = [[IncodingHelper alloc] init];
+  });
+  return sharedInstance;
+}
 
-+(void)refreshSession
+-(void)refreshSession
 {
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];    
     sessionConfig.timeoutIntervalForRequest = 30.0;
@@ -42,11 +51,11 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
     _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
 }
 
-+(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
+-(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
 {  
   NSString *urlString = [NSString stringWithFormat:@""");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
@@ -65,10 +74,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
                                    done(result);     }];    
  [getTask resume];
 }
-
-
-
-");
+@end");
             return this.GenerationEnvironment.ToString();
         }
         

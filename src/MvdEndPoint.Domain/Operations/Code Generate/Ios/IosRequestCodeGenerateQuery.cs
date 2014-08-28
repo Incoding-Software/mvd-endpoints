@@ -25,7 +25,7 @@
             var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
             var session = new Dictionary<string, object>
                               {
-                                      { "Type", meta.Name },
+                                      { "Type", meta.Name },                                      
                                       {
                                               "Name", Dispatcher.Query(new GetNameFromTypeQuery
                                                                            {

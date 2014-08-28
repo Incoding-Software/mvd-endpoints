@@ -1,0 +1,11 @@
+﻿#import "GetCustomerRequest.h"
+
+@implementation GetCustomerRequest
+
+-(NSString *)asString
+{
+ return [NSString stringWithFormat:@"incType=%@",
+                         @"GetCustomerQuery" ];  
+}
+@end
+

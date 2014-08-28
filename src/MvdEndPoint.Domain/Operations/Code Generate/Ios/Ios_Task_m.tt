@@ -14,21 +14,27 @@
 <#@ parameter type="System.String" name="Type" #>
 
 #import "<#= Request#>.h"
+#import "<#= Response#>.h"
 #import "<#= Name#>.h"
 #import "IncodingHelper.h"
 
 @implementation <#= Name#>: NSObject
-@synthesize request;
-
--(void)initRequest:(<#= Request#> *)request
+-(id)initWithRequest:(<#= Request#> *)request
 {
-  self.request = request;
+    self = [super init];
+    self.request = request;
+    return self;
+}
+-(id)init
+{
+  self = [self initWithRequest:NULL];
+  return self;
 }
 
 -(void)on:(Success<#=Name#>)success
-{   
-       NSDictionary *json = [IncodingHelper execute:[_request asString] type:@"<#=Type#>" done:^(NSDictionary *result){
-       success([<#= Response#> create:json]);                
+{    
+    [[IncodingHelper sharedInstance] execute: [self.request asString] type:@"<#=Type#>" done:^(NSDictionary *result){
+       success([<#= Response#> create:result]);
 	     }];   
 }
 @end

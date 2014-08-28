@@ -8,15 +8,20 @@
 	@synthesize CreateDt;    
 	@synthesize Ids;    
 
--(GetCustomerResponse *)create:(NSDictionary *)json
-{
-  GetCustomerResponse res = [GetCustomerResponse ];
+            
+		 +(GetCustomerResponse *)create:(NSDictionary *)json
+{   
+  GetCustomerResponse *res = [GetCustomerResponse new];
       res.Title = json[@"data"][@"Title"];    
       res.Number = json[@"data"][@"Number"];    
       res.Boolean = json[@"data"][@"Boolean"];    
       res.Type = json[@"data"][@"Type"];    
       res.CreateDt = json[@"data"][@"CreateDt"];    
       res.Ids = json[@"data"][@"Ids"];    
-  
+   
   return res;
 }
+		
+   
+@end
+
