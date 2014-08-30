@@ -6,34 +6,26 @@
 	@synthesize Type;    
 	@synthesize CreateDt;    
 	@synthesize Ids;    
-      
-+(GetCustomerResponse *)create:(NSDictionary *)json
++(NSMutableArray *)create:(NSDictionary *)json
 {   
-  GetCustomerResponse *res = [[GetCustomerResponse alloc] init];
-      	
-             res.Title = json[@"Title"];    
-	    
-      	
-             res.Number = json[@"Number"];    
-	    
-      	
-             res.Boolean = json[@"Boolean"];    
-	    
-      	
-             res.Type = json[@"Type"];    
-	    
-      	
-     	    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  NSMutableArray *res = [[NSMutableArray alloc] init];
+  for(NSDictionary *innerJson in json)
+  {
+   GetCustomerResponse *item = [[GetCustomerResponse alloc]init];
+                item.Title = innerJson[@"Title"];    
+	                  item.Number = innerJson[@"Number"];    
+	                  item.Boolean = innerJson[@"Boolean"];    
+	                  item.Type = innerJson[@"Type"];    
+	          	    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss ZZZ";
-	    res.CreateDt = [formatter dateFromString:@"yyyy-MM-dd'T'HH:mm:ss"];
-	    
-      	
-             res.Ids = json[@"Ids"];    
-	    
-   
+	    item.CreateDt = [formatter dateFromString:@"yyyy-MM-dd'T'HH:mm:ss"];
+	                  item.Ids = innerJson[@"Ids"];    
+	      
+   [res addObject:item];
+  }    
   return res;
 }
--(void)encodeWithCoder:(NSCoder *)encoder{
+-(void)encodeWithCoder:(NSCoder *)encoder {
    [encoder encodeObject:Title forKey:@"Title"];
    [encoder encodeObject:Number forKey:@"Number"];
    [encoder encodeObject:Boolean forKey:@"Boolean"];
@@ -41,7 +33,7 @@
    [encoder encodeObject:CreateDt forKey:@"CreateDt"];
    [encoder encodeObject:Ids forKey:@"Ids"];
 }
--(id)initWithCoder:(NSCoder *)decoder{
+-(id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (!self) {
         return nil;
@@ -58,6 +50,6 @@
    self.CreateDt = [decoder decodeObjectForKey:@"CreateDt"];
    
    self.Ids = [decoder decodeObjectForKey:@"Ids"];
-  return self;
+   return self;
 }
 @end

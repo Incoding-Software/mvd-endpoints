@@ -93,28 +93,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="When_ios_request_code_generate_as_get_without_properties_h">
+    <None Include="When_ios_request_code_generate_as_query_with_array_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_get_without_properties_m">
+    <None Include="When_ios_request_code_generate_as_query_with_array_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_get_h">
+    <None Include="When_ios_request_code_generate_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_get_m">
+    <None Include="When_ios_request_code_generate_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_response_code_generate_command_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_response_code_generate_command_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_response_code_generate_as_array_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_response_code_generate_as_array_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_request_code_generate_as_query_without_properties_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_request_code_generate_as_query_without_properties_m">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_request_code_generate_as_query_h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_ios_request_code_generate_as_query_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="When_ios_incoding_helper_code_generate_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="When_ios_incoding_helper_code_generate_h">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="When_ios_task_code_generate_m">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="When_ios_task_code_generate_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="When_ios_response_code_generate_m">
@@ -154,20 +172,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\IOS\When_message_to_package_as_ios.cs" />
     <Compile Include="Operations\IOS\When_ios_request_code_generate_as_get.cs" />
     <Compile Include="Operations\IOS\When_ios_incoding_helper_code_generate.cs" />
-    <Compile Include="Operations\IOS\When_ios_task_code_generate.cs" />
     <Compile Include="Operations\IOS\When_ios_response_code_generate.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_ios.cs" />
     <Compile Include="Operations\Android\When_android_incoding_helper_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_model_state_exception_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_json_model_state_data_code_generate.cs" />
-    <Compile Include="Operations\Android\When_android_listener_code_generator_for_query_with_array.cs" />
     <Compile Include="Operations\Android\When_message_to_package_as_android_query.cs" />
     <Compile Include="Operations\OuterEnum.cs" />
     <Compile Include="Operations\Android\When_android_enum_code_generate.cs" />
     <Compile Include="Operations\When_get_name_from_type_as_command.cs" />
-    <Compile Include="Operations\Android\When_android_listener_code_generator_for_query.cs" />
+    <Compile Include="Operations\Android\When_android_listener_code_generator.cs" />
     <Compile Include="Operations\When_get_name_from_type_as_query.cs" />
     <Compile Include="Operations\When_get_properties_by_type.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_java.cs" />

@@ -29,77 +29,179 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n@interface ");
+            this.Write("#import \"");
             
-            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(".h\"\r\ntypedef void (^Success");
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" : NSObject\r\n    ");
-            
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
- foreach(var prop in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t  ");
-            
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-if(prop.IsCanNull){
-            
-            #line default
-            #line hidden
-            this.Write("\t   @property (strong, nonatomic) ");
+            this.Write(") (");
             
             #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+if(IsArray){
             
             #line default
             #line hidden
-            this.Write(" *");
+            this.Write("NSMutableArray");
             
             #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+}else{ 
             
             #line default
             #line hidden
-            this.Write(";    \t  \r\n\t  ");
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+} 
+            
+            #line default
+            #line hidden
+            this.Write(" *result);\r\n");
             
             #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-}else{
+if (!IsQuery){
             
             #line default
             #line hidden
-            this.Write("\t   @property (assign, nonatomic) ");
+            this.Write("typedef void (^Error");
             
             #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" ");
-            
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write(";    \r\n\t  ");
+            this.Write(")(NSMutableArray *result);\r\n");
             
             #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
 }
             
             #line default
             #line hidden
-            this.Write("    ");
+            this.Write("@interface ");
             
             #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(" : NSObject\r\n ");
+            
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+ foreach(var prop in Properties) { 
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+if(prop.IsBool){ 
+            
+            #line default
+            #line hidden
+            this.Write("@property (assign, nonatomic) ");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write(";    \t  \r\n");
+            
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+}else{
+            
+            #line default
+            #line hidden
+            this.Write("@property (strong, nonatomic) ");
+            
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+            
+            #line default
+            #line hidden
+            this.Write(" *");
+            
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write(";    \t  \r\n");
+            
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t-(NSString *)asString;\r\n@end\r\n");
+            
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+if(IsQuery){
+            
+            #line default
+            #line hidden
+            this.Write("-(void)on:(Success");
+            
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(")success;\r\n");
+            
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+}else{
+            
+            #line default
+            #line hidden
+            this.Write("-(void)on:(Success");
+            
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(")success error:(Error");
+            
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write(")error;\r\n");
+            
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("@end\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -115,6 +217,45 @@ private string Name
     get
     {
         return this._NameField;
+    }
+}
+
+private string _ResponseField;
+
+/// <summary>
+/// Access the Response parameter of the template.
+/// </summary>
+private string Response
+{
+    get
+    {
+        return this._ResponseField;
+    }
+}
+
+private bool _IsArrayField;
+
+/// <summary>
+/// Access the IsArray parameter of the template.
+/// </summary>
+private bool IsArray
+{
+    get
+    {
+        return this._IsArrayField;
+    }
+}
+
+private bool _IsQueryField;
+
+/// <summary>
+/// Access the IsQuery parameter of the template.
+/// </summary>
+private bool IsQuery
+{
+    get
+    {
+        return this._IsQueryField;
     }
 }
 
@@ -166,6 +307,96 @@ if ((NameValueAcquired == false))
         else
         {
             this._NameField = ((string)(data));
+        }
+    }
+}
+bool ResponseValueAcquired = false;
+if (this.Session.ContainsKey("Response"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Response"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._ResponseField = ((string)(this.Session["Response"]));
+        ResponseValueAcquired = true;
+    }
+}
+if ((ResponseValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Response\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._ResponseField = ((string)(data));
+        }
+    }
+}
+bool IsArrayValueAcquired = false;
+if (this.Session.ContainsKey("IsArray"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsArrayField = ((bool)(this.Session["IsArray"]));
+        IsArrayValueAcquired = true;
+    }
+}
+if ((IsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsArrayField = ((bool)(data));
+        }
+    }
+}
+bool IsQueryValueAcquired = false;
+if (this.Session.ContainsKey("IsQuery"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsQuery"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsQueryField = ((bool)(this.Session["IsQuery"]));
+        IsQueryValueAcquired = true;
+    }
+}
+if ((IsQueryValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsQuery");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsQueryField = ((bool)(data));
         }
     }
 }

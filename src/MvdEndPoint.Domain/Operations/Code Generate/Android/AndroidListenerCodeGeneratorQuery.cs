@@ -3,10 +3,9 @@
     #region << Using >>
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Incoding.CQRS;
-    using Incoding.Extensions;
+
     #endregion
 
     public class AndroidListenerCodeGeneratorQuery : QueryBase<string>
@@ -27,9 +26,8 @@
                                      { "Namespace", response.Namespace },
                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Listener, Type = Type }) },
                                      { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Response, Type = Type }) },
+                                     { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value }
                              };
-            if (!Type.IsImplement<CommandBase>())
-                on.Session.Add("IsArray", Type.BaseType.GenericTypeArguments[0].IsImplement<IEnumerable>());
             on.Initialize();
             return on.TransformText();
         }

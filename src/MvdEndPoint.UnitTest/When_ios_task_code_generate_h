@@ -1,9 +1,0 @@
-﻿#import "Response.h"
-typedef void (^SuccessFakeTask) (Response *result);
-
-@interface FakeTask: NSObject
-@property (atomic, strong) FakeRequest *request;
--(id)initWithRequest:(FakeRequest *) request;
--(void)on:(SuccessFakeTask)success;
-@end
-

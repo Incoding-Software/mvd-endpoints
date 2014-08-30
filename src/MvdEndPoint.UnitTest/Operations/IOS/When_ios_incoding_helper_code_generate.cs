@@ -7,6 +7,7 @@
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
+    using System.Linq;
 
     #endregion
 
@@ -18,6 +19,7 @@
         static void Verify(FileOfIos file)
         {
             var query = Pleasure.Generator.Invent<IosIncodingHelperCodeGenerateQuery>(dsl => dsl.Tuning(r => r.BaseUrl, "http://localhost:48801/")
+                                                                                                .Tuning(r => r.Imports, new[] { "File", "File2" }.ToList())
                                                                                                 .Tuning(r => r.File, file));
             string expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_ios_incoding_helper_code_generate).Name + "_" + file.ToString().ToUpper()));
 

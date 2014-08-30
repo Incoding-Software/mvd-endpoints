@@ -29,7 +29,6 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         public virtual string TransformText()
         {
             this.Write(@"#import ""IncodingHelper.h""
-
 @implementation IncodingHelper
 +(id)sharedInstance
 {
@@ -40,38 +39,41 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
   });
   return sharedInstance;
 }
-
+- (id)init {
+    self = [super init];
+    return self;
+}
 -(void)refreshSession
 {
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     sessionConfig.timeoutIntervalForRequest = 30.0;
     sessionConfig.timeoutIntervalForResource = 30.0;
     sessionConfig.HTTPMaximumConnectionsPerHost = 15;
-    
+    sessionConfig.HTTPShouldSetCookies = true;
+    sessionConfig.HTTPAdditionalHeaders = @{@""X-Requested-With"": @""XMLHttpRequest""};
     _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
 }
-
 -(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
-{  
+{
   NSString *urlString = [NSString stringWithFormat:@""");
             
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
-            this.Write(@"/%@?%@"",type,requestString];
+            this.Write(@"/%@?%@"",type,
+[requestString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet  URLQueryAllowedCharacterSet]]];
   NSURL *url = [NSURL URLWithString:urlString];
 
   if(!_session)
  {
    [self refreshSession];
  }
-
  NSURLSessionDataTask *getTask = [_session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                   NSError *jsonError;                                          
+                                   NSError *jsonError;
                                    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
-                                   done(result);     }];    
+                                   done(result);     }];
  [getTask resume];
 }
 @end");

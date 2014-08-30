@@ -5,7 +5,7 @@
  @property (strong, nonatomic) MyEnum *Type;    
  @property (strong, nonatomic) NSDate *CreateDt;    
  @property (strong, nonatomic) NSString *Ids;    
-  +(GetCustomerResponse *)create:(NSDictionary *)json;
+  +(NSMutableArray *)create:(NSDictionary *)json;  
 -(void)encodeWithCoder:(NSCoder *)encoder;
 -(id)initWithCoder:(NSCoder *)decoder;
 @end

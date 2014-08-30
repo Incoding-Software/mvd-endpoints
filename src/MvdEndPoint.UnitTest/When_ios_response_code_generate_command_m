@@ -1,0 +1,7 @@
+﻿#import "GetCustomerResponse.h"
+@implementation GetCustomerResponse
++(GetCustomerResponse *)create:(NSDictionary *)json
+{  
+    return [[GetCustomerResponse alloc]init];   
+}
+@end

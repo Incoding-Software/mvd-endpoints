@@ -10,51 +10,12 @@
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 #import "<#= Name#>.h"
-
 @implementation <#= Name#>
 <# foreach(var prop in Properties) { #>
 	@synthesize <#= prop.Name#>;    
 <# } #>
-
-   <#if(IsQuery) {#>         
-		 <#if(IsArray){#>	
-+(NSMutableArray *)create:(NSDictionary *)json
-{   
-  NSMutableArray *res = [[NSMutableArray alloc] init];
-  for(NSDictionary *innerJson in json[@"data"])
-  {
-   <#= Name#> *item = [<#= Name#> init];
-   <# foreach(var prop in Properties) { #>
-     <#if(prop.IsDateTime) {#>
-	    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss ZZZ";
-	    item.<#= prop.Name#> = [formatter dateFromString:@"yyyy-MM-dd'T'HH:mm:ss"];
-	  <#}else{#>
-        item.<#= prop.Name#> = [innerJson[@"<#= prop.Name#>"] <#= MappingJsonMethodByType[prop.Type] #>];    
-	  <#}#>
-   <# } #> 
-   [res addObject:item];
-  }    
-  return res;
-}
-        <#}else{#>
-+(<#= Name #> *)create:(NSDictionary *)json
-{   
-  <#= Name#> *res = [<#= Name#> new];
-  <# foreach(var prop in Properties) { #>    
-	res.<#= prop.Name#> = [json[@"data"][@"<#= prop.Name#>"] <#= MappingJsonMethodByType[prop.Type] #>];    
-  <# } #> 
-  return res;
-}
-		<# } #>
-
-   <#} else {#>
-
 +(<#= Name #> *)create:(NSDictionary *)json
 {  
-       return [<#= Name#> init];   
+    return [[<#= Name#> alloc]init];   
 }
-   <#}#>
-
 @end
-

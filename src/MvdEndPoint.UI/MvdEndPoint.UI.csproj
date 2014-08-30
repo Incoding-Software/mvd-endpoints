@@ -76,6 +76,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Incoding.MetaLanguage.Contrib.1.3.0.82-beta\lib\Incoding.MetaLanguageContrib.dll</HintPath>
     </Reference>
+    <Reference Include="InstaLine.Domain">
+      <HintPath>..\packages\BmApp\InstaLine.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net45\JetBrains.Annotations.dll</HintPath>
     </Reference>

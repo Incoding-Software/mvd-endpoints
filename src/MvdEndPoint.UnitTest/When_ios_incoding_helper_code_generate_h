@@ -1,9 +1,10 @@
-﻿
+﻿#import "File.h"
+#import "File2.h"
 typedef void (^IncodingDone)(NSDictionary *result);
 
-@interface IncodingHelper:NSObject
+@interface IncodingHelper:NSObject <NSURLSessionDelegate>
 @property (nonatomic, strong) NSURLSession *session;
++(id)sharedInstance;
 -(void)refreshSession;
 -(void)execute:(NSString *)requestString type:(NSString *)type done:(IncodingDone)done;
 @end
-

@@ -28,32 +28,50 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"
-typedef void (^IncodingDone)(NSDictionary *result);
+            
+            #line 7 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_h.tt"
+ foreach(var import in Imports) { 
+            
+            #line default
+            #line hidden
+            this.Write("#import \"");
+            
+            #line 8 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_h.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(import));
+            
+            #line default
+            #line hidden
+            this.Write(".h\"\r\n");
+            
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_h.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write(@"typedef void (^IncodingDone)(NSDictionary *result);
 
-@interface IncodingHelper:NSObject
+@interface IncodingHelper:NSObject <NSURLSessionDelegate>
 @property (nonatomic, strong) NSURLSession *session;
 +(id)sharedInstance;
 -(void)refreshSession;
 -(void)execute:(NSString *)requestString type:(NSString *)type done:(IncodingDone)done;
 @end
-
 ");
             return this.GenerationEnvironment.ToString();
         }
         
         #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_h.tt"
 
-private string _UrlField;
+private global::System.Collections.Generic.List<System.String> _ImportsField;
 
 /// <summary>
-/// Access the Url parameter of the template.
+/// Access the Imports parameter of the template.
 /// </summary>
-private string Url
+private global::System.Collections.Generic.List<System.String> Imports
 {
     get
     {
-        return this._UrlField;
+        return this._ImportsField;
     }
 }
 
@@ -65,33 +83,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool UrlValueAcquired = false;
-if (this.Session.ContainsKey("Url"))
+bool ImportsValueAcquired = false;
+if (this.Session.ContainsKey("Imports"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["Url"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.List<System.String>).IsAssignableFrom(this.Session["Imports"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'Url\' did not match the type of the dat" +
-                "a passed to the template.");
+        this.Error("The type \'System.Collections.Generic.List<System.String>\' of the parameter \'Impor" +
+                "ts\' did not match the type of the data passed to the template.");
     }
     else
     {
-        this._UrlField = ((string)(this.Session["Url"]));
-        UrlValueAcquired = true;
+        this._ImportsField = ((global::System.Collections.Generic.List<System.String>)(this.Session["Imports"]));
+        ImportsValueAcquired = true;
     }
 }
-if ((UrlValueAcquired == false))
+if ((ImportsValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Url");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Imports");
     if ((data != null))
     {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.List<System.String>).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'Url\' did not match the type of the dat" +
-                    "a passed to the template.");
+            this.Error("The type \'System.Collections.Generic.List<System.String>\' of the parameter \'Impor" +
+                    "ts\' did not match the type of the data passed to the template.");
         }
         else
         {
-            this._UrlField = ((string)(data));
+            this._ImportsField = ((global::System.Collections.Generic.List<System.String>)(data));
         }
     }
 }

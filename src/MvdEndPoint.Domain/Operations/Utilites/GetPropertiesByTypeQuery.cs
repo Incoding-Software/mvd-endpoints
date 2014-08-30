@@ -41,6 +41,8 @@
 
             public bool IsArray { get; set; }
 
+            public bool IsBool { get; set; }
+
             #endregion
         }
 
@@ -59,7 +61,8 @@
                                     return new Response
                                                {
                                                        Name = r.Name,
-                                                       Type = this.Device == DeviceOfType.Android
+                                                       IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
+                                                       Type = Device == DeviceOfType.Android
                                                                       ? Dispatcher.Query(new ConvertCSharpTypeToJavaQuery { Type = type })
                                                                       : Dispatcher.Query(new ConvertCSharpTypeToIosQuery { Type = type }),
                                                        IsEnum = r.PropertyType.IsEnum,

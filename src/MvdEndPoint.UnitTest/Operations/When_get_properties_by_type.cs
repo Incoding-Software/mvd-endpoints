@@ -89,12 +89,12 @@
             mockQuery.Original.Execute();
             mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesByTypeQuery.Response>
                                                                                         {
-                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Name", Type = stringType, IsCanNull = true, IsEnum = false, IsDateTime = false, IsArray = false },
-                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Sort", Type = intType, IsCanNull = false, IsEnum = false, IsDateTime = false, IsArray = false },
-                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Enum", Type = enumType, IsCanNull = false, IsEnum = true, IsDateTime = false, IsArray = false },
-                                                                                                new GetPropertiesByTypeQuery.Response { Name = "DateTime", Type = dateTimeType, IsCanNull = true, IsEnum = false, IsDateTime = true, IsArray = false },
-                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Array", Type = stringType, IsCanNull = true, IsEnum = false, IsDateTime = false, IsArray = true },
-                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Bool", Type = boolType, IsCanNull = false, IsEnum = false, IsDateTime = false, IsArray = true }
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Name", Type = stringType, IsCanNull = true, IsEnum = false, IsDateTime = false, IsArray = false, IsBool = false },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Sort", Type = intType, IsCanNull = false, IsEnum = false, IsDateTime = false, IsArray = false, IsBool = false },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Enum", Type = enumType, IsCanNull = false, IsEnum = true, IsDateTime = false, IsArray = false, IsBool = false },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "DateTime", Type = dateTimeType, IsCanNull = true, IsEnum = false, IsDateTime = true, IsArray = false, IsBool = false },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Array", Type = stringType, IsCanNull = true, IsEnum = false, IsDateTime = false, IsArray = true, IsBool = false },
+                                                                                                new GetPropertiesByTypeQuery.Response { Name = "Bool", Type = boolType, IsCanNull = false, IsEnum = false, IsDateTime = false, IsArray = false, IsBool = true }
                                                                                         }));
         }
 

@@ -23,17 +23,16 @@
         protected override string ExecuteResult()
         {
             var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
+            bool isQuery = !Type.IsImplement<CommandBase>();
             var session = new Dictionary<string, object>
                               {
-                                      { "Type", meta.Name },                                      
-                                      {
-                                              "Name", Dispatcher.Query(new GetNameFromTypeQuery
-                                                                           {
-                                                                                   Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Request
-                                                                           })
-                                      },
+                                      { "Method", Type.IsImplement<CommandBase>() ? "Push" : "Query" },
+                                      { "Type", meta.Name },
+                                      { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
+                                      { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value },
+                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Request }) },
                                       { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type, Device = DeviceOfType.Ios }) },
-                                      { "IsGet", !Type.IsImplement<CommandBase>() },
+                                      { "IsQuery", isQuery },
                               };
 
             switch (File)

@@ -6,18 +6,40 @@
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.String" name="Type" #>
+<#@ parameter type="System.String" name="Method" #>
+<#@ parameter type="System.String" name="Response" #>
+<#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
-#import "<#= Name#>.h"
+#import "IncodingHelper.h"
 
 @implementation <#= Name#>
 <# foreach(var prop in Properties) { #>
 	@synthesize <#= prop.Name#>;    
 <# } #>
+<#    if(IsQuery){ #>
+-(void)on:(Success<#=Name#>)success
+<#    }else{ #>
+-(void)on:(Success<#=Name#>)success error:(Error<#=Name#>)error
+<#    } #>
+{    
+    NSString *request =  [NSString stringWithFormat:@"incType=%@<# foreach(var prop in Properties) {#>&<#= prop.Name#>=%@<#}#>",
+                         @"<#=Type#>" <# foreach(var prop in Properties) {#><#if(prop.IsBool){#>,self.<#= prop.Name#> ? @"true" : @"false"<#}else{#>,self.<#= prop.Name#><#}#><#}#>]; 
 
--(NSString *)asString
-{
- return [NSString stringWithFormat:@"incType=%@<# foreach(var prop in Properties) {#>&<#= prop.Name#>=%@<#}#>",
-                         @"<#=Type#>" <# foreach(var prop in Properties) {#>,self.<#= prop.Name#><#}#>];  
+    [[IncodingHelper sharedInstance] execute:request type:@"<#=Method#>" done:^(NSDictionary *result){
+        NSNumber *isSuccess = result[@"success"];
+        if(isSuccess == [NSNumber numberWithBool:YES])
+        {
+            success([<#= Response#>  create:result[@"data"]]);
+        }
+        else
+        {
+        <#if(IsQuery){#>
+           [NSException raise:@"Invalid foo value" format:@"foo of %d is invalid",result[@"data"] ];
+        <#}else{ #>
+           error([ModelStateException create:result[@"data"]]);
+        <#}#>
+        }
+    }];   
 }
 @end
 

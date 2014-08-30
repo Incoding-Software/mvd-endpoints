@@ -1,0 +1,5 @@
+﻿#import "GetCustomerResponse.h"
+typedef void (^SuccessGetCustomerRequest) (GetCustomerResponse *result);
+@interface GetCustomerRequest : NSObject
+ -(void)on:(SuccessGetCustomerRequest)success;
+@end

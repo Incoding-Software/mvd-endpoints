@@ -3,7 +3,7 @@ namespace MvdEndPoint.UI.Controllers
     #region << Using >>
 
     using Incoding.MvcContrib.MVD;
-    using MvdEndPoint.Domain;
+    using InstaLine.Domain;
 
     #endregion
 
@@ -12,7 +12,11 @@ namespace MvdEndPoint.UI.Controllers
         #region Constructors
 
         public DispatcherController()
-                : base(typeof(Bootstrapper).Assembly) { }
+                : base(new[]
+                           {
+                                   typeof(Bootstrapper).Assembly,
+                                   typeof(Domain.Bootstrapper).Assembly
+                           }) { }
 
         #endregion
     }

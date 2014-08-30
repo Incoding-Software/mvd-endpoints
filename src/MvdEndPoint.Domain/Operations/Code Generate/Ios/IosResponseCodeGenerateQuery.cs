@@ -23,30 +23,20 @@
         protected override string ExecuteResult()
         {
             bool isQuery = !Type.IsImplement<CommandBase>();
+            bool isArray = Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value;
             var session = new Dictionary<string, object>
                               {
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
                                       { "Properties", new List<GetPropertiesByTypeQuery.Response>() },
-                                      {
-                                              "MappingJsonMethodByType", new Dictionary<string, string>
-                                                                             {                                                                                     
-                                                                                     { ConvertCSharpTypeToIosQuery.String, "stringValue" },
-                                                                                     { ConvertCSharpTypeToIosQuery.Int, "intValue" },
-                                                                                     { ConvertCSharpTypeToIosQuery.Float, "floatValue" },
-                                                                                     { ConvertCSharpTypeToIosQuery.Double, "doubleValue" },
-                                                                                     { ConvertCSharpTypeToIosQuery.Boolean, "boolValue" },
-                                                                             }
-                                      },
                                       { "IsQuery", isQuery },
+                                      { "IsArray", isArray }
                               };
 
             if (isQuery)
             {
-                var responseType = Type.BaseType.GenericTypeArguments[0];
-                session.Add("IsArray", responseType.IsImplement(typeof(IEnumerable<>)));
                 session.Set("Properties", Dispatcher.Query(new GetPropertiesByTypeQuery
                                                                {
-                                                                       Type = responseType,
+                                                                       Type = Type.BaseType.GenericTypeArguments[0],
                                                                        Device = DeviceOfType.Ios
                                                                }));
             }
@@ -59,10 +49,31 @@
                     tmplH.Initialize();
                     return tmplH.TransformText();
                 case FileOfIos.M:
-                    var tmplM = new Ios_Response_m();
-                    tmplM.Session = session;
-                    tmplM.Initialize();
-                    return tmplM.TransformText();
+                    if (isQuery)
+                    {
+                        if (isArray)
+                        {
+                            var tmplMAsQueryIsArray = new Ios_Response_Query_As_Array_m();
+                            tmplMAsQueryIsArray.Session = session;
+                            tmplMAsQueryIsArray.Initialize();
+                            return tmplMAsQueryIsArray.TransformText();
+                        }
+                        else
+                        {
+                            var tmplMAsQuery = new Ios_Response_Query_m();
+                            tmplMAsQuery.Session = session;
+                            tmplMAsQuery.Initialize();
+                            return tmplMAsQuery.TransformText();
+                        }
+                    }
+                    else
+                    {
+                        var tmplM = new Ios_Response_m();
+                        tmplM.Session = session;
+                        tmplM.Initialize();
+                        return tmplM.TransformText();
+                    }
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

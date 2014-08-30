@@ -1,0 +1,9 @@
+﻿#import "GetCustomerResponse.h"
+typedef void (^SuccessGetCustomerRequest) (GetCustomerResponse *result);
+@interface GetCustomerRequest : NSObject
+  @property (strong, nonatomic) TheSameString *Message;    	  
+  @property (strong, nonatomic) Number *Title;    	  
+  @property (strong, nonatomic) String *Ids;    	  
+  @property (assign, nonatomic) Bool Is;    	  
+ -(void)on:(SuccessGetCustomerRequest)success;
+@end

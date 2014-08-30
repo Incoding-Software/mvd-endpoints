@@ -81,10 +81,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Operations\Code Generate\Ios\IosModelStateExceptionCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.cs">
+      <DependentUpon>Ios_ModelStateExcpetion_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_ModelStatreExcpetion_m.cs">
+      <DependentUpon>Ios_ModelStatreExcpetion_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Response_Query_As_Array_m.cs">
+      <DependentUpon>Ios_Response_Query_As_Array_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Response_Query_m.cs">
+      <DependentUpon>Ios_Response_Query_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Operations\Code Generate\Ios\FileOfIos.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosRequestCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosIncodingHelperCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\Ios\IosTaskCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\Ios_Request_h.cs">
       <DependentUpon>Ios_Request_h.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -100,18 +120,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Ios\Ios_Task_m.cs">
-      <DependentUpon>Ios_Task_m.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Operations\Code Generate\Ios\Ios_IncodingHelper_h.cs">
       <DependentUpon>Ios_IncodingHelper_h.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Operations\Code Generate\Ios\Ios_Task_h.cs">
-      <DependentUpon>Ios_Task_h.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -121,6 +131,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Utilites\IsArrayResponseQuery.cs" />
     <Compile Include="Operations\GetEndpointsQuery.cs" />
     <Compile Include="Operations\GetEnumForDD.cs" />
     <Compile Include="Operations\IncAjaxEventVm.cs" />
@@ -223,6 +234,22 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_IncodingHelper.cs</LastGenOutput>
     </None>
+    <None Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_ModelStateExcpetion_h.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_ModelStatreExcpetion_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_ModelStatreExcpetion_m.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Response_Query_As_Array_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Response_Query_As_Array_m.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Response_Query_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Response_Query_m.cs</LastGenOutput>
+    </None>
     <None Include="Operations\Code Generate\Ios\Ios_Request_h.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Ios_Request_h.cs</LastGenOutput>
@@ -235,17 +262,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Ios_IncodingHelper_m.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Ios\Ios_Task_m.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Ios_Task_m.cs</LastGenOutput>
-    </None>
     <None Include="Operations\Code Generate\Ios\Ios_IncodingHelper_h.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Ios_IncodingHelper_h.cs</LastGenOutput>
-    </None>
-    <None Include="Operations\Code Generate\Ios\Ios_Task_h.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Ios_Task_h.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Ios\Ios_Response_m.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -260,7 +279,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

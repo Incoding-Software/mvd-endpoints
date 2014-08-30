@@ -8,16 +8,17 @@
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
-
 @interface <#= Name #> : NSObject
 <# foreach(var prop in Properties) { #>
  @property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    
 <# } #>
-
 <#if(IsArray){#>
   +(NSMutableArray *)create:(NSDictionary *)json;  
 <#}else{#>
   +(<#= Name #> *)create:(NSDictionary *)json;
 <#}#>
-
+<#if(IsQuery){#>
+-(void)encodeWithCoder:(NSCoder *)encoder;
+-(id)initWithCoder:(NSCoder *)decoder;
+<#}#>
 @end

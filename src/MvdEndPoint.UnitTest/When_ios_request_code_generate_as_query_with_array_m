@@ -1,0 +1,26 @@
+﻿#import "IncodingHelper.h"
+
+@implementation GetCustomerRequest
+	@synthesize Message;    
+	@synthesize Title;    
+	@synthesize Ids;    
+	@synthesize Is;    
+-(void)on:(SuccessGetCustomerRequest)success
+{    
+    NSString *request =  [NSString stringWithFormat:@"incType=%@&Message=%@&Title=%@&Ids=%@&Is=%@",
+                         @"GetCustomerQuery" ,self.Message,self.Title,self.Ids,self.Is ? @"true" : @"false"]; 
+
+    [[IncodingHelper sharedInstance] execute:request type:@"Query" done:^(NSDictionary *result){
+        NSNumber *isSuccess = result[@"success"];
+        if(isSuccess == [NSNumber numberWithBool:YES])
+        {
+            success([GetCustomerResponse  create:result[@"data"]]);
+        }
+        else
+        {
+                   [NSException raise:@"Invalid foo value" format:@"foo of %d is invalid",result[@"data"] ];
+                }
+    }];   
+}
+@end
+

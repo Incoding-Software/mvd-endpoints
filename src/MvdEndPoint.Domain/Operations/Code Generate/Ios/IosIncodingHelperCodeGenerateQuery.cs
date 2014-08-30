@@ -18,22 +18,32 @@
 
         public string BaseUrl { get; set; }
 
+        public List<string> Imports { get; set; }
+
         #endregion
 
         protected override string ExecuteResult()
         {
-            var session = new Dictionary<string, object>
-                              {
-                                      { "Url", BaseUrl.AppendSegment("Dispatcher") },
-                              };
             switch (File)
             {
                 case FileOfIos.H:
-                    var tmplH = new Ios_IncodingHelper_h { Session = session };
+                    var tmplH = new Ios_IncodingHelper_h
+                                    {
+                                            Session = new Dictionary<string, object>
+                                                          {
+                                                                  { "Imports", Imports }
+                                                          }
+                                    };
                     tmplH.Initialize();
                     return tmplH.TransformText();
                 case FileOfIos.M:
-                    var tmplM = new Ios_IncodingHelper_m { Session = session };
+                    var tmplM = new Ios_IncodingHelper_m
+                                    {
+                                            Session = new Dictionary<string, object>
+                                                          {
+                                                                  { "Url", BaseUrl.AppendSegment("Dispatcher") },
+                                                          }
+                                    };
                     tmplM.Initialize();
                     return tmplM.TransformText();
                 default:
