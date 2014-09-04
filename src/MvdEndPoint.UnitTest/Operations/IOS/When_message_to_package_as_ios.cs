@@ -52,7 +52,8 @@
 
         Establish establish = () =>
                                   {
-                                      var query = Pleasure.Generator.Invent<MessageToPackageAsIosQuery>(dsl => dsl.Tuning(r => r.Types, new List<Type> { typeof(FakeQuery) }));
+                                      var type = typeof(FakeQuery);
+                                      var query = Pleasure.Generator.Invent<MessageToPackageAsIosQuery>(dsl => dsl.Tuning(r => r.Types, new List<Type> { type }));
                                       expected = Pleasure.Generator.Bytes();
 
                                       string requestHContent = Pleasure.Generator.String();
@@ -66,24 +67,25 @@
 
                                       mockQuery = MockQuery<MessageToPackageAsIosQuery, byte[]>
                                               .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, type)), (IncBoolResponse)false)
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)), "Request")
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                    .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)), "Response")
-                                              .StubQuery(Pleasure.Generator.Invent<IosRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<IosRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                           .Tuning(r => r.File, FileOfIos.H)), requestHContent)
-                                              .StubQuery(Pleasure.Generator.Invent<IosRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<IosRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                           .Tuning(r => r.File, FileOfIos.M)), requestMContent)
-                                              .StubQuery(Pleasure.Generator.Invent<IosResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<IosResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                            .Tuning(r => r.File, FileOfIos.H)), responseHContent)
-                                              .StubQuery(Pleasure.Generator.Invent<IosResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<IosResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                            .Tuning(r => r.File, FileOfIos.M)), responseMContent)
                                               .StubQuery(Pleasure.Generator.Invent<IosIncodingHelperCodeGenerateQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                                  .Tuning(r => r.File, FileOfIos.H)
                                                                                                                                  .Tuning(r => r.Imports, new[] { "ModelStateException", "Request", "Response" }.ToList())), incodingHelperHContent)
                                               .StubQuery(Pleasure.Generator.Invent<IosIncodingHelperCodeGenerateQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                                                  .Tuning(r => r.File, FileOfIos.M)), incodingHelperMContent)
-                                              .StubQuery(Pleasure.Generator.Invent<IosResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
+                                              .StubQuery(Pleasure.Generator.Invent<IosResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                            .Tuning(r => r.File, FileOfIos.M)), responseMContent)
                                               .StubQuery(Pleasure.Generator.Invent<IosModelStateExceptionCodeGenerateQuery>(dsl => dsl.Tuning(r => r.File, FileOfIos.H)), modelStateHContent)
                                               .StubQuery(Pleasure.Generator.Invent<IosModelStateExceptionCodeGenerateQuery>(dsl => dsl.Tuning(r => r.File, FileOfIos.M)), modelStateMContent)

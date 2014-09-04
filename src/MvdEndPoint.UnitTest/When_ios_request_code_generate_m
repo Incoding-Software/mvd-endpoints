@@ -11,15 +11,17 @@
                          @"GetCustomerQuery" ,self.Message,self.Title,self.Ids,self.Is ? @"true" : @"false"]; 
 
     [[IncodingHelper sharedInstance] execute:request type:@"Push" done:^(NSDictionary *result){
-        NSNumber *isSuccess = result[@"success"];
-        if(isSuccess == [NSNumber numberWithBool:YES])
-        {
-            success([GetCustomerResponse  create:result[@"data"]]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+             NSNumber *isSuccess = result[@"success"];
+             if(isSuccess == [NSNumber numberWithBool:YES])
+             {
+                 success([GetCustomerResponse  create:result[@"data"]]);
+             }
+             else
+             {
+                             error([ModelStateException create:result[@"data"]]);
+                          });
         }
-        else
-        {
-                   error([ModelStateException create:result[@"data"]]);
-                }
     }];   
 }
 @end

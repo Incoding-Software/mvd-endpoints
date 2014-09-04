@@ -53,7 +53,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
     sessionConfig.HTTPAdditionalHeaders = @{@""X-Requested-With"": @""XMLHttpRequest""};
     _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
 }
--(void)execute:(NSString *) requestString type:(NSString *)type done:(IncodingDone)done
+-(void)execute:(NSString *) requestString type:(NSString *)type done:(ResponseDone)done
 {
   NSString *urlString = [NSString stringWithFormat:@""");
             
@@ -74,6 +74,30 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
                                    NSError *jsonError;
                                    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
                                    done(result);     }];
+ [getTask resume];
+}
+-(void)download:(NSString *) requestString type:(NSString *)type done:(ImageDone)done
+{
+  NSString *urlString = [NSString stringWithFormat:@""");
+            
+            #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_IncodingHelper_m.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Url));
+            
+            #line default
+            #line hidden
+            this.Write(@"/%@?%@"",type,
+[requestString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet  URLQueryAllowedCharacterSet]]];
+  NSURL *url = [NSURL URLWithString:urlString];
+
+  if(!_session)
+ {
+   [self refreshSession];
+ }
+ NSURLSessionDownloadTask *getTask = [self.session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response,NSError *error) {
+ UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+ done(downloadedImage);
+}];
+
  [getTask resume];
 }
 @end");

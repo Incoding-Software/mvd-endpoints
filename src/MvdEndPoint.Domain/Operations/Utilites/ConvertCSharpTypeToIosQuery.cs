@@ -17,7 +17,7 @@
     {
         #region Constants
 
-        public const string Boolean = "Bool";
+        public const string Boolean = "BOOL";
 
         public const string String = "NSString";
 

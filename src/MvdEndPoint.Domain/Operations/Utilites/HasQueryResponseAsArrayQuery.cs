@@ -22,7 +22,8 @@
             if (Type.IsImplement<CommandBase>())
                 return false;
 
-            return Type.BaseType.GenericTypeArguments[0].IsImplement<IEnumerable>();
+            var responseType = Type.BaseType.GenericTypeArguments[0];
+            return !responseType.IsAnyEquals(typeof(string), typeof(byte[])) && responseType.IsImplement<IEnumerable>();
         }
     }
 }

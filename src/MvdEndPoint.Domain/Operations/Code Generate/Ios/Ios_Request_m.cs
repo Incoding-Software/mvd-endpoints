@@ -31,186 +31,212 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         {
             this.Write("#import \"IncodingHelper.h\"\r\n\r\n@implementation ");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t@synthesize ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(";    \r\n");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
-    if(IsQuery){ 
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+ if(IsQuery){
             
             #line default
             #line hidden
             this.Write("-(void)on:(Success");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(")success\r\n");
             
-            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
-    }else{ 
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+}else{
             
             #line default
             #line hidden
             this.Write("-(void)on:(Success");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(")success error:(Error");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(")error\r\n");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
     } 
             
             #line default
             #line hidden
             this.Write("{    \r\n    NSString *request =  [NSString stringWithFormat:@\"incType=%@");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) {
             
             #line default
             #line hidden
             this.Write("&");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write("=%@");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }
             
             #line default
             #line hidden
             this.Write("\",\r\n                         @\"");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Type));
             
             #line default
             #line hidden
             this.Write("\" ");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
  foreach(var prop in Properties) {
             
             #line default
             #line hidden
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 if(prop.IsBool){
             
             #line default
             #line hidden
             this.Write(",self.");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(" ? @\"true\" : @\"false\"");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }else{
             
             #line default
             #line hidden
             this.Write(",self.");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }
             
             #line default
             #line hidden
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }
             
             #line default
             #line hidden
-            this.Write("]; \r\n\r\n    [[IncodingHelper sharedInstance] execute:request type:@\"");
+            this.Write("]; \r\n     ");
             
             #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+if(IsImage){
+            
+            #line default
+            #line hidden
+            this.Write("   \r\n[[IncodingHelper sharedInstance] download:request type:@\"QueryToFile\" done:^" +
+                    "(UIImage *result){        dispatch_async(dispatch_get_main_queue(), ^{ success(r" +
+                    "esult); });        }}];\r\n     ");
+            
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+}else{
+            
+            #line default
+            #line hidden
+            this.Write("[[IncodingHelper sharedInstance] execute:request type:@\"");
+            
+            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Method));
             
             #line default
             #line hidden
-            this.Write("\" done:^(NSDictionary *result){\r\n        NSNumber *isSuccess = result[@\"success\"]" +
-                    ";\r\n        if(isSuccess == [NSNumber numberWithBool:YES])\r\n        {\r\n          " +
-                    "  success([");
+            this.Write("\" done:^(NSDictionary *result){\r\n        dispatch_async(dispatch_get_main_queue()" +
+                    ", ^{\r\n             NSNumber *isSuccess = result[@\"success\"];\r\n             if(is" +
+                    "Success == [NSNumber numberWithBool:YES])\r\n             {\r\n                 succ" +
+                    "ess([");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
-            this.Write("  create:result[@\"data\"]]);\r\n        }\r\n        else\r\n        {\r\n        ");
+            this.Write("  create:result[@\"data\"]]);\r\n             }\r\n             else\r\n             {\r\n " +
+                    "            ");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 40 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 if(IsQuery){
             
             #line default
             #line hidden
-            this.Write("           [NSException raise:@\"Invalid foo value\" format:@\"foo of %d is invalid\"" +
-                    ",result[@\"data\"] ];\r\n        ");
+            this.Write("                [NSException raise:@\"Invalid foo value\" format:@\"foo of %d is inv" +
+                    "alid\",result[@\"data\"] ];\r\n             ");
             
-            #line 38 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 42 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }else{ 
             
             #line default
             #line hidden
-            this.Write("           error([ModelStateException create:result[@\"data\"]]);\r\n        ");
+            this.Write("                error([ModelStateException create:result[@\"data\"]]);\r\n           " +
+                    "  ");
             
-            #line 40 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+            #line 44 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
 }
             
             #line default
             #line hidden
-            this.Write("        }\r\n    }];   \r\n}\r\n@end\r\n\r\n");
+            this.Write("             }});        \r\n    }];\r\n");
+            
+            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_m.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("}\r\n@end\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -278,6 +304,19 @@ private bool IsQuery
     get
     {
         return this._IsQueryField;
+    }
+}
+
+private bool _IsImageField;
+
+/// <summary>
+/// Access the IsImage parameter of the template.
+/// </summary>
+private bool IsImage
+{
+    get
+    {
+        return this._IsImageField;
     }
 }
 
@@ -449,6 +488,36 @@ if ((IsQueryValueAcquired == false))
         else
         {
             this._IsQueryField = ((bool)(data));
+        }
+    }
+}
+bool IsImageValueAcquired = false;
+if (this.Session.ContainsKey("IsImage"))
+{
+    if ((typeof(bool).IsAssignableFrom(this.Session["IsImage"].GetType()) == false))
+    {
+        this.Error("The type \'System.Boolean\' of the parameter \'IsImage\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._IsImageField = ((bool)(this.Session["IsImage"]));
+        IsImageValueAcquired = true;
+    }
+}
+if ((IsImageValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsImage");
+    if ((data != null))
+    {
+        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Boolean\' of the parameter \'IsImage\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._IsImageField = ((bool)(data));
         }
     }
 }

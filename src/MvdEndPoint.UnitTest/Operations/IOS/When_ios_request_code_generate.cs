@@ -37,7 +37,7 @@
 
         #region Establish value
 
-        static void Verify(FileOfIos file, Type type, string fileName, bool isArray, bool withoutProperties = false)
+        static void Verify(FileOfIos file, Type type, string fileName, bool isArray, bool withoutProperties = false,bool isImage = false)
         {
             var query = Pleasure.Generator.Invent<IosRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.File, file)
                                                                                          .Tuning(r => r.Type, type));
@@ -45,6 +45,7 @@
 
             var mockQuery = MockQuery<IosRequestCodeGenerateQuery, string>
                     .When(query)
+                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, type)), (IncBoolResponse)isImage)
                     .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, type)), new IncBoolResponse(isArray))
                     .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)),
                                Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "GetCustomerQuery")))
@@ -67,7 +68,7 @@
                                                                                                                                                                                                                              .Tuning(r => r.Type, "String")),
                                                                                                                                                       Pleasure.Generator.Invent<GetPropertiesByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Is")
                                                                                                                                                                                                                              .Tuning(r => r.IsBool, true)
-                                                                                                                                                                                                                             .Tuning(r => r.Type, "Bool"))
+                                                                                                                                                                                                                             .Tuning(r => r.Type, ConvertCSharpTypeToIosQuery.Boolean))
                                                                                                                                               });
             mockQuery.Original.Execute();
             mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));

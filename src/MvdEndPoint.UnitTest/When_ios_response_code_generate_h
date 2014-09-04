@@ -1,7 +1,7 @@
 ﻿@interface GetCustomerResponse : NSObject
  @property (strong, nonatomic) NSString *Title;    
  @property (strong, nonatomic) NSInteger *Number;    
- @property (strong, nonatomic) Bool *Boolean;    
+ @property (strong, nonatomic) BOOL *Boolean;    
  @property (strong, nonatomic) MyEnum *Type;    
  @property (strong, nonatomic) NSDate *CreateDt;    
  @property (strong, nonatomic) NSString *Ids;    

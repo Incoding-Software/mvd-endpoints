@@ -7,15 +7,17 @@
                          @"GetCustomerQuery" ]; 
 
     [[IncodingHelper sharedInstance] execute:request type:@"Query" done:^(NSDictionary *result){
-        NSNumber *isSuccess = result[@"success"];
-        if(isSuccess == [NSNumber numberWithBool:YES])
-        {
-            success([GetCustomerResponse  create:result[@"data"]]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+             NSNumber *isSuccess = result[@"success"];
+             if(isSuccess == [NSNumber numberWithBool:YES])
+             {
+                 success([GetCustomerResponse  create:result[@"data"]]);
+             }
+             else
+             {
+                             [NSException raise:@"Invalid foo value" format:@"foo of %d is invalid",result[@"data"] ];
+                          });
         }
-        else
-        {
-                   [NSException raise:@"Invalid foo value" format:@"foo of %d is invalid",result[@"data"] ];
-                }
     }];   
 }
 @end

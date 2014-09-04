@@ -48,13 +48,15 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
             
             #line default
             #line hidden
-            this.Write(@"typedef void (^IncodingDone)(NSDictionary *result);
+            this.Write(@"typedef void (^ResponseDone)(NSDictionary *result);
+typedef void (^ImageDone)(UIImage *result);
 
 @interface IncodingHelper:NSObject <NSURLSessionDelegate>
 @property (nonatomic, strong) NSURLSession *session;
 +(id)sharedInstance;
 -(void)refreshSession;
--(void)execute:(NSString *)requestString type:(NSString *)type done:(IncodingDone)done;
+-(void)execute:(NSString *)requestString type:(NSString *)type done:(ResponseDone)done;
+-(void)download:(NSString *)requestString type:(NSString *)type done:(ImageDone)done;
 @end
 ");
             return this.GenerationEnvironment.ToString();

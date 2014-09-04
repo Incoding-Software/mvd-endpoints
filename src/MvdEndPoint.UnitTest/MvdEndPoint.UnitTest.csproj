@@ -172,8 +172,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\When_has_query_response_as_image.cs" />
+    <Compile Include="Operations\When_has_query_response_as_array.cs" />
     <Compile Include="Operations\IOS\When_message_to_package_as_ios.cs" />
-    <Compile Include="Operations\IOS\When_ios_request_code_generate_as_get.cs" />
+    <Compile Include="Operations\IOS\When_ios_request_code_generate.cs" />
     <Compile Include="Operations\IOS\When_ios_incoding_helper_code_generate.cs" />
     <Compile Include="Operations\IOS\When_ios_response_code_generate.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_ios.cs" />

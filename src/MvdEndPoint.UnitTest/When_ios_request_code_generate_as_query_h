@@ -4,6 +4,6 @@ typedef void (^SuccessGetCustomerRequest) (GetCustomerResponse *result);
   @property (strong, nonatomic) TheSameString *Message;    	  
   @property (strong, nonatomic) Number *Title;    	  
   @property (strong, nonatomic) String *Ids;    	  
-  @property (assign, nonatomic) Bool Is;    	  
+  @property (assign, nonatomic) BOOL Is;    	  
  -(void)on:(SuccessGetCustomerRequest)success;
 @end

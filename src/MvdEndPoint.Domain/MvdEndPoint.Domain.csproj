@@ -81,6 +81,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Operations\Code Generate\Ios\Ios_Enum_h.cs">
+      <DependentUpon>Ios_Enum_h.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\Ios_Enum_m.cs">
+      <DependentUpon>Ios_Enum_m.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Ios\IosEnumCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Utilites\HasQueryResponseAsImageQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosModelStateExceptionCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.cs">
       <DependentUpon>Ios_ModelStateExcpetion_h.tt</DependentUpon>
@@ -131,10 +143,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Utilites\IsArrayResponseQuery.cs" />
+    <Compile Include="Operations\Utilites\HasQueryResponseAsArrayQuery.cs" />
     <Compile Include="Operations\GetEndpointsQuery.cs" />
     <Compile Include="Operations\GetEnumForDD.cs" />
-    <Compile Include="Operations\IncAjaxEventVm.cs" />
+    <Compile Include="Persistence\IncAjaxEventVm.cs" />
     <Compile Include="Operations\Packages\MessageToPackageAsAndroidQuery.cs" />
     <Compile Include="Operations\DeviceOfType.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_Request.cs">
@@ -233,6 +245,14 @@
     <None Include="Operations\Code Generate\Android\Android_IncodingHelper.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_IncodingHelper.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Enum_h.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Enum_h.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Ios\Ios_Enum_m.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Ios_Enum_m.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

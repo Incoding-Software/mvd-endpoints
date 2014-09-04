@@ -27,6 +27,7 @@
             var session = new Dictionary<string, object>
                               {
                                       { "Method", Type.IsImplement<CommandBase>() ? "Push" : "Query" },
+                                      { "IsImage", Dispatcher.Query(new HasQueryResponseAsImageQuery { Type = Type }).Value },
                                       { "Type", meta.Name },
                                       { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
                                       { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value },
