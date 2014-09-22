@@ -126,18 +126,18 @@ if (!IsQuery){
             this.Write(" ");
             
             #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
-if(prop.IsBool){ 
+if(prop.IsCanNull){ 
             
             #line default
             #line hidden
-            this.Write("@property (assign, nonatomic) ");
+            this.Write("@property (strong, nonatomic) ");
             
             #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write(" *");
             
             #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
@@ -151,14 +151,14 @@ if(prop.IsBool){
             
             #line default
             #line hidden
-            this.Write("@property (strong, nonatomic) ");
+            this.Write("@property (assign, nonatomic) ");
             
             #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
             
             #line default
             #line hidden
-            this.Write(" *");
+            this.Write(" ");
             
             #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Request_h.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));

@@ -17,10 +17,10 @@ typedef void (^Error<#=Name#>)(NSMutableArray *result);
 <#}#>
 @interface <#= Name #> : NSObject
  <# foreach(var prop in Properties) { #>
- <#if(prop.IsBool){ #>
-@property (assign, nonatomic) <#= prop.Type#> <#= prop.Name#>;    	  
-<#}else{#>
+ <#if(prop.IsCanNull){ #>
 @property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    	  
+<#}else{#>
+@property (assign, nonatomic) <#= prop.Type#> <#= prop.Name#>;    	  
 <#}#>
  <# } #>
 <#if(IsQuery){#>
