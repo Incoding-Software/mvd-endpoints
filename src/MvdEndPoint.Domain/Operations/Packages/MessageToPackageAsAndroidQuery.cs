@@ -26,12 +26,19 @@
 
         protected override byte[] ExecuteResult()
         {
-            var avrNamespace = Types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
-                                    .FirstOrDefault();
+            string avrNamespace = Types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
+                                       .FirstOrDefault()
+                                       .With(r => r.Namespace);
+            if (string.IsNullOrWhiteSpace(avrNamespace))
+            {
+                string defNamespace = Types.First().Module.Name.Replace(".dll", "");
+                avrNamespace = defNamespace;
+            }
+
             var zipQuery = new ToZipQuery();
-            zipQuery.Entries.Add("Incoding/IncodingHelper.java", Dispatcher.Query(new AndroidIncodingHelperCodeGenerateQuery { Namespace = avrNamespace.With(r => r.Namespace).Recovery("Default"), BaseUrl = BaseUrl }));
-            zipQuery.Entries.Add("Incoding/ModelStateException.java", Dispatcher.Query(new AndroidModelStateExceptionCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
-            zipQuery.Entries.Add("Incoding/JsonModelStateData.java", Dispatcher.Query(new AndroidJsonModelStateDataCodeGenerateQuery { Namespace = avrNamespace.Namespace }));
+            zipQuery.Entries.Add("Incoding/IncodingHelper.java", Dispatcher.Query(new AndroidIncodingHelperCodeGenerateQuery { Namespace = avrNamespace, BaseUrl = BaseUrl }));
+            zipQuery.Entries.Add("Incoding/ModelStateException.java", Dispatcher.Query(new AndroidModelStateExceptionCodeGenerateQuery { Namespace = avrNamespace }));
+            zipQuery.Entries.Add("Incoding/JsonModelStateData.java", Dispatcher.Query(new AndroidJsonModelStateDataCodeGenerateQuery { Namespace = avrNamespace }));
             foreach (var type in Types)
             {
                 Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery { Type = type, Mode = of, }));
