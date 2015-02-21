@@ -84,7 +84,10 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -93,6 +96,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_wp_generate_http_request">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_ios_request_code_generate_as_query_with_array_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -199,6 +205,7 @@
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_command.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_without_request.cs" />
+    <Compile Include="Operations\WP\When_wp_generate_http_request.cs" />
     <Compile Include="Persistence\When_save_Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="When_android_task_code_generate_without_request">

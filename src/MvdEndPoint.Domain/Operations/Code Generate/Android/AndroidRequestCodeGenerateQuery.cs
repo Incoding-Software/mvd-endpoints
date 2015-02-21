@@ -14,9 +14,7 @@
         #region Properties
 
         public Type Type { get; set; }
-
-        public string Namespace { get; set; }
-
+        
         #endregion
 
         protected override string ExecuteResult()

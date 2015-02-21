@@ -44,6 +44,12 @@
                                                         BaseUrl = BaseUrl,
                                                         Types = types
                                                 });
+                    case DeviceOfType.WP:
+                    return Dispatcher.Query(new MessageToPackageAsIosQuery()
+                    {
+                        BaseUrl = BaseUrl,
+                        Types = types
+                    });
                 default:
                     throw new ArgumentOutOfRangeException();
             }

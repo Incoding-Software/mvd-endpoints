@@ -41,19 +41,6 @@
                     if (!hasImage)
                         zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Response, ofIos), Dispatcher.Query(new IosResponseCodeGenerateQuery { Type = type, File = ofIos }));
 
-                    //const BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
-                    //foreach (var enumAsType in  type.GetProperties(bindingFlags).ToList()
-                    //                                .Where(r => r.PropertyType.IsEnum)
-                    //                                .Select(r => r.PropertyType))
-                    //{
-                    //    string enumAsFileName = "{0}.{1}".F(Dispatcher.Query(new GetNameFromTypeQuery { Type = enumAsType, Mode = GetNameFromTypeQuery.ModeOf.Enum }),ofIos.ToString().ToLower());
-                    //    zipQuery.Entries.Add(enumAsFileName, Dispatcher.Query(new IosEnumCodeGenerateQuery
-                    //                                                              {
-                    //                                                                      Type = enumAsType,
-                    //                                                                      File = ofIos
-                    //                                                              }));
-                    //}
-
                 }
             }
             zipQuery.Entries.Add("IncodingHelper.h", Dispatcher.Query(new IosIncodingHelperCodeGenerateQuery { BaseUrl = BaseUrl, File = FileOfIos.H, Imports = imports }));

@@ -69,7 +69,10 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,6 +81,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Operations\Code Generate\WP\WPGenerateHttpRequestQuery.cs" />
+    <Compile Include="Operations\Code Generate\WP\Wp_HttpRequest.cs">
+      <DependentUpon>Wp_HttpRequest.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Packages\MessageToPackageAsWPQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsImageQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosModelStateExceptionCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.cs">
@@ -271,6 +281,10 @@
     <None Include="Operations\Code Generate\Ios\Ios_Response_h.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Ios_Response_h.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\WP\Wp_HttpRequest.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Wp_HttpRequest.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

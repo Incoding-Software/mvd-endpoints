@@ -40,20 +40,29 @@
                                                                        Type = responseType,
                                                                        Device = DeviceOfType.Android
                                                                }));
-                session.Set("MappingJsonMethodByType", new Dictionary<string, string>
-                                                           {
-                                                                   { ConvertCSharpTypeToJavaQuery.String, "getString" },
-                                                                   { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
-                                                                   { "int64", "getInt" },                                                                   
-                                                                   { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
-                                                                   { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" },
-                                                                   { typeof(long).Name, "getLong" },
-                                                           });
+                session.Set("MappingJsonMethodByType", Dispatcher.Query(new GetJavaMappingByTypeQuery()));
             }
             var tmplAndroid = new Android_Response();
             tmplAndroid.Session = session;
             tmplAndroid.Initialize();
             return tmplAndroid.TransformText();
+        }
+
+    }
+
+    public class GetJavaMappingByTypeQuery : QueryBase<Dictionary<string, string>>
+    {
+        protected override Dictionary<string, string> ExecuteResult()
+        {
+            return new Dictionary<string, string>
+                       {
+                               { ConvertCSharpTypeToJavaQuery.String, "getString" },
+                               { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
+                               { "int64", "getInt" },
+                               { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
+                               { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" },
+                               { typeof(long).Name, "getLong" },
+                       };
         }
     }
 }

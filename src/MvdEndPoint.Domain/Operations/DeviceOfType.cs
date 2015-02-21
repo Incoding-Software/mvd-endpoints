@@ -4,6 +4,8 @@
     {
         Android,
 
-        Ios
+        Ios,
+
+        WP
     }
 }
