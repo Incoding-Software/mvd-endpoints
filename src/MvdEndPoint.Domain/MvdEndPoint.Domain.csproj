@@ -88,6 +88,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Packages\MessageToPackageAsWPQuery.cs" />
+    <Compile Include="Operations\Utilites\ConvertCSharpTypeToTargetQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsImageQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosModelStateExceptionCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.cs">
