@@ -178,8 +178,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\When_get_properties_by_type_with_command.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_inheritance.cs" />
-    <Compile Include="Operations\When_get_properties_by_type_with_write_with_command.cs" />
+    <Compile Include="Operations\When_get_properties_by_type_with_write_with_only_write_as_command.cs" />
+    <Compile Include="Operations\When_get_properties_by_type_with_write_with_only_write_as_query.cs" />
     <Compile Include="Operations\When_has_query_response_as_image.cs" />
     <Compile Include="Operations\When_has_query_response_as_array.cs" />
     <Compile Include="Operations\IOS\When_message_to_package_as_ios.cs" />

@@ -1,12 +1,14 @@
-namespace MvdEndPoint.UnitTest
+﻿namespace MvdEndPoint.UnitTest
 {
+    using System;
     using System.Collections.Generic;
+    using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
     [Subject(typeof(GetPropertiesByTypeQuery))]
-    public class When_get_properties_by_type_with_write_with_command
+    public class When_get_properties_by_type_with_message_base
     {
         #region Establish value
 
@@ -23,18 +25,19 @@ namespace MvdEndPoint.UnitTest
 
                                   type = Pleasure.Generator.String();
                                   mockQuery = MockQuery<GetPropertiesByTypeQuery, List<GetPropertiesByTypeQuery.Response>>
-                                          .When(query)
-                                          .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
-                                                                                                                         .Tuning(r => r.Type, typeof(bool))), type);
+                                          .When(query);
                               };
 
         Because of = () => mockQuery.Original.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(list => list.ShouldBeEmpty());
 
-        public class FakeCommand
+        public class FakeCommand : MessageBase<object>
         {
-            public string Display { get { return string.Empty; } }
+            public override void Execute()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
