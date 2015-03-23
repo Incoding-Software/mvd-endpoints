@@ -12,8 +12,8 @@
     using Incoding.Extensions;
 
     #endregion
-    
-    public class GetPropertiesByTypeQuery : QueryBase<List<GetPropertiesByTypeQuery.Response>>
+
+    public class GetPropertiesFromTypeQuery : QueryBase<List<GetPropertiesFromTypeQuery.Response>>
     {
         protected override List<Response> ExecuteResult()
         {
@@ -27,20 +27,30 @@
                                 var type = r.PropertyType;
                                 if (isArray)
                                     type = r.PropertyType.GetElementType() ?? r.PropertyType.GenericTypeArguments[0];
-                                return new Response
-                                       {
-                                               Name = r.Name,
-                                               IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                               Type = Dispatcher.Query(new ConvertCSharpTypeToTargetQuery()
-                                                                       {
-                                                                               Device = Device,
-                                                                               Type = type
-                                                                       }),
-                                               IsEnum = r.PropertyType.IsEnum,
-                                               IsCanNull = r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime)) || !(r.PropertyType.IsPrimitive() || r.PropertyType.IsEnum),
-                                               IsDateTime = r.PropertyType == typeof(DateTime),
-                                               IsArray = isArray
-                                       };
+                                var response = new Response
+                                               {
+                                                       Name = r.Name,
+                                                       Target = type,
+                                                       Type = Dispatcher.Query(new ConvertCSharpTypeToTargetQuery()
+                                                                               {
+                                                                                       Device = Device,
+                                                                                       Type = type
+                                                                               })
+                                               };
+                                if (r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)))
+                                    response.Attributes |= Response.OfAttributes.IsBool;
+                                if (r.PropertyType.IsEnum)
+                                    response.Attributes |= Response.OfAttributes.IsEnum;
+                                if (r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime)) || !(ReflectionExtensions.IsPrimitive(r.PropertyType) || r.PropertyType.IsEnum))
+                                    response.Attributes |= Response.OfAttributes.IsCanNull;
+                                if (r.PropertyType == typeof(DateTime))
+                                    response.Attributes |= Response.OfAttributes.IsDateTime;
+                                if (isArray)
+                                    response.Attributes |= Response.OfAttributes.IsArray;
+                                if (!type.IsPrimitive())
+                                    response.Attributes |= Response.OfAttributes.IsClass;
+
+                                return response;
                             })
                     .ToList();
         }
@@ -49,21 +59,31 @@
 
         public class Response
         {
+            [Flags]
+            public enum OfAttributes
+            {
+                IsEnum = 1,
+
+                IsDateTime = 2,
+
+                IsCanNull = 4,
+
+                IsArray = 8,
+
+                IsBool = 16,
+
+                IsClass = 32
+            }
+
             #region Properties
 
             public string Name { get; set; }
 
             public string Type { get; set; }
 
-            public bool IsEnum { get; set; }
+            public OfAttributes Attributes { get; set; }
 
-            public bool IsDateTime { get; set; }
-
-            public bool IsCanNull { get; set; }
-
-            public bool IsArray { get; set; }
-
-            public bool IsBool { get; set; }
+            public Type Target { get; set; }
 
             #endregion
         }

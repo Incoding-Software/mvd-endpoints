@@ -30,7 +30,9 @@
 
             Listener,
 
-            Enum,            
+            Enum,
+
+            Nested
         }
 
         #endregion
@@ -38,7 +40,7 @@
         protected override string ExecuteResult()
         {
             switch (Mode)
-            {                
+            {
                 case ModeOf.Request:
                     return Type.Name + "Request";
                 case ModeOf.Response:
@@ -49,6 +51,8 @@
                     return "I" + Type.Name + "Listener";
                 case ModeOf.Enum:
                     return Type.FullName.Replace(Type.Namespace + ".", "").Replace("+", "_");
+                case ModeOf.Nested:
+                    return Type.Name;
                 default:
                     throw new ArgumentOutOfRangeException("modeOf", "Can't resolve name for type {0}".F(Type.Name));
             }

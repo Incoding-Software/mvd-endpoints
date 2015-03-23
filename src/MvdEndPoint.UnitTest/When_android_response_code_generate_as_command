@@ -8,6 +8,8 @@ import java.text.ParseException;
 import org.json.JSONArray;
 
 public class AddCustomerResponse {
+
+        
     public Object data;
 
     public static AddCustomerResponse Create(JSONObject result) throws JSONException, ModelStateException, ParseException {

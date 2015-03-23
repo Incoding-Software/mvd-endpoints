@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.Extensions;
+    using MvdEndPoint.Domain.Operations.Code_Generate.Android;
 
     #endregion
 
@@ -34,7 +35,7 @@
                                                                            Mode = GetNameFromTypeQuery.ModeOf.Request,
                                                                    })
                                   },
-                                  { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = isCommand }) },
+                                  { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = isCommand }) },
                                   { "IsGet", !isCommand },
                           };
             dto.Initialize();

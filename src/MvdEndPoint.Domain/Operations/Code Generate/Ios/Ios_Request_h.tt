@@ -9,7 +9,7 @@
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Boolean" name="IsImage" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
 #import "<#= Response#>.h"
 typedef void (^Success<#=Name#>)(<#if(IsImage){#>UIImage<#}else{#><#if(IsArray){#>NSMutableArray<#}else{ #><#= Response#><#} #><#} #> *result);
 <#if (!IsQuery){#>
@@ -17,7 +17,7 @@ typedef void (^Error<#=Name#>)(NSMutableArray *result);
 <#}#>
 @interface <#= Name #> : NSObject
  <# foreach(var prop in Properties) { #>
- <#if(prop.IsCanNull){ #>
+ <#if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull)){ #>
 @property (strong, nonatomic) <#= prop.Type#> *<#= prop.Name#>;    	  
 <#}else{#>
 @property (assign, nonatomic) <#= prop.Type#> <#= prop.Name#>;    	  

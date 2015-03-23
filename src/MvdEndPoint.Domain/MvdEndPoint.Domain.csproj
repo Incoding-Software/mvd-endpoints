@@ -81,6 +81,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidNestedClassCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidToJsonCodeGenerator.cs" />
+    <Compile Include="Operations\Code Generate\Android\Android_ModelStateException.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Android_ModelStateException.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Android\Android_ToJson.cs">
+      <DependentUpon>Android_ToJson.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Operations\Code Generate\WP\WPGenerateHttpRequestQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\Wp_HttpRequest.cs">
       <DependentUpon>Wp_HttpRequest.tt</DependentUpon>
@@ -181,8 +193,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Android\Android_ModelStateException.cs">
-      <DependentUpon>Android_ModelStateException.tt</DependentUpon>
+    <Compile Include="Operations\Code Generate\Android\Android_Nested.cs">
+      <DependentUpon>Android_Nested.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -235,13 +247,21 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_JsonModelStateData.cs</LastGenOutput>
     </None>
-    <None Include="Operations\Code Generate\Android\Android_ModelStateException.tt">
+    <None Include="Operations\Code Generate\Android\Android_Nested.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_ModelStateException.cs</LastGenOutput>
+      <LastGenOutput>Android_Nested.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android\Android_IncodingHelper.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_IncodingHelper.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Android\Android_ModelStateException.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Android_ModelStateException.cs</LastGenOutput>
+    </None>
+    <None Include="Operations\Code Generate\Android\Android_ToJson.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Android_ToJson.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

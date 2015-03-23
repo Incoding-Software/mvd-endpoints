@@ -10,7 +10,7 @@
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Boolean" name="IsImage" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
 #import "IncodingHelper.h"
 
 @implementation <#= Name#>
@@ -24,7 +24,7 @@
 <#    } #>
 {    
     NSString *request =  [NSString stringWithFormat:@"incType=%@<# foreach(var prop in Properties) {#>&<#= prop.Name#>=%@<#}#>",
-                         @"<#=Type#>" <# foreach(var prop in Properties) {#><#if(prop.IsBool){#>,self.<#= prop.Name#> ? @"true" : @"false"<#}else{#>,self.<#= prop.Name#><#}#><#}#>]; 
+                         @"<#=Type#>" <# foreach(var prop in Properties) {#><#if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsBool)){#>,self.<#= prop.Name#> ? @"true" : @"false"<#}else{#>,self.<#= prop.Name#><#}#><#}#>]; 
      <#if(IsImage){#>   
 [[IncodingHelper sharedInstance] download:request type:@"QueryToFile" done:^(UIImage *result){        dispatch_async(dispatch_get_main_queue(), ^{ success(result); });        }}];
      <#}else{#>

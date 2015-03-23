@@ -1,0 +1,12 @@
+﻿package com.qabenchmarking.android.models;
+
+public class Response { 
+     
+        public String ContactId;
+        public Boolean IsMainUser;
+
+    public Response(JSONObject json) throws JSONException {
+        this.ContactId = json.getString("ContactId");        
+        this.IsMainUser = json.getBoolean("IsMainUser");        
+    }
+}

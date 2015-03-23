@@ -1,4 +1,5 @@
 ﻿<#@ template language="C#" #>
+<#@ template language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -9,8 +10,9 @@
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="Package" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
+<#@ parameter type="System.Collections.Generic.List<string>" name="Nested" #>
 package <#= Package #>;
 
 import <#= Namespace #>.Incoding.IncodingHelper;
@@ -21,9 +23,14 @@ import java.text.ParseException;
 import org.json.JSONArray;
 
 public class <#= Name #> {
+
+    <#foreach(var nes in Nested) { #>
+      <#=nes #>
+    <#}#>
+    
 <# if(IsQuery) { #>
     <# foreach(var prop in Properties) { #>
-    public <#= prop.Type #><# if(prop.IsArray) {#>[]<#}#> <#= prop.Name #>;
+    public <#= prop.Type #><# if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) {#>[]<#}#> <#= prop.Name #>;
     <# } #>        
          public static <#= Name #>[] Create(JSONObject result) throws JSONException, ModelStateException, ParseException  {     
 		     IncodingHelper.Verify(result);
@@ -38,11 +45,13 @@ public class <#= Name #> {
                  JSONObject item = data.getJSONObject(i);		  
                  <#= Name #> response = new <#= Name #>();
                  <# foreach(var prop in Properties) { #>
-                    <#if(prop.IsEnum) { #>
+                    <#if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum)) { #>
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(item.getInt("<#= prop.Name #>"));
-			        <# } else if(prop.IsDateTime) { #>
+			        <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) { #>
                 response.<#= prop.Name #> = IncodingHelper.getDate(item.getString("<#= prop.Name #>"));
-				    <# } else if(prop.IsArray) { #>
+                    <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass)) { #>
+                response.<#= prop.Name #> = new <#= prop.Name #>(item.getJSONObject("<#= prop.Name #>"));
+				    <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) { #>
 				JSONArray <#= prop.Name #>AsArray = item.getJSONArray("<#= prop.Name #>");
 			    response.<#= prop.Name #> = new <#=prop.Type#>[<#= prop.Name #>AsArray.length()];
 			    for(int <#= prop.Name #>Oni = 0;<#= prop.Name #>Oni < <#= prop.Name #>AsArray.length();<#= prop.Name #>Oni++)
@@ -60,17 +69,19 @@ public class <#= Name #> {
 		     JSONObject data = new JSONObject(result.getString("data"));    
 	         <#= Name #> res = new <#= Name #>();
              <# foreach(var prop in Properties) { #>
-                    <#if(prop.IsEnum) { #>
+                    <#if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum)) { #>
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(data.getInt("<#= prop.Name #>"));
-				    <# } else if(prop.IsArray) { #>
+				    <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) { #>
 				JSONArray <#= prop.Name #>AsArray = item.getJSONArray("<#= prop.Name #>");
 			    response.<#= prop.Name #> = new <#=prop.Type#>[<#= prop.Name #>AsArray.length()];
 			    for(int <#= prop.Name #>Oni = 0;<#= prop.Name #>Oni < <#= prop.Name #>AsArray.length();<#= prop.Name #>Oni++)
 			    {
 			    response.<#= prop.Name #>[<#= prop.Name #>Oni]	= <#= prop.Name #>AsArray.<#= MappingJsonMethodByType[prop.Type] #>(<#= prop.Name #>Oni);
 			    }
-				    <# } else if(prop.IsDateTime) { #>
+				    <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) { #>
                 response.<#= prop.Name #> = IncodingHelper.getDate(data.getString("<#= prop.Name #>"));
+                    <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass)) { #>
+                response.<#= prop.Name #> = new <#= prop.Name #>(item.getJSONObject("<#= prop.Name #>"));
 			        <# } else { #>
 			    response.<#= prop.Name #> = data.<#= MappingJsonMethodByType[prop.Type] #>("<#= prop.Name #>");
 			        <# } #>

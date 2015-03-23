@@ -9,20 +9,20 @@ namespace MvdEndPoint.UnitTest
 
     #endregion
 
-    [Subject(typeof(GetPropertiesByTypeQuery))]
+    [Subject(typeof(GetPropertiesFromTypeQuery))]
     public class When_get_properties_by_type_with_write_with_only_write_as_command
     {
         #region Establish value
 
-        static MockMessage<GetPropertiesByTypeQuery, List<GetPropertiesByTypeQuery.Response>> mockQuery;
+        static MockMessage<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>> mockQuery;
 
         #endregion
 
         Establish establish = () =>
                               {
-                                  GetPropertiesByTypeQuery query = Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.IsCommand, true)
+                                  GetPropertiesFromTypeQuery query = Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.IsCommand, true)
                                                                                                                                  .Tuning(r => r.Type, typeof(FakeCommand)));
-                                  mockQuery = MockQuery<GetPropertiesByTypeQuery, List<GetPropertiesByTypeQuery.Response>>
+                                  mockQuery = MockQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>
                                           .When(query);
                               };
 

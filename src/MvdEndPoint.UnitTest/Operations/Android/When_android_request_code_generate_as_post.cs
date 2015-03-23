@@ -48,9 +48,9 @@
                                                                                                                         .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                                           .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Request)
                                                                                                                .Tuning(r => r.Type, query.Type)), "AddCustomerCommand")
-                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                                    .Tuning(r => r.IsCommand, true)
-                                                                                                                   .Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesByTypeQuery.Response>());
+                                                                                                                   .Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesFromTypeQuery.Response>());
                               };
 
         Because of = () => mockQuery.Original.Execute();

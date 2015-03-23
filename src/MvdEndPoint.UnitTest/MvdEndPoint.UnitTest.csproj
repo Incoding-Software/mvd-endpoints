@@ -96,6 +96,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="When_android_nested_class_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_wp_generate_http_request">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -178,6 +181,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_command.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_inheritance.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_write_with_only_write_as_command.cs" />
@@ -203,7 +207,6 @@
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get_without_properties.cs" />
     <Compile Include="Operations\Android\When_android_request_code_generate_as_post.cs" />
     <Compile Include="Operations\Android\When_android_response_code_generate.cs" />
-    <Compile Include="Operations\Android\When_android_response_code_generate_as_array.cs" />
     <Compile Include="Operations\Android\When_android_response_code_generate_as_command.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />

@@ -12,10 +12,13 @@
 
     #endregion
 
-
-    [Subject(typeof(GetPropertiesByTypeQuery))]
+    [Subject(typeof(GetPropertiesFromTypeQuery))]
     public class When_get_properties_by_type
     {
+        It should_be_by_ienumerable_type_android = () => Verify(typeof(IList<FakeClass>));
+
+        It should_be_by_type = () => Verify(typeof(FakeClass));
+
         #region Fake classes
 
         class FakeClass
@@ -43,6 +46,12 @@
             [UsedImplicitly]
             public bool Bool { get; set; }
 
+            [UsedImplicitly]
+            public FakeClass CustomClass { get; set; }
+
+            [UsedImplicitly]
+            public FakeClass[] CustomClassOfArray { get; set; }
+
             #endregion
         }
 
@@ -55,7 +64,7 @@
 
         static void Verify(Type type)
         {
-            var query = Pleasure.Generator.Invent<GetPropertiesByTypeQuery>(dsl => dsl.Tuning(r => r.Type, type));
+            var query = Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
             string dateTimeType = Pleasure.Generator.String();
             string enumType = Pleasure.Generator.String();
@@ -63,36 +72,37 @@
             string intType = Pleasure.Generator.String();
             string boolType = Pleasure.Generator.String();
 
-            var mockQuery = MockQuery<GetPropertiesByTypeQuery, List<GetPropertiesByTypeQuery.Response>>
+            var mockQuery = MockQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>
                     .When(query)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
-                                                                                                   .Tuning(r => r.Type, typeof(string))), stringType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
-                                                                                                   .Tuning(r => r.Type, typeof(FakeEnum))), enumType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
-                                                                                                   .Tuning(r => r.Type, typeof(DateTime))), dateTimeType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
-                                                                                                   .Tuning(r => r.Type, typeof(int))), intType)
-                    .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
-                                                                                                   .Tuning(r => r.Type, typeof(bool))), boolType);
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(FakeClass)), typeof(FakeClass).Name)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(FakeClass[])), typeof(FakeClass).Name)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(string)), stringType)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(FakeEnum)), enumType)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(DateTime)), dateTimeType)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(int)), intType)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(bool)), boolType);
 
             mockQuery.Original.Execute();
-            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesByTypeQuery.Response>
+            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesFromTypeQuery.Response>
                                                                                     {
-                                                                                            new GetPropertiesByTypeQuery.Response { Name = "Name", Type = stringType, IsCanNull = true, IsEnum = false, IsDateTime = false, IsArray = false, IsBool = false },
-                                                                                            new GetPropertiesByTypeQuery.Response { Name = "Sort", Type = intType, IsCanNull = false, IsEnum = false, IsDateTime = false, IsArray = false, IsBool = false },
-                                                                                            new GetPropertiesByTypeQuery.Response { Name = "Enum", Type = enumType, IsCanNull = false, IsEnum = true, IsDateTime = false, IsArray = false, IsBool = false },
-                                                                                            new GetPropertiesByTypeQuery.Response { Name = "DateTime", Type = dateTimeType, IsCanNull = true, IsEnum = false, IsDateTime = true, IsArray = false, IsBool = false },
-                                                                                            new GetPropertiesByTypeQuery.Response { Name = "Array", Type = stringType, IsCanNull = true, IsEnum = false, IsDateTime = false, IsArray = true, IsBool = false },
-                                                                                            new GetPropertiesByTypeQuery.Response { Name = "Bool", Type = boolType, IsCanNull = false, IsEnum = false, IsDateTime = false, IsArray = false, IsBool = true }
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Name", Type = stringType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull, Target = typeof(string) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Sort", Type = intType, Target = typeof(int) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Enum", Type = enumType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum, Target = typeof(FakeEnum) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "DateTime", Type = dateTimeType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime | GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull, Target = typeof(DateTime) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Array", Type = stringType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull | GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray, Target = typeof(string) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Bool", Type = boolType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsBool, Target = typeof(bool) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "CustomClass", Type = typeof(FakeClass).Name, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull | GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass, Target = typeof(FakeClass) },
+                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "CustomClassOfArray", Type = typeof(FakeClass).Name, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull | GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass | GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray, Target = typeof(FakeClass) }
                                                                                     }));
         }
 
         #endregion
-
-        It should_be_by_type= () => Verify(typeof(FakeClass));
-
-        It should_be_by_ienumerable_type_android = () => Verify(typeof(IList<FakeClass>));
-        
     }
 }

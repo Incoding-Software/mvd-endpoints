@@ -7,7 +7,7 @@
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 #import "<#= Name#>.h"
 @implementation <#= Name#>

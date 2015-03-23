@@ -7,21 +7,17 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
+namespace MvdEndPoint.Domain.Operations.Code_Generate.Android
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
-    using Incoding.Extensions;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_ToJson.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Ios_Response_h : Ios_Response_hBase
+    public partial class Android_ToJson : Android_ToJsonBase
     {
 #line hidden
         /// <summary>
@@ -29,171 +25,29 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("@interface ");
+            this.Write("package ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" : NSObject\r\n");
-            
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
- foreach(var prop in Properties) { 
+            #line 3 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_ToJson.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(" ");
-            
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull)){ 
-            
-            #line default
-            #line hidden
-            this.Write("@property (strong, nonatomic) ");
-            
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
-            
-            #line default
-            #line hidden
-            this.Write(" *");
-            
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write(";    \t  \r\n");
-            
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-}else{
-            
-            #line default
-            #line hidden
-            this.Write("@property (assign, nonatomic) ");
-            
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
-            
-            #line default
-            #line hidden
-            this.Write(";    \t  \r\n");
-            
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-}
-            
-            #line default
-            #line hidden
-            
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-if(IsArray){
-            
-            #line default
-            #line hidden
-            this.Write("  +(NSMutableArray *)create:(NSDictionary *)json;  \r\n");
-            
-            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-}else{
-            
-            #line default
-            #line hidden
-            this.Write("  +(");
-            
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
-            
-            #line default
-            #line hidden
-            this.Write(" *)create:(NSDictionary *)json;\r\n");
-            
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-}
-            
-            #line default
-            #line hidden
-            
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-if(IsQuery){
-            
-            #line default
-            #line hidden
-            this.Write("-(void)encodeWithCoder:(NSCoder *)encoder;\r\n-(id)initWithCoder:(NSCoder *)decoder" +
-                    ";\r\n");
-            
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
-}
-            
-            #line default
-            #line hidden
-            this.Write("@end\r\n");
+            this.Write(".Incoding;\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_h.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_ToJson.tt"
 
-private string _NameField;
+private string _NamespaceField;
 
 /// <summary>
-/// Access the Name parameter of the template.
+/// Access the Namespace parameter of the template.
 /// </summary>
-private string Name
+private string Namespace
 {
     get
     {
-        return this._NameField;
-    }
-}
-
-private bool _IsQueryField;
-
-/// <summary>
-/// Access the IsQuery parameter of the template.
-/// </summary>
-private bool IsQuery
-{
-    get
-    {
-        return this._IsQueryField;
-    }
-}
-
-private bool _IsArrayField;
-
-/// <summary>
-/// Access the IsArray parameter of the template.
-/// </summary>
-private bool IsArray
-{
-    get
-    {
-        return this._IsArrayField;
-    }
-}
-
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> _PropertiesField;
-
-/// <summary>
-/// Access the Properties parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> Properties
-{
-    get
-    {
-        return this._PropertiesField;
+        return this._NamespaceField;
     }
 }
 
@@ -205,125 +59,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool NameValueAcquired = false;
-if (this.Session.ContainsKey("Name"))
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["Name"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                "ta passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
     }
     else
     {
-        this._NameField = ((string)(this.Session["Name"]));
-        NameValueAcquired = true;
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
     }
 }
-if ((NameValueAcquired == false))
+if ((NamespaceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Name");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'Name\' did not match the type of the da" +
-                    "ta passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
         }
         else
         {
-            this._NameField = ((string)(data));
-        }
-    }
-}
-bool IsQueryValueAcquired = false;
-if (this.Session.ContainsKey("IsQuery"))
-{
-    if ((typeof(bool).IsAssignableFrom(this.Session["IsQuery"].GetType()) == false))
-    {
-        this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
-                "e data passed to the template.");
-    }
-    else
-    {
-        this._IsQueryField = ((bool)(this.Session["IsQuery"]));
-        IsQueryValueAcquired = true;
-    }
-}
-if ((IsQueryValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsQuery");
-    if ((data != null))
-    {
-        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Boolean\' of the parameter \'IsQuery\' did not match the type of th" +
-                    "e data passed to the template.");
-        }
-        else
-        {
-            this._IsQueryField = ((bool)(data));
-        }
-    }
-}
-bool IsArrayValueAcquired = false;
-if (this.Session.ContainsKey("IsArray"))
-{
-    if ((typeof(bool).IsAssignableFrom(this.Session["IsArray"].GetType()) == false))
-    {
-        this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
-                "e data passed to the template.");
-    }
-    else
-    {
-        this._IsArrayField = ((bool)(this.Session["IsArray"]));
-        IsArrayValueAcquired = true;
-    }
-}
-if ((IsArrayValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsArray");
-    if ((data != null))
-    {
-        if ((typeof(bool).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Boolean\' of the parameter \'IsArray\' did not match the type of th" +
-                    "e data passed to the template.");
-        }
-        else
-        {
-            this._IsArrayField = ((bool)(data));
-        }
-    }
-}
-bool PropertiesValueAcquired = false;
-if (this.Session.ContainsKey("Properties"))
-{
-    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
-                "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
-                " passed to the template.");
-    }
-    else
-    {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(this.Session["Properties"]));
-        PropertiesValueAcquired = true;
-    }
-}
-if ((PropertiesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
-                    "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
-                    " passed to the template.");
-        }
-        else
-        {
-            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(data));
+            this._NamespaceField = ((string)(data));
         }
     }
 }
@@ -345,7 +107,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class Ios_Response_hBase
+    public class Android_ToJsonBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -32,7 +32,7 @@
                                       { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
                                       { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value },
                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Request }) },
-                                      { "Properties", Dispatcher.Query(new GetPropertiesByTypeQuery { Type = Type, Device = DeviceOfType.Ios }) },
+                                      { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Ios }) },
                                       { "IsQuery", isQuery },
                               };
 
