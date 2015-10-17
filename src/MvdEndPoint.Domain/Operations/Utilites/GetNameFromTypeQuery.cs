@@ -53,8 +53,10 @@
                     return Type.FullName.Replace(Type.Namespace + ".", "").Replace("+", "_");
                 case ModeOf.Nested:
                     return Type.Name;
+                //no code coverage
                 default:
                     throw new ArgumentOutOfRangeException("modeOf", "Can't resolve name for type {0}".F(Type.Name));
+                //end no code coverage
             }
         }
     }

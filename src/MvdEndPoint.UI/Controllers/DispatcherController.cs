@@ -2,9 +2,9 @@ namespace MvdEndPoint.UI.Controllers
 {
     #region << Using >>
 
-    using EDating.Domain;
-    using Incoding.MvcContrib.MVD;
     
+    using Incoding.MvcContrib.MVD;
+    using InstaLine.Domain;
 
     #endregion
 

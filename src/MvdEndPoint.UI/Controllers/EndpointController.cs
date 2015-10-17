@@ -1,13 +1,9 @@
 namespace MvdEndPoint.UI.Controllers
 {
-    #region << Using >>
-
     using System.Web.Mvc;
     using Incoding.MvcContrib;
 
-    #endregion
-
-    public class HomeController : IncControllerBase
+    public class EndpointController : IncControllerBase
     {
         #region Api Methods
 

@@ -17,7 +17,6 @@ namespace MvdEndPoint.Domain.Operations
 
         protected override string ExecuteResult()
         {
-            return string.Empty;
             Android_Nested tmpl = new Android_Nested();
             tmpl.Session = new Dictionary<string, object>()
                            {

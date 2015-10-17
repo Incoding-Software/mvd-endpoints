@@ -15,17 +15,19 @@ namespace MvdEndPoint.UnitTest
 
         public void OnAssemblyStart()
         {
-            var configure = Fluently
+		            var configure = Fluently
                     .Configure()
                     .Database(MsSqlConfiguration.MsSql2008
                                                 .ConnectionString(ConfigurationManager.ConnectionStrings["Test"].ConnectionString)
                                                 .ShowSql())
                     .Mappings(configuration => configuration.FluentMappings.AddFromAssembly(typeof(Bootstrapper).Assembly));
 
-            PleasureForData.StartNhibernate(configure, true);
+           PleasureForData.StartNhibernate(configure, true);
         }
 
-        public void OnAssemblyComplete() { }
+        public void OnAssemblyComplete()
+        {		  
+        }
 
         #endregion
     }

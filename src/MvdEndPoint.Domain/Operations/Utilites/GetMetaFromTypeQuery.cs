@@ -44,11 +44,11 @@
                 @namespace = defNamespace;
             }
             return new Response
-                       {
+                   {
                            Package = "{0}.{1}".F(@namespace, Type.Name),
-                               Name = Type.Name,
+                           Name = Type.Name,
                            Namespace = @namespace
-                       };
+                   };
         }
     }
 }
