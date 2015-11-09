@@ -119,6 +119,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Packages\MessageToPackageAsWpQuery.cs" />
+    <Compile Include="Operations\UI\GetEndpointsQuery.cs" />
+    <Compile Include="Operations\UI\GetEnumForDD.cs" />
     <Compile Include="Operations\Utilites\ConvertCSharpTypeToTargetQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsImageQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosModelStateExceptionCodeGenerateQuery.cs" />
@@ -172,8 +174,6 @@
     </Compile>
     <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsArrayQuery.cs" />
-    <Compile Include="Operations\GetEndpointsQuery.cs" />
-    <Compile Include="Operations\GetEnumForDD.cs" />
     <Compile Include="Operations\Utilites\IsCommandTypeQuery.cs" />
     <Compile Include="Persistence\IncAjaxEventVm.cs" />
     <Compile Include="Operations\Packages\MessageToPackageAsAndroidQuery.cs" />
