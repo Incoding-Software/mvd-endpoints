@@ -34,7 +34,7 @@
 
         Because of = () => mockQuery.Execute();
 
-        It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
+        It should_be_result = () => mockQuery.ShouldBeIsResult(r=>r.ShouldEqual(expected));
 
         #region Establish value
 

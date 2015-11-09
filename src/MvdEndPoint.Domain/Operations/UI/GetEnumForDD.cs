@@ -20,7 +20,7 @@
         protected override OptGroupVm ExecuteResult()
         {
             return AppDomain.CurrentDomain.GetAssemblies()
-                            .SelectMany(r => r.GetTypes())
+                            .SelectMany(r => r.ExportedTypes)
                             .FirstOrDefault(r => r.GUID == Guid.Parse(TypeId))
                             .ToKeyValueVm()
                             .ToOptGroup();
