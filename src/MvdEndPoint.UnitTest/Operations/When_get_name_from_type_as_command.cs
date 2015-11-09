@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -17,7 +18,7 @@
 
         class FakeCommand : CommandBase
         {
-            public override void Execute()
+            protected override void Execute()
             {
                 throw new NotImplementedException();
             }
@@ -29,10 +30,10 @@
 
         static void Compare(GetNameFromTypeQuery.ModeOf modeOf, string title, Type type = null)
         {
-            var query = Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type ?? typeof(FakeCommand))
-                                                                                  .Tuning(r => r.Mode, modeOf));
-            query.Execute();
-            query.Result.ShouldEqual(title);
+            var query = Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type ?? typeof(FakeCommand)));
+            var mock = MockQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>.When(query);
+            mock.Execute();
+            mock.ShouldBeIsResult(dictionary => dictionary[modeOf].ShouldEqual(title));
         }
 
         #endregion

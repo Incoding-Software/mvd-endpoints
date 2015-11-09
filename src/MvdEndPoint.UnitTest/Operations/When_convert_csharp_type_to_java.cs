@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using System.Web;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -27,8 +28,9 @@
         static void Compare(Type csharp, string java)
         {
             var query = Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, csharp));
-            query.Execute();
-            query.Result.ShouldEqual(java);
+            var mock = MockQuery<ConvertCSharpTypeToJavaQuery, string>.When(query);
+            mock.Execute();
+            mock.ShouldBeIsResult(java);
         }
 
         #endregion
@@ -114,14 +116,16 @@
         It should_be_date_time_as_nullable = () => Compare(typeof(DateTime?), ConvertCSharpTypeToJavaQuery.Date);
 
         It should_be_enum = () =>
-                                {
-                                    string result = Pleasure.Generator.String();
-                                    var mockQuery = MockQuery<ConvertCSharpTypeToJavaQuery, string>
-                                            .When(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))))
-                                            .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))
-                                                                                                                 .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Enum)), result);
-                                    mockQuery.Original.Execute();
-                                    mockQuery.ShouldBeIsResult(result);
-                                };
+                            {
+                                string result = Pleasure.Generator.String();
+                                var mockQuery = MockQuery<ConvertCSharpTypeToJavaQuery, string>
+                                        .When(Pleasure.Generator.Invent<ConvertCSharpTypeToJavaQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))))
+                                        .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeEnum))), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
+                                                                                                                                                      {
+                                                                                                                                                              { GetNameFromTypeQuery.ModeOf.Enum, result }, 
+                                                                                                                                                      });
+                                mockQuery.Execute();
+                                mockQuery.ShouldBeIsResult(result);
+                            };
     }
 }

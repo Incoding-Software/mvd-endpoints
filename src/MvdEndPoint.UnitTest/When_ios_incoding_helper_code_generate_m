@@ -49,8 +49,8 @@
  {
    [self refreshSession];
  }
- NSURLSessionDownloadTask *getImageTask = [self.session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response,NSError *error) {
- UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]
+ NSURLSessionDownloadTask *getTask = [self.session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response,NSError *error) {
+ UIImage *downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
  done(downloadedImage);
 }];
 

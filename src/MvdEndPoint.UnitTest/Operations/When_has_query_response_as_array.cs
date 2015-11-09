@@ -17,7 +17,7 @@
 
         public class FakeCommand : CommandBase
         {
-            public override void Execute()
+            protected override void Execute()
             {
                 throw new NotImplementedException();
             }
@@ -56,39 +56,46 @@
         #endregion
 
         It should_be_is_string = () =>
-                                     {
-                                         var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(QueryWithString)));
-                                         var mock = MockQuery<HasQueryResponseAsArrayQuery, IncBoolResponse>
-                                                 .When(query);
-                                         mock.Original.Execute();
-                                         mock.ShouldBeIsResult(false);
-                                     };
+                                 {
+                                     var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(QueryWithString)));
+                                     var mock = MockQuery<HasQueryResponseAsArrayQuery, bool>
+                                             .When(query)
+                                             .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), false);
+                                     mock.Execute();
+                                     mock.ShouldBeIsResult(false);
+                                 };
 
         It should_be_is_bytes = () =>
-                                    {
-                                        var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(QueryWithBytes)));
-                                        var mock = MockQuery<HasQueryResponseAsArrayQuery, IncBoolResponse>
-                                                .When(query);
-                                        mock.Original.Execute();
-                                        mock.ShouldBeIsResult(false);
-                                    };
+                                {
+                                    var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(QueryWithBytes)));
+                                    var mock = MockQuery<HasQueryResponseAsArrayQuery, bool>
+                                            .When(query)
+                                            .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), false);
+
+                                    mock.Execute();
+                                    mock.ShouldBeIsResult(false);
+                                };
 
         It should_be_is_command = () =>
-                                      {
-                                          var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand)));
-                                          var mock = MockQuery<HasQueryResponseAsArrayQuery, IncBoolResponse>
-                                                  .When(query);
-                                          mock.Original.Execute();
-                                          mock.ShouldBeIsResult(false);
-                                      };
+                                  {
+                                      var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand)));
+                                      var mock = MockQuery<HasQueryResponseAsArrayQuery, bool>
+                                              .When(query)
+                                              .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), true);
+
+                                      mock.Execute();
+                                      mock.ShouldBeIsResult(false);
+                                  };
 
         It should_be_is_array = () =>
-                                    {
-                                        var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(QueryWithArray)));
-                                        var mock = MockQuery<HasQueryResponseAsArrayQuery, IncBoolResponse>
-                                                .When(query);
-                                        mock.Original.Execute();
-                                        mock.ShouldBeIsResult(true);
-                                    };
+                                {
+                                    var query = Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, typeof(QueryWithArray)));
+                                    var mock = MockQuery<HasQueryResponseAsArrayQuery, bool>
+                                            .When(query)
+                                            .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), false);
+
+                                    mock.Execute();
+                                    mock.ShouldBeIsResult(true);
+                                };
     }
 }

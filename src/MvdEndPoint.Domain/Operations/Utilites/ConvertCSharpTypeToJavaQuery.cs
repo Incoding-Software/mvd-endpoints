@@ -64,36 +64,30 @@
         protected override string ExecuteResult()
         {
             if (Type.IsEnum)
-            {
-                return Dispatcher.Query(new GetNameFromTypeQuery
-                                            {
-                                                    Type = Type,
-                                                    Mode = GetNameFromTypeQuery.ModeOf.Enum
-                                            });
-            }
+                return Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Enum];
 
             var primitive = new List<Tuple<Type[], string>>
-                                {
-                                        new Tuple<Type[], string>(new[] { typeof(HttpPostedFileBase), typeof(byte[]) }, ByteAsArray),
-                                        new Tuple<Type[], string>(new[] { typeof(object) }, String),
-                                        new Tuple<Type[], string>(new[] { typeof(String[]) }, StringAsArray),
-                                        new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean),
-                                        new Tuple<Type[], string>(new[] { typeof(bool?) }, BooleanAsNullable),
-                                        new Tuple<Type[], string>(new[] { typeof(char) }, Char),
-                                        new Tuple<Type[], string>(new[] { typeof(char?) }, CharAsNullable),
-                                        new Tuple<Type[], string>(new[] { typeof(float) }, Float),
-                                        new Tuple<Type[], string>(new[] { typeof(float?) }, FloatAsNull),
-                                        new Tuple<Type[], string>(new[] { typeof(long), typeof(ulong) }, Long),
-                                        new Tuple<Type[], string>(new[] { typeof(long?), typeof(ulong?) }, LongAsNullable),
-                                        new Tuple<Type[], string>(new[] { typeof(double) }, Double),
-                                        new Tuple<Type[], string>(new[] { typeof(double?) }, DoubleAsNullable),
-                                        new Tuple<Type[], string>(new[] { typeof(decimal), typeof(decimal?) }, Decimal),
-                                        new Tuple<Type[], string>(new[] { typeof(byte), typeof(sbyte) }, Byte),
-                                        new Tuple<Type[], string>(new[] { typeof(byte?), typeof(sbyte?) }, ByteAsNullable),
-                                        new Tuple<Type[], string>(new[] { typeof(int), typeof(Int32), typeof(short), typeof(ushort), typeof(uint) }, Int),
-                                        new Tuple<Type[], string>(new[] { typeof(int?), typeof(Int32?), typeof(short?), typeof(ushort?), typeof(uint?) }, IntAsNull),
-                                        new Tuple<Type[], string>(new[] { typeof(DateTime), typeof(DateTime?) }, Date),
-                                }
+                            {
+                                    new Tuple<Type[], string>(new[] { typeof(HttpPostedFileBase), typeof(byte[]) }, ByteAsArray), 
+                                    new Tuple<Type[], string>(new[] { typeof(object) }, String), 
+                                    new Tuple<Type[], string>(new[] { typeof(String[]) }, StringAsArray), 
+                                    new Tuple<Type[], string>(new[] { typeof(bool) }, Boolean), 
+                                    new Tuple<Type[], string>(new[] { typeof(bool?) }, BooleanAsNullable), 
+                                    new Tuple<Type[], string>(new[] { typeof(char) }, Char), 
+                                    new Tuple<Type[], string>(new[] { typeof(char?) }, CharAsNullable), 
+                                    new Tuple<Type[], string>(new[] { typeof(float) }, Float), 
+                                    new Tuple<Type[], string>(new[] { typeof(float?) }, FloatAsNull), 
+                                    new Tuple<Type[], string>(new[] { typeof(long), typeof(ulong) }, Long), 
+                                    new Tuple<Type[], string>(new[] { typeof(long?), typeof(ulong?) }, LongAsNullable), 
+                                    new Tuple<Type[], string>(new[] { typeof(double) }, Double), 
+                                    new Tuple<Type[], string>(new[] { typeof(double?) }, DoubleAsNullable), 
+                                    new Tuple<Type[], string>(new[] { typeof(decimal), typeof(decimal?) }, Decimal), 
+                                    new Tuple<Type[], string>(new[] { typeof(byte), typeof(sbyte) }, Byte), 
+                                    new Tuple<Type[], string>(new[] { typeof(byte?), typeof(sbyte?) }, ByteAsNullable), 
+                                    new Tuple<Type[], string>(new[] { typeof(int), typeof(Int32), typeof(short), typeof(ushort), typeof(uint) }, Int), 
+                                    new Tuple<Type[], string>(new[] { typeof(int?), typeof(Int32?), typeof(short?), typeof(ushort?), typeof(uint?) }, IntAsNull), 
+                                    new Tuple<Type[], string>(new[] { typeof(DateTime), typeof(DateTime?) }, Date), 
+                            }
                     .SingleOrDefault(r => r.Item1.Contains(Type));
 
             return primitive.With(r => r.Item2).Recovery(Type.Name);

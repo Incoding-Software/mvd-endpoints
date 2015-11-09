@@ -31,7 +31,7 @@
                                               .When(query);
                                   };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }

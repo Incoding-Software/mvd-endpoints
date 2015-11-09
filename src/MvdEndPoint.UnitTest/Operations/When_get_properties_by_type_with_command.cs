@@ -28,13 +28,13 @@
                                           .When(query);
                               };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(list => list.ShouldBeEmpty());
 
-        public class FakeCommand : MessageBase<object>
+        public class FakeCommand : MessageBase
         {
-            public override void Execute()
+            protected override void Execute()
             {
                 throw new NotImplementedException();
             }

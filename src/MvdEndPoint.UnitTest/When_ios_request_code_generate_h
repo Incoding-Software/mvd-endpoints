@@ -1,5 +1,5 @@
 ﻿#import "GetCustomerResponse.h"
-typedef void (^SuccessGetCustomerRequest) (GetCustomerResponse *result);
+typedef void (^SuccessGetCustomerRequest)(GetCustomerResponse *result);
 typedef void (^ErrorGetCustomerRequest)(NSMutableArray *result);
 @interface GetCustomerRequest : NSObject
   @property (strong, nonatomic) TheSameString *Message;    	  

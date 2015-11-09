@@ -26,7 +26,7 @@ namespace MvdEndPoint.UnitTest
                                           .When(query);
                               };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(list => list.ShouldBeEmpty());
 

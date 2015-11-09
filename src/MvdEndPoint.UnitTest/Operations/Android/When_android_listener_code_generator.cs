@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
@@ -41,15 +42,16 @@
 
             var mockQuery = MockQuery<AndroidListenerCodeGeneratorQuery, string>
                     .When(query)
-                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new IncBoolResponse(isArray))
+                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), isArray)
                     .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)),
                                Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
                                                                                                   .Tuning(r => r.Package, "com.qabenchmarking.android.models.FakeQuery")))
-                    .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
-                                                                                         .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Listener)), "IFakeQueryListener")
-                    .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery))
-                                                                                         .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)), "FakeQueryResponse");
-            mockQuery.Original.Execute();
+                    .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
+                                                                                                                                                         {
+                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Listener, "IFakeQueryListener" },
+                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Response, "FakeQueryResponse" },
+                                                                                                                                                         });
+            mockQuery.Execute();
             mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
         }
 

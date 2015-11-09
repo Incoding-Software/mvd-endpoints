@@ -32,7 +32,7 @@ namespace MvdEndPoint.UnitTest
                                                                                                                          .Tuning(r => r.Type, typeof(string))), type);
                               };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(list => list.ShouldEqualWeakEach(new[]
                                                                                                 {

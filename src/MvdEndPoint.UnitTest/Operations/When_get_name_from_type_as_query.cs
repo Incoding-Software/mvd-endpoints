@@ -16,17 +16,18 @@
     {
         #region Fake classes
 
-
         class FakeQuery : QueryBase<FakeQuery.Response>
         {
             #region Nested classes
 
             public class Response { }
 
+            #endregion
+
+            #region Enums
+
             public enum NestedEnum
-            {
-                
-            }
+            { }
 
             #endregion
 
@@ -56,10 +57,10 @@
 
         static void Compare(GetNameFromTypeQuery.ModeOf modeOf, string title, Type type = null)
         {
-            var query = Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type ?? typeof(FakeQuery))
-                                                                                  .Tuning(r => r.Mode, modeOf));
-            query.Execute();
-            query.Result.ShouldEqual(title);
+            var query = Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type ?? typeof(FakeQuery)));
+            var mock = MockQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>.When(query);
+            mock.Execute();
+            mock.ShouldBeIsResult(dictionary => dictionary[modeOf].ShouldEqual(title));
         }
 
         #endregion

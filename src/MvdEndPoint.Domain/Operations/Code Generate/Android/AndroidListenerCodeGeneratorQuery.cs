@@ -20,14 +20,15 @@
         {
             var on = new Android_Listener();
             var response = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
+            var names = Dispatcher.Query(new GetNameFromTypeQuery(Type));
             on.Session = new Dictionary<string, object>
-                             {
-                                     { "Package", response.Package },
-                                     { "Namespace", response.Namespace },
-                                     { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Listener, Type = Type }) },
-                                     { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Mode = GetNameFromTypeQuery.ModeOf.Response, Type = Type }) },
-                                     { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value }
-                             };
+                         {
+                                 { "Package", response.Package }, 
+                                 { "Namespace", response.Namespace }, 
+                                 { "Name", names[GetNameFromTypeQuery.ModeOf.Listener] }, 
+                                 { "Response", names[GetNameFromTypeQuery.ModeOf.Response] }, 
+                                 { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery(Type)) }
+                         };
             on.Initialize();
             return on.TransformText();
         }

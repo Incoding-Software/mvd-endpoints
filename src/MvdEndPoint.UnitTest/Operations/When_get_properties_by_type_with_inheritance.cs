@@ -33,7 +33,7 @@
                                                                                                                          .Tuning(r => r.Type, typeof(bool))), type);
                               };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(list => list.ShouldEqualWeakEach(new[]
                                                                                                 {

@@ -1,0 +1,40 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Incoding.Extensions" #>
+<#@ parameter type="MvdEndPoint.Domain.GetMetaFromTypeQuery.Response" name="Meta" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Response" #>
+
+using System;
+using System.Text;
+
+namespace <#=Meta.Namespace#>
+{
+    public class <#=Meta.Name#>:HttpMessageBase
+    {
+         <# foreach(var pair in Properties) { #>
+        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
+         <# } #>   
+
+		public class Response
+        {
+         <# foreach(var pair in Response) { #>
+        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
+         <# } #>  
+        }
+
+        public async void Execute(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+        {
+            var postData = new StringBuilder();
+            postData.Append("incType=<#=Meta.Name#>");
+		    <# foreach(var pair in Properties) { #>
+			    postData.Append("&<#=pair.Name#>="+this.<#=pair.Name#>);           
+            <# } #>  
+            await PostAwait(false, onSuccess, onError, onValidation, postData);
+        }
+    }
+}
+

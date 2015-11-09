@@ -10,28 +10,29 @@
 
     #endregion
 
-    [Subject(typeof(WPGenerateHttpRequestQuery))]
-    public class When_wp_generate_http_request
+    [Subject(typeof(WPGenerateHttpMessageQuery))]
+    public class When_wp_generate_http_message
     {
-        Establish establish = () =>
-                              {
-                                  WPGenerateHttpRequestQuery query = Pleasure.Generator.Invent<WPGenerateHttpRequestQuery>(dsl => dsl.Tuning(r => r.Url, "http://test.incoding.biz/ru"));
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_wp_generate_http_request).Name));
-
-                                  mockQuery = MockQuery<WPGenerateHttpRequestQuery, string>
-                                          .When(query);
-                              };
-
-        Because of = () => mockQuery.Original.Execute();
-
-        It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
-
         #region Establish value
 
-        static MockMessage<WPGenerateHttpRequestQuery, string> mockQuery;
+        static MockMessage<WPGenerateHttpMessageQuery, string> mockQuery;
 
         static string expected;
 
         #endregion
+
+        Establish establish = () =>
+                              {
+                                  var query = Pleasure.Generator.Invent<WPGenerateHttpMessageQuery>(dsl => dsl.Tuning(r => r.Namespace, "Project")
+                                                                                                              .Tuning(r => r.Url, "http://test.incoding.biz/ru"));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_wp_generate_http_message).Name));
+
+                                  mockQuery = MockQuery<WPGenerateHttpMessageQuery, string>
+                                          .When(query);
+                              };
+
+        Because of = () => mockQuery.Execute();
+
+        It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }
 }

@@ -1,0 +1,26 @@
+﻿
+using System;
+using System.Text;
+
+namespace MvdEndPoint.UnitTest
+{
+    public class FakeCommand:HttpMessageBase
+    {
+                 public String Login {get;set;}
+                 public Int32 Count {get;set;}
+                 public Double[] Values {get;set;}
+            
+
+        public async void Execute(Action<object> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+        {
+            var postData = new StringBuilder();
+            postData.Append("incType=FakeCommand");
+		    			    postData.Append("&Login="+this.Login);           
+            			    postData.Append("&Count="+this.Count);           
+            			    postData.Append("&Values="+this.Values);           
+              
+            await PostAwait(true, onSuccess, onError,onValidation, postData);
+        }
+    }
+}
+

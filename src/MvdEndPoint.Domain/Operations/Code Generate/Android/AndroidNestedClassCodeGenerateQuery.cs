@@ -11,28 +11,31 @@ namespace MvdEndPoint.Domain.Operations
 
     public class AndroidNestedClassCodeGenerateQuery : QueryBase<string>
     {
+        #region Properties
+
         public Type Type { get; set; }
 
         public string Namespace { get; set; }
 
+        #endregion
+
         protected override string ExecuteResult()
         {
-            return string.Empty;
-            Android_Nested tmpl = new Android_Nested();
+            var tmpl = new Android_Nested();
             tmpl.Session = new Dictionary<string, object>()
                            {
-                                   { "Namespace", Namespace },
-                                   { "Name", Dispatcher.Query(new GetNameFromTypeQuery() { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Nested }) },
-                                   { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = Type, Device = DeviceOfType.Android, IsCommand = false }) },
+                                   { "Namespace", Namespace }, 
+                                   { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Nested] }, 
+                                   { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = Type, Device = DeviceOfType.Android, IsCommand = false }) }, 
                                    {
                                            "MappingJsonMethodByType", new Dictionary<string, string>
                                                                       {
-                                                                              { ConvertCSharpTypeToJavaQuery.String, "getString" },
-                                                                              { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
-                                                                              { "int64", "getInt" },
-                                                                              { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
-                                                                              { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" },
-                                                                              { typeof(long).Name, "getLong" },
+                                                                              { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
+                                                                              { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
+                                                                              { "int64", "getInt" }, 
+                                                                              { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
+                                                                              { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" }, 
+                                                                              { typeof(long).Name, "getLong" }, 
                                                                       }
                                    }
                            };

@@ -14,17 +14,21 @@
 
     public class AndroidResponseCodeGenerateQuery : QueryBase<string>
     {
-        #region Properties
-
-        public Type Type { get; set; }
-
-        #endregion
+        #region Constants
 
         const string propertiesAsKey = "Properties";
 
         const string nestedAsKey = "Nested";
 
         const string mappingAsKey = "MappingJsonMethodByType";
+
+        #endregion
+
+        #region Properties
+
+        public Type Type { get; set; }
+
+        #endregion
 
         protected override string ExecuteResult()
         {
@@ -33,13 +37,13 @@
 
             var session = new Dictionary<string, object>
                           {
-                                  { "Namespace", meta.Namespace },
-                                  { "Package", meta.Package },
-                                  { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
-                                  { nestedAsKey, new List<string>() },
-                                  { mappingAsKey, new Dictionary<string, string>() },
-                                  { propertiesAsKey, new Dictionary<string, string>() },
-                                  { "IsQuery", isQuery },
+                                  { "Namespace", meta.Namespace }, 
+                                  { "Package", meta.Package }, 
+                                  { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Response] }, 
+                                  { nestedAsKey, new List<string>() }, 
+                                  { mappingAsKey, new Dictionary<string, string>() }, 
+                                  { propertiesAsKey, new Dictionary<string, string>() }, 
+                                  { "IsQuery", isQuery }, 
                           };
 
             if (isQuery)
@@ -47,8 +51,8 @@
                 var responseType = Type.BaseType.GenericTypeArguments[0];
                 var properties = Dispatcher.Query(new GetPropertiesFromTypeQuery
                                                   {
-                                                          Type = responseType,
-                                                          Device = DeviceOfType.Android,
+                                                          Type = responseType, 
+                                                          Device = DeviceOfType.Android, 
                                                           IsCommand = false
                                                   });
 
@@ -56,22 +60,23 @@
                 session.Set(nestedAsKey, properties.Where(r => r.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass))
                                                    .Select(r => Dispatcher.Query(new AndroidNestedClassCodeGenerateQuery()
                                                                                  {
-                                                                                         Type = r.Target,
-                                                                                         Namespace = meta.Namespace,                                                                                         
+                                                                                         Type = r.Target, 
+                                                                                         Namespace = meta.Namespace, 
                                                                                  }))
                                                    .ToList());
 
                 session.Set(propertiesAsKey, properties);
                 session.Set(mappingAsKey, new Dictionary<string, string>
                                           {
-                                                  { ConvertCSharpTypeToJavaQuery.String, "getString" },
-                                                  { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
-                                                  { "int64", "getInt" },
-                                                  { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
-                                                  { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" },
-                                                  { typeof(long).Name, "getLong" },
+                                                  { ConvertCSharpTypeToJavaQuery.String, "getString" }, 
+                                                  { ConvertCSharpTypeToJavaQuery.Int, "getInt" }, 
+                                                  { "int64", "getInt" }, 
+                                                  { ConvertCSharpTypeToJavaQuery.Double, "getDouble" }, 
+                                                  { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" }, 
+                                                  { typeof(long).Name, "getLong" }, 
                                           });
             }
+
             var tmplAndroid = new Android_Response();
             tmplAndroid.Session = session;
             tmplAndroid.Initialize();

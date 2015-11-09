@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -31,18 +32,17 @@
         #endregion
 
         Establish establish = () =>
-                                  {
-                                      var query = Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Package, "com.qabenchmarking.android.models")
-                                          .Tuning(r => r.Type, typeof(MyEnum)));
-                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_android_enum_code_generate).Name));
+                              {
+                                  var query = Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Package, "com.qabenchmarking.android.models")
+                                                                                                                .Tuning(r => r.Type, typeof(MyEnum)));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_android_enum_code_generate).Name));
 
-                                      mockQuery = MockQuery<AndroidEnumCodeGenerateQuery, string>
-                                              .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)
-                                                                                                                   .Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Enum)), "MyEnum");
-                                  };
+                                  mockQuery = MockQuery<AndroidEnumCodeGenerateQuery, string>
+                                          .When(query)
+                                          .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>() { { GetNameFromTypeQuery.ModeOf.Enum, "MyEnum" } });
+                              };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }

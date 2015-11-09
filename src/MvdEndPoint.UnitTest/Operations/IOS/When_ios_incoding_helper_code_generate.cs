@@ -26,7 +26,7 @@
             var mockQuery = MockQuery<IosIncodingHelperCodeGenerateQuery, string>
                     .When(query);
 
-            mockQuery.Original.Execute();
+            mockQuery.Execute();
             mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
         }
 

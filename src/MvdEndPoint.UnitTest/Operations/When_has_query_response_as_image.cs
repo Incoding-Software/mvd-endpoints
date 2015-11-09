@@ -18,7 +18,7 @@
 
         public class FakeCommand : CommandBase
         {
-            public override void Execute()
+            protected override void Execute()
             {
                 throw new NotImplementedException();
             }
@@ -43,33 +43,36 @@
         #endregion
 
         It should_be_command = () =>
-                                   {
-                                       var query = Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand)));
+                               {
+                                   var query = Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeCommand)));
 
-                                       var mockQuery = MockQuery<HasQueryResponseAsImageQuery, IncBoolResponse>
-                                               .When(query);
-                                       mockQuery.Original.Execute();
-                                       mockQuery.ShouldBeIsResult(false);
-                                   };
+                                   var mockQuery = MockQuery<HasQueryResponseAsImageQuery, bool>
+                                           .When(query)
+                                           .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), true);
+                                   mockQuery.Execute();
+                                   mockQuery.ShouldBeIsResult(false);
+                               };
 
         It should_be_query = () =>
-                                 {
-                                     var query = Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
+                             {
+                                 var query = Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
 
-                                     var mockQuery = MockQuery<HasQueryResponseAsImageQuery, IncBoolResponse>
-                                             .When(query);
-                                     mockQuery.Original.Execute();
-                                     mockQuery.ShouldBeIsResult(false);
-                                 };
+                                 var mockQuery = MockQuery<HasQueryResponseAsImageQuery, bool>
+                                         .When(query)
+                                         .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), false);
+                                 mockQuery.Execute();
+                                 mockQuery.ShouldBeIsResult(false);
+                             };
 
         It should_be_image = () =>
-                                 {
-                                     var query = Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, typeof(ImageQuery)));
+                             {
+                                 var query = Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, typeof(ImageQuery)));
 
-                                     var mockQuery = MockQuery<HasQueryResponseAsImageQuery, IncBoolResponse>
-                                             .When(query);
-                                     mockQuery.Original.Execute();
-                                     mockQuery.ShouldBeIsResult(true);
-                                 };
+                                 var mockQuery = MockQuery<HasQueryResponseAsImageQuery, bool>
+                                         .When(query)
+                                         .StubQuery<IsCommandTypeQuery, bool>(dsl => dsl.Tuning(r => r.Type, query.Type), false);
+                                 mockQuery.Execute();
+                                 mockQuery.ShouldBeIsResult(true);
+                             };
     }
 }

@@ -3,16 +3,29 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Incoding.CQRS;
-    using Incoding.Extensions;
+    using Incoding.Quality;
+    using JetBrains.Annotations;
 
     #endregion
 
-    public class GetNameFromTypeQuery : QueryBase<string>
+    public class GetNameFromTypeQuery : QueryBase<Dictionary<GetNameFromTypeQuery.ModeOf, string>>
     {
-        #region Properties
+        #region Constructors
 
-        public ModeOf Mode { get; set; }
+        [UsedImplicitly, Obsolete(ObsoleteMessage.SerializeConstructor, true), ExcludeFromCodeCoverage]
+        public GetNameFromTypeQuery() { }
+
+        public GetNameFromTypeQuery(Type type)
+        {
+            Type = type;
+        }
+
+        #endregion
+
+        #region Properties
 
         public Type Type { get; set; }
 
@@ -22,40 +35,32 @@
 
         public enum ModeOf
         {
-            Request,
+            Request, 
 
-            Response,
+            Response, 
 
-            Task,
+            Task, 
 
-            Listener,
+            Listener, 
 
-            Enum,
+            Enum, 
 
             Nested
         }
 
         #endregion
 
-        protected override string ExecuteResult()
+        protected override Dictionary<ModeOf, string> ExecuteResult()
         {
-            switch (Mode)
-            {
-                case ModeOf.Request:
-                    return Type.Name + "Request";
-                case ModeOf.Response:
-                    return Type.Name + "Response";
-                case ModeOf.Task:
-                    return Type.Name + "Task";
-                case ModeOf.Listener:
-                    return "I" + Type.Name + "Listener";
-                case ModeOf.Enum:
-                    return Type.FullName.Replace(Type.Namespace + ".", "").Replace("+", "_");
-                case ModeOf.Nested:
-                    return Type.Name;
-                default:
-                    throw new ArgumentOutOfRangeException("modeOf", "Can't resolve name for type {0}".F(Type.Name));
-            }
+            return new Dictionary<ModeOf, string>()
+                   {
+                           { ModeOf.Request, Type.Name + "Request" }, 
+                           { ModeOf.Response, Type.Name + "Response" }, 
+                           { ModeOf.Task, Type.Name + "Task" }, 
+                           { ModeOf.Listener, "I" + Type.Name + "Listener" }, 
+                           { ModeOf.Enum, Type.FullName.Replace(Type.Namespace + ".", string.Empty).Replace("+", "_") }, 
+                           { ModeOf.Nested, Type.Name }, 
+                   };
         }
     }
 }

@@ -19,7 +19,7 @@
 
         class AddCustomerCommand : CommandBase
         {
-            public override void Execute()
+            protected override void Execute()
             {
                 throw new NotImplementedException();
             }
@@ -51,21 +51,23 @@
 
             var mockQuery = MockQuery<IosResponseCodeGenerateQuery, string>
                     .When(query)
-                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new IncBoolResponse(isArray))
-                    .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)
-                                                                                         .Tuning(r => r.Type, query.Type)), "GetCustomerResponse")
+                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), isArray)
+                    .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
+                                                                                                                            {
+                                                                                                                                    { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" }, 
+                                                                                                                            })
                     .StubQuery(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Ios)
-                                                                                             .Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), withoutProperties ? new List<GetPropertiesFromTypeQuery.Response>()
-                                                                                                                                                               : new List<GetPropertiesFromTypeQuery.Response>
-                                                                                                                                                                     {
-                                                                                                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToIosQuery.String },
-                                                                                                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToIosQuery.Int },
-                                                                                                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToIosQuery.Boolean },
-                                                                                                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "Type", Type = "MyEnum", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum},
-                                                                                                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "CreateDt", Type = ConvertCSharpTypeToIosQuery.Date, Attributes =  GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime},
-                                                                                                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "Ids", Type = ConvertCSharpTypeToIosQuery.String, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray},
-                                                                                                                                                                     });
-            mockQuery.Original.Execute();
+                                                                                               .Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), withoutProperties ? new List<GetPropertiesFromTypeQuery.Response>()
+                                                                                                                                                                 : new List<GetPropertiesFromTypeQuery.Response>
+                                                                                                                                                                   {
+                                                                                                                                                                           new GetPropertiesFromTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToIosQuery.String }, 
+                                                                                                                                                                           new GetPropertiesFromTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToIosQuery.Int }, 
+                                                                                                                                                                           new GetPropertiesFromTypeQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToIosQuery.Boolean }, 
+                                                                                                                                                                           new GetPropertiesFromTypeQuery.Response { Name = "Type", Type = "MyEnum", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum }, 
+                                                                                                                                                                           new GetPropertiesFromTypeQuery.Response { Name = "CreateDt", Type = ConvertCSharpTypeToIosQuery.Date, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime }, 
+                                                                                                                                                                           new GetPropertiesFromTypeQuery.Response { Name = "Ids", Type = ConvertCSharpTypeToIosQuery.String, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray }, 
+                                                                                                                                                                   });
+            mockQuery.Execute();
             mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
         }
 
@@ -77,11 +79,13 @@
 
             var mockQuery = MockQuery<IosResponseCodeGenerateQuery, string>
                     .When(query)
-                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new IncBoolResponse(false))
-                    .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)
-                                                                                         .Tuning(r => r.Type, query.Type)), "GetCustomerResponse");
+                    .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), false)
+                    .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
+                                                                                                                            {
+                                                                                                                                    { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" }, 
+                                                                                                                            });
 
-            mockQuery.Original.Execute();
+            mockQuery.Execute();
             mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
         }
 

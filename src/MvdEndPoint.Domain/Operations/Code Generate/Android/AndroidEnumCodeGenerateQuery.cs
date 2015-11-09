@@ -6,7 +6,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Incoding.CQRS;
-    using MvdEndPoint.Domain.Operations.Code_Generate.Android;
 
     #endregion
 
@@ -26,15 +25,15 @@
             var allValues = Enum.GetValues(Type).Cast<Enum>()
                                 .ToList();
             template.Session = new Dictionary<string, object>
-                                   {
-                                           { "Package", Package },
-                                           { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Enum }) },
-                                           {
-                                                   "Values", allValues
-                                                   .Select((r, i) => new Tuple<string, string, bool>(r.ToString(), r.ToString("d"), i == allValues.Count - 1))
-                                                   .ToList()
-                                           }
-                                   };
+                               {
+                                       { "Package", Package },
+                                       { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Enum] },
+                                       {
+                                               "Values", allValues
+                                               .Select((r, i) => new Tuple<string, string, bool>(r.ToString(), r.ToString("d"), i == allValues.Count - 1))
+                                               .ToList()
+                                       }
+                               };
             template.Initialize();
             return template.TransformText();
         }

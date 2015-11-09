@@ -4,11 +4,10 @@
 
     using System;
     using Incoding.CQRS;
-    using Incoding.Extensions;
 
     #endregion
 
-    public class HasQueryResponseAsImageQuery : QueryBase<IncBoolResponse>
+    public class HasQueryResponseAsImageQuery : QueryBase<bool>
     {
         #region Properties
 
@@ -16,12 +15,9 @@
 
         #endregion
 
-        protected override IncBoolResponse ExecuteResult()
+        protected override bool ExecuteResult()
         {
-            if (Type.IsImplement<CommandBase>())
-                return false;
-
-            return Type.BaseType.GenericTypeArguments[0] == typeof(byte[]);
+            return !Dispatcher.Query(new IsCommandTypeQuery(Type)) && Type.BaseType.GenericTypeArguments[0] == typeof(byte[]);
         }
     }
 }

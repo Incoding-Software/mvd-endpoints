@@ -89,7 +89,7 @@
                     .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
                                                                                  .Tuning(r => r.Type, typeof(bool)), boolType);
 
-            mockQuery.Original.Execute();
+            mockQuery.Execute();
             mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesFromTypeQuery.Response>
                                                                                     {
                                                                                             new GetPropertiesFromTypeQuery.Response { Name = "Name", Type = stringType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull, Target = typeof(string) },

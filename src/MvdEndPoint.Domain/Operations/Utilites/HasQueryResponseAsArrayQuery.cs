@@ -4,22 +4,37 @@
 
     using System;
     using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
     using Incoding.CQRS;
     using Incoding.Extensions;
+    using Incoding.Quality;
+    using JetBrains.Annotations;
 
     #endregion
 
-    public class HasQueryResponseAsArrayQuery : QueryBase<IncBoolResponse>
+    public class HasQueryResponseAsArrayQuery : QueryBase<bool>
     {
+        #region Constructors
+
+        [UsedImplicitly, Obsolete(ObsoleteMessage.SerializeConstructor, true), ExcludeFromCodeCoverage]
+        public HasQueryResponseAsArrayQuery() { }
+
+        public HasQueryResponseAsArrayQuery(Type type)
+        {
+            Type = type;
+        }
+
+        #endregion
+
         #region Properties
 
         public Type Type { get; set; }
 
         #endregion
 
-        protected override IncBoolResponse ExecuteResult()
+        protected override bool ExecuteResult()
         {
-            if (Type.IsImplement<CommandBase>())
+            if (Dispatcher.Query(new IsCommandTypeQuery(Type)))
                 return false;
 
             var responseType = Type.BaseType.GenericTypeArguments[0];

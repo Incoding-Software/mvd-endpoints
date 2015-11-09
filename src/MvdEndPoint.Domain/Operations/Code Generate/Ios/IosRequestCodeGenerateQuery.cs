@@ -5,7 +5,6 @@
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
-    using Incoding.Extensions;
     using MvdEndPoint.Domain.Operations.Code_Generate.Ios;
 
     #endregion
@@ -23,18 +22,19 @@
         protected override string ExecuteResult()
         {
             var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
-            bool isQuery = !Type.IsImplement<CommandBase>();
+
+            var names = Dispatcher.Query(new GetNameFromTypeQuery(Type));
             var session = new Dictionary<string, object>
-                              {
-                                      { "Method", Type.IsImplement<CommandBase>() ? "Push" : "Query" },
-                                      { "IsImage", Dispatcher.Query(new HasQueryResponseAsImageQuery { Type = Type }).Value },
-                                      { "Type", meta.Name },
-                                      { "Response", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
-                                      { "IsArray", Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value },
-                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Request }) },
-                                      { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Ios }) },
-                                      { "IsQuery", isQuery },
-                              };
+                          {
+                                  { "Method", meta.IsCommand ? "Push" : "Query" }, 
+                                  { "IsImage", meta.ResponseAsImage }, 
+                                  { "Type", meta.Name }, 
+                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] }, 
+                                  { "IsArray", meta.ResponseAsArray }, 
+                                  { "Name", names[GetNameFromTypeQuery.ModeOf.Request] }, 
+                                  { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Ios, IsCommand = meta.IsCommand }) }, 
+                                  { "IsQuery", !meta.IsCommand }, 
+                          };
 
             switch (File)
             {

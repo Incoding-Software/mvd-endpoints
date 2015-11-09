@@ -1,0 +1,34 @@
+﻿
+using System;
+using System.Text;
+
+namespace MvdEndPoint.UnitTest
+{
+    public class FakeQuery:HttpMessageBase
+    {
+                 public String Login {get;set;}
+                 public Int32 Count {get;set;}
+                 public Double[] Values {get;set;}
+            
+
+		public class Response
+        {
+                 public String Login {get;set;}
+                 public Int32 Count {get;set;}
+                 public Double[] Values {get;set;}
+           
+        }
+
+        public async void Execute(Action<Response[]> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+        {
+            var postData = new StringBuilder();
+            postData.Append("incType=FakeQuery");
+		    			    postData.Append("&Login="+this.Login);           
+            			    postData.Append("&Count="+this.Count);           
+            			    postData.Append("&Values="+this.Values);           
+              
+            await PostAwait(false, onSuccess, onError, onValidation, postData);
+        }
+    }
+}
+

@@ -29,6 +29,12 @@
 
             public string Name { get; set; }
 
+            public bool IsCommand { get; set; }
+
+            public bool ResponseAsImage { get; set; }
+
+            public bool ResponseAsArray { get; set; }
+
             #endregion
         }
 
@@ -37,18 +43,22 @@
         protected override Response ExecuteResult()
         {
             var serviceContract = Type.FirstOrDefaultAttribute<ServiceContractAttribute>();
-            var @namespace = serviceContract.Namespace;
+            string @namespace = serviceContract.Namespace;
             if (string.IsNullOrWhiteSpace(@namespace))
             {
-                string defNamespace = Type.Module.Name.Replace(".dll", "");
+                string defNamespace = Type.Module.Name.Replace(".dll", string.Empty);
                 @namespace = defNamespace;
             }
+
             return new Response
-                       {
-                           Package = "{0}.{1}".F(@namespace, Type.Name),
-                               Name = Type.Name,
+                   {
+                           Package = "{0}.{1}".F(@namespace, Type.Name), 
+                           Name = Type.Name, 
+                           ResponseAsArray = Dispatcher.Query(new HasQueryResponseAsArrayQuery(Type)), 
+                           ResponseAsImage = Dispatcher.Query(new HasQueryResponseAsImageQuery { Type = Type }), 
+                           IsCommand = Dispatcher.Query(new IsCommandTypeQuery(Type)), 
                            Namespace = @namespace
-                       };
+                   };
         }
     }
 }

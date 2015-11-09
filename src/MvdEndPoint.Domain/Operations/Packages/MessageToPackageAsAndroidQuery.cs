@@ -31,7 +31,7 @@
                                        .With(r => r.Namespace);
             if (string.IsNullOrWhiteSpace(avrNamespace))
             {
-                string defNamespace = Types.First().Module.Name.Replace(".dll", "");
+                string defNamespace = Types.First().Module.Name.Replace(".dll", string.Empty);
                 avrNamespace = defNamespace;
             }
 
@@ -41,7 +41,8 @@
             zipQuery.Entries.Add("Incoding/JsonModelStateData.java", Dispatcher.Query(new AndroidJsonModelStateDataCodeGenerateQuery { Namespace = avrNamespace }));
             foreach (var type in Types)
             {
-                Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery { Type = type, Mode = of, }));
+                var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = type });
+                Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(type))[of]);
                 zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new AndroidRequestCodeGenerateQuery { Type = type }));
                 zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Listener), Dispatcher.Query(new AndroidListenerCodeGeneratorQuery { Type = type }));
                 zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Task), Dispatcher.Query(new AndroidTaskCodeGenerateQuery { Type = type }));
@@ -49,23 +50,22 @@
                 const BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
 
                 var allProperties = type.GetProperties(bindingFlags).ToList();
-                if (!type.IsImplement<CommandBase>())
+                if (!meta.IsCommand)
                 {
                     var responseType = type.BaseType.GetGenericArguments()[0];
                     responseType = responseType.IsImplement<IEnumerable>() ? responseType.GetGenericArguments()[0] : responseType;
                     allProperties.AddRange(responseType.GetProperties(bindingFlags));
                 }
 
-                var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = type });
                 foreach (var enumAsType in allProperties.Where(r => r.PropertyType.IsEnum)
                                                         .Select(r => r.PropertyType))
                 {
-                    string enumAsFileName = "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery { Type = enumAsType, Mode = GetNameFromTypeQuery.ModeOf.Enum, }));
+                    string enumAsFileName = "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(enumAsType))[GetNameFromTypeQuery.ModeOf.Enum]);
                     zipQuery.Entries.Add(enumAsFileName, Dispatcher.Query(new AndroidEnumCodeGenerateQuery
-                                                                              {
-                                                                                      Type = enumAsType,
-                                                                                      Package = meta.Package
-                                                                              }));
+                                                                          {
+                                                                                  Type = enumAsType, 
+                                                                                  Package = meta.Package
+                                                                          }));
                 }
             }
 

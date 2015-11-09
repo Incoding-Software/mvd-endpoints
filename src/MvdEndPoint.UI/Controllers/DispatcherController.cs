@@ -2,9 +2,8 @@ namespace MvdEndPoint.UI.Controllers
 {
     #region << Using >>
 
-    using EDating.Domain;
     using Incoding.MvcContrib.MVD;
-    
+    using MvdEndPoint.Domain;
 
     #endregion
 
@@ -14,10 +13,10 @@ namespace MvdEndPoint.UI.Controllers
 
         public DispatcherController()
                 : base(new[]
-                           {
-                                   typeof(Bootstrapper).Assembly,
-                                   typeof(Domain.Bootstrapper).Assembly
-                           }) { }
+                       {
+                               typeof(Bootstrapper).Assembly, 
+                               typeof(Main.Domain.Bootstrapper).Assembly
+                       }) { }
 
         #endregion
     }

@@ -1,0 +1,82 @@
+﻿
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project
+{
+    public class HttpMessageBase
+    {	    
+        public class IncodingResult<T>
+        {
+            public bool success;
+
+            public T data;
+        }
+
+		public class ModelState
+        {
+            public string name;
+
+            public string errorMessage;
+
+            public bool isValid;
+        }
+
+        public static string Cookie { get; set; }
+
+        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, StringBuilder postData) where T : class
+        {
+            string url = string.Format("http://test.incoding.biz/ru/Dispatcher/{0}", isCommand ? "Push" : "Query");
+            string response = await post(url, postData.ToString());
+            IncodingResult<T> result = JsonConvert.DeserializeObject<IncodingResult<T>>(response);
+            if (result.success)
+                onSuccess(result.data);
+            else
+            {
+                var modelState = JsonConvert.DeserializeObject<IncodingResult<ModelState[]>>(response);
+                if (modelState.data != null && modelState.data.Any())
+                    onValidation(modelState.data);
+                else
+                    onError();
+            }
+        }
+
+        async Task<string> GetWebRequestCallback(HttpWebRequest request)
+        {
+            var task = Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
+            var responseObject = await task.ContinueWith(r => r.Result);
+            if (Cookie == null && request.CookieContainer != null && request.CookieContainer.Count != 0)
+                Cookie = request.CookieContainer.GetCookieHeader(request.RequestUri);
+            var responseStream = responseObject.GetResponseStream();
+            var sr = new StreamReader(responseStream);
+            string received = await sr.ReadToEndAsync();
+
+            return received;
+        }
+
+        async Task<string> post(string url, string postdata)
+        {
+            var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Headers["X-Requested-With"] = "XMLHttpRequest";
+            request.CookieContainer = new CookieContainer();
+            var data = Encoding.UTF8.GetBytes(postdata);
+
+            using (var requestStream = await Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, request))
+                await requestStream.WriteAsync(data, 0, data.Length);
+
+            string response = await GetWebRequestCallback(request);
+            
+            return response;
+        }
+
+    }
+}
+

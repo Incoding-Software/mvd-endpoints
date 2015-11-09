@@ -112,7 +112,7 @@
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                             .Where(r => r.FullName.Contains("Domain"))
-                            .SelectMany(r => r.GetTypes())
+                            .SelectMany(r => r.GetLoadableTypes())
                             .Where(r => r.IsImplement<CommandBase>() || r.BaseType.With(s => s.Name).Recovery(string.Empty).Contains("QueryBase"))
                             .Where(r => r.HasAttribute<ServiceContractAttribute>())
                             .Where(r => string.IsNullOrWhiteSpace(Id) || r.GUID == Guid.Parse(Id))

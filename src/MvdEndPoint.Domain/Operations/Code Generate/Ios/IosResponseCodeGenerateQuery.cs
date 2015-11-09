@@ -22,23 +22,23 @@
 
         protected override string ExecuteResult()
         {
-            bool isQuery = !Type.IsImplement<CommandBase>();
-            bool isArray = Dispatcher.Query(new HasQueryResponseAsArrayQuery { Type = Type }).Value;
+            bool isArray = Dispatcher.Query(new HasQueryResponseAsArrayQuery(Type));
+            bool isQuery = !Dispatcher.Query(new IsCommandTypeQuery(Type));
             var session = new Dictionary<string, object>
-                              {
-                                      { "Name", Dispatcher.Query(new GetNameFromTypeQuery { Type = Type, Mode = GetNameFromTypeQuery.ModeOf.Response }) },
-                                      { "Properties", new List<GetPropertiesFromTypeQuery.Response>() },
-                                      { "IsQuery", isQuery },
-                                      { "IsArray", isArray }
-                              };
+                          {
+                                  { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Response] }, 
+                                  { "Properties", new List<GetPropertiesFromTypeQuery.Response>() }, 
+                                  { "IsQuery", isQuery }, 
+                                  { "IsArray", isArray }
+                          };
 
             if (isQuery)
             {
                 session.Set("Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery
-                                                               {
-                                                                       Type = Type.BaseType.GenericTypeArguments[0],
-                                                                       Device = DeviceOfType.Ios
-                                                               }));
+                                                           {
+                                                                   Type = Type.BaseType.GenericTypeArguments[0], 
+                                                                   Device = DeviceOfType.Ios
+                                                           }));
             }
 
             switch (File)

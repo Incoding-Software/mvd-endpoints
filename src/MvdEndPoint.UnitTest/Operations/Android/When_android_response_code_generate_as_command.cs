@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Incoding.CQRS;
     using Incoding.MSpecContrib;
@@ -18,7 +19,7 @@
 
         class AddCustomerCommand : CommandBase
         {
-            public override void Execute()
+            protected override void Execute()
             {
                 throw new NotImplementedException();
             }
@@ -35,21 +36,23 @@
         #endregion
 
         Establish establish = () =>
-                                  {
-                                      var query = Pleasure.Generator.Invent<AndroidResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand)));
-                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_android_response_code_generate_as_command).Name));
+                              {
+                                  var query = Pleasure.Generator.Invent<AndroidResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand)));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_android_response_code_generate_as_command).Name));
 
-                                      mockQuery = MockQuery<AndroidResponseCodeGenerateQuery, string>
-                                              .When(query)
-                                              .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))),
-                                                         Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "AddCustomerCommand")
-                                                                                                                            .Tuning(r => r.Package, "com.qabenchmarking.android.models.AddCustomerCommand")
-                                                                                                                            .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
-                                              .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Mode, GetNameFromTypeQuery.ModeOf.Response)
-                                                                                                                   .Tuning(r => r.Type, query.Type)), "AddCustomerResponse");
-                                  };
+                                  mockQuery = MockQuery<AndroidResponseCodeGenerateQuery, string>
+                                          .When(query)
+                                          .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))), 
+                                                     Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "AddCustomerCommand")
+                                                                                                                        .Tuning(r => r.Package, "com.qabenchmarking.android.models.AddCustomerCommand")
+                                                                                                                        .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
+                                          .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
+                                                                                                                                                                        {
+                                                                                                                                                                                { GetNameFromTypeQuery.ModeOf.Response, "AddCustomerResponse" }
+                                                                                                                                                                        });
+                              };
 
-        Because of = () => mockQuery.Original.Execute();
+        Because of = () => mockQuery.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));
     }
