@@ -100,6 +100,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Operations\Utilites\GetInnerResponseTypesQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommandQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateHttpMessageQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateQueryQuery.cs" />
@@ -225,7 +226,7 @@
     </Compile>
     <Compile Include="Operations\Code Generate\Android\AndroidEnumCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\GetNameFromTypeQuery.cs" />
-    <Compile Include="Operations\Utilites\GetPropertiesByTypeQuery.cs" />
+    <Compile Include="Operations\Utilites\GetPropertiesQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_Task.cs">
       <DependentUpon>Android_Task.tt</DependentUpon>
       <AutoGen>True</AutoGen>

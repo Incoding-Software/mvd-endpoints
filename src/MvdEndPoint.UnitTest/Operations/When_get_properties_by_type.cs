@@ -12,7 +12,7 @@
 
     #endregion
 
-    [Subject(typeof(GetPropertiesFromTypeQuery))]
+    [Subject(typeof(GetPropertiesQuery))]
     public class When_get_properties_by_type
     {
         It should_be_by_ienumerable_type_android = () => Verify(typeof(IList<FakeClass>));
@@ -64,7 +64,7 @@
 
         static void Verify(Type type)
         {
-            var query = Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type));
+            var query = Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
             string dateTimeType = Pleasure.Generator.String();
             string enumType = Pleasure.Generator.String();
@@ -72,7 +72,7 @@
             string intType = Pleasure.Generator.String();
             string boolType = Pleasure.Generator.String();
 
-            var mockQuery = MockQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>
+            var mockQuery = MockQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>
                     .When(query)
                     .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
                                                                                  .Tuning(r => r.Type, typeof(FakeClass)), typeof(FakeClass).Name)
@@ -90,16 +90,16 @@
                                                                                  .Tuning(r => r.Type, typeof(bool)), boolType);
 
             mockQuery.Execute();
-            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesFromTypeQuery.Response>
+            mockQuery.ShouldBeIsResult(dictionary => dictionary.ShouldEqualWeakEach(new List<GetPropertiesQuery.Response>
                                                                                     {
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Name", Type = stringType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull, Target = typeof(string) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Sort", Type = intType, Target = typeof(int) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Enum", Type = enumType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum, Target = typeof(FakeEnum) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "DateTime", Type = dateTimeType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime | GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull, Target = typeof(DateTime) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Array", Type = stringType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull | GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray, Target = typeof(string) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "Bool", Type = boolType, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsBool, Target = typeof(bool) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "CustomClass", Type = typeof(FakeClass).Name, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull | GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass, Target = typeof(FakeClass) },
-                                                                                            new GetPropertiesFromTypeQuery.Response { Name = "CustomClassOfArray", Type = typeof(FakeClass).Name, Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull | GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass | GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray, Target = typeof(FakeClass) }
+                                                                                            new GetPropertiesQuery.Response { Name = "Name", Type = stringType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull, Target = typeof(string) },
+                                                                                            new GetPropertiesQuery.Response { Name = "Sort", Type = intType, Target = typeof(int) },
+                                                                                            new GetPropertiesQuery.Response { Name = "Enum", Type = enumType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsEnum, Target = typeof(FakeEnum) },
+                                                                                            new GetPropertiesQuery.Response { Name = "DateTime", Type = dateTimeType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsDateTime | GetPropertiesQuery.Response.OfAttributes.IsCanNull, Target = typeof(DateTime) },
+                                                                                            new GetPropertiesQuery.Response { Name = "Array", Type = stringType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsArray, Target = typeof(string) },
+                                                                                            new GetPropertiesQuery.Response { Name = "Bool", Type = boolType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsBool, Target = typeof(bool) },
+                                                                                            new GetPropertiesQuery.Response { Name = "CustomClass", Type = typeof(FakeClass).Name, Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsClass, Target = typeof(FakeClass) },
+                                                                                            new GetPropertiesQuery.Response { Name = "CustomClassOfArray", Type = typeof(FakeClass).Name, Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsArray, Target = typeof(FakeClass) }
                                                                                     }));
         }
 

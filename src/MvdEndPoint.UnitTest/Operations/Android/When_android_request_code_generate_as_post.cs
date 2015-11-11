@@ -51,9 +51,9 @@
                                                                                                                                                                         {
                                                                                                                                                                            { GetNameFromTypeQuery.ModeOf.Request, "AddCustomerCommand" } 
                                                                                                                                                                         })
-                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                                      .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                                                     .Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesFromTypeQuery.Response>());
+                                                                                                                     .Tuning(r => r.Type, typeof(AddCustomerCommand))), new List<GetPropertiesQuery.Response>());
                               };
 
         Because of = () => mockQuery.Execute();

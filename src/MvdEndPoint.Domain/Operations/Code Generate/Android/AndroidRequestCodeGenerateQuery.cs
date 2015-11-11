@@ -28,7 +28,7 @@
                                   { "Package", meta.Package }, 
                                   { "Type", meta.Name }, 
                                   { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Request] }, 
-                                  { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) }, 
+                                  { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) }, 
                                   { "IsGet", !meta.IsCommand }, 
                           };
             dto.Initialize();

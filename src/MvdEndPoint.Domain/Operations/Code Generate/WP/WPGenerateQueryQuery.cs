@@ -21,11 +21,13 @@
         {
             var engine = new WP_Query();
             var meta = Dispatcher.Query(new GetMetaFromTypeQuery() { Type = Type });
+            var responseOfType = Type.BaseType.GetGenericArguments()[0];
             engine.Session = new Dictionary<string, object>()
                              {
                                      { "Meta", meta }, 
-                                     { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = Type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
-                                     { "Response", Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = Type.BaseType.GetGenericArguments()[0], Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
+                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
+                                     { "Response", Dispatcher.Query(new GetPropertiesQuery() { Type = responseOfType, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
+                                     { "InnerResponses", Dispatcher.Query(new GetInnerResponseTypesQuery() { Type = Type }) }
                              };
             engine.Initialize();
             return engine.TransformText();

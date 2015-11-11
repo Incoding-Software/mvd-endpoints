@@ -12,11 +12,20 @@ namespace MvdEndPoint.UnitTest
             
 
 		public class Response
-        {
-                 public String Login {get;set;}
+        {		  
+	    	       public class MyClass
+	       {
+	        			public String Login {get;set;}
+						public Int32 Count {get;set;}
+						public Double[] Values {get;set;}
+				       }        
+          
+        				 
+                public String Login {get;set;}
                  public Int32 Count {get;set;}
                  public Double[] Values {get;set;}
            
+
         }
 
         public async void Execute(Action<Response[]> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)

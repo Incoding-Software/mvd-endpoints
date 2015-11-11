@@ -89,7 +89,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Ios
             this.Write("     ");
             
             #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Ios\Ios_Response_Query_As_Array_m.tt"
-if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) {
+if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsDateTime)) {
             
             #line default
             #line hidden
@@ -239,12 +239,12 @@ private bool IsArray
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> Properties
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -366,7 +366,7 @@ if ((IsArrayValueAcquired == false))
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
     {
         this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
                 "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
@@ -374,7 +374,7 @@ if (this.Session.ContainsKey("Properties"))
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(this.Session["Properties"]));
+        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(this.Session["Properties"]));
         PropertiesValueAcquired = true;
     }
 }
@@ -383,7 +383,7 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>).IsAssignableFrom(data.GetType()) == false))
         {
             this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesByTypeQ" +
                     "uery.Response>\' of the parameter \'Properties\' did not match the type of the data" +
@@ -391,7 +391,7 @@ if ((PropertiesValueAcquired == false))
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(data));
+            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(data));
         }
     }
 }

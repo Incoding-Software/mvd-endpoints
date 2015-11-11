@@ -6,7 +6,7 @@
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
 
 using System;
 using System.Text;
@@ -16,7 +16,7 @@ namespace <#=Namespace#>
     public class <#=Name#>:HttpMessageBase
     {
          <# foreach(var pair in Properties) { #>
-        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
+        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
          <# } #>   
 
         public async void Execute(Action<object> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)

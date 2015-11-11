@@ -7,12 +7,12 @@
     using Machine.Specifications;
     using MvdEndPoint.Domain;
 
-    [Subject(typeof(GetPropertiesFromTypeQuery))]
+    [Subject(typeof(GetPropertiesQuery))]
     public class When_get_properties_by_type_with_message_base
     {
         #region Establish value
 
-        static MockMessage<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>> mockQuery;
+        static MockMessage<GetPropertiesQuery, List<GetPropertiesQuery.Response>> mockQuery;
 
         #endregion
 
@@ -20,11 +20,11 @@
 
         Establish establish = () =>
                               {
-                                  GetPropertiesFromTypeQuery query = Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.IsCommand, true)
+                                  GetPropertiesQuery query = Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.IsCommand, true)
                                                                                                                                  .Tuning(r => r.Type, typeof(FakeCommand)));
 
                                   type = Pleasure.Generator.String();
-                                  mockQuery = MockQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>
+                                  mockQuery = MockQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>
                                           .When(query);
                               };
 

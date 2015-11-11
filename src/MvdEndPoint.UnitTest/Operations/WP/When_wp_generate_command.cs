@@ -44,19 +44,19 @@
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, type.Name)
                                                                                                                 .Tuning(r => r.Namespace, type.Namespace));
-                                  var properties = Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Login")
-                                                                                                                                            .Tuning(r => r.Attributes, GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass | GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull)
+                                  var properties = Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Login")
+                                                                                                                                            .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsCanNull)
                                                                                                                                             .Tuning(r => r.Type, typeof(string).Name)), 
-                                                                   Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Count")
+                                                                   Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Count")
                                                                                                                                             .Tuning(r => r.Type, typeof(int).Name)
-                                                                                                                                            .Tuning(r => r.Attributes, GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull)), 
-                                                                   Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Values")
-                                                                                                                                            .Tuning(r => r.Attributes, GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)
+                                                                                                                                            .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsCanNull)), 
+                                                                   Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Values")
+                                                                                                                                            .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsArray)
                                                                                                                                             .Tuning(r => r.Type, typeof(double).Name)));
                                   mockQuery = MockQuery<WPGenerateCommandQuery, string>
                                           .When(query)
                                           .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, type), meta)
-                                          .StubQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>(dsl => dsl.Tuning(r => r.Type, type)
+                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
                                                                                                                                       .Tuning(r => r.Device, DeviceOfType.WP), 
                                                                                                                             properties);

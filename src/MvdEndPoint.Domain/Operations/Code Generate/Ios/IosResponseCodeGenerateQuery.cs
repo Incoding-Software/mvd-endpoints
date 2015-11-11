@@ -27,14 +27,14 @@
             var session = new Dictionary<string, object>
                           {
                                   { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Response] }, 
-                                  { "Properties", new List<GetPropertiesFromTypeQuery.Response>() }, 
+                                  { "Properties", new List<GetPropertiesQuery.Response>() }, 
                                   { "IsQuery", isQuery }, 
                                   { "IsArray", isArray }
                           };
 
             if (isQuery)
             {
-                session.Set("Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery
+                session.Set("Properties", Dispatcher.Query(new GetPropertiesQuery
                                                            {
                                                                    Type = Type.BaseType.GenericTypeArguments[0], 
                                                                    Device = DeviceOfType.Ios

@@ -26,7 +26,7 @@ namespace MvdEndPoint.Domain.Operations
                            {
                                    { "Namespace", Namespace }, 
                                    { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Nested] }, 
-                                   { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = Type, Device = DeviceOfType.Android, IsCommand = false }) }, 
+                                   { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.Android, IsCommand = false }) }, 
                                    {
                                            "MappingJsonMethodByType", new Dictionary<string, string>
                                                                       {

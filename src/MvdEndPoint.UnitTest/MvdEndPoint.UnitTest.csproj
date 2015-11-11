@@ -188,6 +188,7 @@
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
+    <Compile Include="Operations\When_get_inner_response_types.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_command.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_inheritance.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_write_with_only_write_as_command.cs" />
@@ -220,7 +221,7 @@
     <Compile Include="Operations\Android\When_android_task_code_generate_without_request.cs" />
     <Compile Include="Operations\WP\When_wp_generate_query.cs" />
     <Compile Include="Operations\WP\When_wp_generate_command.cs" />
-    <Compile Include="Operations\WP\When_wp_generate_http_request.cs" />
+    <Compile Include="Operations\WP\When_wp_generate_http_message.cs" />
     <Compile Include="Persistence\When_save_Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="When_android_task_code_generate_without_request">

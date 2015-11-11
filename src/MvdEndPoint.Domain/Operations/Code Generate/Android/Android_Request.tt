@@ -9,20 +9,20 @@
 <#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsGet" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
 package <#= Package #>;
 
 public class <#= Name #> {
 
   <# foreach(var pair in Properties) { #>
-  public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #>;
+  public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #>;
   <# } #>   
 
    public java.util.HashMap<String, Object> GetParameters(Integer index) {
 	java.util.HashMap<String, Object> parameters = new java.util.HashMap<String, Object>();	
 	parameters.put("incType","<#= Type #>");
 	<# foreach(var pair in Properties) { #>
-	<# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull)) { #> if (this.<#= pair.Name #> != null) <# } #>
+	<# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsCanNull)) { #> if (this.<#= pair.Name #> != null) <# } #>
     parameters.put(index == -1 ? "<#= pair.Name #>" : String.format("[%s].<#= pair.Name #>", index),this.<#= pair.Name #>);
     <# } #>   
 	return parameters;

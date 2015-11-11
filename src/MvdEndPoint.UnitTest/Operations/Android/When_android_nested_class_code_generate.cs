@@ -22,10 +22,10 @@
 
                                   mockQuery = MockQuery<AndroidNestedClassCodeGenerateQuery, string>
                                           .When(query)
-                                          .StubQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>(dsl => dsl.Tuning(r => r.IsCommand, false)
+                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.IsCommand, false)
                                                                                                                                       .Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                                                       .Tuning(r => r.Type, query.Type)
-                                                                                                                            , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "ContactId"))))
+                                                                                                                            , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "ContactId"))))
                                           .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
                                                                                                                                                          {
                                                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Nested, "ClassName" }                                                                                                                                                                 

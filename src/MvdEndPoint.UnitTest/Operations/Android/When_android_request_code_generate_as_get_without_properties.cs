@@ -51,9 +51,9 @@
                                                                                                                                                                         {
                                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Request, "GetCustomerRequest" }
                                                                                                                                                                         })
-                                          .StubQuery<GetPropertiesFromTypeQuery, List<GetPropertiesFromTypeQuery.Response>>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                                                                      .Tuning(r => r.Type, query.Type), new List<GetPropertiesFromTypeQuery.Response>());
+                                                                                                                                      .Tuning(r => r.Type, query.Type), new List<GetPropertiesQuery.Response>());
                               };
 
         Because of = () => mockQuery.Execute();

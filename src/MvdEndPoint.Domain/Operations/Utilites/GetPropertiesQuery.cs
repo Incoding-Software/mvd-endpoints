@@ -13,7 +13,7 @@
 
     #endregion
 
-    public class GetPropertiesFromTypeQuery : QueryBase<List<GetPropertiesFromTypeQuery.Response>>
+    public class GetPropertiesQuery : QueryBase<List<GetPropertiesQuery.Response>>
     {
         protected override List<Response> ExecuteResult()
         {

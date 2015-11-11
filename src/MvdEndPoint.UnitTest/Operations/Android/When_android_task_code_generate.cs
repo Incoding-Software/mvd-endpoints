@@ -76,9 +76,9 @@
                                                                                                                                                           { GetNameFromTypeQuery.ModeOf.Response, "Response" }, 
                                                                                                                                                           { GetNameFromTypeQuery.ModeOf.Task, "FakeTask" }, 
                                                                                                                                                   })
-                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                                      .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                                                     .Tuning(r => r.Type, typeof(FakeQuery))), Pleasure.Generator.Invent<List<GetPropertiesFromTypeQuery.Response>>());
+                                                                                                                     .Tuning(r => r.Type, typeof(FakeQuery))), Pleasure.Generator.Invent<List<GetPropertiesQuery.Response>>());
                               };
 
         Because of = () => mockQuery.Execute();

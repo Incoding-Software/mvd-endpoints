@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="Name" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 import <#= Namespace #>.Incoding.IncodingHelper;
 import <#= Namespace #>.Incoding.ModelStateException;
@@ -9,18 +9,18 @@ import <#= Namespace #>.Incoding.ModelStateException;
 public class <#= Name #> {
     
     <# foreach(var prop in Properties) { #>
-       public <#= prop.Type #><# if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) {#>[]<#}#> <#= prop.Name #>;
+       public <#= prop.Type #><# if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) {#>[]<#}#> <#= prop.Name #>;
     <# } #>   
 
     public <#= Name #>(JSONObject item) throws JSONException {
     <# foreach(var prop in Properties) { #>
-        <#if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum)) { #>
+        <#if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsEnum)) { #>
 	      this.<#= prop.Name #> = <#=prop.Type#>.valueOf(item.getInt("<#= prop.Name #>"));
-	    <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) { #>
+	    <# } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsDateTime)) { #>
           this.<#= prop.Name #> = IncodingHelper.getDate(item.getString("<#= prop.Name #>"));
-        <# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass)) { #>
+        <# } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsClass)) { #>
           this.<#= prop.Name #> = new <#= prop.Name #>(item.getJSONObject("<#= prop.Name #>"));
-		<# } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) { #>
+		<# } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) { #>
 		  JSONArray <#= prop.Name #>AsArray = item.getJSONArray("<#= prop.Name #>");
 	      this.<#= prop.Name #> = new <#=prop.Type#>[<#= prop.Name #>AsArray.length()];
 	      for(int <#= prop.Name #>Oni = 0;<#= prop.Name #>Oni < <#= prop.Name #>AsArray.length();<#= prop.Name #>Oni++)

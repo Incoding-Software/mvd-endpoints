@@ -103,7 +103,7 @@ foreach(var nes in Nested) {
             #line hidden
             
             #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) {
+ if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) {
             
             #line default
             #line hidden
@@ -191,7 +191,7 @@ foreach(var nes in Nested) {
             this.Write("                    ");
             
             #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
-if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum)) { 
+if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsEnum)) { 
             
             #line default
             #line hidden
@@ -219,7 +219,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("\"));\r\n\t\t\t        ");
             
             #line 50 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) { 
+ } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsDateTime)) { 
             
             #line default
             #line hidden
@@ -240,7 +240,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("\"));\r\n                    ");
             
             #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass)) { 
+ } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsClass)) { 
             
             #line default
             #line hidden
@@ -268,7 +268,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("\"));\r\n\t\t\t\t    ");
             
             #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) { 
+ } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) { 
             
             #line default
             #line hidden
@@ -445,7 +445,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("                    ");
             
             #line 72 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
-if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum)) { 
+if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsEnum)) { 
             
             #line default
             #line hidden
@@ -473,7 +473,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("\"));\r\n\t\t\t\t    ");
             
             #line 74 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)) { 
+ } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) { 
             
             #line default
             #line hidden
@@ -578,7 +578,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("Oni);\r\n\t\t\t    }\r\n\t\t\t\t    ");
             
             #line 81 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) { 
+ } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsDateTime)) { 
             
             #line default
             #line hidden
@@ -599,7 +599,7 @@ if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsEn
             this.Write("\"));\r\n                    ");
             
             #line 83 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
- } else if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass)) { 
+ } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsClass)) { 
             
             #line default
             #line hidden
@@ -781,12 +781,12 @@ private string Package
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> Properties
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -981,7 +981,7 @@ if ((PackageValueAcquired == false))
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
     {
         this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTyp" +
                 "eQuery.Response>\' of the parameter \'Properties\' did not match the type of the da" +
@@ -989,7 +989,7 @@ if (this.Session.ContainsKey("Properties"))
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(this.Session["Properties"]));
+        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(this.Session["Properties"]));
         PropertiesValueAcquired = true;
     }
 }
@@ -998,7 +998,7 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>).IsAssignableFrom(data.GetType()) == false))
         {
             this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTyp" +
                     "eQuery.Response>\' of the parameter \'Properties\' did not match the type of the da" +
@@ -1006,7 +1006,7 @@ if ((PropertiesValueAcquired == false))
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(data));
+            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(data));
         }
     }
 }

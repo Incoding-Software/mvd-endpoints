@@ -55,18 +55,18 @@
                                                                                                                                     { GetNameFromTypeQuery.ModeOf.Request, "GetCustomerRequest" }, 
                                                                                                                                     { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" }, 
                                                                                                                             })
-                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Ios)
+                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Ios)
                                                                                                .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                               .Tuning(r => r.Type, query.Type)), withoutProperties ? new List<GetPropertiesFromTypeQuery.Response>()
-                                                                                                                                          : new List<GetPropertiesFromTypeQuery.Response>
+                                                                                               .Tuning(r => r.Type, query.Type)), withoutProperties ? new List<GetPropertiesQuery.Response>()
+                                                                                                                                          : new List<GetPropertiesQuery.Response>
                                                                                                                                             {
-                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Message")
+                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Message")
                                                                                                                                                                                                                              .Tuning(r => r.Type, "TheSameString")), 
-                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Title")
+                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Title")
                                                                                                                                                                                                                              .Tuning(r => r.Type, "Number")), 
-                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Ids")
+                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Ids")
                                                                                                                                                                                                                              .Tuning(r => r.Type, "String")), 
-                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Is")
+                                                                                                                                                    Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Is")
                                                                                                                                                                                                                              .Tuning(r => r.Type, ConvertCSharpTypeToIosQuery.Boolean))
                                                                                                                                             });
             mockQuery.Execute();

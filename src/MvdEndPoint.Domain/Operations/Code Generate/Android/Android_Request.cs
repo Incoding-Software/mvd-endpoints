@@ -58,7 +58,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Android
             #line hidden
             
             #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
- if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){
+ if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
@@ -102,7 +102,7 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.Android
             this.Write("\t");
             
             #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
- if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsCanNull)) { 
+ if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsCanNull)) { 
             
             #line default
             #line hidden
@@ -232,12 +232,12 @@ private bool IsGet
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> Properties
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -436,7 +436,7 @@ if ((IsGetValueAcquired == false))
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>).IsAssignableFrom(this.Session["Properties"].GetType()) == false))
     {
         this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTyp" +
                 "eQuery.Response>\' of the parameter \'Properties\' did not match the type of the da" +
@@ -444,7 +444,7 @@ if (this.Session.ContainsKey("Properties"))
     }
     else
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(this.Session["Properties"]));
+        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(this.Session["Properties"]));
         PropertiesValueAcquired = true;
     }
 }
@@ -453,7 +453,7 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>).IsAssignableFrom(data.GetType()) == false))
         {
             this.Error("The type \'System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTyp" +
                     "eQuery.Response>\' of the parameter \'Properties\' did not match the type of the da" +
@@ -461,7 +461,7 @@ if ((PropertiesValueAcquired == false))
         }
         else
         {
-            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(data));
+            this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(data));
         }
     }
 }

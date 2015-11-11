@@ -31,110 +31,172 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
         {
             this.Write("\r\nusing System;\r\nusing System.Text;\r\n\r\nnamespace ");
             
-            #line 14 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 15 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
-            #line 16 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 17 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));
             
             #line default
             #line hidden
             this.Write(":HttpMessageBase\r\n    {\r\n         ");
             
-            #line 18 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 19 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("        public ");
             
-            #line 19 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 20 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             
-            #line 19 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
- if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){
+            #line 20 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 19 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 20 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 19 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 20 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" {get;set;}\r\n         ");
             
-            #line 20 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 21 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("   \r\n\r\n\t\tpublic class Response\r\n        {\r\n         ");
+            this.Write("   \r\n\r\n\t\tpublic class Response\r\n        {\t\t  \r\n\t    ");
             
-            #line 24 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 25 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ foreach(var pair in InnerResponses) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t       public class ");
+            
+            #line 26 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t       {\r\n\t        ");
+            
+            #line 28 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ foreach(var prop in pair.Value) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tpublic ");
+            
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
+            
+            #line default
+            #line hidden
+            
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
+            
+            #line default
+            #line hidden
+            this.Write("[]");
+            
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" {get;set;}\r\n\t\t\t");
+            
+            #line 30 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\t       }        \r\n        ");
+            
+            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("  \r\n        \t\t\t\t \r\n        ");
+            
+            #line 34 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in Response) { 
             
             #line default
             #line hidden
             this.Write("        public ");
             
-            #line 25 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             
-            #line 25 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
- if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){
+            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 25 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 25 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" {get;set;}\r\n         ");
             
-            #line 26 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 36 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  \r\n        }\r\n\r\n        public async void Execute(Action<Response");
+            this.Write("  \r\n\r\n        }\r\n\r\n        public async void Execute(Action<Response");
             
-            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 40 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  if(Meta.ResponseAsArray){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 29 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 40 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
@@ -143,35 +205,35 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
                     "      {\r\n            var postData = new StringBuilder();\r\n            postData.A" +
                     "ppend(\"incType=");
             
-            #line 32 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 43 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t\t    ");
             
-            #line 33 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 44 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t    postData.Append(\"&");
             
-            #line 34 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 45 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write("=\"+this.");
             
-            #line 34 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 45 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(");           \r\n            ");
             
-            #line 35 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 46 "C:\TempProject\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
@@ -196,12 +258,12 @@ private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response Meta
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> Properties
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -209,16 +271,29 @@ private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetProperties
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> _ResponseField;
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> _ResponseField;
 
 /// <summary>
 /// Access the Response parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response> Response
+private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> Response
 {
     get
     {
         return this._ResponseField;
+    }
+}
+
+private global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>> _InnerResponsesField;
+
+/// <summary>
+/// Access the InnerResponses parameter of the template.
+/// </summary>
+private global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>> InnerResponses
+{
+    get
+    {
+        return this._InnerResponsesField;
     }
 }
 
@@ -247,7 +322,7 @@ if ((MetaValueAcquired == false))
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(this.Session["Properties"]));
+    this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(this.Session["Properties"]));
     PropertiesValueAcquired = true;
 }
 if ((PropertiesValueAcquired == false))
@@ -255,13 +330,13 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(data));
+        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(data));
     }
 }
 bool ResponseValueAcquired = false;
 if (this.Session.ContainsKey("Response"))
 {
-    this._ResponseField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(this.Session["Response"]));
+    this._ResponseField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(this.Session["Response"]));
     ResponseValueAcquired = true;
 }
 if ((ResponseValueAcquired == false))
@@ -269,7 +344,21 @@ if ((ResponseValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
     if ((data != null))
     {
-        this._ResponseField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>)(data));
+        this._ResponseField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(data));
+    }
+}
+bool InnerResponsesValueAcquired = false;
+if (this.Session.ContainsKey("InnerResponses"))
+{
+    this._InnerResponsesField = ((global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>>)(this.Session["InnerResponses"]));
+    InnerResponsesValueAcquired = true;
+}
+if ((InnerResponsesValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("InnerResponses");
+    if ((data != null))
+    {
+        this._InnerResponsesField = ((global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>>)(data));
     }
 }
 

@@ -59,16 +59,16 @@
         {
             var query = Pleasure.Generator.Invent<AndroidResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, typeOfQuery));
 
-            var properties = new List<GetPropertiesFromTypeQuery.Response>
+            var properties = new List<GetPropertiesQuery.Response>
                              {
-                                     new GetPropertiesFromTypeQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String }, 
-                                     new GetPropertiesFromTypeQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int }, 
-                                     new GetPropertiesFromTypeQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToJavaQuery.Boolean }, 
-                                     new GetPropertiesFromTypeQuery.Response { Name = "Type", Type = "MyEnum", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsEnum }, 
-                                     new GetPropertiesFromTypeQuery.Response { Name = "CreateDt", Type = "java.util.Date", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime }, 
-                                     new GetPropertiesFromTypeQuery.Response { Name = "Ids", Type = "String", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray }, 
-                                     new GetPropertiesFromTypeQuery.Response() { Name = "Parent", Type = "InnerResponse", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass, Target = typeof(Nested1) }, 
-                                     new GetPropertiesFromTypeQuery.Response() { Name = "Items", Type = "InnerResponse", Attributes = GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass | GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray, Target = typeof(Nested2) }, 
+                                     new GetPropertiesQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String }, 
+                                     new GetPropertiesQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int }, 
+                                     new GetPropertiesQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToJavaQuery.Boolean }, 
+                                     new GetPropertiesQuery.Response { Name = "Type", Type = "MyEnum", Attributes = GetPropertiesQuery.Response.OfAttributes.IsEnum }, 
+                                     new GetPropertiesQuery.Response { Name = "CreateDt", Type = "java.util.Date", Attributes = GetPropertiesQuery.Response.OfAttributes.IsDateTime }, 
+                                     new GetPropertiesQuery.Response { Name = "Ids", Type = "String", Attributes = GetPropertiesQuery.Response.OfAttributes.IsArray }, 
+                                     new GetPropertiesQuery.Response() { Name = "Parent", Type = "InnerResponse", Attributes = GetPropertiesQuery.Response.OfAttributes.IsClass, Target = typeof(Nested1) }, 
+                                     new GetPropertiesQuery.Response() { Name = "Items", Type = "InnerResponse", Attributes = GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsArray, Target = typeof(Nested2) }, 
                              };
             var mockQuery = MockQuery<AndroidResponseCodeGenerateQuery, string>
                     .When(query)
@@ -80,7 +80,7 @@
                                                                                                   .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                     .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
                                                                                                                                                   { { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" } })
-                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesFromTypeQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                .Tuning(r => r.IsCommand, false)
                                                                                                .Tuning(r => r.Type, typeOfResponse)), properties);
 

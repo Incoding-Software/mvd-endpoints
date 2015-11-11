@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
 #import "<#= Name#>.h"
 @implementation <#= Name#>
 <# foreach(var prop in Properties) { #>
@@ -15,7 +15,7 @@
 {   
   <#= Name#> *res = [[<#= Name#> alloc] init];
   <# foreach(var prop in Properties) { #>    	
-     <#if(prop.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsDateTime)) {#>
+     <#if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsDateTime)) {#>
 	    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss ZZZ";
 	    res.<#= prop.Name#> = [formatter dateFromString:@"yyyy-MM-dd'T'HH:mm:ss"];

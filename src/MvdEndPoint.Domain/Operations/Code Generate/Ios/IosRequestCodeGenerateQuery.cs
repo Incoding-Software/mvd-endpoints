@@ -32,7 +32,7 @@
                                   { "Response", names[GetNameFromTypeQuery.ModeOf.Response] }, 
                                   { "IsArray", meta.ResponseAsArray }, 
                                   { "Name", names[GetNameFromTypeQuery.ModeOf.Request] }, 
-                                  { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Ios, IsCommand = meta.IsCommand }) }, 
+                                  { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Ios, IsCommand = meta.IsCommand }) }, 
                                   { "IsQuery", !meta.IsCommand }, 
                           };
 

@@ -49,7 +49,7 @@
             if (isQuery)
             {
                 var responseType = Type.BaseType.GenericTypeArguments[0];
-                var properties = Dispatcher.Query(new GetPropertiesFromTypeQuery
+                var properties = Dispatcher.Query(new GetPropertiesQuery
                                                   {
                                                           Type = responseType, 
                                                           Device = DeviceOfType.Android, 
@@ -57,7 +57,7 @@
                                                   });
 
                 session.Add("IsArray", responseType.IsImplement(typeof(IEnumerable<>)));
-                session.Set(nestedAsKey, properties.Where(r => r.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsClass))
+                session.Set(nestedAsKey, properties.Where(r => r.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsClass))
                                                    .Select(r => Dispatcher.Query(new AndroidNestedClassCodeGenerateQuery()
                                                                                  {
                                                                                          Type = r.Target, 

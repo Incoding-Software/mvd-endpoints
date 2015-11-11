@@ -24,7 +24,7 @@
             engine.Session = new Dictionary<string, object>()
                              {
                                      { "Name", meta.Name }, 
-                                     { "Properties", Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = Type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
+                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
                                      { "Namespace", meta.Namespace }
                              };
             engine.Initialize();

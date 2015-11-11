@@ -31,7 +31,7 @@
                                                  { "Request", names[GetNameFromTypeQuery.ModeOf.Request] }, 
                                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] }, 
                                                  { "Name", names[GetNameFromTypeQuery.ModeOf.Task] }, 
-                                                 { "HasRequest", Dispatcher.Query(new GetPropertiesFromTypeQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }).Any() }, 
+                                                 { "HasRequest", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }).Any() }, 
                                                  { "Type", meta.IsCommand ? "Push" : "Query" }, 
                                          }
                        };

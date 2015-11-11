@@ -5,8 +5,9 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="MvdEndPoint.Domain.GetMetaFromTypeQuery.Response" name="Meta" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Properties" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesFromTypeQuery.Response>" name="Response" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Response" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>>" name="InnerResponses" #>
 
 using System;
 using System.Text;
@@ -16,14 +17,24 @@ namespace <#=Meta.Namespace#>
     public class <#=Meta.Name#>:HttpMessageBase
     {
          <# foreach(var pair in Properties) { #>
-        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
+        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
          <# } #>   
 
 		public class Response
-        {
-         <# foreach(var pair in Response) { #>
-        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesFromTypeQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
+        {		  
+	    <# foreach(var pair in InnerResponses) { #>
+	       public class <#=pair.Key#>
+	       {
+	        <# foreach(var prop in pair.Value) { #>
+			public <#= prop.Type #><# if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= prop.Name #> {get;set;}
+			<# } #>
+	       }        
+        <# } #>  
+        				 
+        <# foreach(var pair in Response) { #>
+        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
          <# } #>  
+
         }
 
         public async void Execute(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
