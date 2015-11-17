@@ -15,7 +15,7 @@ namespace MvdEndPoint.Domain
     {
         #region Properties
 
-        public Type Type { get; set; }
+        public Type Type { get; set; } 
 
         #endregion
 
