@@ -18,12 +18,15 @@ namespace MvdEndPoint.UnitTest
 
         public void OnAssemblyStart()
         {
-            PleasureForData.StartNhibernate(() => Fluently
-                                                          .Configure()
-                                                          .Database(MsSqlConfiguration.MsSql2008
-                                                                                      .ConnectionString(ConfigurationManager.ConnectionStrings["Test"].ConnectionString)
-                                                                                      .ShowSql())
-                                                          .Mappings(configuration => configuration.FluentMappings.AddFromAssembly(typeof(Bootstrapper).Assembly)), true);
+            PleasureForData.StartNhibernate(() =>
+                                            {
+                                                return Fluently
+                                                        .Configure()
+                                                        .Database(MsSqlConfiguration.MsSql2008
+                                                                                    .ConnectionString(ConfigurationManager.ConnectionStrings["Test"].ConnectionString)
+                                                                                    .ShowSql())
+                                                        .Mappings(configuration => configuration.FluentMappings.AddFromAssembly(typeof(Bootstrapper).Assembly));
+                                            }, true);
         }
 
         public void OnAssemblyComplete() { }

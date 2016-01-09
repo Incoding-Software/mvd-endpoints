@@ -14,8 +14,7 @@ namespace MvdEndPoint.UI.Controllers
         public DispatcherController()
                 : base(new[]
                        {
-                               typeof(Bootstrapper).Assembly, 
-                               typeof(Main.Domain.Bootstrapper).Assembly
+                               typeof(Bootstrapper).Assembly,                                
                        }) { }
 
         #endregion

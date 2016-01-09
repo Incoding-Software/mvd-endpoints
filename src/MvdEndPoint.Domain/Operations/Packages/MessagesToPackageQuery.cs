@@ -51,7 +51,7 @@
                                                     Types = types
                                             });
                 case DeviceOfType.WP:
-                    return Dispatcher.Query(new MessageToPackageAsWpQuery()
+                    return Dispatcher.Query(new MessageToPackageAsWPQuery()
                                             {
                                                     BaseUrl = BaseUrl, 
                                                     Namespace = avrNamespace, 
