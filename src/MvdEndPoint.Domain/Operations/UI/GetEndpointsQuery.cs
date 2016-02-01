@@ -112,37 +112,36 @@
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                             .Where(r => r.FullName.Contains("Domain"))
-                            .SelectMany(r => r.GetLoadableTypes())
-                            .Where(r => r.IsImplement<CommandBase>() || r.BaseType.With(s => s.Name).Recovery(string.Empty).Contains("QueryBase"))
+                            .SelectMany(r => r.GetLoadableTypes())                            
                             .Where(r => r.HasAttribute<ServiceContractAttribute>())
                             .Where(r => string.IsNullOrWhiteSpace(Id) || r.GUID == Guid.Parse(Id))
                             .Where(r => !r.IsGenericType)
                             .Select(instanceType =>
-                                        {
-                                            bool isCommand = instanceType.IsImplement<CommandBase>();
-                                            var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
-                                            var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(new UrlHelper(HttpContext.Current.Request.RequestContext).Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
-                                            return new Response
-                                                       {
-                                                               GUID = instanceType.GUID,
-                                                               Name = instanceType.Name,
-                                                               Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
-                                                               IsCommand = isCommand,
-                                                               Type = instanceType.IsImplement<CommandBase>() ? OfType.Command.ToLocalization() : OfType.Query.ToLocalization(),
-                                                               AssemblyQualifiedName = HttpUtility.UrlEncode(instanceType.AssemblyQualifiedName),
-                                                               Properties = instanceType.GetProperties()
-                                                                                        .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
-                                                                                        .Select(r => new Response.Property
-                                                                                                         {
-                                                                                                                 Name = r.Name,
-                                                                                                                 Type = r.PropertyType.Name,
-                                                                                                                 IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                                                                                                 IsEnum = r.PropertyType.IsEnum,
-                                                                                                                 TypeId = r.PropertyType.GUID.ToString()
-                                                                                                         })
-                                                                                        .ToList()
-                                                       };
-                                        })
+                                    {
+                                        bool isCommand = instanceType.BaseType.With(s => s.Name).Recovery(string.Empty).Contains("CommandBase");
+                                        var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
+                                        var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(new UrlHelper(HttpContext.Current.Request.RequestContext).Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
+                                        return new Response
+                                               {
+                                                       GUID = instanceType.GUID,
+                                                       Name = instanceType.Name,
+                                                       Url = isCommand ? getUrl.ToString() : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
+                                                       IsCommand = isCommand,
+                                                       Type = instanceType.IsImplement<CommandBase>() ? OfType.Command.ToLocalization() : OfType.Query.ToLocalization(),
+                                                       AssemblyQualifiedName = HttpUtility.UrlEncode(instanceType.AssemblyQualifiedName),
+                                                       Properties = instanceType.GetProperties()
+                                                                                .Where(r => !r.Name.IsAnyEqualsIgnoreCase("Result"))
+                                                                                .Select(r => new Response.Property
+                                                                                             {
+                                                                                                     Name = r.Name,
+                                                                                                     Type = r.PropertyType.Name,
+                                                                                                     IsBool = r.PropertyType.IsAnyEquals(typeof(bool), typeof(bool?)),
+                                                                                                     IsEnum = r.PropertyType.IsEnum,
+                                                                                                     TypeId = r.PropertyType.GUID.ToString()
+                                                                                             })
+                                                                                .ToList()
+                                               };
+                                    })
                             .Where(r => !Type.HasValue || r.Type == Type.Value.ToLocalization())
                             .ToList();
         }
