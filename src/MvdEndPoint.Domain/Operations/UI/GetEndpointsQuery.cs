@@ -110,12 +110,12 @@
 
         protected override List<Response> ExecuteResult()
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                            .Where(r => r.FullName.Contains("Domain"))
+            return AppDomain.CurrentDomain.GetAssemblies()                            
                             .SelectMany(r => r.GetLoadableTypes())                            
                             .Where(r => r.HasAttribute<ServiceContractAttribute>())
                             .Where(r => string.IsNullOrWhiteSpace(Id) || r.GUID == Guid.Parse(Id))
                             .Where(r => !r.IsGenericType)
+                            .Where(r => r.IsImplement<CommandBase>())
                             .Select(instanceType =>
                                     {
                                         bool isCommand = instanceType.BaseType.With(s => s.Name).Recovery(string.Empty).Contains("CommandBase");
