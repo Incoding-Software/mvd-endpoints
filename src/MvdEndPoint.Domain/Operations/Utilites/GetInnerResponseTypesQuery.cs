@@ -15,7 +15,7 @@ namespace MvdEndPoint.Domain
     {
         #region Properties
 
-        public Type Type { get; set; } 
+        public Type Type { get; set; }
 
         #endregion
 
@@ -32,14 +32,16 @@ namespace MvdEndPoint.Domain
 
                                            return type;
                                        };
+
             return Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                       .Where(info => info.CanRead && info.CanWrite)
                        .Where(r => !getType(r.PropertyType).IsTypicalType())
                        .Select(r => getType(r.PropertyType))
                        .Distinct()
                        .ToDictionary(r => r.Name, r => Dispatcher.Query(new GetPropertiesQuery()
                                                                         {
-                                                                                Device = DeviceOfType.WP, 
-                                                                                IsCommand = false, 
+                                                                                Device = DeviceOfType.WP,
+                                                                                IsCommand = false,
                                                                                 Type = r
                                                                         }));
         }

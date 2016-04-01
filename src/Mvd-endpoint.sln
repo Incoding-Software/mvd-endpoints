@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvdEndPoint.Domain", "MvdEndPoint.Domain\MvdEndPoint.Domain.csproj", "{75E650D1-C5F4-4AC2-B1E5-905D868B65FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvdEndPoint.UI", "MvdEndPoint.UI\MvdEndPoint.UI.csproj", "{83BBE01B-AB6D-404C-8B4A-1E36718AB2E5}"
@@ -13,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{401A0D
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Incoding.NuGet.Endpoint", "Incoding.NuGet.Endpoint\Incoding.NuGet.Endpoint.csproj", "{43CAFEEC-9EDC-42A9-ADD7-75E293B2CCDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,10 @@ Global
 		{F8511268-8196-46A4-9BDF-62451CEA19F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8511268-8196-46A4-9BDF-62451CEA19F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8511268-8196-46A4-9BDF-62451CEA19F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43CAFEEC-9EDC-42A9-ADD7-75E293B2CCDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43CAFEEC-9EDC-42A9-ADD7-75E293B2CCDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43CAFEEC-9EDC-42A9-ADD7-75E293B2CCDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43CAFEEC-9EDC-42A9-ADD7-75E293B2CCDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,14 +1,19 @@
-﻿@model GetEndpointsQuery.Tmpl
+﻿@using Incoding.Extensions
+@using Incoding.MetaLanguageContrib
+@using Incoding.MvcContrib
+@using MvdEndPoint.Domain
+@using Pazar.Business.Operation.AdDetails.Queries
+@model GetEndpointsQuery.Tmpl
 @{
     using (var template = Html.Incoding().Template<GetEndpointsQuery.Response>())
     {
         string dialogId = Guid.NewGuid().ToString();
 
         <div id="@dialogId"></div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-condensed">
             <thead>
                 <tr>
-                    <th>
+                    <th style="width: 30px">
                         @(Html.When(JqueryBind.Click)
                               .Direct()
                               .OnSuccess(dsl =>
@@ -23,11 +28,10 @@
                                              })
                               .AsHtmlAttributes()
                               .ToCheckBox(false))
-                    </th>       
-                    <th>Name</th>
-                    <th>Url</th>
+                    </th>
+                    <th class="col-xs-3">Name</th>
+                    <th class="col-xs-5">Url</th>
                     <th>Type</th>
-                    <th>Result</th>
                     <th></th>
                 </tr>
             </thead>
@@ -42,7 +46,7 @@
                                   .OnSuccess(dsl => dsl.WithId(Model.AllId).Core().Trigger.Invoke(JqueryBind.InitIncoding))
                                   .AsHtmlAttributes(new { name = Model.CheckedTypeName, value = each.For(r => r.AssemblyQualifiedName) })
                                   .ToCheckBox(false))
-                        </td>  
+                        </td>
                         <td>@each.For(r => r.Name)</td>
                         <td>
                             <a href="@each.For(r => r.Url)">
@@ -50,43 +54,42 @@
                             </a>
                         </td>
                         <td>@each.For(r => r.Type)</td>
-                        <td></td>
                         <td>
                             @(Html.When(JqueryBind.Click)
-                                  .AjaxGet(Url.Dispatcher().Query(new  GetEndpointsQuery()
-                                                                      {
-                                                                              Id = each.For(r => r.GUID)
-                                                                      }).AsJson())
+                                  .AjaxGet(Url.Dispatcher().Query(new GetEndpointsQuery()
+                                  {
+                                      Id = each.For(r => r.GUID)
+                                  }).AsJson())
                                   .OnSuccess(dsl => dsl.WithId(dialogId).Behaviors(inDsl =>
-                                                                                       {
-                                                                                           string urlSandbox = Url.Dispatcher().AsView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml");
-                                                                                           inDsl.Core().Insert.WithTemplateByUrl(urlSandbox).Html();
-                                                                                           inDsl.JqueryUI().Dialog.Open(options =>
-                                                                                                                            {
-                                                                                                                                options.Title = "Sandbox";
-                                                                                                                                options.Width = "500px;";
-                                                                                                                            });
-                                                                                       }))
+                                  {
+                                      string urlSandbox = Url.Dispatcher().AsView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml");
+                                      inDsl.Core().Insert.WithTemplateByUrl(urlSandbox).Html();
+                                      inDsl.JqueryUI().Dialog.Open(options =>
+                                      {
+                                          options.Title = "Sandbox";
+                                          options.Width = "500px;";
+                                      });
+                                  }))
                                   .AsHtmlAttributes(new { @class = "btn btn-primary" })
-                                  .ToButton("Sandbox")) 
-                            
-                            
+                                  .ToButton("Sandbox"))
+
+
                             @(Html.When(JqueryBind.InitIncoding)
                                   .Direct()
                                   .OnSuccess(dsl =>
-                                                 {
-                                                     var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
-                                                                                                                  {
-                                                                                                                          Names = each.For(r => r.AssemblyQualifiedName),
-                                                                                                                          BaseUrl = Selector.Jquery.Name(Model.BaseUrlName),
-                                                                                                                          Device = Model.DeviceName.ToName()
-                                                                                                                  })
-                                                                  .AsFile(incFileDownloadName: each.For(r => r.Name) + ".zip")
-                                                                  .ToBuildUrl();
-                                                     dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
-                                                 })
+                                  {
+                                      var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
+                                      {
+                                          Names = each.For(r => r.AssemblyQualifiedName),
+                                          BaseUrl = Selector.Jquery.Name(Model.BaseUrlName),
+                                          Device = Model.DeviceName.ToName()
+                                      })
+                                                   .AsFile(incFileDownloadName: each.For(r => r.Name) + ".zip")
+                                                   .ToBuildUrl();
+                                      dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
+                                  })
                                   .AsHtmlAttributes(new { name = Model.DownloadLinkName })
-                                  .ToLink("Download"))                                                              
+                                  .ToLink("Download"))
                         </td>
                     </tr>
                     <tr id="@trId" class="hide">
