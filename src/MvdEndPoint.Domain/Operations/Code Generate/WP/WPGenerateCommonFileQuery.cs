@@ -34,7 +34,7 @@
                 engine.Session = new Dictionary<string, object>()
                              {
                                      { "Meta", meta },
-                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.WP }) },
+                                     { "Values", Dispatcher.Query(new GetValuesOfEnumQuery() { Type = Type }) },
                              };
                 engine.Initialize();
                 return engine.TransformText();

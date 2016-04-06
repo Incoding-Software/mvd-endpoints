@@ -18,12 +18,17 @@
         {
             return Enum.GetValues(Type)
                        .Cast<Enum>()
-                       .Select(r => new Response()
-                                    {
-                                            AsInt = r.ToString("d"),
-                                            AsString = r.ToString(),
-                                            Display = r.ToLocalization()
-                                    })
+                       .Select(r =>
+                               {
+                                   var localization = r.ToLocalization();
+                                   var asString = r.ToString();
+                                   return new Response()
+                                          {
+                                                  AsInt = r.ToString("d"),
+                                                  AsString = asString,
+                                                  Display = localization == asString ? string.Empty : localization
+                                          };
+                               })
                        .ToList();
         }
 

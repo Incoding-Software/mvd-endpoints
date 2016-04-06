@@ -29,51 +29,65 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Text;\r\n\r\nnamespace ");
+            this.Write("\r\nusing System;\r\nusing System.Text;\r\nusing System.ComponentModel;\r\n\r\nnamespace ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Namespace));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write("\r\n{\r\n    public enum ");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));
             
             #line default
             #line hidden
-            this.Write(":HttpMessageBase\r\n    {\r\n         ");
+            this.Write("\r\n    {\r\n         ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
  foreach(var pair in Values) { 
             
             #line default
             #line hidden
-            this.Write("            [Description(");
+            this.Write("            ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+if(!string.IsNullOrWhiteSpace(pair.Display)){
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t[Description(\"");
+            
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Display));
             
             #line default
             #line hidden
-            this.Write(")]\r\n\t\t\t");
+            this.Write("\")]\r\n\t\t\t");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t");
+            
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.AsString));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.AsInt));
             
             #line default
             #line hidden
             this.Write(",\r\n         ");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
  } 
             
             #line default

@@ -109,6 +109,9 @@
     <None Include="When_android_nested_class_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="When_wp_generate_common_enum">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="When_wp_generate_query">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -231,6 +234,7 @@
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_command.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_without_request.cs" />
+    <Compile Include="Operations\WP\When_wp_generate_common_enum.cs" />
     <Compile Include="Operations\WP\When_wp_generate_common_class.cs" />
     <Compile Include="Operations\WP\When_wp_generate_query.cs" />
     <Compile Include="Operations\WP\When_wp_generate_command.cs" />

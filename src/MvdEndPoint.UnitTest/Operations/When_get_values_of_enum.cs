@@ -19,7 +19,9 @@
             Value = 1,
 
             [Description("NextValue 1")]
-            NextValue = 5
+            NextValue = 5,
+
+            NextWithoutDescription = 7
         }
 
         Establish establish = () =>
@@ -38,6 +40,12 @@
                                                              Display = "NextValue 1",
                                                              AsString = "NextValue",
                                                              AsInt = "5"
+                                                     },
+                                                     new GetValuesOfEnumQuery.Response()
+                                                     {
+                                                             Display = "",
+                                                             AsString = "NextWithoutDescription",
+                                                             AsInt = "7"
                                                      }
                                              };
 

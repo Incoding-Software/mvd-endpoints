@@ -1,0 +1,17 @@
+﻿
+using System;
+using System.Text;
+using System.ComponentModel;
+
+namespace MvdEndPoint.UnitTest
+{
+    public enum FakeClass
+    {
+                     			[Description("Value 1")]
+						Value = 1,
+                     			Value = 2,
+            
+		
+    }
+}
+

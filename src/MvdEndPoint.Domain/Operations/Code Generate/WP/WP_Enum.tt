@@ -9,13 +9,16 @@
 
 using System;
 using System.Text;
+using System.ComponentModel;
 
 namespace <#=Meta.Namespace#>
 {
-    public class <#=Meta.Name#>:HttpMessageBase
+    public enum <#=Meta.Name#>
     {
          <# foreach(var pair in Values) { #>
-            [Description(<#=pair.Display#>)]
+            <#if(!string.IsNullOrWhiteSpace(pair.Display)){#>
+			[Description("<#=pair.Display#>")]
+			<#}#>
 			<#=pair.AsString#> = <#=pair.AsInt#>,
          <# } #>   
 		
