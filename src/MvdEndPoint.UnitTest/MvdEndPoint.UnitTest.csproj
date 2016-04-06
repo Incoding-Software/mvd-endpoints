@@ -198,6 +198,7 @@
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
+    <Compile Include="Operations\When_meta_from_type.cs" />
     <Compile Include="Operations\When_get_values_of_enum.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_wp.cs" />
     <Compile Include="Operations\When_conver_cs_sharp_type_to_target_android.cs" />
@@ -234,6 +235,8 @@
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_command.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_without_request.cs" />
+    <Compile Include="Operations\When_meta_from_type_without_service_contract.cs" />
+    <Compile Include="Operations\WP\When_message_to_package_as_wp.cs" />
     <Compile Include="Operations\WP\When_wp_generate_common_enum.cs" />
     <Compile Include="Operations\WP\When_wp_generate_common_class.cs" />
     <Compile Include="Operations\WP\When_wp_generate_query.cs" />
