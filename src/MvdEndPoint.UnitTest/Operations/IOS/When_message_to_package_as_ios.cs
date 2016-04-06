@@ -13,7 +13,7 @@
 
     #endregion
 
-    [Subject(typeof(MessageToPackageAsIosQuery))]
+    [Subject(typeof(MessagesToPackageQuery.AsIosQuery))]
     public class When_message_to_package_as_ios
     {
         #region Fake classes
@@ -44,7 +44,7 @@
 
         #region Establish value
 
-        static MockMessage<MessageToPackageAsIosQuery, byte[]> mockQuery;
+        static MockMessage<MessagesToPackageQuery.AsIosQuery, byte[]> mockQuery;
 
         static byte[] expected;
 
@@ -53,7 +53,7 @@
         Establish establish = () =>
                               {
                                   var type = typeof(FakeQuery);
-                                  var query = Pleasure.Generator.Invent<MessageToPackageAsIosQuery>(dsl => dsl.Tuning(r => r.Types, new List<Type> { type }));
+                                  var query = Pleasure.Generator.Invent<MessagesToPackageQuery.AsIosQuery>(dsl => dsl.Tuning(r => r.Types, new List<Type> { type }));
                                   expected = Pleasure.Generator.Bytes();
 
                                   string requestHContent = Pleasure.Generator.String();
@@ -65,7 +65,7 @@
                                   string incodingHelperHContent = Pleasure.Generator.String();
                                   string incodingHelperMContent = Pleasure.Generator.String();
 
-                                  mockQuery = MockQuery<MessageToPackageAsIosQuery, byte[]>
+                                  mockQuery = MockQuery<MessagesToPackageQuery.AsIosQuery, byte[]>
                                           .When(query)
                                           .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsImageQuery>(dsl => dsl.Tuning(r => r.Type, type)), false)
                                           .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, type)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()

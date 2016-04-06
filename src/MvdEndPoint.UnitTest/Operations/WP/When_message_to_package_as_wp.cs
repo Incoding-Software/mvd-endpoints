@@ -12,7 +12,7 @@
 
     #endregion
 
-    [Subject(typeof(MessageToPackageAsWPQuery))]
+    [Subject(typeof(MessagesToPackageQuery.AsWPQuery))]
     public class When_message_to_package_as_wp
     {
         Establish establish = () =>
@@ -22,7 +22,7 @@
                                                       typeof(string),
                                                       typeof(int)
                                               }.ToList();
-                                  MessageToPackageAsWPQuery query = Pleasure.Generator.Invent<MessageToPackageAsWPQuery>(dsl => dsl.Tuning(r => r.Types, types));
+                                  MessagesToPackageQuery.AsWPQuery query = Pleasure.Generator.Invent<MessagesToPackageQuery.AsWPQuery>(dsl => dsl.Tuning(r => r.Types, types));
                                   expected = Pleasure.Generator.Invent<byte[]>();
 
                                   var httpMessageContent = Pleasure.Generator.String();
@@ -33,7 +33,7 @@
                                   var dtContent = Pleasure.Generator.String();
                                   var charContent = Pleasure.Generator.String();
                                   var intContent = Pleasure.Generator.String();
-                                  mockQuery = MockQuery<MessageToPackageAsWPQuery, byte[]>
+                                  mockQuery = MockQuery<MessagesToPackageQuery.AsWPQuery, byte[]>
                                           .When(query)
                                           .StubQuery<WPGenerateHttpMessageQuery, string>(dsl => dsl.Tuning(r => r.Url, query.BaseUrl)
                                                                                                    .Tuning(r => r.Namespace, query.Namespace), httpMessageContent)
@@ -71,7 +71,7 @@
 
         #region Establish value
 
-        static MockMessage<MessageToPackageAsWPQuery, byte[]> mockQuery;
+        static MockMessage<MessagesToPackageQuery.AsWPQuery, byte[]> mockQuery;
 
         static byte[] expected;
 

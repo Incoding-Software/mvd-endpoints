@@ -112,6 +112,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Operations\Utilites\GetShareTypeFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\GetInnerResponseTypesQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommandQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateHttpMessageQuery.cs" />
@@ -131,7 +132,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Packages\MessageToPackageAsWpQuery.cs" />
     <Compile Include="Operations\UI\GetEndpointsQuery.cs" />
     <Compile Include="Operations\UI\GetEnumForDD.cs" />
     <Compile Include="Operations\Utilites\ConvertCSharpTypeToTargetQuery.cs" />
@@ -190,7 +190,6 @@
     <Compile Include="Operations\Utilites\HasQueryResponseAsArrayQuery.cs" />
     <Compile Include="Operations\Utilites\IsCommandTypeQuery.cs" />
     <Compile Include="Persistence\IncAjaxEventVm.cs" />
-    <Compile Include="Operations\Packages\MessageToPackageAsAndroidQuery.cs" />
     <Compile Include="Operations\DeviceOfType.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_Request.cs">
       <AutoGen>True</AutoGen>
@@ -203,7 +202,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Android\AndroidJsonModelStateDataCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Packages\MessageToPackageAsIosQuery.cs" />
     <Compile Include="Operations\Utilites\GetMetaFromTypeQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_Listener.cs">
       <DependentUpon>Android_Listener.tt</DependentUpon>
@@ -246,7 +244,7 @@
     <Compile Include="Operations\Code Generate\Android\AndroidIncodingHelperCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidModelStateExceptionCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidRequestCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Packages\MessagesToPackageQuery.cs" />
+    <Compile Include="Operations\MessagesToPackageQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidListenerCodeGeneratorQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidTaskCodeGenerateQuery.cs" />

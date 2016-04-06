@@ -14,7 +14,7 @@
 
     #endregion
 
-    [Subject(typeof(MessageToPackageAsAndroidQuery))]
+    [Subject(typeof(MessagesToPackageQuery.AsAndroidQuery))]
     public class When_message_to_package_as_android_query
     {
         #region Fake classes
@@ -69,7 +69,7 @@
 
         static void Run(Type mainType, string @namespace)
         {
-            var query = Pleasure.Generator.Invent<MessageToPackageAsAndroidQuery>(dsl => dsl.Tuning(r => r.Types, mainType.AssemblyQualifiedName.Replace("PublicKeyToken=null,", "PublicKeyToken=null|")
+            var query = Pleasure.Generator.Invent<MessagesToPackageQuery.AsAndroidQuery>(dsl => dsl.Tuning(r => r.Types, mainType.AssemblyQualifiedName.Replace("PublicKeyToken=null,", "PublicKeyToken=null|")
                                                                                                                           .Split("|".ToCharArray())
                                                                                                                           .Select(Type.GetType)
                                                                                                                           .Where(r => r.HasAttribute<ServiceContractAttribute>())
@@ -86,7 +86,7 @@
             string enumContent = Pleasure.Generator.String();
 
             var metaFromType = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.IsCommand, false));
-            var mockQuery = MockQuery<MessageToPackageAsAndroidQuery, byte[]>
+            var mockQuery = MockQuery<MessagesToPackageQuery.AsAndroidQuery, byte[]>
                     .When(query)
                     .StubQuery(Pleasure.Generator.Invent<AndroidIncodingHelperCodeGenerateQuery>(dsl => dsl.Tuning(r => r.BaseUrl, query.BaseUrl)
                                                                                                            .Tuning(r => r.Namespace, @namespace)), incodingHelperContent)

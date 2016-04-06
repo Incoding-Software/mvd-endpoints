@@ -198,6 +198,7 @@
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
+    <Compile Include="Operations\Class1.cs" />
     <Compile Include="Operations\When_meta_from_type.cs" />
     <Compile Include="Operations\When_get_values_of_enum.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_wp.cs" />
