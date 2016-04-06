@@ -38,7 +38,10 @@ namespace MvdEndPoint.Domain
                        .Where(r =>
                               {
                                   var type = getType(r.PropertyType);
-                                  return type != null && !type.IsTypicalType();
+                                  return type != null &&
+                                         !type.IsTypicalType() &&
+                                         type != typeof(object) &&
+                                         type != typeof(MessageExecuteSetting);
                               })
                        .Select(r => getType(r.PropertyType))
                        .Distinct()

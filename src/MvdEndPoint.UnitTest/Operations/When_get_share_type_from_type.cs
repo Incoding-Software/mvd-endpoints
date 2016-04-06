@@ -1,19 +1,10 @@
-﻿namespace MvdEndPoint.UnitTest
+namespace MvdEndPoint.UnitTest
 {
-    #region << Using >>
-
     using System;
     using System.Collections.Generic;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
-
-    #endregion
-
-    public enum MyEnumForWhen_get_share_type_from_type
-    { }
-
-    public class MyClassMyEnumForWhen_get_share_type_from_type { }
 
     [Subject(typeof(GetShareTypeFromTypeQuery))]
     public class When_get_share_type_from_type

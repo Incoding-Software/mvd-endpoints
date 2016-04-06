@@ -16,26 +16,47 @@
 
     public class MessagesToPackageQuery : QueryBase<byte[]>
     {
-        #region Properties
+        protected override byte[] ExecuteResult()
+        {
+            var types = Names.Replace("PublicKeyToken=null,", "PublicKeyToken=null|")
+                             .Split("|".ToCharArray())
+                             .Select(Type.GetType)
+                             .Where(r => r.HasAttribute<ServiceContractAttribute>())
+                             .ToList();
 
-        public DeviceOfType Device { get; set; }
+            string avrNamespace = types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
+                                       .FirstOrDefault()
+                                       .With(r => r.Namespace)
+                                       .Recovery(() => types.First().Module.Name.Replace(".dll", string.Empty));
 
-        public string Names { get; set; }
-
-        public string BaseUrl { get; set; }
-
-        #endregion
+            switch (Device)
+            {
+                case DeviceOfType.Android:
+                    return Dispatcher.Query(new AsAndroidQuery
+                                            {
+                                                    BaseUrl = BaseUrl,
+                                                    Types = types
+                                            });
+                case DeviceOfType.Ios:
+                    return Dispatcher.Query(new AsIosQuery()
+                                            {
+                                                    BaseUrl = BaseUrl,
+                                                    Types = types
+                                            });
+                case DeviceOfType.WP:
+                    return Dispatcher.Query(new AsWPQuery()
+                                            {
+                                                    BaseUrl = BaseUrl,
+                                                    Namespace = avrNamespace,
+                                                    Types = types
+                                            });
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
         public class AsIosQuery : QueryBase<byte[]>
         {
-            #region Properties
-
-            public List<Type> Types { get; set; }
-
-            public string BaseUrl { get; set; }
-
-            #endregion
-
             protected override byte[] ExecuteResult()
             {
                 var imports = new List<string> { "ModelStateException" };
@@ -44,12 +65,12 @@
                 {
                     bool hasImage = Dispatcher.Query(new HasQueryResponseAsImageQuery { Type = type });
                     Func<GetNameFromTypeQuery.ModeOf, FileOfIos, string> getFileName = (of, fileOfIos) =>
-                    {
-                        string typeInIos = Dispatcher.Query(new GetNameFromTypeQuery(type))[of];
-                        if (fileOfIos == FileOfIos.H && !hasImage)
-                            imports.Add(typeInIos);
-                        return "{0}.{1}".F(typeInIos, fileOfIos.ToString().ToLower());
-                    };
+                                                                                       {
+                                                                                           string typeInIos = Dispatcher.Query(new GetNameFromTypeQuery(type))[of];
+                                                                                           if (fileOfIos == FileOfIos.H && !hasImage)
+                                                                                               imports.Add(typeInIos);
+                                                                                           return "{0}.{1}".F(typeInIos, fileOfIos.ToString().ToLower());
+                                                                                       };
                     foreach (var ofIos in new[] { FileOfIos.H, FileOfIos.M })
                     {
                         zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request, ofIos), Dispatcher.Query(new IosRequestCodeGenerateQuery { Type = type, File = ofIos }));
@@ -65,12 +86,7 @@
 
                 return Dispatcher.Query(zipQuery);
             }
-        }
 
-
-
-        public class AsAndroidQuery : QueryBase<byte[]>
-        {
             #region Properties
 
             public List<Type> Types { get; set; }
@@ -78,7 +94,10 @@
             public string BaseUrl { get; set; }
 
             #endregion
+        }
 
+        public class AsAndroidQuery : QueryBase<byte[]>
+        {
             protected override byte[] ExecuteResult()
             {
                 string avrNamespace = Types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
@@ -117,17 +136,24 @@
                     {
                         string enumAsFileName = "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(enumAsType))[GetNameFromTypeQuery.ModeOf.Enum]);
                         zipQuery.Entries.Add(enumAsFileName, Dispatcher.Query(new AndroidEnumCodeGenerateQuery
-                        {
-                            Type = enumAsType,
-                            Package = meta.Package
-                        }));
+                                                                              {
+                                                                                      Type = enumAsType,
+                                                                                      Package = meta.Package
+                                                                              }));
                     }
                 }
 
                 return Dispatcher.Query(zipQuery);
             }
-        }
 
+            #region Properties
+
+            public List<Type> Types { get; set; }
+
+            public string BaseUrl { get; set; }
+
+            #endregion
+        }
 
         public class AsWPQuery : QueryBase<byte[]>
         {
@@ -141,10 +167,10 @@
             {
                 var zipQuery = new ToZipQuery();
                 zipQuery.Entries.Add("HttpMessageBase.cs", Dispatcher.Query(new WPGenerateHttpMessageQuery()
-                {
-                    Url = BaseUrl,
-                    Namespace = Namespace
-                }));
+                                                                            {
+                                                                                    Url = BaseUrl,
+                                                                                    Namespace = Namespace
+                                                                            }));
 
                 var shareTypes = new List<Type>();
                 foreach (var type in Types)
@@ -156,7 +182,8 @@
                     else
                         zipQuery.Entries.Add(fileName, Dispatcher.Query(new WPGenerateQueryQuery() { Type = type }));
 
-                    shareTypes.AddRange(Dispatcher.Query(new GetShareTypeFromTypeQuery() { Type = type }));
+                    if (!meta.IsCommand)
+                        shareTypes.AddRange(Dispatcher.Query(new GetShareTypeFromTypeQuery() { Type = type.BaseType.GetGenericArguments()[0] }));
                 }
 
                 foreach (var shareType in shareTypes.Distinct())
@@ -166,44 +193,14 @@
             }
         }
 
+        #region Properties
 
-        protected override byte[] ExecuteResult()
-        {
-            var types = Names.Replace("PublicKeyToken=null,", "PublicKeyToken=null|")
-                             .Split("|".ToCharArray())
-                             .Select(Type.GetType)
-                             .Where(r => r.HasAttribute<ServiceContractAttribute>())
-                             .ToList();
+        public DeviceOfType Device { get; set; }
 
-            string avrNamespace = types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
-                                       .FirstOrDefault()
-                                       .With(r => r.Namespace)
-                                       .Recovery(() => types.First().Module.Name.Replace(".dll", string.Empty));
+        public string Names { get; set; }
 
-            switch (Device)
-            {
-                case DeviceOfType.Android:
-                    return Dispatcher.Query(new AsAndroidQuery
-                                            {
-                                                    BaseUrl = BaseUrl, 
-                                                    Types = types
-                                            });
-                case DeviceOfType.Ios:
-                    return Dispatcher.Query(new AsIosQuery()
-                                            {
-                                                    BaseUrl = BaseUrl, 
-                                                    Types = types
-                                            });
-                case DeviceOfType.WP:
-                    return Dispatcher.Query(new AsWPQuery()
-                                            {
-                                                    BaseUrl = BaseUrl, 
-                                                    Namespace = avrNamespace, 
-                                                    Types = types
-                                            });
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        public string BaseUrl { get; set; }
+
+        #endregion
     }
 }

@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Incoding.CQRS;
     using Incoding.Extensions;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
@@ -20,7 +21,7 @@
                                   var types = new[]
                                               {
                                                       typeof(string),
-                                                      typeof(int)
+                                                      typeof(FakeQuery)
                                               }.ToList();
                                   MessagesToPackageQuery.AsWPQuery query = Pleasure.Generator.Invent<MessagesToPackageQuery.AsWPQuery>(dsl => dsl.Tuning(r => r.Types, types));
                                   expected = Pleasure.Generator.Invent<byte[]>();
@@ -38,19 +39,15 @@
                                           .StubQuery<WPGenerateHttpMessageQuery, string>(dsl => dsl.Tuning(r => r.Url, query.BaseUrl)
                                                                                                    .Tuning(r => r.Namespace, query.Namespace), httpMessageContent)
                                           .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(string)), metaForString)
-                                          .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(int)), metaForInt)
+                                          .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)), metaForInt)
                                           .StubQuery<WPGenerateCommandQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(string)), commandContent)
-                                          .StubQuery<WPGenerateQueryQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(int)), queryContent)
-                                          .StubQuery<GetShareTypeFromTypeQuery, List<Type>>(dsl => dsl.Tuning(r => r.Type, typeof(string)), new[]
-                                                                                                                                            {
-                                                                                                                                                    typeof(DateTime),
-                                                                                                                                                    typeof(char),
-                                                                                                                                            }.ToList())
-                                          .StubQuery<GetShareTypeFromTypeQuery, List<Type>>(dsl => dsl.Tuning(r => r.Type, typeof(int)), new[]
-                                                                                                                                         {
-                                                                                                                                                 typeof(DateTime),
-                                                                                                                                                 typeof(int),
-                                                                                                                                         }.ToList())
+                                          .StubQuery<WPGenerateQueryQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)), queryContent)
+                                          .StubQuery<GetShareTypeFromTypeQuery, List<Type>>(dsl => dsl.Tuning(r => r.Type, typeof(long)), new[]
+                                                                                                                                          {
+                                                                                                                                                  typeof(DateTime),
+                                                                                                                                                  typeof(int),
+                                                                                                                                                  typeof(char),
+                                                                                                                                          }.ToList())
                                           .StubQuery<WPGenerateCommonFileQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(DateTime)), dtContent)
                                           .StubQuery<WPGenerateCommonFileQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(int)), intContent)
                                           .StubQuery<WPGenerateCommonFileQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(char)), charContent)
@@ -60,14 +57,22 @@
                                                                                                                                      { "{0}.cs".F(metaForString.Name), commandContent },
                                                                                                                                      { "{0}.cs".F(metaForInt.Name), queryContent },
                                                                                                                                      { "{0}.cs".F(typeof(DateTime).Name), dtContent },
-                                                                                                                                     { "{0}.cs".F(typeof(char).Name), charContent },
-                                                                                                                                     { "{0}.cs".F(typeof(int).Name), intContent }
+                                                                                                                                     { "{0}.cs".F(typeof(int).Name), intContent },
+                                                                                                                                     { "{0}.cs".F(typeof(char).Name), charContent }
                                                                                                                              })), expected);
                               };
 
         Because of = () => mockQuery.Original.Execute();
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
+
+        public class FakeQuery : QueryBase<long>
+        {
+            protected override long ExecuteResult()
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         #region Establish value
 

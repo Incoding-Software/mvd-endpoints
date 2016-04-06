@@ -2,7 +2,9 @@
 {
     #region << Using >>
 
+    using System;
     using System.Collections.Generic;
+    using Incoding.CQRS;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using MvdEndPoint.Domain;
@@ -14,11 +16,13 @@
     {
         #region Fake classes
 
+        
+
         public class Res1 { }
 
         public class Res2 { }
 
-        public class ComplexityResponse
+        public class ComplexityResponse:QueryBase<String>
         {
             #region Properties
 
@@ -35,6 +39,11 @@
             public int[] AsArrayInt { get; set; }
 
             #endregion
+
+            protected override string ExecuteResult()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         #endregion

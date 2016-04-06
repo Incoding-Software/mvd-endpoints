@@ -30,7 +30,7 @@ namespace Project
 
         public static string Cookie { get; set; }
 
-        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, StringBuilder postData) where T : class
+        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, StringBuilder postData)
         {
             string url = string.Format("http://test.incoding.biz/ru/Dispatcher/{0}", isCommand ? "Push" : "Query");
             string response = await post(url, postData.ToString());
