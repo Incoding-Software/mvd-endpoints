@@ -195,8 +195,13 @@
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
+    <Compile Include="Operations\When_get_values_of_enum.cs" />
+    <Compile Include="Operations\When_convert_csharp_type_to_wp.cs" />
+    <Compile Include="Operations\When_conver_cs_sharp_type_to_target_android.cs" />
+    <Compile Include="Operations\When_conver_cs_sharp_type_to_target_ios.cs" />
+    <Compile Include="Operations\When_conver_cs_sharp_type_to_target_wp.cs" />
     <Compile Include="Operations\When_get_inner_response_types.cs" />
-    <Compile Include="Operations\When_get_properties_by_type_with_command.cs" />
+    <Compile Include="Operations\When_get_properties_by_type_with_message_base.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_inheritance.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_write_with_only_write_as_command.cs" />
     <Compile Include="Operations\When_get_properties_by_type_with_write_with_only_write_as_query.cs" />
@@ -226,10 +231,10 @@
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_command.cs" />
     <Compile Include="Operations\Android\When_android_task_code_generate_without_request.cs" />
+    <Compile Include="Operations\WP\When_wp_generate_common_class.cs" />
     <Compile Include="Operations\WP\When_wp_generate_query.cs" />
     <Compile Include="Operations\WP\When_wp_generate_command.cs" />
     <Compile Include="Operations\WP\When_wp_generate_http_message.cs" />
-    <Compile Include="Persistence\When_save_Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="When_android_task_code_generate_without_request">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -247,6 +252,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="When_wp_generate_command">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="When_wp_generate_common_class">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

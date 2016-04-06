@@ -35,7 +35,11 @@ namespace MvdEndPoint.Domain
 
             return Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                        .Where(info => info.CanRead && info.CanWrite)
-                       .Where(r => !getType(r.PropertyType).IsTypicalType())
+                       .Where(r =>
+                              {
+                                  var type = getType(r.PropertyType);
+                                  return type != null && !type.IsTypicalType();
+                              })
                        .Select(r => getType(r.PropertyType))
                        .Distinct()
                        .ToDictionary(r => r.Name, r => Dispatcher.Query(new GetPropertiesQuery()

@@ -101,6 +101,17 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Operations\Code Generate\WP\WPGenerateCommonFileQuery.cs" />
+    <Compile Include="Operations\Code Generate\WP\WP_Enum.cs">
+      <DependentUpon>WP_Enum.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Operations\Code Generate\WP\WP_Class.cs">
+      <DependentUpon>WP_Class.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Operations\Utilites\GetInnerResponseTypesQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommandQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateHttpMessageQuery.cs" />
@@ -124,6 +135,7 @@
     <Compile Include="Operations\UI\GetEndpointsQuery.cs" />
     <Compile Include="Operations\UI\GetEnumForDD.cs" />
     <Compile Include="Operations\Utilites\ConvertCSharpTypeToTargetQuery.cs" />
+    <Compile Include="Operations\Utilites\GetValuesOfEnumQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsImageQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\IosModelStateExceptionCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Ios\Ios_ModelStateExcpetion_h.cs">
@@ -192,9 +204,7 @@
     </Compile>
     <Compile Include="Operations\Code Generate\Android\AndroidJsonModelStateDataCodeGenerateQuery.cs" />
     <Compile Include="Operations\Packages\MessageToPackageAsIosQuery.cs" />
-    <Compile Include="Operations\Utilites\ConvertCSharpTypeToIosQuery.cs" />
     <Compile Include="Operations\Utilites\GetMetaFromTypeQuery.cs" />
-    <Compile Include="Operations\Utilites\ConvertCSharpTypeToJavaQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_Listener.cs">
       <DependentUpon>Android_Listener.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -241,7 +251,6 @@
     <Compile Include="Operations\Code Generate\Android\AndroidResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidTaskCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\ToZipQuery.cs" />
-    <Compile Include="Persistence\Assembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +356,18 @@
     <None Include="Operations\Code Generate\WP\WP_Query.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>WP_Query.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Operations\Code Generate\WP\WP_Class.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>WP_Class.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Operations\Code Generate\WP\WP_Enum.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>WP_Enum.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

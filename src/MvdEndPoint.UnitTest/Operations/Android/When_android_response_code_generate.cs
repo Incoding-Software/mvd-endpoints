@@ -61,9 +61,9 @@
 
             var properties = new List<GetPropertiesQuery.Response>
                              {
-                                     new GetPropertiesQuery.Response { Name = "Title", Type = ConvertCSharpTypeToJavaQuery.String }, 
-                                     new GetPropertiesQuery.Response { Name = "Number", Type = ConvertCSharpTypeToJavaQuery.Int }, 
-                                     new GetPropertiesQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToJavaQuery.Boolean }, 
+                                     new GetPropertiesQuery.Response { Name = "Title", Type = ConvertCSharpTypeToTargetQuery.ToJavaQuery.String }, 
+                                     new GetPropertiesQuery.Response { Name = "Number", Type = ConvertCSharpTypeToTargetQuery.ToJavaQuery.Int }, 
+                                     new GetPropertiesQuery.Response { Name = "Boolean", Type = ConvertCSharpTypeToTargetQuery.ToJavaQuery.Boolean }, 
                                      new GetPropertiesQuery.Response { Name = "Type", Type = "MyEnum", Attributes = GetPropertiesQuery.Response.OfAttributes.IsEnum }, 
                                      new GetPropertiesQuery.Response { Name = "CreateDt", Type = "java.util.Date", Attributes = GetPropertiesQuery.Response.OfAttributes.IsDateTime }, 
                                      new GetPropertiesQuery.Response { Name = "Ids", Type = "String", Attributes = GetPropertiesQuery.Response.OfAttributes.IsArray }, 

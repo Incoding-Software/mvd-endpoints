@@ -1,0 +1,15 @@
+﻿
+using System;
+using System.Text;
+
+namespace MvdEndPoint.UnitTest
+{
+    public class FakeClass
+    {
+                 public String Login {get;set;}
+                 public Int32 Count {get;set;}
+            
+		
+    }
+}
+

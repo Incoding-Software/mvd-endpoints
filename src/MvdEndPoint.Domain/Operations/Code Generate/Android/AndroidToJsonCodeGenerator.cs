@@ -16,11 +16,11 @@
                            };
             tmpl.Session.Set("MappingJsonMethodByType", new Dictionary<string, string>
                                           {
-                                                  { ConvertCSharpTypeToJavaQuery.String, "getString" },
-                                                  { ConvertCSharpTypeToJavaQuery.Int, "getInt" },
+                                                  { ConvertCSharpTypeToTargetQuery.ToJavaQuery.String, "getString" },
+                                                  { ConvertCSharpTypeToTargetQuery.ToJavaQuery.Int, "getInt" },
                                                   { "int64", "getInt" },
-                                                  { ConvertCSharpTypeToJavaQuery.Double, "getDouble" },
-                                                  { ConvertCSharpTypeToJavaQuery.Boolean, "getBoolean" },
+                                                  { ConvertCSharpTypeToTargetQuery.ToJavaQuery.Double, "getDouble" },
+                                                  { ConvertCSharpTypeToTargetQuery.ToJavaQuery.Boolean, "getBoolean" },
                                                   { typeof(long).Name, "getLong" },
                                           });
             return tmpl.TransformText();

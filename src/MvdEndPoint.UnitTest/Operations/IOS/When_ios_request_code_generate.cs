@@ -67,7 +67,7 @@
                                                                                                                                                     Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Ids")
                                                                                                                                                                                                                              .Tuning(r => r.Type, "String")), 
                                                                                                                                                     Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Is")
-                                                                                                                                                                                                                             .Tuning(r => r.Type, ConvertCSharpTypeToIosQuery.Boolean))
+                                                                                                                                                                                                                             .Tuning(r => r.Type, ConvertCSharpTypeToTargetQuery.ToIosQuery.Boolean))
                                                                                                                                             });
             mockQuery.Execute();
             mockQuery.ShouldBeIsResult(s => s.ShouldEqual(expected));

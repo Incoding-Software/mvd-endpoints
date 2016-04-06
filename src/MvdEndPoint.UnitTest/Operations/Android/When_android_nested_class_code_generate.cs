@@ -23,18 +23,18 @@
                                   mockQuery = MockQuery<AndroidNestedClassCodeGenerateQuery, string>
                                           .When(query)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.IsCommand, false)
-                                                                                                                                      .Tuning(r => r.Device, DeviceOfType.Android)
-                                                                                                                                      .Tuning(r => r.Type, query.Type)
-                                                                                                                            , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "ContactId"))))
+                                                                                                                      .Tuning(r => r.Device, DeviceOfType.Android)
+                                                                                                                      .Tuning(r => r.Type, query.Type)
+                                                                                                            , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "ContactId"))))
                                           .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
-                                                                                                                                                         {
-                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Nested, "ClassName" }                                                                                                                                                                 
-                                                                                                                                                         });
+                                                                                                                                                                        {
+                                                                                                                                                                                { GetNameFromTypeQuery.ModeOf.Nested, "ClassName" }
+                                                                                                                                                                        });
                               };
 
         Because of = () => mockQuery.Execute();
 
-        It should_be_result = () => mockQuery.ShouldBeIsResult(r=>r.ShouldEqual(expected));
+        It should_be_result = () => mockQuery.ShouldBeIsResult(r => r.ShouldEqual(expected));
 
         #region Establish value
 
