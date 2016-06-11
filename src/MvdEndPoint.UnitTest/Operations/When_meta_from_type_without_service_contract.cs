@@ -1,8 +1,8 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     [Subject(typeof(GetMetaFromTypeQuery))]
     public class When_meta_from_type_without_service_contract

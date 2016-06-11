@@ -10,7 +10,7 @@
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Boolean" name="IsImage" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 #import "IncodingHelper.h"
 
 @implementation <#= Name#>

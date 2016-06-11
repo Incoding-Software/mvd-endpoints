@@ -2,9 +2,9 @@ namespace MvdEndPoint.UnitTest
 {
     using System;
     using System.Collections.Generic;
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     [Subject(typeof(GetShareTypeFromTypeQuery))]
     public class When_get_share_type_from_type

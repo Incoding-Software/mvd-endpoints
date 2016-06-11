@@ -4,9 +4,9 @@
 
     using System;
     using Incoding.CQRS;
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     #endregion
 

@@ -1,0 +1,61 @@
+﻿@using Incoding.MvcContrib
+@using MvdEndPoint.Domain
+@model GetEndpointsQuery.Tmpl
+
+@{
+    using (var template = Html.Incoding().Template<GetEndpointsQuery.Response>())
+    {
+        string resultId = Guid.NewGuid().ToString();
+        using (var each = template.ForEach())
+        {
+            using (Html.When(JqueryBind.IncAjaxError)
+                       .Event()
+                       .OnSuccess(dsl => dsl.WithId(resultId).Core().Insert.WithTemplateByUrl(Url.Dispatcher().AsView("~/Views/Endpoint/Ajax_Response_Tmpl.cshtml")).Html())
+                       .When(JqueryBind.Submit)
+                       .PreventDefault()
+                       .Submit()
+                       .OnSuccess(dsl => dsl.WithId(resultId).Core().Eval("DataToString(this.target,data)"))
+                       .OnError(dsl => dsl.WithId(resultId).Core().Insert.WithTemplateByUrl(Url.Dispatcher().AsView("~/Views/Endpoint/ModelState_Tmpl.cshtml")).Html())
+                       .AsHtmlAttributes(new { action = each.For(r => r.Url), method = HttpVerbs.Post, @class = "form-horizontal" })
+                       .ToBeginTag(Html, HtmlTag.Form))
+            {
+                <div class="control-group">
+                    <label class="control-label">Name:</label>
+                    <div class="controls">@each.For(r => r.Name)</div>
+                </div>
+                using (var innerEach = each.ForEach(r => r.Properties))
+                {
+                    <div class="control-group">
+                        @Html.Label(innerEach.For(r => r.Name), new { @class = "control-label" })
+                        <div class="controls">
+                            @using (innerEach.Is(r => r.IsBool))
+                            {
+                                @Html.CheckBox(innerEach.For(r => r.Name))
+                            }
+
+                            @using (innerEach.Is(r => r.IsEnum))
+                            {
+                                @Html.DropDownList(innerEach.For(r => r.Name), new SelectList(new string[0]), Html.When(JqueryBind.InitIncoding)
+                                                                                                                  .AjaxGet(Url.Dispatcher().Query(new GetEnumForDD
+                                                                                                                                                  {
+                                                                                                                                                      TypeId = innerEach.For(r => r.TypeId)
+                                                                                                                                                  }).AsJson())
+                                                                                                                  .OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplateById(IncodingHtmlHelper.DropDownTemplateId).Html())
+                                                                                                                  .AsHtmlAttributes())
+                            }
+                            @using (innerEach.Is(r => r.IsSimple))
+                            {
+                                @Html.TextBox(innerEach.For(r => r.Name))
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="form-actions">
+                    <input type="submit" value="Run" class="btn btn-success" />
+                </div>
+            }
+        }
+
+        <div id="@resultId"></div>
+    }
+}

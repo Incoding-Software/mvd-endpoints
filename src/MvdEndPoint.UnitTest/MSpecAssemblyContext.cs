@@ -5,9 +5,9 @@ namespace MvdEndPoint.UnitTest
     using System.Configuration;
     using FluentNHibernate.Cfg;
     using FluentNHibernate.Cfg.Db;
+    using Incoding.Endpoint.Infrastructure;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     #endregion
 

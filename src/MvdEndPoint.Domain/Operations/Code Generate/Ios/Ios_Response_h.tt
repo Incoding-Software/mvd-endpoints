@@ -7,7 +7,7 @@
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 @interface <#= Name #> : NSObject
 <# foreach(var prop in Properties) { #>
  <#if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsCanNull)){ #>

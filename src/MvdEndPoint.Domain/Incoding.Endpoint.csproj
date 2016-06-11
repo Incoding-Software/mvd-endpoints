@@ -7,8 +7,8 @@
     <ProjectGuid>{75E650D1-C5F4-4AC2-B1E5-905D868B65FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MvdEndPoint.Domain</RootNamespace>
-    <AssemblyName>MvdEndPoint.Domain</AssemblyName>
+    <RootNamespace>Incoding.Endpoint</RootNamespace>
+    <AssemblyName>Incoding.Endpoint</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -286,7 +286,7 @@
       <LastGenOutput>Android_IncodingHelper.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android\Android_ModelStateException.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_ModelStateException.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android\Android_ToJson.tt">

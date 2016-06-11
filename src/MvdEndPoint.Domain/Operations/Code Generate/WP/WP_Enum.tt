@@ -4,8 +4,8 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
-<#@ parameter type="MvdEndPoint.Domain.GetMetaFromTypeQuery.Response" name="Meta" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetValuesOfEnumQuery.Response>" name="Values" #>
+<#@ parameter type="Incoding.Endpoint.GetMetaFromTypeQuery.Response" name="Meta" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetValuesOfEnumQuery.Response>" name="Values" #>
 
 using System;
 using System.Text;

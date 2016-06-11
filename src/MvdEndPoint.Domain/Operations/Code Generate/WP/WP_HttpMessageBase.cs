@@ -7,14 +7,8 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
+namespace Incoding.Endpoint
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
-    using Incoding.Extensions;
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>

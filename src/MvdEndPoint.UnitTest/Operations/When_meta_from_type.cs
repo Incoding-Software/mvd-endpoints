@@ -3,9 +3,9 @@
     #region << Using >>
 
     using System.ServiceModel;
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     #endregion
 

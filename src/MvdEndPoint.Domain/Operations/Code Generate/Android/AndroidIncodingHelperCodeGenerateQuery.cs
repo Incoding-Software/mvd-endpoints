@@ -1,11 +1,11 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     #region << Using >>
 
     using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.Extensions;
-    
+
     #endregion
 
     public class AndroidIncodingHelperCodeGenerateQuery : QueryBase<string>

@@ -1,9 +1,9 @@
-﻿@using Incoding.Extensions
+﻿@using Incoding.Endpoint
+@using Incoding.Extensions
 @using Incoding.MetaLanguageContrib
 @using Incoding.MvcContrib
-@using MvdEndPoint.Domain
 @using Pazar.Business.Operation.AdDetails.Queries
-@model GetEndpointsQuery.Tmpl
+@model Incoding.Endpoint.GetEndpointsQuery.Tmpl
 @{
     using (var template = Html.Incoding().Template<GetEndpointsQuery.Response>())
     {

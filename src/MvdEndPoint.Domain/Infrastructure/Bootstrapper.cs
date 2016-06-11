@@ -1,5 +1,5 @@
-namespace MvdEndPoint.Domain
-{ 
+namespace Incoding.Endpoint.Infrastructure
+{
     using System;
     using System.Configuration;
     using System.IO;
@@ -16,9 +16,8 @@ namespace MvdEndPoint.Domain
     using Incoding.EventBroker;
     using Incoding.Extensions;
     using Incoding.MvcContrib;
-    using NHibernate.Context;
-	using NHibernate.Tool.hbm2ddl;
-	using StructureMap.Graph;
+    using NHibernate.Tool.hbm2ddl;
+    using StructureMap.Graph;
 
     public static class Bootstrapper
     {

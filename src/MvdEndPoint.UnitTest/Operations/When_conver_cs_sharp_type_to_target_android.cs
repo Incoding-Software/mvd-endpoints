@@ -2,9 +2,9 @@
 {
     #region << Using >>
 
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     #endregion
 

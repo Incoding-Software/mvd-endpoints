@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     [Subject(typeof(GetPropertiesQuery))]
     public class When_get_properties_by_type_with_message_base

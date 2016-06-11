@@ -1,4 +1,4 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     #region << Using >>
 
@@ -7,8 +7,6 @@
     using System.Linq;
     using Incoding.CQRS;
     using Incoding.Extensions;
-    using MvdEndPoint.Domain.Operations;
-    using MvdEndPoint.Domain.Operations.Code_Generate.Android;
 
     #endregion
 

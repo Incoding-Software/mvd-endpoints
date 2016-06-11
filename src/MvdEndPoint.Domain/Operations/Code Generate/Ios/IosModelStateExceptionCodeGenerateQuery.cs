@@ -1,8 +1,7 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     using System;
     using Incoding.CQRS;
-    using MvdEndPoint.Domain.Operations.Code_Generate.Ios;
 
     public class IosModelStateExceptionCodeGenerateQuery : QueryBase<string>
     {

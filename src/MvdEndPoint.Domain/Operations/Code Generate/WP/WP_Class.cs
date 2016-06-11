@@ -7,14 +7,8 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
+namespace Incoding.Endpoint
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
-    using Incoding.Extensions;
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -90,12 +84,12 @@ namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
         
         #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Class.tt"
 
-private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response _MetaField;
+private global::Incoding.Endpoint.GetMetaFromTypeQuery.Response _MetaField;
 
 /// <summary>
 /// Access the Meta parameter of the template.
 /// </summary>
-private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response Meta
+private global::Incoding.Endpoint.GetMetaFromTypeQuery.Response Meta
 {
     get
     {
@@ -103,12 +97,12 @@ private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response Meta
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response> Properties
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -127,7 +121,7 @@ public virtual void Initialize()
 bool MetaValueAcquired = false;
 if (this.Session.ContainsKey("Meta"))
 {
-    this._MetaField = ((global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response)(this.Session["Meta"]));
+    this._MetaField = ((global::Incoding.Endpoint.GetMetaFromTypeQuery.Response)(this.Session["Meta"]));
     MetaValueAcquired = true;
 }
 if ((MetaValueAcquired == false))
@@ -135,13 +129,13 @@ if ((MetaValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Meta");
     if ((data != null))
     {
-        this._MetaField = ((global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response)(data));
+        this._MetaField = ((global::Incoding.Endpoint.GetMetaFromTypeQuery.Response)(data));
     }
 }
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(this.Session["Properties"]));
+    this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(this.Session["Properties"]));
     PropertiesValueAcquired = true;
 }
 if ((PropertiesValueAcquired == false))
@@ -149,7 +143,7 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>)(data));
+        this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(data));
     }
 }
 

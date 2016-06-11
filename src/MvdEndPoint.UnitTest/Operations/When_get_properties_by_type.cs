@@ -5,10 +5,10 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
     using Machine.Specifications.Annotations;
-    using MvdEndPoint.Domain;
 
     #endregion
 

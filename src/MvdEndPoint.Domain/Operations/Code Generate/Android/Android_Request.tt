@@ -9,7 +9,7 @@
 <#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsGet" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 package <#= Package #>;
 
 public class <#= Name #> {

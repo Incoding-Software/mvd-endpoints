@@ -7,10 +7,10 @@
     using System.Linq;
     using System.ServiceModel;
     using Incoding.CQRS;
+    using Incoding.Endpoint;
     using Incoding.Extensions;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     #endregion
 

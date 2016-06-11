@@ -340,9 +340,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvdEndPoint.Domain\MvdEndPoint.Domain.csproj">
+    <ProjectReference Include="..\MvdEndPoint.Domain\Incoding.Endpoint.csproj">
       <Project>{75E650D1-C5F4-4AC2-B1E5-905D868B65FC}</Project>
-      <Name>MvdEndPoint.Domain</Name>
+      <Name>Incoding.Endpoint</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

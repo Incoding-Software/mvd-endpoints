@@ -4,10 +4,10 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
-<#@ parameter type="MvdEndPoint.Domain.GetMetaFromTypeQuery.Response" name="Meta" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Response" #>
-<#@ parameter type="System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>>" name="InnerResponses" #>
+<#@ parameter type="Incoding.Endpoint.GetMetaFromTypeQuery.Response" name="Meta" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Response" #>
+<#@ parameter type="System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>>" name="InnerResponses" #>
 
 using System;
 using System.Text;

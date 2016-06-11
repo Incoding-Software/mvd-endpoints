@@ -1,4 +1,4 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     public class IncAjaxEventVm
     {

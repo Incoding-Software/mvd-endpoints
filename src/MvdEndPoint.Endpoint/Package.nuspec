@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Incoding.Endpoint</id>
+    <version>1.0.0</version>
+    <title>Incoding Endpoint</title>
+    <authors>Vlad</authors>
+    <owners></owners>
+    <description>
+      Endpoint panel
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      Endpoint panel
+    </summary>
+    <language>en-US</language>
+    <projectUrl>http://incframework.com</projectUrl>
+    <iconUrl>http://incframework.com/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <copyright>Copyright  2013 - 2016</copyright>
+    <references>
+      <reference file="Incoding.Endpoint.dll" />
+    </references>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="content\**" target="content"/>
+    <file src="tools\" target="tools" />
+    <file src="lib\net45\*.*" target="lib" />
+  </files>
+</package>

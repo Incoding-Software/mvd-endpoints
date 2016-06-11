@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
-<#@ parameter type="System.Collections.Generic.List<MvdEndPoint.Domain.GetPropertiesQuery.Response>" name="Properties" #>
+<#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 #import "<#= Name#>.h"
 @implementation <#= Name#>
 <# foreach(var prop in Properties) { #>

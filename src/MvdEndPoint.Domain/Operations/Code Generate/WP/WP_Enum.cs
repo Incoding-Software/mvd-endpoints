@@ -7,14 +7,8 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace MvdEndPoint.Domain.Operations.Code_Generate.WP
+namespace Incoding.Endpoint
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
-    using Incoding.Extensions;
-    using System;
-    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -98,12 +92,12 @@ if(!string.IsNullOrWhiteSpace(pair.Display)){
         
         #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Enum.tt"
 
-private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response _MetaField;
+private global::Incoding.Endpoint.GetMetaFromTypeQuery.Response _MetaField;
 
 /// <summary>
 /// Access the Meta parameter of the template.
 /// </summary>
-private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response Meta
+private global::Incoding.Endpoint.GetMetaFromTypeQuery.Response Meta
 {
     get
     {
@@ -111,12 +105,12 @@ private global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response Meta
     }
 }
 
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetValuesOfEnumQuery.Response> _ValuesField;
+private global::System.Collections.Generic.List<GetValuesOfEnumQuery.Response> _ValuesField;
 
 /// <summary>
 /// Access the Values parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<MvdEndPoint.Domain.GetValuesOfEnumQuery.Response> Values
+private global::System.Collections.Generic.List<GetValuesOfEnumQuery.Response> Values
 {
     get
     {
@@ -135,7 +129,7 @@ public virtual void Initialize()
 bool MetaValueAcquired = false;
 if (this.Session.ContainsKey("Meta"))
 {
-    this._MetaField = ((global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response)(this.Session["Meta"]));
+    this._MetaField = ((global::Incoding.Endpoint.GetMetaFromTypeQuery.Response)(this.Session["Meta"]));
     MetaValueAcquired = true;
 }
 if ((MetaValueAcquired == false))
@@ -143,13 +137,13 @@ if ((MetaValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Meta");
     if ((data != null))
     {
-        this._MetaField = ((global::MvdEndPoint.Domain.GetMetaFromTypeQuery.Response)(data));
+        this._MetaField = ((global::Incoding.Endpoint.GetMetaFromTypeQuery.Response)(data));
     }
 }
 bool ValuesValueAcquired = false;
 if (this.Session.ContainsKey("Values"))
 {
-    this._ValuesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetValuesOfEnumQuery.Response>)(this.Session["Values"]));
+    this._ValuesField = ((global::System.Collections.Generic.List<GetValuesOfEnumQuery.Response>)(this.Session["Values"]));
     ValuesValueAcquired = true;
 }
 if ((ValuesValueAcquired == false))
@@ -157,7 +151,7 @@ if ((ValuesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Values");
     if ((data != null))
     {
-        this._ValuesField = ((global::System.Collections.Generic.List<MvdEndPoint.Domain.GetValuesOfEnumQuery.Response>)(data));
+        this._ValuesField = ((global::System.Collections.Generic.List<GetValuesOfEnumQuery.Response>)(data));
     }
 }
 

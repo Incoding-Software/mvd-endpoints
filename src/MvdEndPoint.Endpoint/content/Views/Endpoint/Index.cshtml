@@ -1,0 +1,148 @@
+@using Combres.Mvc
+@using Incoding.Extensions
+@using MvdEndPoint.Domain
+<html>
+@{
+    var tmpl = new GetEndpointsQuery.Tmpl
+               {
+                       DefaultUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~")),
+                       DownloadLinkName = Guid.NewGuid().ToString(),
+                       BaseUrlName = Guid.NewGuid().ToString(),
+                       DeviceName = Guid.NewGuid().ToString(),
+                       CheckedTypeName = Guid.NewGuid().ToString(),
+                       AllId = Guid.NewGuid().ToString()
+               };
+
+    string containerId = Guid.NewGuid().ToString();
+    string typeId = Guid.NewGuid().ToString();
+}
+<style>
+    body { margin-top: 30px; }
+
+    .table {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+</style>
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/AdminLTE.css")"/>
+    @Html.CombresLink("siteJs")
+    <script>
+        TemplateFactory.Version = '@Guid.NewGuid().ToString()';
+
+        function DataToString(target, data) {
+
+            if (_.isString(data)) {
+                $(target).html(data);
+                return;
+            }
+
+            var collection = _.isArray(data) ? data : [data];
+
+            var res = '';
+            $(collection).each(function() {
+                var current = this;
+                $.eachProperties(current, function() {
+                    res += "{0}:{1};".f(this, current[this]);
+                });
+            });
+            $(target).html(res);
+        }
+
+    </script>
+</head>
+@Html.Incoding().RenderDropDownTemplate()
+<body class="skin-blue">
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+    </aside>
+    <aside class="right-side">
+
+        <section class="content-header">
+            <h1>
+                Endpoint's
+                <small>advanced tables</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#"><i class="fa fa-dashboard"></i> Home</a>
+                </li>
+                <li>
+                    <a href="#">Tables</a>
+                </li>
+                <li class="active">Data tables</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="box">
+                    <div class="box-title">
+                        <h3 class="box-title"></h3>
+                    </div>
+                </div>
+                <div class="box-body table-responsive">
+                    <div class="row">
+                        <div class="col-md-1">
+                            @Html.DropDownList(typeId, typeof(GetEndpointsQuery.OfType).ToSelectList(), "All", Html.When(JqueryBind.Change)
+                                                                                                                          .OnSuccess(dsl => dsl.WithId(containerId).Trigger.Incoding())
+                                                                                                                          .AsHtmlAttributes())
+                        </div>
+                        <div class="col-md-1">
+                            @Html.DropDownList(tmpl.DeviceName, typeof(DeviceOfType).ToSelectList(), Html.When(JqueryBind.Change)
+                                                                                                         .OnSuccess(dsl => dsl.WithId(tmpl.AllId)
+                                                                                                                              .WithName(tmpl.DownloadLinkName)
+                                                                                                                              .Trigger.Invoke(JqueryBind.InitIncoding))
+                                                                                                         .AsHtmlAttributes())
+                        </div>
+                        <div class="col-md-4">
+                            @(Html.When(JqueryBind.Change)
+                                  .OnSuccess(dsl => dsl.WithName(tmpl.DefaultUrl)
+                                                       .WithId(tmpl.AllId)
+                                                       .Trigger.Invoke(JqueryBind.InitIncoding))
+                                  .AsHtmlAttributes(new { name = tmpl.BaseUrlName, style = "width:350px" })
+                                  .ToTextBox(value: tmpl.DefaultUrl))
+                        </div>
+                        <div class="col-md-3 col-lg-offset-2">
+                            @(Html.When(JqueryBind.InitIncoding)
+                                  .OnSuccess(dsl =>
+                                             {
+                                                 var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
+                                                                                                          {
+                                                                                                                  Names = Selector.Jquery.Name(tmpl.CheckedTypeName),
+                                                                                                                  BaseUrl = Selector.Jquery.Name(tmpl.BaseUrlName),
+                                                                                                                  Device = tmpl.DeviceName.ToName()
+                                                                                                          })
+                                                              .AsFile(incFileDownloadName: "all.zip")
+                                                              .ToBuildUrl();
+                                                 dsl.Self().JQuery.Attr.Set(HtmlAttribute.Href, url);
+                                             })
+                                  .AsHtmlAttributes(new { id = tmpl.AllId, @class = "pull-right" })
+                                  .ToLink("Download All ( checked )"))
+                        </div>
+                    </div>
+
+                    @(Html.When(JqueryBind.InitIncoding)
+                          .Ajax<GetEndpointsQuery>(new { Type = Selector.Jquery.Name(typeId) })
+                          .OnSuccess(dsl =>
+                                     {
+                                         string url = Url.Dispatcher()
+                                                         .Model(tmpl)
+                                                         .AsView("~/Views/Endpoint/Endpoint_Item_Tmpl.cshtml");
+                                         dsl.Self().Insert.WithTemplateByUrl(url).Html();
+                                     })
+                          .AsHtmlAttributes(new { id = containerId, @class = "col-xs-12" })
+                          .ToDiv())
+                </div>
+
+            </div>
+        </section>
+
+
+    </aside>
+
+</div>
+
+</body>
+</html>

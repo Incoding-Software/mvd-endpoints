@@ -1,10 +1,10 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     #region << Using >>
 
     using System.Collections.Generic;
     using Incoding.CQRS;
-    
+
     #endregion
 
     public class AndroidJsonModelStateDataCodeGenerateQuery : QueryBase<string>

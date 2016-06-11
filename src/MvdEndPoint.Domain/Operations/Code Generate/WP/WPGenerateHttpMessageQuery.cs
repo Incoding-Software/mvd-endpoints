@@ -1,10 +1,9 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     #region << Using >>
 
     using System.Collections.Generic;
     using Incoding.CQRS;
-    using MvdEndPoint.Domain.Operations.Code_Generate.WP;
 
     #endregion
 

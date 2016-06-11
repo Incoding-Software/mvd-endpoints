@@ -1,4 +1,4 @@
-﻿namespace MvdEndPoint.Domain
+﻿namespace Incoding.Endpoint
 {
     #region << Using >>
 
@@ -6,7 +6,6 @@
     using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.Extensions;
-    using MvdEndPoint.Domain.Operations.Code_Generate.Ios;
 
     #endregion
 

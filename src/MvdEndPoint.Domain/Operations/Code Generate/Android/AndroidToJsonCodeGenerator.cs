@@ -1,9 +1,8 @@
-﻿namespace MvdEndPoint.Domain.Operations
+﻿namespace Incoding.Endpoint
 {
     using System.Collections.Generic;
     using Incoding.CQRS;
     using Incoding.Extensions;
-    using MvdEndPoint.Domain.Operations.Code_Generate.Android;
 
     public class AndroidToJsonCodeGenerator:QueryBase<string>
     {

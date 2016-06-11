@@ -1,8 +1,8 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
 
     [Subject(typeof(ConvertCSharpTypeToTargetQuery))]
     public class When_conver_cs_sharp_type_to_target_ios

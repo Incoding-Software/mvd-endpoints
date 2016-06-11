@@ -6,8 +6,8 @@
     using System.IO;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-    using MvdEndPoint.Domain;
     using System.Linq;
+    using Incoding.Endpoint;
 
     #endregion
 

@@ -2,8 +2,8 @@ namespace MvdEndPoint.UI.Controllers
 {
     #region << Using >>
 
+    using Incoding.Endpoint.Infrastructure;
     using Incoding.MvcContrib.MVD;
-    using MvdEndPoint.Domain;
 
     #endregion
 
