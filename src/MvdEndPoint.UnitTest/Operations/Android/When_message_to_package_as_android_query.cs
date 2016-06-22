@@ -77,8 +77,7 @@
             var expected = Pleasure.Generator.Bytes();
 
             string requestContent = Pleasure.Generator.String();
-            string listenerContent = Pleasure.Generator.String();
-            string taskContent = Pleasure.Generator.String();
+            string listenerContent = Pleasure.Generator.String();            
             string responseContent = Pleasure.Generator.String();
             string jsonModelStateClassContent = Pleasure.Generator.String();
             string modelStateExceptionContent = Pleasure.Generator.String();
@@ -97,15 +96,13 @@
                                                                                                                                            { GetNameFromTypeQuery.ModeOf.Enum, "OuterEnum" }
                                                                                                                                    })
                     .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
-                                                                                                                          {
-                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Listener, "Listener" }, 
-                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Request, "Request" }, 
-                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Response, "Response" }, 
-                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Task, "Task" }
+                                                                                                                          {                                                                                                                                  
+                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Request, "Request" },
+                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Listener, "Listener" },
+                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Response, "Response" },                                                                                                                                   
                                                                                                                           })
                     .StubQuery(Pleasure.Generator.Invent<AndroidRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), requestContent)
-                    .StubQuery(Pleasure.Generator.Invent<AndroidListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), listenerContent)
-                    .StubQuery(Pleasure.Generator.Invent<AndroidTaskCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), taskContent)
+                    .StubQuery(Pleasure.Generator.Invent<AndroidListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), listenerContent)                    
                     .StubQuery(Pleasure.Generator.Invent<AndroidResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), responseContent)
                     .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), metaFromType)
                     .StubQuery(Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Package, metaFromType.Package)
@@ -116,8 +113,7 @@
                                                                                                                { "Incoding/ModelStateException.java", modelStateExceptionContent }, 
                                                                                                                { "Incoding/JsonModelStateData.java", jsonModelStateClassContent }, 
                                                                                                                { "{0}/Request.java".F(mainType.Name), requestContent }, 
-                                                                                                               { "{0}/Listener.java".F(mainType.Name), listenerContent }, 
-                                                                                                               { "{0}/Task.java".F(mainType.Name), taskContent }, 
+                                                                                                               { "{0}/Listener.java".F(mainType.Name), listenerContent },                                                                                                                
                                                                                                                { "{0}/Response.java".F(mainType.Name), responseContent }, 
                                                                                                                { "{0}/OuterEnum.java".F(mainType.Name), enumContent }, 
                                                                                                        })), expected);

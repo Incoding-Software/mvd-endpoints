@@ -41,9 +41,7 @@
         It should_be_request = () => Compare(GetNameFromTypeQuery.ModeOf.Request, "FakeCommandRequest");
 
         It should_be_listener = () => Compare(GetNameFromTypeQuery.ModeOf.Listener, "IFakeCommandListener");
-
-        It should_be_task = () => Compare(GetNameFromTypeQuery.ModeOf.Task, "FakeCommandTask");
-
+        
         It should_be_response = () => Compare(GetNameFromTypeQuery.ModeOf.Response, "FakeCommandResponse");
     }
 }

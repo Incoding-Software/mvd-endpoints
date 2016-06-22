@@ -40,7 +40,7 @@
                                   var type = typeof(FakeCommand);
                                   var query = Pleasure.Generator.Invent<WPGenerateCommandQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_wp_generate_command).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_wp_generate_command).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, type.Name)
                                                                                                                 .Tuning(r => r.Namespace, type.Namespace));

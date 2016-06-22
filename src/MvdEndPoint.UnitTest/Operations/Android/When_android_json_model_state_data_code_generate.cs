@@ -24,7 +24,7 @@
         Establish establish = () =>
                                   {
                                       var query = Pleasure.Generator.Invent<AndroidJsonModelStateDataCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
-                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_android_json_model_state_data_code_generate).Name));
+                                      expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_android_json_model_state_data_code_generate).Name));
 
                                       mockQuery = MockQuery<AndroidJsonModelStateDataCodeGenerateQuery, string>
                                               .When(query);

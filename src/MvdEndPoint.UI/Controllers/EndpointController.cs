@@ -1,12 +1,19 @@
 namespace MvdEndPoint.UI.Controllers
 {
-    using System.Web.Mvc;    
+    #region << Using >>
+
+    using System.Web.Mvc;
+    using Incoding.CQRS;
+    using Incoding.Endpoint;
     using Incoding.MvcContrib;
+
+    #endregion
 
     public class EndpointController : IncControllerBase
     {
         public ActionResult Index()
         {
+            dispatcher.Push(new SyncEndpointCommand());
             return View();
         }
     }

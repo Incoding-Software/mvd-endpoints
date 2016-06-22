@@ -68,9 +68,7 @@
         It should_be_request = () => Compare(GetNameFromTypeQuery.ModeOf.Request, "FakeQueryRequest");
 
         It should_be_listener = () => Compare(GetNameFromTypeQuery.ModeOf.Listener, "IFakeQueryListener");
-
-        It should_be_task = () => Compare(GetNameFromTypeQuery.ModeOf.Task, "FakeQueryTask");
-
+        
         It should_be_response = () => Compare(GetNameFromTypeQuery.ModeOf.Response, "FakeQueryResponse");
 
         It should_be_enum = () => Compare(GetNameFromTypeQuery.ModeOf.Enum, "OuterEnum", typeof(OuterEnum));

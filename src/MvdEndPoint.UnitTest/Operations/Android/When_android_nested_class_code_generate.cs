@@ -17,7 +17,7 @@
         Establish establish = () =>
                               {
                                   var query = Pleasure.Generator.Invent<AndroidNestedClassCodeGenerateQuery>();
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_android_nested_class_code_generate).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_android_nested_class_code_generate).Name));
 
                                   mockQuery = MockQuery<AndroidNestedClassCodeGenerateQuery, string>
                                           .When(query)

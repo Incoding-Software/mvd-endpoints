@@ -12,7 +12,7 @@
 
     #endregion
 
-    [Subject(typeof(AndroidRequestCodeGenerateQuery))]
+    [Subject(typeof(IosRequestCodeGenerateQuery))]
     public class When_ios_request_code_generate
     {
         #region Fake classes
@@ -41,7 +41,7 @@
         {
             var query = Pleasure.Generator.Invent<IosRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.File, file)
                                                                                          .Tuning(r => r.Type, type));
-            string expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
+            string expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  fileName));
 
             var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.IsCommand, type.Name.EndsWith("Command"))
                                                                                           .Tuning(r => r.ResponseAsArray, isArray)

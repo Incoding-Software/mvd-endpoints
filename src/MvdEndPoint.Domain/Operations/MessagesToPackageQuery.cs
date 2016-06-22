@@ -116,10 +116,9 @@
                 foreach (var type in Types)
                 {
                     var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = type });
-                    Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(type))[of]);
-                    zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new AndroidRequestCodeGenerateQuery { Type = type }));
+                    Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(type))[of]);                    
                     zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Listener), Dispatcher.Query(new AndroidListenerCodeGeneratorQuery { Type = type }));
-                    zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Task), Dispatcher.Query(new AndroidTaskCodeGenerateQuery { Type = type }));
+                    zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new AndroidRequestCodeGenerateQuery { Type = type }));
                     zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Response), Dispatcher.Query(new AndroidResponseCodeGenerateQuery { Type = type }));
                     const BindingFlags bindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;
 

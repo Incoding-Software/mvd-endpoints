@@ -48,15 +48,26 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Incoding, Version=1.4.0.129, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Incoding.Framework.1.4.0.129-beta\lib\net45\Incoding.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Incoding">
+      <HintPath>..\packages\Incoding.Framework.1.3.0.844\lib\net40\Incoding.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.2\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Machine.Specifications, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Machine.Specifications.0.9.3\lib\net45\Machine.Specifications.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Machine.Specifications.0.9.3\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -81,6 +92,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,11 +102,17 @@
   <ItemGroup>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidNestedClassCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidSampleCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidToJsonCodeGenerator.cs" />
     <Compile Include="Operations\Code Generate\Android\Android_ModelStateException.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Android_ModelStateException.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Operations\Code Generate\Android\Android_Sample.cs">
+      <DependentUpon>Android_Sample.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Android\Android_ToJson.cs">
       <DependentUpon>Android_ToJson.tt</DependentUpon>
@@ -112,6 +130,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Operations\UI\GetEndpointsQuery.cs" />
     <Compile Include="Operations\Utilites\GetShareTypeFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\GetInnerResponseTypesQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommandQuery.cs" />
@@ -132,7 +151,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\UI\GetEndpointsQuery.cs" />
     <Compile Include="Operations\UI\GetEnumForDD.cs" />
     <Compile Include="Operations\Utilites\ConvertCSharpTypeToTargetQuery.cs" />
     <Compile Include="Operations\Utilites\GetValuesOfEnumQuery.cs" />
@@ -189,13 +207,7 @@
     <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsArrayQuery.cs" />
     <Compile Include="Operations\Utilites\IsCommandTypeQuery.cs" />
-    <Compile Include="Persistence\IncAjaxEventVm.cs" />
     <Compile Include="Operations\DeviceOfType.cs" />
-    <Compile Include="Operations\Code Generate\Android\Android_Request.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Android_Request.tt</DependentUpon>
-    </Compile>
     <Compile Include="Operations\Code Generate\Ios\Ios_Response_h.cs">
       <DependentUpon>Ios_Response_h.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -236,19 +248,22 @@
     <Compile Include="Operations\Code Generate\Android\AndroidEnumCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\GetNameFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\GetPropertiesQuery.cs" />
-    <Compile Include="Operations\Code Generate\Android\Android_Task.cs">
-      <DependentUpon>Android_Task.tt</DependentUpon>
+    <Compile Include="Operations\Code Generate\Android\Android_Request.cs">
+      <DependentUpon>Android_Request.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Android\AndroidIncodingHelperCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidModelStateExceptionCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\Android\AndroidRequestCodeGenerateQuery.cs" />
     <Compile Include="Operations\MessagesToPackageQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidListenerCodeGeneratorQuery.cs" />
     <Compile Include="Operations\Code Generate\Android\AndroidResponseCodeGenerateQuery.cs" />
-    <Compile Include="Operations\Code Generate\Android\AndroidTaskCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Android\AndroidRequestCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\ToZipQuery.cs" />
+    <Compile Include="Operations\UI\DownloadSourceCodeQuery.cs" />
+    <Compile Include="Persistence\Endpoint.cs" />
+    <Compile Include="Operations\UI\GetEndpointForSandboxQuery.cs" />
+    <Compile Include="Operations\UI\SyncEndpointCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,10 +271,6 @@
     <None Include="Operations\Code Generate\Android\Android_Request.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Request.cs</LastGenOutput>
-    </None>
-    <None Include="Operations\Code Generate\Android\Android_Task.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Android_Task.cs</LastGenOutput>
     </None>
     <None Include="Operations\Code Generate\Android\Android_Listener.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -367,6 +378,12 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>WP_Enum.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Operations\Code Generate\Android\Android_Sample.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Android_Sample.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -38,7 +38,7 @@
         static void Verify(bool isArray, string fileName)
         {
             var query = Pleasure.Generator.Invent<AndroidListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)));
-            string expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
+            string expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  fileName));
 
             var mockQuery = MockQuery<AndroidListenerCodeGeneratorQuery, string>
                     .When(query)

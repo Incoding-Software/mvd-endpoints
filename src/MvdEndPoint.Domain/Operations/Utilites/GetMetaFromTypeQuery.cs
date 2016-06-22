@@ -29,7 +29,7 @@
             public string Namespace { get; set; }
 
             public string Name { get; set; }
-
+            
             public bool IsCommand { get; set; }
 
             public bool ResponseAsImage { get; set; }

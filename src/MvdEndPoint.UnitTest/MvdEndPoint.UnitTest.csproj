@@ -106,100 +106,111 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="When_android_nested_class_code_generate">
+    <None Include="Sample_Code_Generate\When_android_nested_class_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_wp_generate_common_enum">
+    <None Include="Sample_Code_Generate\When_android_sample_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_wp_generate_query">
+    <None Include="Sample_Code_Generate\When_wp_generate_common_enum">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_wp_generate_http_message">
+    <None Include="Sample_Code_Generate\When_wp_generate_query">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_query_with_array_h">
+    <None Include="Sample_Code_Generate\When_wp_generate_http_message">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_query_with_array_m">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_as_query_with_array_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_h">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_as_query_with_array_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_m">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_response_code_generate_command_m">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_response_code_generate_command_h">
+    <None Include="Sample_Code_Generate\When_ios_response_code_generate_command_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_response_code_generate_as_array_m">
+    <None Include="Sample_Code_Generate\When_ios_response_code_generate_command_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_response_code_generate_as_array_h">
+    <None Include="Sample_Code_Generate\When_ios_response_code_generate_as_array_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_query_without_properties_h">
+    <None Include="Sample_Code_Generate\When_ios_response_code_generate_as_array_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_query_without_properties_m">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_as_query_without_properties_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_query_h">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_as_query_without_properties_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_request_code_generate_as_query_m">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_as_query_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_incoding_helper_code_generate_m">
+    <None Include="Sample_Code_Generate\When_ios_request_code_generate_as_query_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_incoding_helper_code_generate_h">
+    <None Include="Sample_Code_Generate\When_ios_incoding_helper_code_generate_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_response_code_generate_m">
+    <None Include="Sample_Code_Generate\When_ios_incoding_helper_code_generate_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_ios_response_code_generate_h">
+    <None Include="Sample_Code_Generate\When_ios_response_code_generate_m">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_task_code_generate_command">
+    <None Include="Sample_Code_Generate\When_ios_response_code_generate_h">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_model_state_exception_code_generate">
+    <None Include="Sample_Code_Generate\When_android_task_code_generate_command">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_incoding_helper_code_generate">
+    <None Include="Sample_Code_Generate\When_android_model_state_exception_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_json_model_state_data_code_generate">
+    <None Include="Sample_Code_Generate\When_android_incoding_helper_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_listener_code_generator_for_query">
+    <None Include="Sample_Code_Generate\When_android_json_model_state_data_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_listener_code_generator_for_query_with_array">
+    <None Include="Sample_Code_Generate\When_android_listener_code_generator_for_query">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_response_code_generate_as_command">
+    <None Include="Sample_Code_Generate\When_android_listener_code_generator_for_query_with_array">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_response_code_generate_as_array">
+    <None Include="Sample_Code_Generate\When_android_response_code_generate_as_command">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_response_code_generate">
+    <None Include="Sample_Code_Generate\When_android_response_code_generate_as_array">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_enum_code_generate">
+    <None Include="Sample_Code_Generate\When_android_response_code_generate">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Sample_Code_Generate\When_android_enum_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Operations\Android\When_android_sample_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
     <Compile Include="Operations\MyClassMyEnumForWhen_get_share_type_from_type.cs" />
     <Compile Include="Operations\MyEnumForWhen_get_share_type_from_type.cs" />
+    <Compile Include="Operations\UI\When_get_message_detail.cs" />
+    <Compile Include="Operations\UI\When_get_messages.cs" />
+    <Compile Include="Operations\UI\When_get_endpoints.cs" />
+    <Compile Include="Operations\UI\When_save_Message.cs" />
+    <Compile Include="Operations\UI\When_save_MessageGroup.cs" />
+    <Compile Include="Operations\UI\When_save_Message_Property.cs" />
+    <Compile Include="Operations\UI\When_sync_endpoint.cs" />
     <Compile Include="Operations\When_get_share_type_from_type.cs" />
     <Compile Include="Operations\When_meta_from_type.cs" />
     <Compile Include="Operations\When_get_values_of_enum.cs" />
@@ -231,13 +242,9 @@
     <Compile Include="Operations\When_get_properties_by_type.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_java.cs" />
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get_without_properties.cs" />
-    <Compile Include="Operations\Android\When_android_request_code_generate_as_post.cs" />
     <Compile Include="Operations\Android\When_android_response_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_response_code_generate_as_command.cs" />
-    <Compile Include="Operations\Android\When_android_task_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />
-    <Compile Include="Operations\Android\When_android_task_code_generate_command.cs" />
-    <Compile Include="Operations\Android\When_android_task_code_generate_without_request.cs" />
     <Compile Include="Operations\When_meta_from_type_without_service_contract.cs" />
     <Compile Include="Operations\WP\When_message_to_package_as_wp.cs" />
     <Compile Include="Operations\WP\When_wp_generate_common_enum.cs" />
@@ -246,25 +253,25 @@
     <Compile Include="Operations\WP\When_wp_generate_command.cs" />
     <Compile Include="Operations\WP\When_wp_generate_http_message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="When_android_task_code_generate_without_request">
+    <None Include="Sample_Code_Generate\When_android_task_code_generate_without_request">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_task_code_generate">
+    <None Include="Sample_Code_Generate\When_android_task_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_request_code_generate_as_get_without_properties">
+    <None Include="Sample_Code_Generate\When_android_request_code_generate_as_get_without_properties">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_request_code_generate_as_post">
+    <None Include="Sample_Code_Generate\When_android_request_code_generate_as_post">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_android_request_code_generate_as_get">
+    <None Include="Sample_Code_Generate\When_android_request_code_generate_as_get">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_wp_generate_command">
+    <None Include="Sample_Code_Generate\When_wp_generate_command">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="When_wp_generate_common_class">
+    <None Include="Sample_Code_Generate\When_wp_generate_common_class">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

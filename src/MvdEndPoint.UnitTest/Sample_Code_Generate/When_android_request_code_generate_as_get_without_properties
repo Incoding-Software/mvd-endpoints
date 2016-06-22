@@ -1,0 +1,64 @@
+﻿package com.qabenchmarking.android.models.GetCustomerQuery;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import android.content.Context;
+import android.os.AsyncTask;
+import com.qabenchmarking.android.models.Incoding.ModelStateException;
+import com.qabenchmarking.android.models.Incoding.IncodingHelper;
+import java.util.HashMap;
+
+public class GetCustomerRequest extends AsyncTask<String, Integer, String> {
+
+       
+
+   public java.util.HashMap<String, Object> GetParameters(Integer index) {
+	java.util.HashMap<String, Object> parameters = new java.util.HashMap<String, Object>();	
+	parameters.put("incTypes","Push");
+	   
+	return parameters;
+   } 
+
+    private Context context;
+
+    private IFakeOn listener;
+    	
+	public GetCustomerRequest(Context context) {
+		this.context = context;		
+	}
+		
+	@Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        try {
+            listener.Success( Response.Create(new JSONObject(s)) );
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (ModelStateException e) {
+            listener.Error(e.getState());
+        }
+    }
+
+	@Override
+    protected String doInBackground(String... strings) {
+        try {
+		   
+		    HashMap<String, Object> params = new HashMap<String, Object>();			
+			String type = "Push";
+			
+            HttpResponse response = IncodingHelper.Execute(context, true,"Push",this.GetParameters(-1));
+			return EntityUtils.toString(response.getEntity());
+			        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public void On(IFakeOn on)
+    {
+        listener = on;
+        execute();
+    }
+}

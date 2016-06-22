@@ -21,7 +21,7 @@
                                   var type = typeof(FakeQuery);
                                   var query = Pleasure.Generator.Invent<WPGenerateQueryQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_wp_generate_query).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_wp_generate_query).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, type.Name)
                                                                                                                 .Tuning(r => r.ResponseAsArray, true)

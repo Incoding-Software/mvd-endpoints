@@ -12,8 +12,7 @@ namespace Incoding.Endpoint.Infrastructure
     using Incoding.Block.IoC;
     using Incoding.Block.Logging;
     using Incoding.CQRS;
-    using Incoding.Data;
-    using Incoding.EventBroker;
+    using Incoding.Data;    
     using Incoding.Extensions;
     using Incoding.MvcContrib;
     using NHibernate.Tool.hbm2ddl;
@@ -25,16 +24,15 @@ namespace Incoding.Endpoint.Infrastructure
         {
             LoggingFactory.Instance.Initialize(logging =>
                                                    {
-                                                       string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log");
+                                                       string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  "Log");
                                                        logging.WithPolicy(policy => policy.For(LogType.Debug).Use(FileLogger.WithAtOnceReplace(path, () => "Debug_{0}.txt".F(DateTime.Now.ToString("yyyyMMdd")))));
                                                    });
 
             IoCFactory.Instance.Initialize(init => init.WithProvider(new StructureMapIoCProvider(registry =>
                                                                                                      {
-                                                                                                         registry.For<IDispatcher>().Use<DefaultDispatcher>();
-                                                                                                         registry.For<IEventBroker>().Use<DefaultEventBroker>();
+                                                                                                         registry.For<IDispatcher>().Use<DefaultDispatcher>();                                                                                                         
                                                                                                          registry.For<ITemplateFactory>().Singleton().Use<TemplateHandlebarsFactory>();
-
+                                                                                                         
                                                                                                          var configure = Fluently
                                                                                                                  .Configure()
                                                                                                                  .Database(MsSqlConfiguration.MsSql2008.ConnectionString(ConfigurationManager.ConnectionStrings["Main"].ConnectionString))
@@ -49,8 +47,7 @@ namespace Incoding.Endpoint.Infrastructure
                                                                                                                                r.TheCallingAssembly();
                                                                                                                                r.WithDefaultConventions();
 
-                                                                                                                               r.ConnectImplementationsToTypesClosing(typeof(AbstractValidator<>));
-                                                                                                                               r.ConnectImplementationsToTypesClosing(typeof(IEventSubscriber<>));
+                                                                                                                               r.ConnectImplementationsToTypesClosing(typeof(AbstractValidator<>));                                                                                                                               
                                                                                                                                r.AddAllTypesOf<ISetUp>();
                                                                                                                            });
                                                                                                      })));

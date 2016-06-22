@@ -17,7 +17,7 @@
         Establish establish = () =>
                               {
                                   WPGenerateCommonFileQuery query = Pleasure.Generator.Invent<WPGenerateCommonFileQuery>(dsl => dsl.Tuning(r => r.Type, typeof(string)));
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, typeof(When_wp_generate_common_class).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_wp_generate_common_class).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "MvdEndPoint.UnitTest")
                                                                                                                 .Tuning(r => r.Name, "FakeClass"));

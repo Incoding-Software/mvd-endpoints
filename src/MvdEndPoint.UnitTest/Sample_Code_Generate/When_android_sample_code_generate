@@ -1,0 +1,25 @@
+﻿import Incoding.JsonModelStateData;
+import GetCustomerQuery.IUserSignInCommandListener;
+import GetCustomerQuery.UserSignInCommandResponse;
+import GetCustomerQuery.UserSignInCommandRequest;
+
+GetCustomerRequest request = new GetCustomerRequest(context);
+request.Message = something;
+request.Title = something;
+request.Ids = something;
+   
+request.On(new IGetCustomerListene() {
+    @Override
+    public void Success(GetCustomerResponse response) {
+        // do something code
+    }
+
+    @Override
+    public void Error(JsonModelStateData[] modelState) {
+        for (JsonModelStateData stateData : modelState) {
+            if (!stateData.isValid) {
+                //do something for validation
+            }
+        }
+    }
+});

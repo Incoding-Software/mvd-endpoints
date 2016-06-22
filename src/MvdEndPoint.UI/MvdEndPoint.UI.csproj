@@ -107,6 +107,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\JetBrains.Annotations.9.1.1\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="Main.Domain">
+      <HintPath>..\packages\Main\Main.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -115,9 +118,6 @@
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Pazar.Business">
-      <HintPath>..\packages\Pazar\Pazar.Business.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -208,6 +208,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\endpoint.css" />
     <Content Include="Content\jquery.pnotify.css" />
     <Content Include="Content\jquery.pnotify.icons.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -282,6 +283,7 @@
     <Content Include="App_Readme\Handlebarsjs_README.md" />
     <Content Include="App_Readme\Handlebarsjs_LICENSE" />
     <None Include="Properties\PublishProfiles\IIS.pubxml" />
+    <Content Include="Scripts\endpoint.js" />
     <Content Include="Scripts\handlebars.amd.js" />
     <Content Include="Scripts\handlebars.amd.min.js" />
     <Content Include="Scripts\handlebars.js" />
@@ -324,13 +326,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Endpoint\Ajax_Response_Tmpl.cshtml" />
-    <Content Include="Views\Endpoint\Endpoint_Item_Tmpl.cshtml" />
     <Content Include="Views\Endpoint\Index.cshtml" />
-    <Content Include="Views\Endpoint\ModelState_Tmpl.cshtml" />
     <Content Include="Views\Endpoint\Sandbox_Item_Tmpl.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Endpoint\Item_Tmpl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

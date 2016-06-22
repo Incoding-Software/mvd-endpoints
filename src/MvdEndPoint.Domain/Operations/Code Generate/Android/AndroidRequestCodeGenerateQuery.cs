@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
+    using Incoding.Endpoint.Operations.Code_Generate.Android;
 
     #endregion
 
@@ -18,20 +19,23 @@
 
         protected override string ExecuteResult()
         {
-            var dto = new Android_Request();
             var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
-
-            dto.Session = new Dictionary<string, object>
-                          {
-                                  { "Namespace", meta.Namespace }, 
-                                  { "Package", meta.Package }, 
-                                  { "Type", meta.Name }, 
-                                  { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Request] }, 
-                                  { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) }, 
-                                  { "IsGet", !meta.IsCommand }, 
-                          };
-            dto.Initialize();
-            return dto.TransformText();
+            var names = Dispatcher.Query(new GetNameFromTypeQuery(Type));
+            var task = new Android_Request()
+                       {
+                               Session = new Dictionary<string, object>
+                                         {
+                                                 { "Package", meta.Package },
+                                                 { "Namespace", meta.Namespace },
+                                                 { "Listener", names[GetNameFromTypeQuery.ModeOf.Listener] },
+                                                 { "Response", names[GetNameFromTypeQuery.ModeOf.Response] },
+                                                 { "Name", names[GetNameFromTypeQuery.ModeOf.Request] },
+                                                 { "Type", meta.IsCommand ? "Push" : "Query" },
+                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },                                                 
+                                         }
+                       };
+            task.Initialize();
+            return task.TransformText();
         }
     }
 }

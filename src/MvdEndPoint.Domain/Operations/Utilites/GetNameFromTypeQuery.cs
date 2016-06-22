@@ -38,9 +38,7 @@
             Request, 
 
             Response, 
-
-            Task, 
-
+            
             Listener, 
 
             Enum, 
@@ -55,8 +53,7 @@
             return new Dictionary<ModeOf, string>()
                    {
                            { ModeOf.Request, Type.Name + "Request" }, 
-                           { ModeOf.Response, Type.Name + "Response" }, 
-                           { ModeOf.Task, Type.Name + "Task" }, 
+                           { ModeOf.Response, Type.Name + "Response" },                            
                            { ModeOf.Listener, "I" + Type.Name + "Listener" }, 
                            { ModeOf.Enum, Type.FullName.Replace(Type.Namespace + ".", string.Empty).Replace("+", "_") }, 
                            { ModeOf.Nested, Type.Name }, 

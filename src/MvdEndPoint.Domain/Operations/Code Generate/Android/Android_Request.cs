@@ -7,8 +7,13 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -25,142 +30,205 @@ namespace Incoding.Endpoint
         {
             this.Write("package ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Package));
             
             #line default
             #line hidden
-            this.Write(";\r\n\r\npublic class ");
+            this.Write(";\r\n\r\nimport org.apache.http.HttpResponse;\r\nimport org.apache.http.util.EntityUtil" +
+                    "s;\r\nimport org.json.JSONObject;\r\nimport android.content.Context;\r\nimport android" +
+                    ".os.AsyncTask;\r\nimport ");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".Incoding.ModelStateException;\r\nimport ");
+            
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".Incoding.IncodingHelper;\r\nimport java.util.HashMap;\r\n\r\npublic class ");
+            
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n\r\n  ");
+            this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
-            this.Write("  public ");
+            this.Write("    public ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
-            this.Write(";\r\n  ");
+            this.Write(";\r\n    ");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("   \r\n\r\n   public java.util.HashMap<String, Object> GetParameters(Integer index) {" +
                     "\r\n\tjava.util.HashMap<String, Object> parameters = new java.util.HashMap<String, " +
-                    "Object>();\t\r\n\tparameters.put(\"incType\",\"");
+                    "Object>();\t\r\n\tparameters.put(\"incTypes\",\"");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Type));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t");
             
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsCanNull)) { 
             
             #line default
             #line hidden
             this.Write(" if (this.");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" != null) ");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("    parameters.put(index == -1 ? \"");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write("\" : String.format(\"[%s].");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write("\", index),this.");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n    ");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 38 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("   \r\n\treturn parameters;\r\n   } \r\n                                         \r\n}");
+            this.Write("   \r\n\treturn parameters;\r\n   } \r\n\r\n    private Context context;\r\n\r\n    private ");
+            
+            #line 44 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
+            
+            #line default
+            #line hidden
+            this.Write(" listener;\r\n    \t\r\n\tpublic ");
+            
+            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            
+            #line default
+            #line hidden
+            this.Write("(Context context) {\r\n\t\tthis.context = context;\t\t\r\n\t}\r\n\t\t\r\n\t@Override\r\n    protect" +
+                    "ed void onPostExecute(String s) {\r\n        super.onPostExecute(s);\r\n        try " +
+                    "{\r\n            listener.Success( ");
+            
+            #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(@".Create(new JSONObject(s)) );
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (ModelStateException e) {
+            listener.Error(e.getState());
+        }
+    }
+
+	@Override
+    protected String doInBackground(String... strings) {
+        try {
+		   
+		    HashMap<String, Object> params = new HashMap<String, Object>();			
+			String type = """);
+            
+            #line 67 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
+            
+            #line default
+            #line hidden
+            this.Write("\";\r\n\t\t\t\r\n            HttpResponse response = IncodingHelper.Execute(context, true" +
+                    ",\"");
+            
+            #line 69 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
+            
+            #line default
+            #line hidden
+            this.Write("\",this.GetParameters(-1));\r\n\t\t\treturn EntityUtils.toString(response.getEntity());" +
+                    "\r\n\t\t\t        \r\n        } catch (Exception e) {\r\n            e.printStackTrace();" +
+                    "\r\n        }\r\n        return \"\";\r\n    }\r\n\r\n    public void On(");
+            
+            #line 78 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
+            
+            #line default
+            #line hidden
+            this.Write(" on)\r\n    {\r\n        listener = on;\r\n        execute();\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
         #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
-
-private string _TypeField;
-
-/// <summary>
-/// Access the Type parameter of the template.
-/// </summary>
-private string Type
-{
-    get
-    {
-        return this._TypeField;
-    }
-}
 
 private string _NameField;
 
@@ -175,29 +243,55 @@ private string Name
     }
 }
 
-private string _UrlField;
+private string _ListenerField;
 
 /// <summary>
-/// Access the Url parameter of the template.
+/// Access the Listener parameter of the template.
 /// </summary>
-private string Url
+private string Listener
 {
     get
     {
-        return this._UrlField;
+        return this._ListenerField;
     }
 }
 
-private string _PackageField;
+private string _RequestField;
 
 /// <summary>
-/// Access the Package parameter of the template.
+/// Access the Request parameter of the template.
 /// </summary>
-private string Package
+private string Request
 {
     get
     {
-        return this._PackageField;
+        return this._RequestField;
+    }
+}
+
+private string _ResponseField;
+
+/// <summary>
+/// Access the Response parameter of the template.
+/// </summary>
+private string Response
+{
+    get
+    {
+        return this._ResponseField;
+    }
+}
+
+private bool _HasRequestField;
+
+/// <summary>
+/// Access the HasRequest parameter of the template.
+/// </summary>
+private bool HasRequest
+{
+    get
+    {
+        return this._HasRequestField;
     }
 }
 
@@ -214,25 +308,38 @@ private string Namespace
     }
 }
 
-private bool _IsGetField;
+private string _PackageField;
 
 /// <summary>
-/// Access the IsGet parameter of the template.
+/// Access the Package parameter of the template.
 /// </summary>
-private bool IsGet
+private string Package
 {
     get
     {
-        return this._IsGetField;
+        return this._PackageField;
     }
 }
 
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> _PropertiesField;
+private string _TypeField;
+
+/// <summary>
+/// Access the Type parameter of the template.
+/// </summary>
+private string Type
+{
+    get
+    {
+        return this._TypeField;
+    }
+}
+
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> Properties
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -248,20 +355,6 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool TypeValueAcquired = false;
-if (this.Session.ContainsKey("Type"))
-{
-    this._TypeField = ((string)(this.Session["Type"]));
-    TypeValueAcquired = true;
-}
-if ((TypeValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Type");
-    if ((data != null))
-    {
-        this._TypeField = ((string)(data));
-    }
-}
 bool NameValueAcquired = false;
 if (this.Session.ContainsKey("Name"))
 {
@@ -276,32 +369,60 @@ if ((NameValueAcquired == false))
         this._NameField = ((string)(data));
     }
 }
-bool UrlValueAcquired = false;
-if (this.Session.ContainsKey("Url"))
+bool ListenerValueAcquired = false;
+if (this.Session.ContainsKey("Listener"))
 {
-    this._UrlField = ((string)(this.Session["Url"]));
-    UrlValueAcquired = true;
+    this._ListenerField = ((string)(this.Session["Listener"]));
+    ListenerValueAcquired = true;
 }
-if ((UrlValueAcquired == false))
+if ((ListenerValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Url");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Listener");
     if ((data != null))
     {
-        this._UrlField = ((string)(data));
+        this._ListenerField = ((string)(data));
     }
 }
-bool PackageValueAcquired = false;
-if (this.Session.ContainsKey("Package"))
+bool RequestValueAcquired = false;
+if (this.Session.ContainsKey("Request"))
 {
-    this._PackageField = ((string)(this.Session["Package"]));
-    PackageValueAcquired = true;
+    this._RequestField = ((string)(this.Session["Request"]));
+    RequestValueAcquired = true;
 }
-if ((PackageValueAcquired == false))
+if ((RequestValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Request");
     if ((data != null))
     {
-        this._PackageField = ((string)(data));
+        this._RequestField = ((string)(data));
+    }
+}
+bool ResponseValueAcquired = false;
+if (this.Session.ContainsKey("Response"))
+{
+    this._ResponseField = ((string)(this.Session["Response"]));
+    ResponseValueAcquired = true;
+}
+if ((ResponseValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
+    if ((data != null))
+    {
+        this._ResponseField = ((string)(data));
+    }
+}
+bool HasRequestValueAcquired = false;
+if (this.Session.ContainsKey("HasRequest"))
+{
+    this._HasRequestField = ((bool)(this.Session["HasRequest"]));
+    HasRequestValueAcquired = true;
+}
+if ((HasRequestValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("HasRequest");
+    if ((data != null))
+    {
+        this._HasRequestField = ((bool)(data));
     }
 }
 bool NamespaceValueAcquired = false;
@@ -318,24 +439,38 @@ if ((NamespaceValueAcquired == false))
         this._NamespaceField = ((string)(data));
     }
 }
-bool IsGetValueAcquired = false;
-if (this.Session.ContainsKey("IsGet"))
+bool PackageValueAcquired = false;
+if (this.Session.ContainsKey("Package"))
 {
-    this._IsGetField = ((bool)(this.Session["IsGet"]));
-    IsGetValueAcquired = true;
+    this._PackageField = ((string)(this.Session["Package"]));
+    PackageValueAcquired = true;
 }
-if ((IsGetValueAcquired == false))
+if ((PackageValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsGet");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
     if ((data != null))
     {
-        this._IsGetField = ((bool)(data));
+        this._PackageField = ((string)(data));
+    }
+}
+bool TypeValueAcquired = false;
+if (this.Session.ContainsKey("Type"))
+{
+    this._TypeField = ((string)(this.Session["Type"]));
+    TypeValueAcquired = true;
+}
+if ((TypeValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Type");
+    if ((data != null))
+    {
+        this._TypeField = ((string)(data));
     }
 }
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    this._PropertiesField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(this.Session["Properties"]));
+    this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(this.Session["Properties"]));
     PropertiesValueAcquired = true;
 }
 if ((PropertiesValueAcquired == false))
@@ -343,7 +478,7 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(data));
+        this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(data));
     }
 }
 

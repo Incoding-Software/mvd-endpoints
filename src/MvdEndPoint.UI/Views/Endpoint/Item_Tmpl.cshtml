@@ -1,0 +1,171 @@
+﻿@using Incoding.Endpoint
+@{
+    using (var template = Html.Incoding().Template<GetMessagesQuery.Response>())
+    {
+        using (var each = template.ForEach())
+        {
+            @each.IsInline(s => s.IsGroup, @<text>
+                                               <section class="method first-of-group" id="@each.For(r => r.Id)">
+                                                   <div class="method-area">
+                                                       <div class="method-copy">
+                                                           <div class="method-copy-padding">
+                                                               <h1>@each.For(r => r.Group)</h1>
+                                                           </div>
+                                                       </div>
+                                                       <div class="method-example"></div>
+                                                   </div>
+                                               </section>
+                                            </text>)
+
+            using (each.Not(s => s.IsGroup))
+            {
+                <section class="method" id="@each.For(r => r.Id)">
+                    <div class="method-area">
+                        <div class="method-copy">
+                            <div class="method-copy-padding">
+                                <h2>
+                                    @each.For(r => r.Name) @each.IsInline(s => s.Jira, @<text><a target="_blank" class="header-anchor" href="@each.For(r => r.Jira)">jira</a></text>)
+                                </h2>
+                                <p>@each.For(r => r.Description)</p>
+                            </div>
+                            <div class="method-list">
+                                <h5 class="method-list-title">
+                                    REQUEST
+                                </h5>
+                                <ul class="method-list-group">
+                                    @each.NotInline(r => r.PropertiesOfRequest, @<text>
+                                                                                    <li class="method-list-item">
+                                                                                        <h3 class="method-list-item-label">
+                                                                                            No arguments…
+                                                                                        </h3>
+                                                                                    </li>
+                                                                                 </text>)
+                                    @using (var property = each.ForEach(r => r.PropertiesOfRequest))
+                                    {
+                                        <li class="method-list-item" id="balance_object-pending">
+                                            <h3 class="method-list-item-label">
+                                                @property.For(s => s.Name)
+                                                @property.IsInline(r => r.IsRequired, @<text><span class="method-list-item-label-badge">required</span></text>)
+                                                @property.NotInline(r => r.IsRequired, @<text><span class="method-list-item-label-details">optional</span></text>)
+                                                <span class="method-list-item-validation">
+                                                    @property.For(r => r.Type) value is @property.For(r => r.Default)
+                                                </span>
+                                            </h3>
+                                            <p class="method-list-item-description">
+                                                @property.ForRaw(r => r.Description)
+                                            </p>
+                                        </li>
+                                    }
+                                </ul>
+                                <h5 class="method-list-title">
+                                    RESPONSE
+                                </h5>
+                                <ul class="method-list-group">
+                                    @each.NotInline(r => r.PropertiesOfResponse, @<text>
+                                                                                     <li class="method-list-item">
+                                                                                         <h3 class="method-list-item-label">
+                                                                                             Dynamic object
+                                                                                         </h3>
+                                                                                     </li>
+                                                                                  </text>)
+                                    @using (var property = each.ForEach(r => r.PropertiesOfResponse))
+                                    {
+                                        <li class="method-list-item" id="balance_object-pending">
+                                            <h3 class="method-list-item-label">
+                                                @property.For(s => s.Name)
+                                                <span class="method-list-item-validation">
+                                                    @property.For(r => r.Type)
+                                                </span>
+                                            </h3>
+                                            <p class="method-list-item-description">
+                                                @property.ForRaw(r => r.Description)
+                                            </p>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            @each.IsInline(r => r.Result, @<text>
+                                                              <div class="method-copy-padding">
+                                                                  <h2>Returns</h2>
+                                                                  @each.For(r => r.Result)
+                                                              </div>
+                                                           </text>)
+                        </div>
+
+                        <div class="method-example http">
+                            <div class="method-example-part">
+                                <div class="method-example-request include-prompt">
+                                    <pre>    
+                                    <code class="hljs http">
+                                      <span class="hljs-keyword">@each.For(r => r.Verb)</span> 
+                                      <span class="hljs-string">@each.For(r => r.Url)</span> HTTP/1.1    
+                                      <span class="hljs-attribute">Host</span>: @each.For(s => s.Host)
+                                      <span class="hljs-attribute">Content-Type</span>: application/x-www-form-urlencoded; charset=UTF-8
+                                      <span class="hljs-attribute">X-Requested-With</span>: XMLHttpRequest
+                                    </code>
+                                   </pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-example android hidden">
+                            <div class="method-example-part">
+                                <div class="method-example-declaration">
+                                    <pre>    
+                                    <code class="hljs http">
+                                     @each.ForRaw(r => r.SampleOfAndroid)
+                                    </code>
+                                   </pre>
+                                </div>
+                                <div class="method-example-endpoint">
+                                    <p>
+                                         <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
+                                                                                         {
+                                                                                                 Device    = DeviceOfType.Android,
+                                                                                                 Url = each.For(r => r.Host) + each.For(r => r.Url),
+                                                                                                 Id = each.For(r=>r.EndpointId)
+                                                                                         }).AsFile()">download</a> source code
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="method-example sandbox hidden">
+                            <div class="method-example-part">
+                                <div class="method-example-endpoint">
+                                    @{var resultId = "result-" + each.For(s => s.EndpointId);}
+                                    @using (Html.When(JqueryBind.Submit)
+                                                .PreventDefault()
+                                                .Submit()
+                                                .OnComplete(dsl => dsl.Self().Call("DataToString", "#" + resultId, Selector.Result))
+                                                .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+                                                .When(JqueryBind.InitIncoding)
+                                                .Ajax(new GetMessageDetailQuery() { Id = each.For(s => s.EndpointId) })
+                                                .OnSuccess(dsl =>
+                                                           {
+                                                               dsl.Self().Form.Validation.Parse();
+                                                               dsl.WithSelf(s => s.Find(HtmlTag.FieldSet)).JQuery.Dom.WithTemplateByView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml").Html();
+                                                           })
+                                                .AsHtmlAttributes(new { @class = "form-horizontal well", method = each.For(s => s.Verb) })
+                                                .ToBeginForm(each.For(r => r.Host) + each.For(r => r.Url)))
+                                    {
+                                        <fieldset></fieldset>
+                                        <input type="submit" value="Send" class="btn btn-success"/>
+                                    }
+                                </div>
+                            </div>
+                            <div class="method-example-part">                                
+                                <div class="method-example-response">
+                                    <div class="well">
+                                        <pre id="@resultId"></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            }
+        }
+    }
+}

@@ -7,8 +7,10 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -23,7 +25,14 @@ namespace Incoding.Endpoint
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"
+            this.Write("package ");
+            
+            #line 4 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_ModelStateException.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(@".Incoding;
 public class ModelStateException extends Throwable {
     private JsonModelStateData[] state;
 

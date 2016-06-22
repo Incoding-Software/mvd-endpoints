@@ -1,127 +1,115 @@
 @using Incoding.Endpoint
-<html >    
-    <head>
-        <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")"/>
-        <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")"/>
-        <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-theme.min.css")"/>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.min.js")"> </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"> </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>                
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.min.js")"> </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>        
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"> </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"> </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"> </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.js")"> </script>                      
-        <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>                      
-        <script>
-            TemplateFactory.Version = '@Guid.NewGuid().ToString()';
+<html>
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/endpoint.css")"/>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.min.js")"> </script>    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/endpoint.js")"></script>
+    @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>*@
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+        .control-label {
+            color: black;
+        }
+    </style>
 
-            function DataToString(target, data) {
+    <script>
+        TemplateFactory.Version = '@Guid.NewGuid().ToString()';
+    </script>
+</head>
 
-                if (_.isString(data)) {
-                    $(target).html(data);
-                    return;
-                }
-
-                var collection = _.isArray(data) ? data : [data];
-
-                var res = '';
-                $(collection).each(function() {
-                    var current = this;
-                    $.eachProperties(current, function() {
-                        res += "{0}:{1};".f(this, current[this]);
-                    });
-                });
-                $(target).html(res);
+<body id="api-reference">
+<div id="header">
+    <div class="header-section header-section-sidebar">
+        <div class="logo">
+        </div>
+    </div>
+    <div class="header-section header-section-example">
+        <div id="language">
+            <ul class="language-toggle">
+                <li>
+                    @(Html.When(JqueryBind.Change)
+                          .OnSuccess(dsl =>
+                                     {
+                                         dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
+                                         dsl.WithClass("http").JQuery.Attr.RemoveClass(B.Hidden);
+                                     })
+                          .AsHtmlAttributes(new { @class = "language-toggle-source", @checked = "checked", name = "language-toggle" })
+                          .ToInput(HtmlInputType.Radio, "http"))
+                    <label class="language-toggle-button">Http</label>
+                </li>
+                <li>
+                    @(Html.When(JqueryBind.Change)
+                          .OnSuccess(dsl =>
+                                     {
+                                         dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
+                                         dsl.WithClass("android").JQuery.Attr.RemoveClass(B.Hidden);
+                                     })
+                          .AsHtmlAttributes(new { @class = "language-toggle-source", name = "language-toggle" })
+                          .ToInput(HtmlInputType.Radio, "android"))
+                    <label class="language-toggle-button">Android</label>
+                </li>
+                <li>
+                    @(Html.When(JqueryBind.Change)
+                          .OnSuccess(dsl =>
+                                     {
+                                         dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
+                                         dsl.WithClass("sandbox").JQuery.Attr.RemoveClass(B.Hidden);
+                                     })
+                          .AsHtmlAttributes(new { @class = "language-toggle-source", name = "language-toggle" })
+                          .ToInput(HtmlInputType.Radio, "Sandbox"))
+                    <label class="language-toggle-button">Sandbox</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@{
+    var data = Html.Dispatcher().Query(new GetMessagesQuery());
+}
+<div id="sidebar">
+    <nav role="navigation" class="sidebar-nav">
+        <ul class="sidebar-nav-items loaded">
+            @{
+                var isFirst = true;
+            }
+            @foreach (var grop in data.Where(s => !s.IsGroup)
+                                      .GroupBy(s => s.Group))
+            {
+                <li class="expanded">
+                    <a class="sidebar-nav-item expandable" href="#@grop.Key">@grop.Key</a>
+                    <ul class="sidebar-nav-items loaded" data-height="160" style="height: 160px;">
+                        @foreach (var item in grop)
+                        {
+                            <li>
+                                <a class="sidebar-nav-item @(isFirst ? "selected" : "")" rel="@item.Id" href="#@item.Id">@item.Name</a>
+                            </li>
+                            isFirst = false;
+                        }
+                    </ul>
+                </li>
+                
             }
 
-        </script>
-    </head>
-    @Html.Incoding().RenderDropDownTemplate()
-    <body> 
-        @{
-            var tmpl = new GetEndpointsQuery.Tmpl
-                           {
-                                   DefaultUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~")),
-                                   DownloadLinkName = Guid.NewGuid().ToString(),
-                                   BaseUrlName = Guid.NewGuid().ToString(),
-                                   DeviceName = Guid.NewGuid().ToString(),
-                                   CheckedTypeName = Guid.NewGuid().ToString(),
-                                   AllId = Guid.NewGuid().ToString()
-                           };
+        </ul>
+    </nav>
+</div>
+<div id="background">
+    <div class="background-actual"></div>
+</div>
+<div id="content">
+    @data.AsView("~/Views/Endpoint/Item_Tmpl.cshtml")
+</div>
+</body>
 
-            string containerId = Guid.NewGuid().ToString();
-            string typeId = Guid.NewGuid().ToString();
-        }
-        <style>
-            body { margin-top: 30px; }
-        </style>
-
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-1">                    
-                    @Html.DropDownList(typeId, typeof(GetEndpointsQuery.OfType).ToSelectList(), "All", Html.When(JqueryBind.Change)
-                                                                                                           .Direct()
-                                                                                                           .OnSuccess(dsl => dsl.WithId(containerId).Core().Trigger.Incoding())
-                                                                                                           .AsHtmlAttributes())    
-                </div>    
-                <div class="col-md-1">                     
-                    @Html.DropDownList(tmpl.DeviceName, typeof(DeviceOfType).ToSelectList(), Html.When(JqueryBind.Change)
-                                                                                                 .Direct()
-                                                                                                 .OnSuccess(dsl => dsl.WithId(tmpl.AllId)
-                                                                                                                      .WithName(tmpl.DownloadLinkName)
-                                                                                                                      .Core().Trigger.Invoke(JqueryBind.InitIncoding))
-                                                                                                 .AsHtmlAttributes())    
-                </div>
-                <div class="col-md-4">          
-                    @(Html.When(JqueryBind.Change)
-                          .Direct()
-                          .OnSuccess(dsl => dsl.WithName(tmpl.DefaultUrl)
-                                               .WithId(tmpl.AllId)
-                                               .Core().Trigger.Invoke(JqueryBind.InitIncoding))
-                          .AsHtmlAttributes(new { name = tmpl.BaseUrlName, style = "width:350px" })
-                          .ToTextBox(value: tmpl.DefaultUrl))     
-                
-                </div>
-                <div class="col-md-3 col-lg-offset-2"> 
-                    @(Html.When(JqueryBind.InitIncoding)
-                          .Direct()
-                          .OnSuccess(dsl =>
-                                         {
-                                             var url = Url.Dispatcher().Query<MessagesToPackageQuery>(new
-                                                                                                          {
-                                                                                                                  Names = Selector.Jquery.Name(tmpl.CheckedTypeName),
-                                                                                                                  BaseUrl = Selector.Jquery.Name(tmpl.BaseUrlName),
-                                                                                                                  Device = tmpl.DeviceName.ToName()
-                                                                                                          })
-                                                          .AsFile(incFileDownloadName: "all.zip")
-                                                          .ToBuildUrl();
-                                             dsl.Self().Core().JQuery.Attributes.SetAttr(HtmlAttribute.Href, url);
-                                         })
-                          .AsHtmlAttributes(new { id = tmpl.AllId, @class = "pull-right" })
-                          .ToLink("Download All ( checked )"))
-                </div>
-            </div>
-
-    
-
-            @(Html.When(JqueryBind.InitIncoding)
-                  .AjaxGet(Url.Dispatcher().Query<GetEndpointsQuery>(new
-                                                                         {
-                                                                                 Type = Selector.Jquery.Name(typeId)
-                                                                         }).AsJson())
-                  .OnSuccess(dsl =>
-                                 {
-                                     string url = Url.Dispatcher()
-                                                     .Model(tmpl)
-                                                     .AsView("~/Views/Endpoint/Endpoint_Item_Tmpl.cshtml");
-                                     dsl.Self().Core().Insert.WithTemplateByUrl(url).Html();
-                                 })
-                  .AsHtmlAttributes(new { id = containerId })
-                  .ToDiv())
-        </div>
-    </body>
 </html>
