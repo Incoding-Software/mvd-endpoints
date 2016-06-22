@@ -1,0 +1,1 @@
+DISCONTINUED. Use this package instead: https://www.nuget.org/packages/Handlebars.js/

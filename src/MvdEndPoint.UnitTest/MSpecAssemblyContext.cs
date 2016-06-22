@@ -1,15 +1,12 @@
 namespace MvdEndPoint.UnitTest
 {
-    #region << Using >>
 
-    using System.Configuration;
-    using FluentNHibernate.Cfg;
-    using FluentNHibernate.Cfg.Db;
-    using Incoding.Endpoint.Infrastructure;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
-
-    #endregion
+    using System.Configuration;
+	using FluentNHibernate.Cfg;
+    using FluentNHibernate.Cfg.Db;
+    using Incoding.Endpoint;
 
     ////ncrunch: no coverage start	
     public class MSpecAssemblyContext : IAssemblyContext
@@ -29,10 +26,11 @@ namespace MvdEndPoint.UnitTest
                                             }, true);
         }
 
-        public void OnAssemblyComplete() { }
+        public void OnAssemblyComplete()
+        {		  
+        }
 
         #endregion
     }
-
     ////ncrunch: no coverage end
 }

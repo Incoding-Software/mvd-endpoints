@@ -1,5 +1,5 @@
-namespace Incoding.Endpoint.Infrastructure
-{
+namespace Incoding.Endpoint
+{ 
     using System;
     using System.Configuration;
     using System.IO;
@@ -12,11 +12,13 @@ namespace Incoding.Endpoint.Infrastructure
     using Incoding.Block.IoC;
     using Incoding.Block.Logging;
     using Incoding.CQRS;
-    using Incoding.Data;    
+    using Incoding.Data;
+    
     using Incoding.Extensions;
     using Incoding.MvcContrib;
-    using NHibernate.Tool.hbm2ddl;
-    using StructureMap.Graph;
+    using NHibernate.Context;
+	using NHibernate.Tool.hbm2ddl;
+	using StructureMap.Graph;
 
     public static class Bootstrapper
     {
@@ -24,7 +26,7 @@ namespace Incoding.Endpoint.Infrastructure
         {
             LoggingFactory.Instance.Initialize(logging =>
                                                    {
-                                                       string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  "Log");
+                                                       string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log");
                                                        logging.WithPolicy(policy => policy.For(LogType.Debug).Use(FileLogger.WithAtOnceReplace(path, () => "Debug_{0}.txt".F(DateTime.Now.ToString("yyyyMMdd")))));
                                                    });
 
@@ -32,7 +34,8 @@ namespace Incoding.Endpoint.Infrastructure
                                                                                                      {
                                                                                                          registry.For<IDispatcher>().Use<DefaultDispatcher>();                                                                                                         
                                                                                                          registry.For<ITemplateFactory>().Singleton().Use<TemplateHandlebarsFactory>();
-                                                                                                         
+																										 
+
                                                                                                          var configure = Fluently
                                                                                                                  .Configure()
                                                                                                                  .Database(MsSqlConfiguration.MsSql2008.ConnectionString(ConfigurationManager.ConnectionStrings["Main"].ConnectionString))
@@ -54,9 +57,9 @@ namespace Incoding.Endpoint.Infrastructure
 
             ModelValidatorProviders.Providers.Add(new FluentValidationModelValidatorProvider(new IncValidatorFactory()));
             FluentValidationModelValidatorProvider.Configure();
+            
 
-            foreach (var setUp in IoCFactory.Instance.ResolveAll<ISetUp>().OrderBy(r => r.GetOrder()))
-                setUp.Execute();
+			TemplateHandlebarsFactory.GetVersion =() => Guid.NewGuid().ToString();// disable cache template on server side as default
 
             var ajaxDef = JqueryAjaxOptions.Default;
             ajaxDef.Cache = false; // disabled cache as default

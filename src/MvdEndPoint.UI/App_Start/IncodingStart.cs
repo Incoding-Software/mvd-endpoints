@@ -4,7 +4,7 @@ using System;
     typeof(MvdEndPoint.UI.App_Start.IncodingStart), "PreStart")]
 
 namespace MvdEndPoint.UI.App_Start {
-    using Incoding.Endpoint.Infrastructure;
+    using Incoding.Endpoint;
     using MvdEndPoint.UI.Controllers;
 
     public static class IncodingStart {

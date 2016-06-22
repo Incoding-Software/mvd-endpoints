@@ -48,12 +48,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Incoding, Version=1.4.0.129, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Incoding.MSpecContrib.1.4.0.129-beta\lib\net45\Incoding.dll</HintPath>
+    <Reference Include="Incoding, Version=1.4.0.217, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Incoding.MSpecContrib.1.4.0.3\lib\Incoding.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Incoding.MSpecContrib, Version=1.4.0.129, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Incoding.MSpecContrib.1.4.0.129-beta\lib\net45\Incoding.MSpecContrib.dll</HintPath>
+    <Reference Include="Incoding.MSpecContrib, Version=1.4.0.217, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Incoding.MSpecContrib.1.4.0.3\lib\Incoding.MSpecContrib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
