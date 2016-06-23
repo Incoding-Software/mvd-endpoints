@@ -1,6 +1,5 @@
 ﻿package com.qabenchmarking.android.models;
 
-import com.qabenchmarking.android.models.JsonModelStateData;
 public interface IFakeQueryListener {
 	void Success(FakeQueryResponse response);	
 	void Error(JsonModelStateData[] modelState);

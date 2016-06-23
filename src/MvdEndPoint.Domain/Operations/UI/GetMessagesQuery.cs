@@ -21,7 +21,7 @@ namespace Incoding.Endpoint
         protected override List<Response> ExecuteResult()
         {
             var res = new List<Response>();
-            foreach (var item in Repository.Query<Message>()                                           
+            foreach (var item in Repository.Query<Message>(orderSpecification:new Message.Order.Default())                                           
                                            .GroupBy(r => r.GroupKey, endpoint => endpoint))
             {
                 if (item.Key != null)

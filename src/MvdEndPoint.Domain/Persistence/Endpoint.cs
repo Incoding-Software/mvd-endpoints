@@ -191,5 +191,17 @@
                 }
             }
         }
+
+        public abstract class Order {
+            public class Default : OrderSpecification<Message>
+            {
+                public override Action<AdHocOrderSpecification<Message>> SortedBy()
+                {
+                    return specification => specification
+                                                    .OrderByDescending(r => r.GroupKey.Name)
+                                                    .OrderBy(r => r.Name);
+                }
+            }
+        }
     }
 }

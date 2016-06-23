@@ -17,14 +17,16 @@
         Establish establish = () =>
                               {
                                   var query = Pleasure.Generator.Invent<AndroidNestedClassCodeGenerateQuery>();
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_android_nested_class_code_generate).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_android_nested_class_code_generate).Name));
 
                                   mockQuery = MockQuery<AndroidNestedClassCodeGenerateQuery, string>
                                           .When(query)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.IsCommand, false)
                                                                                                                       .Tuning(r => r.Device, DeviceOfType.Android)
                                                                                                                       .Tuning(r => r.Type, query.Type)
-                                                                                                            , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "ContactId"))))
+                                                                                                            , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Type, ConvertCSharpTypeToTargetQuery.ToJavaQuery.String)
+                                                                                                                                                                                               .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsArray)
+                                                                                                                                                                                               .Tuning(r => r.Name, "ContactId"))))
                                           .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
                                                                                                                                                                         {
                                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Nested, "ClassName" }

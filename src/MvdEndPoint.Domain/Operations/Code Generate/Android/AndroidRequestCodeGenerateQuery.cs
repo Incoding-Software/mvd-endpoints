@@ -24,13 +24,14 @@
             var task = new Android_Request()
                        {
                                Session = new Dictionary<string, object>
-                                         {                                                 
+                                         {
                                                  { "Namespace", meta.Namespace },
                                                  { "Listener", names[GetNameFromTypeQuery.ModeOf.Listener] },
                                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] },
                                                  { "Name", names[GetNameFromTypeQuery.ModeOf.Request] },
                                                  { "Type", meta.IsCommand ? "Push" : "Query" },
-                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },                                                 
+                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },
+                                                 { "MappingJsonMethodByType", AndroidNestedClassCodeGenerateQuery.MappingJsonMethodByType }
                                          }
                        };
             task.Initialize();

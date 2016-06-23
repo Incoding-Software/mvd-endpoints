@@ -7,9 +7,8 @@
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.String" name="Response" #>
-package <#= Namespace #>;
+package <#=Namespace #>;
 
-import <#= Namespace #>.JsonModelStateData;
 public interface <#= Name #> {
 	void Success(<#= Response #><#if(IsArray){ #>[]<# }#> response);	
 	void Error(JsonModelStateData[] modelState);

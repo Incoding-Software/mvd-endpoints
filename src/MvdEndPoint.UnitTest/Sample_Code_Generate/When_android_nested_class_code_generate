@@ -1,12 +1,16 @@
-﻿package com.qabenchmarking.android.models;
+﻿
+public class ClassName {
+    
+           public String[] ContactId;
+       
 
-public class Response { 
-     
-        public String ContactId;
-        public Boolean IsMainUser;
-
-    public Response(JSONObject json) throws JSONException {
-        this.ContactId = json.getString("ContactId");        
-        this.IsMainUser = json.getBoolean("IsMainUser");        
-    }
+    public ClassName(JSONObject item) throws JSONException {
+            		  JSONArray ContactIdAsArray = item.getJSONArray("ContactId");
+	      this.ContactId = new String[ContactIdAsArray.length()];
+	      for(int ContactIdOni = 0;ContactIdOni < ContactIdAsArray.length();ContactIdOni++)
+	      {
+	       this.ContactId[ContactIdOni]	= ContactIdAsArray.getString(ContactIdOni);
+	      }
+	         
+    }  
 }
