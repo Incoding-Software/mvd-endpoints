@@ -5,8 +5,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
-import com.qabenchmarking.android.models.Incoding.ModelStateException;
-import com.qabenchmarking.android.models.Incoding.IncodingHelper;
+import com.qabenchmarking.android.models.ModelStateException;
+import com.qabenchmarking.android.models.IncodingHelper;
 import java.util.HashMap;
 
 public class FakeTask extends AsyncTask<String, Integer, String> {

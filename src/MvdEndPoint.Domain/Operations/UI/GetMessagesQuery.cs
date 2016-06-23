@@ -21,12 +21,11 @@ namespace Incoding.Endpoint
         protected override List<Response> ExecuteResult()
         {
             var res = new List<Response>();
-            foreach (var item in Repository.Query<Message>()
-                                           .ToList()
-                                           .GroupBy(r => r.GroupKey.With(s => s.Name), endpoint => endpoint))
+            foreach (var item in Repository.Query<Message>()                                           
+                                           .GroupBy(r => r.GroupKey, endpoint => endpoint))
             {
-                if (!string.IsNullOrWhiteSpace(item.Key))
-                    res.Add(new Response() { Group = item.Key, IsGroup = true, Id = item.Key.Replace(" ", "_") });
+                if (item.Key != null)
+                    res.Add(new Response() { Group = item.Key.Name, IsGroup = true, Id = item.Key.Name.Replace(" ", "_"), EntityId = item.Key.Id, Description = item.Key.Description ?? "Description" });
 
                 foreach (var endpoint in item)
                 {
@@ -46,10 +45,11 @@ namespace Incoding.Endpoint
                                                                            return new Response.Item()
                                                                                   {
                                                                                           Name = r.Name,
+                                                                                          Id = r.Id,
                                                                                           Type = propertyType.IsGenericType
                                                                                                          ? "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name)
                                                                                                          : propertyType.Name,
-                                                                                          Description = r.Description,
+                                                                                          Description = r.Description ?? "Description",
                                                                                           IsRequired = r.IsRequired,
                                                                                           Default = r.Default ?? (propertyType.IsValueType ? Activator.CreateInstance(propertyType).With(s => s.ToString().Recovery("null")) : "null")
                                                                                   };
@@ -57,10 +57,10 @@ namespace Incoding.Endpoint
                     res.Add(new Response()
                             {
                                     Id = endpoint.Name.Replace(" ", "_"),
-                                    EndpointId = endpoint.Id,
+                                    EntityId = endpoint.Id,
                                     Name = endpoint.Name,
                                     Jira = endpoint.Jira.HasValue ? string.Empty : "https://incoding.atlassian.net/browse/BB-{0}".F(endpoint.Jira),
-                                    Description = endpoint.Description,
+                                    Description = endpoint.Description ?? "Description",
                                     Verb = isCommand ? "POST" : "GET",
                                     Url = url,
                                     SampleOfAndroid = Dispatcher.Query(new AndroidSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
@@ -73,6 +73,26 @@ namespace Incoding.Endpoint
                 }
             }
             return res;
+        }
+
+        public class AsNav : QueryBase<List<OptGroupVm>>
+        {
+            protected override List<OptGroupVm> ExecuteResult()
+            {
+                return Dispatcher.Query(new GetMessagesQuery())
+                                 .GroupBy(r => r.Group)
+                                 .ToList()
+                                 .Select(r =>
+                                         {
+                                             var items = r.Where(response => !response.IsGroup)
+                                                          .Select(s => new KeyValueVm(s.Id, s.Name)
+                                                                       {
+                                                                               CssClass = string.IsNullOrWhiteSpace(r.Key) ? s.EntityId : string.Empty
+                                                                       });
+                                             return new OptGroupVm(r.Key, items);
+                                         })
+                                 .ToList();
+            }
         }
 
         public class Response
@@ -101,7 +121,7 @@ namespace Incoding.Endpoint
 
             public string Host { get; set; }
 
-            public string EndpointId { get; set; }
+            public string EntityId { get; set; }
 
             public string SampleOfAndroid { get; set; }
 
@@ -116,21 +136,9 @@ namespace Incoding.Endpoint
                 public string Type { get; set; }
 
                 public bool IsRequired { get; set; }
+
+                public string Id { get; set; }
             }
-        }
-    }
-
-    public class GetTypeFromPropertyQuery : QueryBase<Type>
-    {
-        public Message.Property Property { get; set; }
-
-        protected override Type ExecuteResult()
-        {
-            var propertyType = Property.PropertyType == "System.Byte[]" ? typeof(byte[]) : Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = Property.PropertyType });
-            if (!string.IsNullOrWhiteSpace(Property.GenericType))
-                propertyType = propertyType.MakeGenericType(Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = Property.GenericType }));
-
-            return propertyType;
         }
     }
 }

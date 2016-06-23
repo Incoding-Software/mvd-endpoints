@@ -28,72 +28,100 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("import Incoding.JsonModelStateData;\r\nimport ");
+            this.Write("import ");
             
             #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".IUserSignInCommandListener;\r\nimport ");
+            this.Write(".JsonModelStateData;\r\nimport ");
             
             #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".UserSignInCommandResponse;\r\nimport ");
+            this.Write(".");
+            
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\nimport ");
             
             #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".UserSignInCommandRequest;\r\n\r\n");
+            this.Write(".");
             
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\nimport ");
+            
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\n");
+            
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request = new ");
             
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Name));
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write("(context);\r\n");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("request.");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" = something;\r\n");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
  } 
             
             #line default
             #line hidden
             this.Write("   \r\nrequest.On(new ");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write("() {\r\n    @Override\r\n    public void Success(");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
@@ -116,16 +144,16 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
         
         #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
 
-private string _NameField;
+private string _RequestField;
 
 /// <summary>
-/// Access the Name parameter of the template.
+/// Access the Request parameter of the template.
 /// </summary>
-private string Name
+private string Request
 {
     get
     {
-        return this._NameField;
+        return this._RequestField;
     }
 }
 
@@ -139,6 +167,19 @@ private string Type
     get
     {
         return this._TypeField;
+    }
+}
+
+private string _NamespaceField;
+
+/// <summary>
+/// Access the Namespace parameter of the template.
+/// </summary>
+private string Namespace
+{
+    get
+    {
+        return this._NamespaceField;
     }
 }
 
@@ -189,18 +230,18 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool NameValueAcquired = false;
-if (this.Session.ContainsKey("Name"))
+bool RequestValueAcquired = false;
+if (this.Session.ContainsKey("Request"))
 {
-    this._NameField = ((string)(this.Session["Name"]));
-    NameValueAcquired = true;
+    this._RequestField = ((string)(this.Session["Request"]));
+    RequestValueAcquired = true;
 }
-if ((NameValueAcquired == false))
+if ((RequestValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Name");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Request");
     if ((data != null))
     {
-        this._NameField = ((string)(data));
+        this._RequestField = ((string)(data));
     }
 }
 bool TypeValueAcquired = false;
@@ -215,6 +256,20 @@ if ((TypeValueAcquired == false))
     if ((data != null))
     {
         this._TypeField = ((string)(data));
+    }
+}
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
+{
+    this._NamespaceField = ((string)(this.Session["Namespace"]));
+    NamespaceValueAcquired = true;
+}
+if ((NamespaceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    if ((data != null))
+    {
+        this._NamespaceField = ((string)(data));
     }
 }
 bool ListenerValueAcquired = false;

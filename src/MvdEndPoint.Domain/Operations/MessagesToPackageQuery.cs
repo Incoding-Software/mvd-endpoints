@@ -100,14 +100,7 @@
         {
             protected override byte[] ExecuteResult()
             {
-                string avrNamespace = Types.Select(r => r.FirstOrDefaultAttribute<ServiceContractAttribute>())
-                                           .FirstOrDefault()
-                                           .With(r => r.Namespace);
-                if (string.IsNullOrWhiteSpace(avrNamespace))
-                {
-                    string defNamespace = Types.First().Module.Name.Replace(".dll", string.Empty);
-                    avrNamespace = defNamespace;
-                }
+                string avrNamespace = "Incoding";
 
                 var zipQuery = new ToZipQuery();
                 zipQuery.Entries.Add("Incoding/IncodingHelper.java", Dispatcher.Query(new AndroidIncodingHelperCodeGenerateQuery { Namespace = avrNamespace, BaseUrl = BaseUrl }));
@@ -116,7 +109,7 @@
                 foreach (var type in Types)
                 {
                     var meta = Dispatcher.Query(new GetMetaFromTypeQuery { Type = type });
-                    Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(type))[of]);                    
+                    Func<GetNameFromTypeQuery.ModeOf, string> getFileName = of => "Incoding/{0}.java".F(Dispatcher.Query(new GetNameFromTypeQuery(type))[of]);
                     zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Listener), Dispatcher.Query(new AndroidListenerCodeGeneratorQuery { Type = type }));
                     zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Request), Dispatcher.Query(new AndroidRequestCodeGenerateQuery { Type = type }));
                     zipQuery.Entries.Add(getFileName(GetNameFromTypeQuery.ModeOf.Response), Dispatcher.Query(new AndroidResponseCodeGenerateQuery { Type = type }));
@@ -133,11 +126,11 @@
                     foreach (var enumAsType in allProperties.Where(r => r.PropertyType.IsEnum)
                                                             .Select(r => r.PropertyType))
                     {
-                        string enumAsFileName = "{0}/{1}.java".F(type.Name, Dispatcher.Query(new GetNameFromTypeQuery(enumAsType))[GetNameFromTypeQuery.ModeOf.Enum]);
+                        string enumAsFileName = "Incoding/{0}.java".F(Dispatcher.Query(new GetNameFromTypeQuery(enumAsType))[GetNameFromTypeQuery.ModeOf.Enum]);
                         zipQuery.Entries.Add(enumAsFileName, Dispatcher.Query(new AndroidEnumCodeGenerateQuery
                                                                               {
                                                                                       Type = enumAsType,
-                                                                                      Package = meta.Package
+                                                                                      Namespace = avrNamespace
                                                                               }));
                     }
                 }

@@ -18,9 +18,10 @@
         Establish establish = () =>
                               {
                                   var query = Pleasure.Generator.Invent<AndroidSampleCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Instance, Pleasure.Generator.Invent<GetCustomerQuery>()));
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_android_sample_code_generate).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_android_sample_code_generate).Name));
 
-                                  var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "GetCustomerQuery"));
+                                  var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "Incoding")
+                                                                                                                .Tuning(r => r.Name, "GetCustomerQuery"));
 
                                   mockQuery = MockQuery<AndroidSampleCodeGenerateQuery, string>
                                           .When(query)

@@ -44,8 +44,7 @@
                     .When(query)
                     .StubQuery(Pleasure.Generator.Invent<HasQueryResponseAsArrayQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)), isArray)
                     .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, query.Type)),
-                               Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
-                                                                                                  .Tuning(r => r.Package, "com.qabenchmarking.android.models.FakeQuery")))
+                               Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                     .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
                                                                                                                                                          {
                                                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Listener, "IFakeQueryListener" },

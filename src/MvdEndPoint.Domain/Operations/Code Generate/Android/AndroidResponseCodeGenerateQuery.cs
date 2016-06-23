@@ -25,8 +25,7 @@
 
             var session = new Dictionary<string, object>
                           {
-                                  { "Namespace", meta.Namespace },
-                                  { "Package", meta.Package },
+                                  { "Namespace", meta.Namespace },                                  
                                   { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Response] },
                                   { nestedAsKey, new List<string>() },
                                   {mappingAsKey, new Dictionary<string, string>

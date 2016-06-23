@@ -7,8 +7,13 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -25,41 +30,41 @@ namespace Incoding.Endpoint
         {
             this.Write("package ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Package));
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nimport ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".Incoding.JsonModelStateData;\r\npublic interface ");
+            this.Write(".JsonModelStateData;\r\npublic interface ");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n\tvoid Success(");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
 if(IsArray){ 
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Listener.tt"
  }
             
             #line default
@@ -93,19 +98,6 @@ private string Namespace
     get
     {
         return this._NamespaceField;
-    }
-}
-
-private string _PackageField;
-
-/// <summary>
-/// Access the Package parameter of the template.
-/// </summary>
-private string Package
-{
-    get
-    {
-        return this._PackageField;
     }
 }
 
@@ -169,20 +161,6 @@ if ((NamespaceValueAcquired == false))
     if ((data != null))
     {
         this._NamespaceField = ((string)(data));
-    }
-}
-bool PackageValueAcquired = false;
-if (this.Session.ContainsKey("Package"))
-{
-    this._PackageField = ((string)(this.Session["Package"]));
-    PackageValueAcquired = true;
-}
-if ((PackageValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
-    if ((data != null))
-    {
-        this._PackageField = ((string)(data));
     }
 }
 bool IsArrayValueAcquired = false;

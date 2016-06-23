@@ -9,14 +9,11 @@
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.Boolean" name="IsQuery" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 <#@ parameter type="System.Collections.Generic.Dictionary<string,string>" name="MappingJsonMethodByType" #>
 <#@ parameter type="System.Collections.Generic.List<string>" name="Nested" #>
-package <#= Package #>;
+package <#= Namespace #>;
 
-import <#= Namespace #>.Incoding.IncodingHelper;
-import <#= Namespace #>.Incoding.ModelStateException;
 import org.json.JSONException;
 import org.json.JSONObject;	
 import java.text.ParseException;

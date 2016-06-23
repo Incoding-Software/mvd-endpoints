@@ -5,6 +5,7 @@ namespace Incoding.Endpoint
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
+    using Incoding.Endpoint.Operations.Code_Generate.Android;
 
     #endregion
 

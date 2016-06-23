@@ -7,10 +7,13 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
     using System;
-
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -28,7 +31,7 @@ namespace Incoding.Endpoint
             this.Write("package ");
             
             #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Enum.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Package));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
@@ -143,16 +146,16 @@ private string Name
     }
 }
 
-private string _PackageField;
+private string _NamespaceField;
 
 /// <summary>
-/// Access the Package parameter of the template.
+/// Access the Namespace parameter of the template.
 /// </summary>
-private string Package
+private string Namespace
 {
     get
     {
-        return this._PackageField;
+        return this._NamespaceField;
     }
 }
 
@@ -192,18 +195,18 @@ if ((NameValueAcquired == false))
         this._NameField = ((string)(data));
     }
 }
-bool PackageValueAcquired = false;
-if (this.Session.ContainsKey("Package"))
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
 {
-    this._PackageField = ((string)(this.Session["Package"]));
-    PackageValueAcquired = true;
+    this._NamespaceField = ((string)(this.Session["Namespace"]));
+    NamespaceValueAcquired = true;
 }
-if ((PackageValueAcquired == false))
+if ((NamespaceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Package");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
     if ((data != null))
     {
-        this._PackageField = ((string)(data));
+        this._NamespaceField = ((string)(data));
     }
 }
 

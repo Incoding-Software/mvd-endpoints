@@ -5,12 +5,11 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.Boolean" name="IsArray" #>
 <#@ parameter type="System.String" name="Response" #>
-package <#= Package #>;
+package <#= Namespace #>;
 
-import <#= Namespace #>.Incoding.JsonModelStateData;
+import <#= Namespace #>.JsonModelStateData;
 public interface <#= Name #> {
 	void Success(<#= Response #><#if(IsArray){ #>[]<# }#> response);	
 	void Error(JsonModelStateData[] modelState);

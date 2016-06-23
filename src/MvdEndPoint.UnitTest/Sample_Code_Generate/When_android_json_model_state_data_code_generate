@@ -1,4 +1,4 @@
-﻿package com.qabenchmarking.android.models.Incoding;
+﻿package com.qabenchmarking.android.models;
 public class JsonModelStateData {
         public String name;
         public Boolean isValid;

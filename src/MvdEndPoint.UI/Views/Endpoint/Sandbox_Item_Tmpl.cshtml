@@ -1,8 +1,6 @@
-﻿@using Incoding.MvcContrib
-@using Incoding.Endpoint
-@{
+﻿@{
     using (var template = Html.Incoding().Template<GetMessageDetailQuery.Response>())
-    {        
+    {
         using (var each = template.ForEach())
         {
             <div class="form-group">
@@ -16,7 +14,7 @@
                     }
                     @using (each.Is(r => r.IsFile))
                     {
-                        <input type="file" name="@each.For(s => s.Name)"/>                        
+                        <input type="file" name="@each.For(s => s.Name)"/>
                     }
                     @using (each.Is(r => r.IsEnum))
                     {
@@ -29,10 +27,18 @@
                     {
                         @Html.TextBox(each.For(r => r.Name))
                     }
+                    @using (each.Is(r => r.IsDate))
+                    {
+                        @Html.TextBox(each.For(r => r.Name), "", new { @class = "input-date" })
+                    }
+                    @using (each.Is(r => r.IsNumber))
+                    {
+                        @Html.TextBox(each.For(r => r.Name), "", new { @class = "input-slider" })
+                    }
                     @Html.ValidationMessage(each.For(r => r.Name))
 
                 </div>
             </div>
-        }        
+        }
     }
 }

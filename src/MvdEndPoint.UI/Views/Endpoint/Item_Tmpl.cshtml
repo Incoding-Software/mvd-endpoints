@@ -1,5 +1,54 @@
-﻿@using Incoding.Endpoint
+﻿@using Incoding.CQRS
+@using Incoding.Extensions
+@using Incoding.MetaLanguageContrib
+
+@helper EditTextArea(HtmlTag tag, MvcHtmlString content, string url, object attr = null)
+{
+    @(Html.When(JqueryBind.None)
+          .OnSuccess(dsl =>
+                     {
+                         dsl.WithSelf(s => s.Find(HtmlTag.Span))
+                            .WithSelf(s => s.Find(HtmlTag.I))
+                            .WithSelf(s => s.Find(HtmlTag.TextArea))
+                            .Behaviors(instancesDsl =>
+                                       {
+                                           instancesDsl.JQuery.Attr.ToggleClass(B.Hidden);
+                                           instancesDsl.Trigger.Focus();
+                                       });
+                     })
+          .AsHtmlAttributes(attr)
+          .ToTag(tag,
+                 @<text>
+                     @(Html.When(JqueryBind.Click)
+                           .OnSuccess(dsl => dsl.WithSelf(s => s.Closest(tag)).Trigger.None())                                                
+                           .AsHtmlAttributes(new { @class = "glyphicon glyphicon-pencil " +B.Hidden.ToLocalization() })
+                           .ToI())
+                     <span>@content</span>
+                     @(Html.When(JqueryBind.KeyPress | JqueryBind.FocusOut)
+                           .AjaxPost(url)
+                           .OnBegin(dsl =>
+                                    {
+                                        dsl.Break.If(() => Selector.Jquery.Self().HasClass(B.Hidden));
+                                        dsl.Break.If(() => Selector.Event.Which != 13 && Selector.Event.Type == JqueryBind.KeyPress.ToJqueryString());
+                                    })
+                           .OnSuccess(dsl =>
+                                      {
+                                          dsl.WithSelf(s => s.Closest(tag).Find(HtmlTag.Span))
+                                             .Behaviors(instancesDsl =>
+                                                        {
+                                                            instancesDsl.JQuery.Dom.Use(Selector.Jquery.Self()).Text();
+                                                            instancesDsl.Trigger.None();
+                                                        });
+                                          dsl.WithId(typeof(GetMessagesQuery.AsNav).Name).Trigger.None();
+                                      })
+                           .AsHtmlAttributes(new { @class = B.Hidden.ToLocalization(), style = "width:100%" })
+                           .ToTag(HtmlTag.TextArea, content))
+                  </text>))
+}
+
+
 @{
+
     using (var template = Html.Incoding().Template<GetMessagesQuery.Response>())
     {
         using (var each = template.ForEach())
@@ -9,24 +58,40 @@
                                                    <div class="method-area">
                                                        <div class="method-copy">
                                                            <div class="method-copy-padding">
-                                                               <h1>@each.For(r => r.Group)</h1>
+                                                               @EditTextArea(HtmlTag.H1, each.ForRaw(s => s.Group), Url.Dispatcher().Push(new MessageCommand.UpdateGroupNameCommand()
+                                                                                                                                          {
+                                                                                                                                                  Id = each.For(s => s.EntityId),
+                                                                                                                                                  Name = Selector.Jquery.Self()
+                                                                                                                                          }))
+                                                               @EditTextArea(HtmlTag.P, each.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdateGroupDescriptionCommand()
+                                                                                                                                               {
+                                                                                                                                                       Id = each.For(s => s.EntityId),
+                                                                                                                                                       Description = Selector.Jquery.Self()
+                                                                                                                                               }))
+
                                                            </div>
                                                        </div>
                                                        <div class="method-example"></div>
                                                    </div>
                                                </section>
                                             </text>)
-
             using (each.Not(s => s.IsGroup))
             {
                 <section class="method" id="@each.For(r => r.Id)">
                     <div class="method-area">
                         <div class="method-copy">
                             <div class="method-copy-padding">
-                                <h2>
-                                    @each.For(r => r.Name) @each.IsInline(s => s.Jira, @<text><a target="_blank" class="header-anchor" href="@each.For(r => r.Jira)">jira</a></text>)
-                                </h2>
-                                <p>@each.For(r => r.Description)</p>
+                                @EditTextArea(HtmlTag.H2, each.ForRaw(s => s.Name), Url.Dispatcher().Push(new MessageCommand.UpdateNameCommand()
+                                                                                                          {
+                                                                                                                  Id = each.For(s => s.EntityId),
+                                                                                                                  Name = Selector.Jquery.Self()
+                                                                                                          }))
+
+                                @EditTextArea(HtmlTag.P, each.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdateDescriptionCommand()
+                                                                                                                {
+                                                                                                                        Id = each.For(s => s.EntityId),
+                                                                                                                        Description = Selector.Jquery.Self()
+                                                                                                                }))
                             </div>
                             <div class="method-list">
                                 <h5 class="method-list-title">
@@ -51,9 +116,11 @@
                                                     @property.For(r => r.Type) value is @property.For(r => r.Default)
                                                 </span>
                                             </h3>
-                                            <p class="method-list-item-description">
-                                                @property.ForRaw(r => r.Description)
-                                            </p>
+                                            @EditTextArea(HtmlTag.P, property.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdatePropertyDescriptionCommand()
+                                                                                                                                {
+                                                                                                                                        Id = property.For(s => s.Id),
+                                                                                                                                        Description = Selector.Jquery.Self()
+                                                                                                                                }), new { @class = "method-list-item-description" })
                                         </li>
                                     }
                                 </ul>
@@ -77,9 +144,11 @@
                                                     @property.For(r => r.Type)
                                                 </span>
                                             </h3>
-                                            <p class="method-list-item-description">
-                                                @property.ForRaw(r => r.Description)
-                                            </p>
+                                            @EditTextArea(HtmlTag.P, property.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdatePropertyDescriptionCommand()
+                                                                                                                                {
+                                                                                                                                        Id = property.For(s => s.Id),
+                                                                                                                                        Description = Selector.Jquery.Self()
+                                                                                                                                }), new { @class = "method-list-item-description" })
                                         </li>
                                     }
                                 </ul>
@@ -96,57 +165,51 @@
                             <div class="method-example-part">
                                 <div class="method-example-request include-prompt">
                                     <pre>    
-                                    <code class="hljs http">
-                                      <span class="hljs-keyword">@each.For(r => r.Verb)</span> 
-                                      <span class="hljs-string">@each.For(r => r.Url)</span> HTTP/1.1    
-                                      <span class="hljs-attribute">Host</span>: @each.For(s => s.Host)
-                                      <span class="hljs-attribute">Content-Type</span>: application/x-www-form-urlencoded; charset=UTF-8
-                                      <span class="hljs-attribute">X-Requested-With</span>: XMLHttpRequest
-                                    </code>
+                                        <code class="http hljs">
+<span class="hljs-keyword">@each.For(r => r.Verb)</span> <span class="hljs-string">@each.For(r => r.Url)</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: @each.For(s => s.Host)
+<span class="hljs-attribute">Content-Type</span>: application/x-www-form-urlencoded; charset=UTF-8
+</code>
                                    </pre>
                                 </div>
                             </div>
                         </div>
-
                         <div class="method-example android hidden">
                             <div class="method-example-part">
                                 <div class="method-example-declaration">
                                     <pre>    
-                                    <code class="hljs http">
-                                     @each.ForRaw(r => r.SampleOfAndroid)
-                                    </code>
+                                    <code class="hljs java">@each.For(r => r.SampleOfAndroid)</code>
                                    </pre>
-                                </div>
-                                <div class="method-example-endpoint">
-                                    <p>
-                                         <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
-                                                                                         {
-                                                                                                 Device    = DeviceOfType.Android,
-                                                                                                 Url = each.For(r => r.Host) + each.For(r => r.Url),
-                                                                                                 Id = each.For(r=>r.EndpointId)
-                                                                                         }).AsFile()">download</a> source code
-                                    </p>
+                                    <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
+                                                                     {
+                                                                             Device = DeviceOfType.Android,
+                                                                             Url = each.For(r => r.Host) + each.For(r => r.Url),
+                                                                             Id = each.For(r => r.EntityId)
+                                                                     }).AsFile(incFileDownloadName: each.For(s => s.Name) + ".zip")">
+                                        download
+                                    </a> source code
                                 </div>
                             </div>
                         </div>
-
                         <div class="method-example sandbox hidden">
                             <div class="method-example-part">
                                 <div class="method-example-endpoint">
-                                    @{var resultId = "result-" + each.For(s => s.EndpointId);}
+                                    @{var resultId = "result-" + each.For(s => s.EntityId);}
                                     @using (Html.When(JqueryBind.Submit)
                                                 .PreventDefault()
                                                 .Submit()
                                                 .OnComplete(dsl => dsl.Self().Call("DataToString", "#" + resultId, Selector.Result))
                                                 .OnError(dsl => dsl.Self().Form.Validation.Refresh())
                                                 .When(JqueryBind.InitIncoding)
-                                                .Ajax(new GetMessageDetailQuery() { Id = each.For(s => s.EndpointId) })
+                                                .Ajax(new GetMessageDetailQuery() { Id = each.For(s => s.EntityId) })
                                                 .OnSuccess(dsl =>
                                                            {
+                                                               dsl.WithClass("input-date").JqueryUI().Datepicker.Open(options => { options.ButtonImageOnly = true; });
+                                                               dsl.WithClass("input-slider").JqueryUI().Spinner.Open(options => { });
                                                                dsl.Self().Form.Validation.Parse();
                                                                dsl.WithSelf(s => s.Find(HtmlTag.FieldSet)).JQuery.Dom.WithTemplateByView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml").Html();
                                                            })
-                                                .AsHtmlAttributes(new { @class = "form-horizontal well", method = each.For(s => s.Verb) })
+                                                .AsHtmlAttributes(new { @class = "form-horizontal", method = each.For(s => s.Verb) })
                                                 .ToBeginForm(each.For(r => r.Host) + each.For(r => r.Url)))
                                     {
                                         <fieldset></fieldset>
@@ -154,9 +217,9 @@
                                     }
                                 </div>
                             </div>
-                            <div class="method-example-part">                                
+                            <div class="method-example-part">
                                 <div class="method-example-response">
-                                    <div class="well">
+                                    <div>
                                         <pre id="@resultId"></pre>
                                     </div>
                                 </div>

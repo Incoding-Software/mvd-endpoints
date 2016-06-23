@@ -24,6 +24,7 @@
 
                                   mockQuery = MockQuery<SyncEndpointCommand.GetEndpointsQuery, List<SyncEndpointCommand.GetEndpointsQuery.Response>>
                                           .When(query);
+                                  
                               };
 
         Because of = () => mockQuery.Original.Execute();

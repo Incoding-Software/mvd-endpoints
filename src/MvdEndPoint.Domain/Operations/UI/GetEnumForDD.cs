@@ -5,6 +5,7 @@
     using System;
     using System.Linq;
     using Incoding.CQRS;
+    using Incoding.Extensions;
     using Incoding.MvcContrib;
 
     #endregion
@@ -20,7 +21,7 @@
         protected override OptGroupVm ExecuteResult()
         {
             return AppDomain.CurrentDomain.GetAssemblies()
-                            .SelectMany(r => r.ExportedTypes)
+                            .SelectMany(r => r.GetLoadableTypes())                            
                             .FirstOrDefault(r => r.GUID == Guid.Parse(TypeId))
                             .ToKeyValueVm()
                             .ToOptGroup();

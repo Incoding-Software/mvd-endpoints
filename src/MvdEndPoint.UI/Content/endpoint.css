@@ -412,7 +412,7 @@ a img { border: none }
     position: absolute;
     top: 0;
     z-index: 75;
-    width: 220px;
+    width: 320px;
     background: #fafcfc;
     border-right: 1px solid #f0f4f7
 }
@@ -475,9 +475,9 @@ a img { border: none }
     text-decoration: underline
 }
 
-#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled).selected { color: #0099e5 }
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled).active { color: #0099e5 }
 
-#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled).selected:hover { text-decoration: none }
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled).active:hover { text-decoration: none }
 
 #api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item.expandable + .sidebar-nav-items {
     opacity: 0;
@@ -530,7 +530,7 @@ a img { border: none }
     bottom: 0;
     right: 0;
     position: absolute;
-    left: 221px;
+    left: 300px;
     top: 0;
     z-index: 50;
     box-sizing: border-box;
@@ -552,7 +552,6 @@ a img { border: none }
 
 #api-reference #content .method .method-area { overflow: hidden }
 
-#api-reference #content .method .method-area:first-child .method-copy { padding-top: 30px }
 
 #api-reference #content .method .method-area:first-child .method-example { padding-top: 72px }
 
@@ -850,7 +849,7 @@ a img { border: none }
 
 #api-reference #content .method .method-example a:hover { color: #5db8ed }
 
-#api-reference #content .method .method-example .method-example-part { padding: 30px 40px }
+#api-reference #content .method .method-example .method-example-part { padding: 30px 30px }
 
 #api-reference #content .method .method-example .method-example-part:last-child:after { display: none }
 
@@ -1503,3 +1502,58 @@ a img { border: none }
     font-size: 1.2em; }
 
 /*# sourceMappingURL=jquery.jsonview.css.map */
+
+.switch-inline input[type='checkbox'], .switch input[type='checkbox'] {
+    display: none;
+}
+
+.switch-inline input[type='checkbox']:checked ~ span, .switch input[type='checkbox']:checked ~ span {
+    margin-left: -6px;
+    background-color: #81b165;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+}
+
+.switch-inline {
+ top: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 56px;
+    height: 20px;
+    background-color: #eaeaea;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0px 0px 2px 0px;
+    padding: 0px;
+}
+
+.switch-inline span, .switch span {
+    display: block;
+    height: 20px;
+    width: 100px;
+    color: #ffffff;
+    background-color: #939393;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    white-space: nowrap;
+    margin-left: -42px;
+    text-shadow: rgba(0, 0, 0, 0.1) 1px 1px;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2) inset;
+}
+
+.switch-inline i, .switch i {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0px 4px 4px 4px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px;
+}

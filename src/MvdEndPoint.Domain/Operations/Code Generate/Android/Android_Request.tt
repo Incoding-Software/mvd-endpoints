@@ -9,18 +9,15 @@
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.Boolean" name="HasRequest" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="Package" #>
 <#@ parameter type="System.String" name="Type" #>
 <#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
-package <#= Package #>;
+package <#= Namespace #>;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
-import <#= Namespace #>.Incoding.ModelStateException;
-import <#= Namespace #>.Incoding.IncodingHelper;
 import java.util.HashMap;
 
 public class <#= Name #> extends AsyncTask<String, Integer, String> {
@@ -61,14 +58,8 @@ public class <#= Name #> extends AsyncTask<String, Integer, String> {
 
 	@Override
     protected String doInBackground(String... strings) {
-        try {
-		   
-		    HashMap<String, Object> params = new HashMap<String, Object>();			
-			String type = "<#=Type#>";
-			
-            HttpResponse response = IncodingHelper.Execute(context, true,"<#=Type#>",this.GetParameters(-1));
-			return EntityUtils.toString(response.getEntity());
-			        
+        try {		   
+		   return IncodingHelper.Execute(context, true,"<#=Type#>", this.GetParameters(-1));		    			        
         } catch (Exception e) {
             e.printStackTrace();
         }

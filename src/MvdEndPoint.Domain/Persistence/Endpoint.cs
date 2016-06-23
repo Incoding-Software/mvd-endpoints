@@ -141,6 +141,8 @@
 
             public virtual string Name { get; set; }
 
+            public virtual string Description { get; set; }
+
             [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
             public class Map : NHibernateEntityMap<Group>
             {
@@ -149,6 +151,7 @@
                     Table("Endpoint_Group_Tbl");
                     IdGenerateByGuid(r => r.Id);
                     MapEscaping(r => r.Name);
+                    MapEscaping(r => r.Description);
                 }
             }
 

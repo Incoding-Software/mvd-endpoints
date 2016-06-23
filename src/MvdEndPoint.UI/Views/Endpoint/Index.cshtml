@@ -1,26 +1,29 @@
-@using Incoding.Endpoint
+
 <html>
 <head>
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/endpoint.css")"/>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.min.js")"> </script>    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/endpoint.js")"></script>
-    @*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>*@
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/androidstudio.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+
     <style>
-        .field-validation-error {
-            color: red;
-        }
-        .control-label {
-            color: black;
-        }
+        pre { background-color: #282b2e; }
+
+        .field-validation-error { color: red; }
+
+        .control-label { color: #d0d4d7; }
     </style>
 
     <script>
@@ -29,79 +32,61 @@
 </head>
 
 <body id="api-reference">
+@Html.Incoding().RenderDropDownTemplate()
 <div id="header">
-    <div class="header-section header-section-sidebar">
-        <div class="logo">
+    <div class="header-section header-section-sidebar text-center">
+        <span class="switch-text">Editable mode </span>
+        <div class="switch-inline">
+            <label>
+                @(Html.When(JqueryBind.Change)
+                      .OnSuccess(dsl => dsl.WithClass("glyphicon-pushpin")
+                                           .WithClass("glyphicon-pencil").JQuery.Attr.ToggleClass(B.Hidden))
+
+                      .AsHtmlAttributes()
+                      .ToInput(HtmlInputType.CheckBox, ""))
+                <span>YES<i></i>NO</span>
+            </label>
         </div>
     </div>
     <div class="header-section header-section-example">
         <div id="language">
             <ul class="language-toggle">
-                <li>
-                    @(Html.When(JqueryBind.Change)
-                          .OnSuccess(dsl =>
-                                     {
-                                         dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
-                                         dsl.WithClass("http").JQuery.Attr.RemoveClass(B.Hidden);
-                                     })
-                          .AsHtmlAttributes(new { @class = "language-toggle-source", @checked = "checked", name = "language-toggle" })
-                          .ToInput(HtmlInputType.Radio, "http"))
-                    <label class="language-toggle-button">Http</label>
-                </li>
-                <li>
-                    @(Html.When(JqueryBind.Change)
-                          .OnSuccess(dsl =>
-                                     {
-                                         dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
-                                         dsl.WithClass("android").JQuery.Attr.RemoveClass(B.Hidden);
-                                     })
-                          .AsHtmlAttributes(new { @class = "language-toggle-source", name = "language-toggle" })
-                          .ToInput(HtmlInputType.Radio, "android"))
-                    <label class="language-toggle-button">Android</label>
-                </li>
-                <li>
-                    @(Html.When(JqueryBind.Change)
-                          .OnSuccess(dsl =>
-                                     {
-                                         dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
-                                         dsl.WithClass("sandbox").JQuery.Attr.RemoveClass(B.Hidden);
-                                     })
-                          .AsHtmlAttributes(new { @class = "language-toggle-source", name = "language-toggle" })
-                          .ToInput(HtmlInputType.Radio, "Sandbox"))
-                    <label class="language-toggle-button">Sandbox</label>
-                </li>
+                @foreach (var type in new[] { "http", "android", "sandbox" })
+                {
+                    var attr = new RouteValueDictionary(new { @class = "language-toggle-source", name = "language-toggle" });
+                    if (type == "http")
+                    {
+                        attr.Add(HtmlAttribute.Checked.ToStringLower(), HtmlAttribute.Checked);
+                    }
+                    <li>
+                        @(Html.When(JqueryBind.Change)
+                              .OnSuccess(dsl =>
+                                         {
+                                             dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
+                                             dsl.WithClass(type).JQuery.Attr.RemoveClass(B.Hidden);
+                                         })
+                              .AsHtmlAttributes(attr)
+                              .ToInput(HtmlInputType.Radio, type))
+                        <label class="language-toggle-button">@type</label>
+                    </li>
+                }
             </ul>
         </div>
     </div>
 </div>
 @{
     var data = Html.Dispatcher().Query(new GetMessagesQuery());
+    var pathToNavTmpl = "~/Views/Endpoint/Nav_Tmpl.cshtml";
 }
 <div id="sidebar">
     <nav role="navigation" class="sidebar-nav">
-        <ul class="sidebar-nav-items loaded">
-            @{
-                var isFirst = true;
-            }
-            @foreach (var grop in data.Where(s => !s.IsGroup)
-                                      .GroupBy(s => s.Group))
-            {
-                <li class="expanded">
-                    <a class="sidebar-nav-item expandable" href="#@grop.Key">@grop.Key</a>
-                    <ul class="sidebar-nav-items loaded" data-height="160" style="height: 160px;">
-                        @foreach (var item in grop)
-                        {
-                            <li>
-                                <a class="sidebar-nav-item @(isFirst ? "selected" : "")" rel="@item.Id" href="#@item.Id">@item.Name</a>
-                            </li>
-                            isFirst = false;
-                        }
-                    </ul>
-                </li>
-                
-            }
-
-        </ul>
+        @(Html.When(JqueryBind.None)
+              .Ajax(new GetMessagesQuery.AsNav())
+              .OnSuccess(dsl => dsl.Self().JQuery.Dom.WithTemplateByView(pathToNavTmpl).Html())
+              .AsHtmlAttributes(new {@class= "sidebar-nav-items loaded",id= typeof(GetMessagesQuery.AsNav).Name })
+              .ToTag(HtmlTag.Ul,@<text>
+                                    @Html.Dispatcher().Query(new GetMessagesQuery.AsNav()).AsView(pathToNavTmpl)
+                                 </text>))
     </nav>
 </div>
 <div id="background">

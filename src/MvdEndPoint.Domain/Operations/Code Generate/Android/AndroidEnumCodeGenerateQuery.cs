@@ -6,19 +6,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using Incoding.CQRS;
+    using Incoding.Endpoint.Operations.Code_Generate.Android;
 
     #endregion
 
     public class AndroidEnumCodeGenerateQuery : QueryBase<string>
     {
-        #region Properties
-
-        public Type Type { get; set; }
-
-        public string Package { get; set; }
-
-        #endregion
-
         protected override string ExecuteResult()
         {
             var template = new Android_Enum();
@@ -26,7 +19,7 @@
                                 .ToList();
             template.Session = new Dictionary<string, object>
                                {
-                                       { "Package", Package },
+                                       { "Namespace", Namespace },
                                        { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Enum] },
                                        {
                                                "Values", allValues
@@ -37,5 +30,13 @@
             template.Initialize();
             return template.TransformText();
         }
+
+        #region Properties
+
+        public Type Type { get; set; }
+
+        public string Namespace { get; set; }
+
+        #endregion
     }
 }

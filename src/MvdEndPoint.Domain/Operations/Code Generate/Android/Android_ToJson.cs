@@ -7,8 +7,10 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -30,7 +32,7 @@ namespace Incoding.Endpoint
             
             #line default
             #line hidden
-            this.Write(".Incoding;\r\n");
+            this.Write(";\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

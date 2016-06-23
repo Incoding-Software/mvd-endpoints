@@ -17,67 +17,21 @@
     [Subject(typeof(MessagesToPackageQuery.AsAndroidQuery))]
     public class When_message_to_package_as_android_query
     {
-        #region Fake classes
-
-        [ServiceContract(Namespace = "incoding.test")]
-        class FakeQuery : QueryBase<FakeQuery.Response>
-        {
-            #region Nested classes
-
-            internal class Response
-            {
-                #region Properties
-
-                public OuterEnum Value { get; set; }
-
-                #endregion
-            }
-
-            #endregion
-
-            protected override Response ExecuteResult()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        [ServiceContract()]
-        class FakeWithoutNamespaceQuery : QueryBase<FakeWithoutNamespaceQuery.Response>
-        {
-            #region Nested classes
-
-            internal class Response
-            {
-                #region Properties
-
-                public OuterEnum Value { get; set; }
-
-                #endregion
-            }
-
-            #endregion
-
-            protected override Response ExecuteResult()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        #endregion
+        It should_be_with_namespace = () => Run(typeof(FakeQuery), "Incoding");
 
         #region Establish value
 
         static void Run(Type mainType, string @namespace)
         {
             var query = Pleasure.Generator.Invent<MessagesToPackageQuery.AsAndroidQuery>(dsl => dsl.Tuning(r => r.Types, mainType.AssemblyQualifiedName.Replace("PublicKeyToken=null,", "PublicKeyToken=null|")
-                                                                                                                          .Split("|".ToCharArray())
-                                                                                                                          .Select(Type.GetType)
-                                                                                                                          .Where(r => r.HasAttribute<ServiceContractAttribute>())
-                                                                                                                          .ToList()));
+                                                                                                                                 .Split("|".ToCharArray())
+                                                                                                                                 .Select(Type.GetType)
+                                                                                                                                 .Where(r => r.HasAttribute<ServiceContractAttribute>())
+                                                                                                                                 .ToList()));
             var expected = Pleasure.Generator.Bytes();
 
             string requestContent = Pleasure.Generator.String();
-            string listenerContent = Pleasure.Generator.String();            
+            string listenerContent = Pleasure.Generator.String();
             string responseContent = Pleasure.Generator.String();
             string jsonModelStateClassContent = Pleasure.Generator.String();
             string modelStateExceptionContent = Pleasure.Generator.String();
@@ -96,26 +50,26 @@
                                                                                                                                            { GetNameFromTypeQuery.ModeOf.Enum, "OuterEnum" }
                                                                                                                                    })
                     .StubQuery(Pleasure.Generator.Invent<GetNameFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
-                                                                                                                          {                                                                                                                                  
+                                                                                                                          {
                                                                                                                                   { GetNameFromTypeQuery.ModeOf.Request, "Request" },
                                                                                                                                   { GetNameFromTypeQuery.ModeOf.Listener, "Listener" },
-                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Response, "Response" },                                                                                                                                   
+                                                                                                                                  { GetNameFromTypeQuery.ModeOf.Response, "Response" },
                                                                                                                           })
                     .StubQuery(Pleasure.Generator.Invent<AndroidRequestCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), requestContent)
-                    .StubQuery(Pleasure.Generator.Invent<AndroidListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), listenerContent)                    
+                    .StubQuery(Pleasure.Generator.Invent<AndroidListenerCodeGeneratorQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), listenerContent)
                     .StubQuery(Pleasure.Generator.Invent<AndroidResponseCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), responseContent)
                     .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, mainType)), metaFromType)
-                    .StubQuery(Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Package, metaFromType.Package)
+                    .StubQuery(Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, @namespace)
                                                                                                  .Tuning(r => r.Type, typeof(OuterEnum))), enumContent)
                     .StubQuery(Pleasure.Generator.Invent<ToZipQuery>(dsl => dsl.Tuning(r => r.Entries, new Dictionary<string, string>
                                                                                                        {
-                                                                                                               { "Incoding/IncodingHelper.java", incodingHelperContent }, 
-                                                                                                               { "Incoding/ModelStateException.java", modelStateExceptionContent }, 
-                                                                                                               { "Incoding/JsonModelStateData.java", jsonModelStateClassContent }, 
-                                                                                                               { "{0}/Request.java".F(mainType.Name), requestContent }, 
-                                                                                                               { "{0}/Listener.java".F(mainType.Name), listenerContent },                                                                                                                
-                                                                                                               { "{0}/Response.java".F(mainType.Name), responseContent }, 
-                                                                                                               { "{0}/OuterEnum.java".F(mainType.Name), enumContent }, 
+                                                                                                               { "Incoding/IncodingHelper.java", incodingHelperContent },
+                                                                                                               { "Incoding/ModelStateException.java", modelStateExceptionContent },
+                                                                                                               { "Incoding/JsonModelStateData.java", jsonModelStateClassContent },
+                                                                                                               { "Incoding/Listener.java".F(mainType.Name), listenerContent },
+                                                                                                               { "Incoding/Request.java".F(mainType.Name), requestContent },
+                                                                                                               { "Incoding/Response.java".F(mainType.Name), responseContent },
+                                                                                                               { "Incoding/OuterEnum.java".F(mainType.Name), enumContent },
                                                                                                        })), expected);
             mockQuery.Execute();
             mockQuery.ShouldBeIsResult(expected);
@@ -123,8 +77,52 @@
 
         #endregion
 
-        It should_be_with_namespace = () => Run(typeof(FakeQuery), "incoding.test");
+        #region Fake classes
 
-        It should_be_without_namespace = () => Run(typeof(FakeWithoutNamespaceQuery), "MvdEndPoint.UnitTest");
+        [ServiceContract(Namespace = "incoding.test")]
+        class FakeQuery : QueryBase<FakeQuery.Response>
+        {
+            protected override Response ExecuteResult()
+            {
+                throw new NotImplementedException();
+            }
+
+            #region Nested classes
+
+            internal class Response
+            {
+                #region Properties
+
+                public OuterEnum Value { get; set; }
+
+                #endregion
+            }
+
+            #endregion
+        }
+
+        [ServiceContract()]
+        class FakeWithoutNamespaceQuery : QueryBase<FakeWithoutNamespaceQuery.Response>
+        {
+            protected override Response ExecuteResult()
+            {
+                throw new NotImplementedException();
+            }
+
+            #region Nested classes
+
+            internal class Response
+            {
+                #region Properties
+
+                public OuterEnum Value { get; set; }
+
+                #endregion
+            }
+
+            #endregion
+        }
+
+        #endregion
     }
 }

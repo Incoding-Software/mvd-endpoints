@@ -2,7 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Text" #>
 <#@ parameter type="System.String" name="Namespace" #>
-package <#= Namespace #>.Incoding;
+package <#= Namespace #>;
 public class JsonModelStateData {
         public String name;
         public Boolean isValid;

@@ -1,0 +1,55 @@
+﻿@helper Link(string name, string value, string @class)
+{
+    @(Html.When(JqueryBind.Click)
+          .OnSuccess(dsl =>
+                     {
+                         dsl.WithClass(B.Active).JQuery.Attr.RemoveClass(B.Active);
+                         dsl.Self().JQuery.Attr.AddClass(B.Active);
+                     })
+          .AsHtmlAttributes(new { @class = @class, href = "#" + value })
+          .ToLink(name))
+}
+
+@{
+    using (var template = Html.Incoding().Template<OptGroupVm>())
+    {
+        using (var each = template.ForEach())
+        {
+            <li class="expanded">
+                @Link(each.For(s => s.Title), each.For(s => s.Title), "sidebar-nav-item expandable")
+                <ul class="sidebar-nav-items loaded" style="height: auto">
+                    @using (var innerEach = each.ForEach(s => s.Items))
+                    {
+                        <li>
+                            @innerEach.IsInline(r => r.CssClass,@<text>
+                                                                    @(Html.When(JqueryBind.KeyPress | JqueryBind.FocusOut)
+                                                                          .Ajax(new MessageCommand.JoinToGroupCommand()
+                                                                          {
+                                                                              MessageId = innerEach.For(s => s.CssClass),
+                                                                              Group = Selector.Jquery.Self()
+                                                                          })
+                                                                          .OnBegin(dsl =>
+                                                                          {
+                                                                              dsl.Break.If(() => Selector.Jquery.Self().HasClass(B.Hidden));
+                                                                              dsl.Break.If(() => Selector.Event.Which != 13 && Selector.Event.Type == JqueryBind.KeyPress.ToJqueryString());
+                                                                          })
+                                                                          .OnSuccess(dsl => { dsl.WithId(typeof(GetMessagesQuery.AsNav).Name).Trigger.None(); })
+                                                                          .AsHtmlAttributes(new { @class = B.Hidden.ToLocalization(), placeholder = "Enter group",style= "width: 225px;margin-left:21px;" })
+                                                                          .ToInput(HtmlInputType.Text, ""))
+                                                                    @(Html.When(JqueryBind.Click)
+                                                                          .OnSuccess(dsl =>
+                                                                                     {
+                                                                                         dsl.WithSelf(s => s.Closest(HtmlTag.Li).Find(HtmlTag.Input)).JQuery.Attr.ToggleClass(B.Hidden);
+                                                                                         dsl.Self().JQuery.Attr.ToggleClass(B.Hidden);
+                                                                                     })
+                                                                          .AsHtmlAttributes(new { @class = "glyphicon glyphicon-pushpin " + B.Hidden.ToLocalization(), style = "top: 24px;left: 17px; " })
+                                                                          .ToI())
+                                                                 </text>)
+                            @Link(innerEach.For(s => s.Text), innerEach.For(s => s.Value), "sidebar-nav-item")
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    }
+}

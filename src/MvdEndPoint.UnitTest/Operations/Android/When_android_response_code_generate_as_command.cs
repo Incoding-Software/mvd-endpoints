@@ -24,8 +24,7 @@
                                           .When(query)
                                           .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(AddCustomerCommand))),
                                                      Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "AddCustomerCommand")
-                                                                                                                        .Tuning(r => r.IsCommand, true)
-                                                                                                                        .Tuning(r => r.Package, "com.qabenchmarking.android.models.AddCustomerCommand")
+                                                                                                                        .Tuning(r => r.IsCommand, true)                                                                                                                        
                                                                                                                         .Tuning(r => r.Namespace, "com.qabenchmarking.android.models")))
                                           .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
                                                                                                                                                                         {

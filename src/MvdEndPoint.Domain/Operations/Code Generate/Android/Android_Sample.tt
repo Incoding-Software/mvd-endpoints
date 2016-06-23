@@ -3,17 +3,18 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ parameter type="System.String" name="Name" #>
+<#@ parameter type="System.String" name="Request" #>
 <#@ parameter type="System.String" name="Type" #>
+<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="Listener" #>
 <#@ parameter type="System.String" name="Response" #>
 <#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
-import Incoding.JsonModelStateData;
-import <#=Type#>.IUserSignInCommandListener;
-import <#=Type#>.UserSignInCommandResponse;
-import <#=Type#>.UserSignInCommandRequest;
+import <#=Namespace#>.JsonModelStateData;
+import <#=Namespace#>.<#=Listener#>;
+import <#=Namespace#>.<#=Response#>;
+import <#=Namespace#>.<#=Request#>;
 
-<#=Name#> request = new <#=Name#>(context);
+<#=Request#> request = new <#=Request#>(context);
 <# foreach(var pair in Properties) { #>
 request.<#=pair.Name#> = something;
 <# } #>   

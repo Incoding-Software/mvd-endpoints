@@ -1,6 +1,6 @@
 ﻿<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="Url" #>
-package <#= Namespace #>.Incoding;
+package <#= Namespace #>;
 
 import android.content.Context;
 import android.content.SharedPreferences;

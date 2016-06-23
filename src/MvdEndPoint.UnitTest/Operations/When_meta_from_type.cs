@@ -15,9 +15,8 @@
         Establish establish = () =>
                               {
                                   GetMetaFromTypeQuery query = Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeMetaClass)));
-                                  expected = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "FakeMetaClass")
-                                                                                                                .Tuning(r => r.Package, "Namespace.FakeMetaClass")
-                                                                                                                .Tuning(r => r.Namespace, "Namespace"));
+                                  expected = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "FakeMetaClass")                                                                                                                
+                                                                                                                .Tuning(r => r.Namespace, "Incoding"));
 
                                   mockQuery = MockQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>
                                           .When(query)
@@ -30,7 +29,7 @@
 
         It should_be_result = () => mockQuery.ShouldBeIsResult(expected);
 
-        [ServiceContract(Namespace = "Namespace")]
+        [ServiceContract()]
         public class FakeMetaClass { }
 
         #region Establish value

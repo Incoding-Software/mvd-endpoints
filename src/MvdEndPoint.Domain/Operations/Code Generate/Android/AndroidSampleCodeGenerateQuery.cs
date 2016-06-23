@@ -22,7 +22,7 @@
                                                  { "Namespace", meta.Namespace },
                                                  { "Listener", names[GetNameFromTypeQuery.ModeOf.Listener] },
                                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] },
-                                                 { "Name", names[GetNameFromTypeQuery.ModeOf.Request] },                                                 
+                                                 { "Request", names[GetNameFromTypeQuery.ModeOf.Request] },                                                 
                                                  { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },
                                          }
                        };

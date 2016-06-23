@@ -7,8 +7,10 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -30,14 +32,14 @@ namespace Incoding.Endpoint
             
             #line default
             #line hidden
-            this.Write(".Incoding.IncodingHelper;\r\nimport ");
+            this.Write(".IncodingHelper;\r\nimport ");
             
             #line 7 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Nested.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".Incoding.ModelStateException;\r\n\r\npublic class ");
+            this.Write(".ModelStateException;\r\n\r\npublic class ");
             
             #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Nested.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
@@ -355,12 +357,12 @@ private string Name
     }
 }
 
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> Properties
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -420,7 +422,7 @@ if ((NameValueAcquired == false))
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    this._PropertiesField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(this.Session["Properties"]));
+    this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(this.Session["Properties"]));
     PropertiesValueAcquired = true;
 }
 if ((PropertiesValueAcquired == false))
@@ -428,7 +430,7 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(data));
+        this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(data));
     }
 }
 bool MappingJsonMethodByTypeValueAcquired = false;

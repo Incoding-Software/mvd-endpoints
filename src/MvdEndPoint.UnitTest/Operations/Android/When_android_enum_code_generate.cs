@@ -33,7 +33,7 @@
 
         Establish establish = () =>
                               {
-                                  var query = Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Package, "com.qabenchmarking.android.models")
+                                  var query = Pleasure.Generator.Invent<AndroidEnumCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Namespace, "com.qabenchmarking.android.models")
                                                                                                                 .Tuning(r => r.Type, typeof(MyEnum)));
                                   expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_android_enum_code_generate).Name));
 

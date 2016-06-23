@@ -32,7 +32,7 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
             
             #line default
             #line hidden
-            this.Write(@".Incoding;
+            this.Write(@";
 
 import android.content.Context;
 import android.content.SharedPreferences;

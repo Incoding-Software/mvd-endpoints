@@ -42,8 +42,7 @@
                                      new GetPropertiesQuery.Response() { Name = "Items", Type = "InnerResponse", Attributes = GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsArray, Target = typeof(Nested2) },
                              };
             var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, typeOfQuery.Name)
-                                                                                          .Tuning(r => r.IsCommand, false)
-                                                                                          .Tuning(r => r.Package, "com.qabenchmarking.android.models.{0}".F(typeOfQuery.Name))
+                                                                                          .Tuning(r => r.IsCommand, false)                                                                                          
                                                                                           .Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
             var mockQuery = MockQuery<AndroidResponseCodeGenerateQuery, string>
                     .When(query)

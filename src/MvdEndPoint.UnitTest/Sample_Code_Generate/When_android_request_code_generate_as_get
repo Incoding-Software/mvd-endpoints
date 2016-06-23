@@ -1,12 +1,10 @@
-﻿package com.qabenchmarking.android.models.GetCustomerQuery;
+﻿package com.qabenchmarking.android.models;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
-import com.qabenchmarking.android.models.Incoding.ModelStateException;
-import com.qabenchmarking.android.models.Incoding.IncodingHelper;
 import java.util.HashMap;
 
 public class GetCustomerRequest extends AsyncTask<String, Integer, String> {
@@ -48,14 +46,8 @@ public class GetCustomerRequest extends AsyncTask<String, Integer, String> {
 
 	@Override
     protected String doInBackground(String... strings) {
-        try {
-		   
-		    HashMap<String, Object> params = new HashMap<String, Object>();			
-			String type = "Query";
-			
-            HttpResponse response = IncodingHelper.Execute(context, true,"Query",this.GetParameters(-1));
-			return EntityUtils.toString(response.getEntity());
-			        
+        try {		   
+		   return IncodingHelper.Execute(context, true,"Query", this.GetParameters(-1));		    			        
         } catch (Exception e) {
             e.printStackTrace();
         }

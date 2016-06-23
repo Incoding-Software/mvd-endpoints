@@ -7,8 +7,11 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.Android
 {
+    using System.Text;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -30,8 +33,8 @@ namespace Incoding.Endpoint
             
             #line default
             #line hidden
-            this.Write(".Incoding;\r\npublic class JsonModelStateData {\r\n        public String name;\r\n     " +
-                    "   public Boolean isValid;\r\n        public String errorMessage;\r\n         \r\n}");
+            this.Write(";\r\npublic class JsonModelStateData {\r\n        public String name;\r\n        public" +
+                    " Boolean isValid;\r\n        public String errorMessage;\r\n         \r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

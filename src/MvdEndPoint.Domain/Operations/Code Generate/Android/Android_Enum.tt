@@ -5,8 +5,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ parameter type="System.Collections.Generic.List<Tuple<string,string,bool>>" name="Values" #>
 <#@ parameter type="System.String" name="Name" #>
-<#@ parameter type="System.String" name="Package" #>
-package <#= Package #>;
+<#@ parameter type="System.String" name="Namespace" #>
+package <#= Namespace #>;
 
 public enum <#= Name #> { 
    <# foreach(var value in Values) { #>  

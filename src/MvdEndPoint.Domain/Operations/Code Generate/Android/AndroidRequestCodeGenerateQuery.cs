@@ -24,8 +24,7 @@
             var task = new Android_Request()
                        {
                                Session = new Dictionary<string, object>
-                                         {
-                                                 { "Package", meta.Package },
+                                         {                                                 
                                                  { "Namespace", meta.Namespace },
                                                  { "Listener", names[GetNameFromTypeQuery.ModeOf.Listener] },
                                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] },

@@ -1,8 +1,12 @@
 ﻿namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
     using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
+
+    #endregion
 
     [Subject(typeof(GetMetaFromTypeQuery))]
     public class When_meta_from_type_without_service_contract
@@ -14,8 +18,7 @@
                                                                                                                 .Tuning(r => r.IsCommand, false)
                                                                                                                 .Tuning(r => r.ResponseAsArray, false)
                                                                                                                 .Tuning(r => r.ResponseAsImage, false)
-                                                                                                                .Tuning(r => r.Package, "MvdEndPoint.UnitTest.FakeMetaClass")
-                                                                                                                .Tuning(r => r.Namespace, "MvdEndPoint.UnitTest"));
+                                                                                                                .Tuning(r => r.Namespace, "Incoding"));
 
                                   mockQuery = MockQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>
                                           .When(query);

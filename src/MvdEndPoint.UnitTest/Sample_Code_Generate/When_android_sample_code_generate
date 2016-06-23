@@ -1,7 +1,7 @@
 ﻿import Incoding.JsonModelStateData;
-import GetCustomerQuery.IUserSignInCommandListener;
-import GetCustomerQuery.UserSignInCommandResponse;
-import GetCustomerQuery.UserSignInCommandRequest;
+import Incoding.IGetCustomerListene;
+import Incoding.GetCustomerResponse;
+import Incoding.GetCustomerRequest;
 
 GetCustomerRequest request = new GetCustomerRequest(context);
 request.Message = something;

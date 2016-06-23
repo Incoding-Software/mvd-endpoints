@@ -2,22 +2,8 @@
 
 
 $(function () {
-    $('a[href*="#"]:not([href="#"])').click(function () {
-        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+    hljs.initHighlightingOnLoad();
 
-            $('.sidebar-nav-item').removeClass('selected');
-            $(this).addClass('selected');
-
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-            if (target.length) {
-                $('html, body').animate({
-                    scrollTop: target.offset().top
-                }, 1000);
-                return true;
-            }
-        }
-    });
 });
 function DataToString(target, json) {
     $(target).JSONView(JSON.stringify(json));

@@ -21,8 +21,7 @@
                                   expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_android_request_code_generate_as_get_without_properties).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "GetCustomerQuery")
-                                                                                                                .Tuning(r => r.IsCommand, true)
-                                                                                                                .Tuning(r => r.Package, "com.qabenchmarking.android.models.GetCustomerQuery")
+                                                                                                                .Tuning(r => r.IsCommand, true)                                                                                                                
                                                                                                                 .Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
                                   mockQuery = MockQuery<AndroidRequestCodeGenerateQuery, string>
                                           .When(query)

@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using Incoding.CQRS;
+    using Incoding.Endpoint.Operations.Code_Generate.Android;
 
     #endregion
 
@@ -22,8 +23,7 @@
             var response = Dispatcher.Query(new GetMetaFromTypeQuery { Type = Type });
             var names = Dispatcher.Query(new GetNameFromTypeQuery(Type));
             on.Session = new Dictionary<string, object>
-                         {
-                                 { "Package", response.Package }, 
+                         {                                 
                                  { "Namespace", response.Namespace }, 
                                  { "Name", names[GetNameFromTypeQuery.ModeOf.Listener] }, 
                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] }, 

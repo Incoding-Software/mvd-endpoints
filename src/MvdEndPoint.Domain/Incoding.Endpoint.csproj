@@ -131,7 +131,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\UI\GetEndpointsQuery.cs" />
+    <Compile Include="Operations\UI\GetTypeFromPropertyQuery.cs" />
+    <Compile Include="Operations\UI\MessageCommand.cs" />
+    <Compile Include="Operations\UI\GetMessagesQuery.cs" />
     <Compile Include="Operations\Utilites\GetShareTypeFromTypeQuery.cs" />
     <Compile Include="Operations\Utilites\GetInnerResponseTypesQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommandQuery.cs" />
@@ -263,7 +265,7 @@
     <Compile Include="Operations\Utilites\ToZipQuery.cs" />
     <Compile Include="Operations\UI\DownloadSourceCodeQuery.cs" />
     <Compile Include="Persistence\Endpoint.cs" />
-    <Compile Include="Operations\UI\GetEndpointForSandboxQuery.cs" />
+    <Compile Include="Operations\UI\GetMessageDetailQuery.cs" />
     <Compile Include="Operations\UI\SyncEndpointCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
