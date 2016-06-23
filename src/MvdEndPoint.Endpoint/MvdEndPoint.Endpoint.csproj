@@ -50,10 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="content\Controllers\EndpointController.cs.pp" />
-    <None Include="content\Views\Endpoint\Ajax_Response_Tmpl.cshtml" />
-    <None Include="content\Views\Endpoint\Endpoint_Item_Tmpl.cshtml" />
     <None Include="content\Views\Endpoint\Index.cshtml" />
-    <None Include="content\Views\Endpoint\ModelState_Tmpl.cshtml" />
+    <None Include="content\Views\Endpoint\Item_Tmpl.cshtml" />
+    <None Include="content\Views\Endpoint\Nav_Tmpl.cshtml" />
     <None Include="content\Views\Endpoint\Sandbox_Item_Tmpl.cshtml" />
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
@@ -70,6 +69,8 @@
     <Folder Include="src\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="content\Content\endpoint.css" />
+    <Content Include="content\Scripts\endpoint.js" />
     <Content Include="lib\net45\Incoding.Endpoint.dll" />
     <Content Include="lib\net45\Incoding.Endpoint.pdb" />
   </ItemGroup>

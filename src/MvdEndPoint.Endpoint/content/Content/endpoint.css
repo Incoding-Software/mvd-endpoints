@@ -1,0 +1,1559 @@
+﻿a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, dd, del, dfn, div, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, html, iframe, img, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small, span, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, tr, tt, ul, var {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    font-size: 100%;
+    vertical-align: baseline
+}
+
+body {
+    line-height: 1;
+    color: #000;
+    background: #fff
+}
+
+ol, ul { list-style: none }
+
+table {
+    border-collapse: separate;
+    border-spacing: 0
+}
+
+caption, table, td, th { vertical-align: middle }
+
+caption, td, th {
+    text-align: left;
+    font-weight: 400
+}
+
+a img { border: none }
+
+@font-face {
+    font-family: Source Code Pro;
+    font-weight: 500;
+    src: url(/Content/fonts/SourceCodePro-Medium.otf.woff)
+}
+
+@font-face {
+    font-family: Source Code Pro;
+    font-weight: 600;
+    src: url(/Content/fonts/SourceCodePro-Medium.otf.woff)
+}
+
+#api-reference {
+    box-sizing: border-box;
+    background: #fff;
+    color: #4c555a;
+    font-family: Whitney SSm A, Whitney SSm B, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 26px;
+    text-transform: none;
+    overflow: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%
+}
+
+#api-reference h1, #api-reference h2, #api-reference h3, #api-reference h4, #api-reference h5 {
+    margin: 0;
+    color: #292e31;
+    font-family: Whitney SSm A, Whitney SSm B, Helvetica, Arial, sans-serif
+}
+
+#api-reference h1 {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px
+}
+
+#api-reference h2 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px
+}
+
+#api-reference h3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px
+}
+
+#api-reference h4, #api-reference h5 {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-transform: uppercase;
+    padding: 5px 0;    
+}
+
+#api-reference h4 { color: #4c555a }
+
+#api-reference h5 { color: #939da3 }
+
+#api-reference p {
+    margin-bottom: 0;
+    margin-top: 20px
+}
+
+#api-reference a {
+    color: #0099e5;
+    text-decoration: none
+}
+
+#api-reference a:hover {
+    color: #292e31;
+    text-decoration: none
+}
+
+#api-reference .method-example-declaration .language-bash, #api-reference .method-example-declaration .language-bash .token { color: #d0d0d0 !important }
+
+#api-reference .include-prompt code.language-bash:before {
+    content: '$ ';
+    color: #939da3
+}
+
+#api-reference #version-check {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 200;
+    padding: 0 20px;
+    background: #0099e5;
+    color: #fff;
+    vertical-align: middle
+}
+
+#api-reference #version-check .version-check-large { display: block }
+
+#api-reference #version-check .version-check-small { display: none }
+
+#api-reference #version-check p {
+    margin: 0;
+    color: hsla(0, 0%, 100%, .9);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 33px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1)
+}
+
+#api-reference #version-check p a {
+    color: #fff;
+    font-weight: 600
+}
+
+#api-reference #version-check p a:after {
+    position: relative;
+    top: -1px;
+    display: inline-block;
+    height: 6px;
+    margin-left: 3px;
+    width: 4px;
+    content: "";
+    background-image: url(/img/documentation/api/learn-more.png)
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference #version-check p a:after {
+        background-image: url(/img/documentation/api/learn-more@2x.png);
+        background-size: 4px 6px
+    }
+}
+
+#api-reference #version-check p a:hover {
+    opacity: .8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80)
+}
+
+#api-reference #loading-bar {
+    background: #0099e5;
+    height: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    width: 100%;
+    -webkit-transition: opacity .25s ease-in-out, width .4s ease-in-out;
+    transition: opacity .25s ease-in-out, width .4s ease-in-out;
+    width: 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    will-change: opacity, width
+}
+
+#api-reference #loading-bar.hidden {
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -webkit-transition: opacity .25s ease-in-out;
+    transition: opacity .25s ease-in-out;
+    pointer-events: none
+}
+
+#api-reference #header {
+    left: 221px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100
+}
+
+#api-reference #header .header-section {
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
+    height: 49px
+}
+
+#api-reference #header .header-section.header-section-sidebar {
+    left: -221px;
+    z-index: 30;
+    width: 220px;
+    border-bottom: 1px solid #f0f4f7
+}
+
+#api-reference #header .header-section.header-section-copy { z-index: 20 }
+
+#api-reference #header .header-section.header-section-example {
+    left: 45%;
+    right: 0;
+    z-index: 10;
+    height: 50px;
+    min-width: 464px;
+    padding-left: 40px;
+    background: #242729;
+    color: #d0d4d7
+}
+
+#api-reference #header .logo {
+    left: 20px;
+    position: relative;
+    top: 14px;
+    height: 22px
+}
+
+#api-reference #header .logo a {
+    float: left;
+    display: block;
+    height: 22px
+}
+
+#api-reference #header .logo a:hover {
+    opacity: .8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80)
+}
+
+#api-reference #header .logo a.site {
+    width: 54px;
+    background-repeat: no-repeat;
+    background-image: url(/img/documentation/api/logo.png)
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference #header .logo a.site {
+        background-image: url(/img/documentation/api/logo@2x.png);
+        background-size: 54px 22px
+    }
+}
+
+#api-reference #header .logo a.docs {
+    padding-left: 4px;
+    font-size: 18px;
+    line-height: 20px
+}
+
+#api-reference #header .logo a.docs:hover { color: #0099e5 }
+
+#api-reference #header .select-field {
+    float: left;
+    position: relative;
+    margin-top: 10px
+}
+
+#api-reference #header .select-field select {
+    position: relative;
+    z-index: 50;
+    box-sizing: border-box;
+    display: block;
+    height: 29px;
+    padding-left: 10px;
+    padding-right: 38px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff;
+    border: 1px solid #d6dee5;
+    border-radius: 5px;
+    color: #4c555a;
+    cursor: pointer;
+    font-family: Whitney SSm A, Whitney SSm B, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 28px;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-indent: .01px;
+    text-overflow: '';
+    vertical-align: middle
+}
+
+#api-reference #header .select-field:before {
+    position: absolute;
+    right: 28px;
+    top: 7px;
+    z-index: 100;
+    display: block;
+    height: 15px;
+    width: 1px;
+    background: #d6dee5;
+    content: ''
+}
+
+#api-reference #header .select-field:after {
+    position: absolute;
+    right: 13px;
+    top: 13px;
+    z-index: 75;
+    display: block;
+    height: 4px;
+    width: 6px;
+    content: '';
+    background-image: url(/img/documentation/api/jump-menu-arrow.png)
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference #header .select-field:after {
+        background-image: url(/img/documentation/api/jump-menu-arrow@2x.png);
+        background-size: 6px 4px
+    }
+}
+
+#api-reference #header .select-field:hover select { color: #292e31 }
+
+#api-reference #header .select-field.jump-menu { float: right }
+
+#api-reference #header .jump-menu { display: none }
+
+#api-reference #header #language .language-toggle { overflow: hidden }
+
+#api-reference #header #language .language-toggle li {
+    float: left;
+    position: relative;
+    margin: 8px 2px 0
+}
+
+#api-reference #header #language .language-toggle li:first-child { margin-left: 0 }
+
+#api-reference #header #language .language-toggle li:last-child { margin-right: 0 }
+
+#api-reference #header #language .language-toggle li .language-toggle-source {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0)
+}
+
+#api-reference #header #language .language-toggle li .language-toggle-button {
+    position: relative;
+    z-index: 50;
+    display: block;
+    padding: 0 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #d0d4d7;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 29px
+}
+
+#api-reference #header #language .language-toggle li:hover .language-toggle-button { border-color: #373b3e }
+
+#api-reference #header #language .language-toggle li:active .language-toggle-button {
+    background: #33373a;
+    border-color: #373b3e;
+    color: #dde4e8
+}
+
+#api-reference #header #language .language-toggle .language-toggle-source:checked + .language-toggle-button, #api-reference #header #language .language-toggle .language-toggle-source:checked + .language-toggle-button:active, #api-reference #header #language .language-toggle .language-toggle-source:checked + .language-toggle-button:hover {
+    background: -webkit-linear-gradient(top, #5abaf0, #4aafed);
+    background: linear-gradient(180deg, #5abaf0, #4aafed);
+    border-color: transparent;
+    color: #fff;
+    text-shadow: 0 0 0 hsla(0, 0%, 100%, .5), 0 1px 1px #0e74c3;
+    -webkit-animation: languageToggleShows .25s 1 ease-out;
+    animation: languageToggleShows .25s 1 ease-out
+}
+
+#api-reference #sidebar {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 75;
+    width: 320px;
+    background: #fafcfc;
+    border-right: 1px solid #f0f4f7
+}
+
+#api-reference #sidebar .sidebar-nav {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 49px;
+    overflow: scroll
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-heading { padding: 0 20px 4px }
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-heading:first-child { padding-top: 20px }
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items {
+    margin: 0;
+    padding: 0 0 26px;
+    line-height: 20px;
+    list-style: none
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li {
+    line-height: 20px;
+    list-style-type: none
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item {
+    display: block;
+    margin: 0;
+    padding: 6px 20px;
+    color: #4c555a;
+    cursor: pointer;
+    font-size: 14px;
+    list-style-type: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item + .sidebar-nav-items {
+    margin: 0;
+    padding: 0
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item + .sidebar-nav-items .sidebar-nav-item {
+    padding-left: 36px;
+    font-size: 13px
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item.disabled {
+    color: #939da3;
+    pointer-events: none
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled):hover {
+    color: #292e31;
+    text-decoration: underline
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled).active { color: #0099e5 }
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item:not(.disabled).active:hover { text-decoration: none }
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item.expandable + .sidebar-nav-items {
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    overflow: hidden;
+    visibility: hidden;
+    position: absolute
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li .sidebar-nav-item.expandable + .sidebar-nav-items.loaded {
+    visibility: visible;
+    height: 0;
+    position: relative;
+    -webkit-transition: all .25s cubic-bezier(.6, 0, .4, 1);
+    transition: all .25s cubic-bezier(.6, 0, .4, 1);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px)
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li.expanded .sidebar-nav-item.expandable + .sidebar-nav-items {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+    -webkit-transform: translateY(0);
+    transform: translateY(0)
+}
+
+#api-reference #sidebar .sidebar-nav .sidebar-nav-items li.expanded + li .sidebar-nav-items.loaded, #api-reference #sidebar .sidebar-nav .sidebar-nav-items li.expanded .sidebar-nav-items.loaded, #api-reference #sidebar .sidebar-nav .sidebar-nav-items li:hover .sidebar-nav-items.loaded { will-change: transform, height, opacity }
+
+#api-reference #background {
+    bottom: 0;
+    left: 221px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1
+}
+
+#api-reference #background .background-actual {
+    bottom: 0;
+    left: 45%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #2d3134
+}
+
+#api-reference #content {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    left: 300px;
+    top: 0;
+    z-index: 50;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
+}
+
+#api-reference #content .method:first-child { margin-top: 1px }
+
+#api-reference #content .method {
+    position: relative;
+    z-index: 2;
+    display: block;
+    overflow: hidden
+}
+
+#api-reference #content .method:last-child { min-height: 100vh }
+
+#api-reference #content .method .method-area { overflow: hidden }
+
+
+#api-reference #content .method .method-area:first-child .method-example { padding-top: 72px }
+
+#api-reference #content .method.first-of-group:not(:first-child) .method-copy { border-top: 1px solid #f0f4f7 }
+
+#api-reference #content .method.first-of-group:not(:first-child) .method-example { border-top: 1px solid #33383b }
+
+#api-reference #content .method .method-copy {
+    float: left;
+    padding: 0 0 50px;
+    width: 45%
+}
+
+#api-reference #content .method .method-copy .method-copy-padding { padding: 20px 40px }
+
+#api-reference #content .method .method-copy .method-copy-padding + .method-list { padding-bottom: 40px }
+
+#api-reference #content .method .method-copy .method-copy-padding:last-child { padding-bottom: 0 }
+
+#api-reference #content .method .method-copy .method-copy-notice {
+    display: block;
+    margin-top: 20px;
+    padding: 16px 20px;
+    border: 1px solid rgba(224, 153, 76, .5);
+    border-radius: 6px;
+    color: #e0994c
+}
+
+#api-reference #content .method .method-copy .method-copy-notice p { margin-top: 0 }
+
+#api-reference #content .method .method-copy .method-copy-notice ul li { padding-top: 10px }
+
+#api-reference #content .method .method-copy .method-copy-notice code { color: #ab5719 }
+
+#api-reference #content .method .method-copy h1 { margin-top: 0 }
+
+#api-reference #content .method .method-copy h1 .method-badge {
+    display: inline-block;
+    padding: 0 11px;
+    border: 1px solid rgba(0, 153, 229, .5);
+    border-radius: 24px;
+    color: #0099e5;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 24px;
+    text-transform: uppercase;
+    vertical-align: middle
+}
+
+#api-reference #content .method .method-copy h1 .method-badge.method-badge-deprecated {
+    border: 1px solid rgba(224, 76, 76, .5);
+    color: #e04c4c
+}
+
+#api-reference #content .method .method-copy strong { font-weight: 600 }
+
+#api-reference #content .method .method-copy code, #api-reference #content .method .method-copy tt {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 5px;
+    background: #fafcfc;
+    border: 1px solid #f0f4f7;
+    border-radius: 4px;
+    color: #b93d6a;
+    font-family: Source Code Pro, Menlo, monospace;
+    font-size: 13px;
+    line-height: 20px
+}
+
+#api-reference #content .method .method-copy .method-list { padding: 40px 40px 0 }
+
+#api-reference #content .method .method-copy .method-list .method-list-group {
+    margin-top: 8px;
+    border-top: 1px solid #e1e8ed
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item {
+    padding: 17px 0;
+    border-bottom: 1px solid #f0f4f7;
+    line-height: 24px
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item:last-child { border-bottom: 1px solid #e1e8ed }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-copy-notice {
+    margin: 0 0 17px;
+    font-size: 13px;
+    line-height: 21px
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label {
+    font-size: 13px;
+    line-height: 21px;
+    word-break: break-all;
+    white-space: normal
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label a.header-anchor {
+    display: inline-block;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    position: relative;
+    top: 3px;
+    width: 15px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-image: url(/img/documentation/anchor.png);
+    background-position: 50% 50%;
+    left: -15px;
+    margin-right: -15px;
+    isolation: isolate
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label a.header-anchor {
+        background-image: url(/img/documentation/anchor@2x.png);
+        background-size: 9px 8px
+    }
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label a.header-anchor:hover { text-decoration: none }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label:hover a.header-anchor {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-changes {
+    position: relative;
+    display: inline-block;
+    height: 12px;
+    margin: 4px 5px 0 0;
+    vertical-align: top;
+    width: 13px;
+    background-repeat: no-repeat;
+    background-image: url(/img/documentation/api/change-notice.png)
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-changes {
+        background-image: url(/img/documentation/api/change-notice@2x.png);
+        background-size: 13px 12px
+    }
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-badge {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 0 8px;
+    vertical-align: top;
+    border: 1px solid rgba(255, 174, 84, .5);
+    border-radius: 11px;
+    color: #ffae54;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 20px;
+    text-transform: uppercase
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-details {
+    color: #939da3;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: none;
+    word-break: normal
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-validation {
+    color: #939da3;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: none;
+    word-break: normal
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-promote { font-weight: 600 }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-description {
+    font-size: 13px;
+    line-height: 21px
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-description:nth-child(2) { margin-top: 6px }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-description code, #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-description tt { font-size: 12px }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-clearfix { zoom: 1 }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-clearfix:after, #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-clearfix:before {
+    content: "";
+    display: table
+}
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-clearfix:after { clear: both }
+
+#api-reference #content .method .method-copy .method-list .method-list-group .method-list-item.method-list-item-expandable .method-list-item-description:after {
+    display: block;
+    margin-top: 4px;
+    width: 80px;
+    background: #fafcfc;
+    border: 1px solid #f0f4f7;
+    border-radius: 5px;
+    color: #292e31;
+    content: "Expandable";
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center
+}
+
+#api-reference #content .method .method-copy .method-list.method-list-child {
+    position: relative;
+    margin-top: 16px;
+    padding: 0;
+    border: 1px solid #e9edf0;
+    border-radius: 6px
+}
+
+#api-reference #content .method .method-copy .method-list.method-list-child:before {
+    left: 30px;
+    position: absolute;
+    top: -9px;
+    display: block;
+    height: 9px;
+    width: 14px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    content: '';
+    background-image: url(/img/documentation/api/child-list-tail.png)
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference #content .method .method-copy .method-list.method-list-child:before {
+        background-image: url(/img/documentation/api/child-list-tail@2x.png);
+        background-size: 14px 9px
+    }
+}
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-title {
+    padding: 10px 20px;
+    color: #0099e5;
+    cursor: pointer;
+    font-weight: 500;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-transform: none
+}
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-title:hover { text-decoration: underline }
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-title:hover .method-list-child-parent { color: #0099e5 }
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-title:before { content: "Show" }
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-title.expanded:before { content: "Hide" }
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-title .method-list-child-parent { color: #4c555a }
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-group {
+    display: none;
+    margin-top: 0;
+    border-color: #e9edf0
+}
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item {
+    padding-left: 20px;
+    padding-right: 20px
+}
+
+#api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item:last-child { border-bottom: 0 }
+
+#api-reference #content .method .method-copy .method-list.method-list-empty .method-list-group .method-list-item .method-list-item-label {
+    color: #939da3;
+    font-weight: 400;
+    text-align: center
+}
+
+#api-reference #content .method .method-example {
+    position: relative;
+    z-index: 2;
+    margin-left: 45%;
+    padding: 42px 0 50px;
+    color: #dde4e8
+}
+
+#api-reference #content .method .method-example h1, #api-reference #content .method .method-example h2, #api-reference #content .method .method-example h3, #api-reference #content .method .method-example h4, #api-reference #content .method .method-example h5 {
+    max-width: 768px;
+    color: #d0d4d7
+}
+
+#api-reference #content .method .method-example p { max-width: 768px }
+
+#api-reference #content .method .method-example a:hover { color: #5db8ed }
+
+#api-reference #content .method .method-example .method-example-part { padding: 30px 30px }
+
+#api-reference #content .method .method-example .method-example-part:last-child:after { display: none }
+
+#api-reference #content .method .method-example .method-example-part .method-example-declaration, #api-reference #content .method .method-example .method-example-part .method-example-endpoint, #api-reference #content .method .method-example .method-example-part .method-example-object, #api-reference #content .method .method-example .method-example-part .method-example-request, #api-reference #content .method .method-example .method-example-part .method-example-response {
+    display: block;
+    padding: 20px 0
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-declaration:first-child, #api-reference #content .method .method-example .method-example-part .method-example-endpoint:first-child, #api-reference #content .method .method-example .method-example-part .method-example-object:first-child, #api-reference #content .method .method-example .method-example-part .method-example-request:first-child, #api-reference #content .method .method-example .method-example-part .method-example-response:first-child { padding-top: 0 }
+
+#api-reference #content .method .method-example .method-example-part .method-example-declaration:last-child, #api-reference #content .method .method-example .method-example-part .method-example-endpoint:last-child, #api-reference #content .method .method-example .method-example-part .method-example-object:last-child, #api-reference #content .method .method-example .method-example-part .method-example-request:last-child, #api-reference #content .method .method-example .method-example-part .method-example-response:last-child { padding-bottom: 0 }
+
+#api-reference #content .method .method-example .method-example-part .method-example-declaration:before, #api-reference #content .method .method-example .method-example-part .method-example-endpoint:before, #api-reference #content .method .method-example .method-example-part .method-example-object:before, #api-reference #content .method .method-example .method-example-part .method-example-request:before, #api-reference #content .method .method-example .method-example-part .method-example-response:before {
+    display: block;
+    padding-bottom: 8px;
+    content: 'Definition';
+    color: #d0d4d7;
+    font-family: Whitney SSm A, Whitney SSm B, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-endpoint:before { content: 'API Endpoint' }
+
+#api-reference #content .method .method-example .method-example-part .method-example-request:before { content: 'Example Request' }
+
+#api-reference #content .method .method-example .method-example-part .method-example-response:before { content: 'Example Response' }
+
+#api-reference #content .method .method-example .method-example-part .method-example-object, #api-reference #content .method .method-example .method-example-part .method-example-object:first-child { padding-top: 20px }
+
+#api-reference #content .method .method-example .method-example-part .method-example-object:before, #api-reference #content .method .method-example .method-example-part .method-example-object:first-child:before { content: 'Example Response' }
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher {
+    position: relative;
+    height: 31px;
+    padding-bottom: 40px
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position {
+    left: 20px;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    padding: 0 10px;
+    background: #2d3134
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position .method-example-switcher-switch {
+    position: relative;
+    z-index: 20;
+    display: block;
+    float: left;
+    height: 29px;
+    margin-right: 10px;
+    padding: 0 14px;
+    border: 1px solid #33383b;
+    border-radius: 29px;
+    color: #d0d4d7;
+    font-size: 13px;
+    line-height: 29px
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position .method-example-switcher-switch:last-child { margin-right: 0 }
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position .method-example-switcher-switch:hover {
+    background: #33383b;
+    color: #dde4e8
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position .method-example-switcher-switch.selected {
+    z-index: 30;
+    background: rgba(0, 153, 229, .7);
+    border-color: #0099e5;
+    color: #dde4e8;
+    cursor: default;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1)
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position .method-example-switcher-switch.selected:active, #api-reference #content .method .method-example .method-example-part .method-example-switcher .method-example-switcher-position .method-example-switcher-switch.selected:hover { cursor: default }
+
+#api-reference #content .method .method-example .method-example-part .method-example-switcher:after {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 14px;
+    z-index: 5;
+    display: block;
+    height: 1px;
+    background: #33383b;
+    content: ""
+}
+
+#api-reference #content .method .method-example .method-example-part .method-example-specific.hide { display: none }
+
+#api-reference #content .method .method-example .table {
+    margin: 30px 0 45px;
+    max-width: 768px;
+    overflow: hidden;
+    background: #33373a;
+    border: 1px solid #373b3e;
+    border-radius: 5px;
+    color: #d0d4d7
+}
+
+#api-reference #content .method .method-example .table .table-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid #373b3e;
+    color: #d0d4d7;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    text-transform: uppercase
+}
+
+#api-reference #content .method .method-example .table .table-header code {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 5px;
+    background: #373b3e;
+    border: 1px solid #414547;
+    border-radius: 4px;
+    color: #ebde68;
+    font-family: Source Code Pro, Menlo, monospace;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: none
+}
+
+#api-reference #content .method .method-example .table .table-header + .table-container { border-top: 0 }
+
+#api-reference #content .method .method-example .table .table-container {
+    table-layout: fixed;
+    width: 100%;
+    background-clip: padding-box
+}
+
+#api-reference #content .method .method-example .table .table-container tr td, #api-reference #content .method .method-example .table .table-container tr th {
+    display: table-cell;
+    padding: 9px 20px;
+    font-size: 13px;
+    vertical-align: top
+}
+
+#api-reference #content .method .method-example .table .table-container tr td.table-row-property, #api-reference #content .method .method-example .table .table-container tr th.table-row-property {
+    width: 140px;
+    font-weight: 600;
+    text-align: right
+}
+
+#api-reference #content .method .method-example .table .table-container tr:nth-child(odd) { background: rgba(0, 0, 0, .1) }
+
+#api-reference #content .method .method-example .table .table-container tr:first-child td, #api-reference #content .method .method-example .table .table-container tr:first-child th { padding-top: 16px }
+
+#api-reference #content .method .method-example .table .table-container tr:last-child td, #api-reference #content .method .method-example .table .table-container tr:last-child th { padding-bottom: 16px }
+
+#api-reference #content .method .method-example .table .table-footer {
+    padding: 14px 20px;
+    border-top: 1px solid #373b3e;
+    font-size: 13px
+}
+
+
+
+
+#api-reference .changes-tooltip {
+    left: 218px;
+    position: absolute;
+    top: 313px;
+    z-index: 9999;
+    box-sizing: border-box;
+    display: block;
+    padding: 16px 20px;
+    width: 340px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 0 8px rgba(75, 84, 89, .1), 0 1px 4px rgba(75, 84, 89, .25);
+    color: #4c555a;
+    font-size: 13px;
+    line-height: 21px
+}
+
+#api-reference .changes-tooltip:before {
+    left: 50%;
+    position: absolute;
+    top: -11px;
+    display: block;
+    height: 12px;
+    margin-left: -10px;
+    width: 20px;
+    content: '';
+    background-image: url(/img/documentation/api/change-notice-tail.png)
+}
+
+@media (min--moz-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx), (min-resolution: 138dpi), all and (-webkit-min-device-pixel-ratio: 1.5) {
+    #api-reference .changes-tooltip:before {
+        background-image: url(/img/documentation/api/change-notice-tail@2x.png);
+        background-size: 20px 12px
+    }
+}
+
+#api-reference .changes-tooltip code, #api-reference .changes-tooltip tt {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 5px;
+    background: #fafcfc;
+    border: 1px solid #f0f4f7;
+    border-radius: 4px;
+    color: #b93d6a;
+    font-family: Source Code Pro, Menlo, monospace;
+    font-size: 13px;
+    line-height: 20px
+}
+
+#api-reference .changes-tooltip ul li { padding-top: 10px }
+
+#api-reference.has-version-check #loading-bar { background: hsla(0, 0%, 100%, .9) }
+
+#api-reference.has-version-check #content, #api-reference.has-version-check #header, #api-reference.has-version-check #sidebar { top: 33px }
+
+@media screen and (min-width: 2020px) {
+    #api-reference #header { left: 281px }
+
+    #api-reference #header .header-section.header-section-sidebar {
+        left: -281px;
+        width: 280px
+    }
+
+    #api-reference #header .header-section.header-section-example { left: 780px }
+
+    #api-reference #sidebar { width: 280px }
+
+    #api-reference #background { left: 281px }
+
+    #api-reference #background .background-actual { left: 780px }
+
+    #api-reference #content { left: 281px }
+
+    #api-reference #content .method .method-area .method-copy { width: 780px }
+
+    #api-reference #content .method .method-area .method-example { margin-left: 780px }
+}
+
+@media screen and (min-width: 1200px) {
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label { width: 180px }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label:after { left: 200px }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 200px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child:before { left: 170px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label, #api-reference #content .method .method-copy .method-list.method-list-child .method-list-title { width: 159px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label:after { left: 179px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 179px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child:before { left: 149px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label, #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-title { width: 138px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label:after { left: 158px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 158px }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item { overflow: hidden }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label {
+        position: relative;
+        z-index: 5;
+        float: left;
+        text-align: right
+    }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label:after {
+        position: absolute;
+        top: 0;
+        display: block;
+        color: #dde4e8;
+        content: '\2014';
+        font-weight: 400;
+        text-align: left
+    }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-badge {
+        display: block;
+        margin-left: 0;
+        padding: 4px 0 0;
+        border: 0;
+        border-radius: 0;
+        line-height: 1.2em
+    }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-label-details, #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-label .method-list-item-validation { display: block }
+
+    #api-reference #content .method .method-copy .method-list .method-list-group .method-list-item .method-list-item-description {
+        position: relative;
+        z-index: 10;
+        background: #fff
+    }
+
+    #api-reference #content .method .method-copy .method-list.method-list-empty .method-list-group .method-list-item .method-list-item-label {
+        width: 100%;
+        text-align: center
+    }
+
+    #api-reference #content .method .method-copy .method-list.method-list-empty .method-list-group .method-list-item .method-list-item-label:after { display: none }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child { margin-top: 22px }
+
+    #api-reference #content .method .method-copy .method-list.method-list-child .method-list-title { text-align: right }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list .method-list-group .method-list-item .method-list-item-label { width: 220px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list .method-list-group .method-list-item .method-list-item-label:after { left: 240px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 240px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child:before { left: 210px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label, #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-title { width: 199px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label:after { left: 219px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 219px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child:before { left: 189px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label, #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-title { width: 178px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label:after { left: 198px }
+
+    #api-reference #content .method#dispute_evidence_object .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 198px }
+
+    #api-reference #content .method#event_types .method-copy .method-list .method-list-group .method-list-item .method-list-item-label { width: 240px }
+
+    #api-reference #content .method#event_types .method-copy .method-list .method-list-group .method-list-item .method-list-item-label:after { left: 260px }
+
+    #api-reference #content .method#event_types .method-copy .method-list .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 260px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child:before { left: 230px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label, #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-title { width: 219px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label:after { left: 239px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 239px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child:before { left: 209px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label, #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-title { width: 198px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-label:after { left: 218px }
+
+    #api-reference #content .method#event_types .method-copy .method-list.method-list-child .method-list-group .method-list-item .method-list.method-list-child .method-list-group .method-list-item .method-list-item-description { margin: 0 0 0 218px }
+}
+
+@media screen and (max-width: 1300px) {
+    #api-reference #header { left: 181px }
+
+    #api-reference #header .header-section.header-section-sidebar {
+        left: -181px;
+        width: 180px
+    }
+
+    #api-reference #sidebar { width: 180px }
+
+    #api-reference #background, #api-reference #content { left: 181px }
+}
+
+@media screen and (max-width: 1030px) {
+    #api-reference #header {
+        left: 0;
+        height: 49px;
+        background: #fff;
+        border-bottom: 1px solid #f0f4f7
+    }
+
+    #api-reference #header .header-section.header-section-sidebar {
+        left: 0;
+        border-bottom: 0
+    }
+
+    #api-reference #header .header-section.header-section-sidebar .logo { left: 40px }
+
+    #api-reference #header .header-section.header-section-copy { right: 55% }
+
+    #api-reference #header .header-section.header-section-copy .select-field.jump-menu {
+        display: block;
+        margin-right: 30px
+    }
+
+    #api-reference #sidebar { display: none }
+
+    #api-reference #background { left: 0 }
+
+    #api-reference #content {
+        left: 0;
+        top: 50px
+    }
+
+    #api-reference .changes-tooltip {
+        left: 66px;
+        top: 266px
+    }
+
+    #api-reference .changes-tooltip:before {
+        left: -11px;
+        top: 50%;
+        height: 20px;
+        margin-left: 0;
+        margin-top: -10px;
+        width: 12px;
+        background-image: url(/img/documentation/api/change-notice-tail-side.png)
+    }
+
+    @media 
+
+    ( 
+
+    min--moz-device-pixel-ratio:1.5 
+
+    ), ( 
+
+    min-device-pixel-ratio:1.5 
+
+    ), ( 
+
+    min-resolution:1.5dppx 
+
+    ), ( 
+
+    min-resolution:138dpi 
+
+    ), all and ( 
+
+    -webkit-min-device-pixel-ratio:1.5 
+
+    ) {
+    
+
+    #api-reference .changes-tooltip:before {
+        background-image: url(/img/documentation/api/change-notice-tail-side@2x.png);
+        background-size: 12px 20px
+    }
+}
+
+#api-reference.has-version-check #header, #api-reference.has-version-check #sidebar { top: 33px }
+
+#api-reference.has-version-check #content { top: 82px }
+
+} 
+
+@media screen and (max-width: 848px) {
+    #api-reference #version-check .version-check-large { display: none }
+
+    #api-reference #version-check .version-check-small { display: block }
+
+    #api-reference #header .header-section.header-section-sidebar {
+        left: 0;
+        position: fixed;
+        padding: 0 20px;
+        width: 140px;
+        background: #fff;
+        border-bottom: 1px solid #f0f4f7
+    }
+
+    #api-reference #header .header-section.header-section-sidebar .logo {
+        left: 0;
+        position: relative
+    }
+
+    #api-reference #header .header-section.header-section-copy {
+        left: 140px;
+        position: fixed;
+        right: 0;
+        z-index: 70;
+        padding: 0 20px;
+        background: #fff;
+        border-bottom: 1px solid #f0f4f7
+    }
+
+    #api-reference #header .header-section.header-section-copy .select-field.jump-menu {
+        margin-right: 0;
+        max-width: 320px;
+        width: 100%
+    }
+
+    #api-reference #header .header-section.header-section-copy .select-field.jump-menu select {
+        max-width: 320px;
+        width: 100%
+    }
+
+    #api-reference #header .header-section.header-section-example {
+        left: 0;
+        position: relative;
+        top: 49px;
+        z-index: 60;
+        height: 41px;
+        min-width: 0;
+        padding-left: 0
+    }
+
+    #api-reference #header .header-section.header-section-example #language {
+        height: 41px;
+        min-width: 0;
+        padding: 0;
+        text-align: center
+    }
+
+    #api-reference #header .header-section.header-section-example #language .language-toggle li {
+        display: inline-block;
+        float: none;
+        margin: 0
+    }
+
+    #api-reference #header .header-section.header-section-example #language .language-toggle li .language-toggle-button {
+        height: 41px;
+        padding: 0 7px;
+        border: 0;
+        border-radius: 0;
+        line-height: 41px
+    }
+
+    #api-reference #background { display: none }
+
+    #api-reference #content { top: 90px }
+
+    #api-reference #content .method .method-area .method-copy {
+        float: none;
+        width: 100%
+    }
+
+    #api-reference #content .method .method-area .method-copy .method-copy-padding, #api-reference #content .method .method-area .method-copy .method-list {
+        padding-left: 20px;
+        padding-right: 20px
+    }
+
+    #api-reference #content .method .method-area .method-copy .method-list .method-list-child {
+        padding-left: 0;
+        padding-right: 0
+    }
+
+    #api-reference #content .method .method-area .method-example {
+        margin-left: 0;
+        background: #2d3134
+    }
+
+    #api-reference #content .method .method-area .method-example .method-example-part {
+        padding-left: 20px;
+        padding-right: 20px
+    }
+
+    #api-reference #content .method .method-area .method-example .method-example-part .table { max-width: none }
+
+    #api-reference #content .method .method-area .method-example .method-example-part .table .table-container tr td, #api-reference #content .method .method-area .method-example .method-example-part .table .table-container tr th {
+        display: block;
+        text-align: left
+    }
+
+    #api-reference #content .method .method-area .method-example .method-example-part .table .table-container tr th { padding-bottom: 0 }
+
+    #api-reference #content .method .method-area .method-example .method-example-part .table .table-container tr td { padding-top: 0 }
+
+    #api-reference.has-version-check #header .header-section.header-section-copy, #api-reference.has-version-check #header .header-section.header-section-sidebar, #api-reference.has-version-check #sidebar { top: 33px }
+
+    #api-reference.has-version-check #content { top: 123px }
+}
+
+@-webkit-keyframes languageToggleShows {
+    0%, to {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    70% {
+        -webkit-transform: scale(1.04);
+        transform: scale(1.04)
+    }
+}
+
+@keyframes languageToggleShows {
+    0%, to {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    70% {
+        -webkit-transform: scale(1.04);
+        transform: scale(1.04)
+    }
+}
+
+
+
+@charset "UTF-8";
+.jsonview {
+  font-family: monospace;
+  font-size: 1.1em;
+  white-space: pre-wrap; }
+  .jsonview .prop {
+    font-weight: bold;
+    text-decoration: none;
+    color: #000; }
+  .jsonview .null {
+    color: red; }
+  .jsonview .undefined {
+    color: red; }
+  .jsonview .bool {
+    color: blue; }
+  .jsonview .num {
+    color: blue; }
+  .jsonview .string {
+    color: green;
+    white-space: pre-wrap; }
+    .jsonview .string.multiline {
+      display: inline-block;
+      vertical-align: text-top; }
+  .jsonview .collapser {
+    position: absolute;
+    left: -1em;
+    cursor: pointer; }
+  .jsonview .collapsible {
+    transition: height 1.2s;
+    transition: width 1.2s; }
+  .jsonview .collapsible.collapsed {
+    height: .8em;
+    width: 1em;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0; }
+  .jsonview .collapsible.collapsed:before {
+    content: "…";
+    width: 1em;
+    margin-left: .2em; }
+  .jsonview .collapser.collapsed {
+    transform: rotate(0deg); }
+  .jsonview .q {
+    display: inline-block;
+    width: 0px;
+    color: transparent; }
+  .jsonview li {
+    position: relative; }
+  .jsonview ul {
+    list-style: none;
+    margin: 0 0 0 2em;
+    padding: 0; }
+  .jsonview h1 {
+    font-size: 1.2em; }
+
+/*# sourceMappingURL=jquery.jsonview.css.map */
+
+.switch-inline input[type='checkbox'], .switch input[type='checkbox'] {
+    display: none;
+}
+
+.switch-inline input[type='checkbox']:checked ~ span, .switch input[type='checkbox']:checked ~ span {
+    margin-left: -6px;
+    background-color: #81b165;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+}
+
+.switch-inline {
+ top: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 56px;
+    height: 20px;
+    background-color: #eaeaea;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0px 0px 2px 0px;
+    padding: 0px;
+}
+
+.switch-inline span, .switch span {
+    display: block;
+    height: 20px;
+    width: 100px;
+    color: #ffffff;
+    background-color: #939393;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    white-space: nowrap;
+    margin-left: -42px;
+    text-shadow: rgba(0, 0, 0, 0.1) 1px 1px;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2) inset;
+}
+
+.switch-inline i, .switch i {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0px 4px 4px 4px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px;
+}
