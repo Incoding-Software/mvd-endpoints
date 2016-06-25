@@ -41,12 +41,12 @@
             {
                 Table("Endpoint_Message_Tbl");
                 IdGenerateByGuid(r => r.Id);
-                MapEscaping(r => r.Name);
+                MapEscaping(r => r.Name).Length(int.MaxValue);
                 MapEscaping(r => r.Jira);
-                MapEscaping(r => r.Description);
+                MapEscaping(r => r.Description).Length(int.MaxValue);
                 MapEscaping(r => r.Result);
                 MapEscaping(r => r.Type);
-                DefaultHasMany(r => r.Properties).Cascade.SaveUpdate();
+                DefaultHasMany(r => r.Properties).Cascade.AllDeleteOrphan();
                 DefaultReference(r => r.GroupKey);
             }
         }
@@ -81,6 +81,10 @@
 
             public virtual TypeOf Type { get; set; }
 
+            public virtual Property Parent { get; set; }
+
+            public virtual IList<Property> Childs { get; set; }
+
             [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
             public class Map : NHibernateEntityMap<Property>
             {
@@ -89,10 +93,12 @@
                     Table("Endpoint_Property_Tbl");
                     IdGenerateByGuid(r => r.Id);
                     DefaultReference(r => r.Message);
-                    MapEscaping(r => r.Name);
+                    DefaultReference(r => r.Parent).Cascade.SaveUpdate();
+                    HasMany(r => r.Childs).Cascade.DeleteOrphan();
+                    MapEscaping(r => r.Name).Length(int.MaxValue);
                     MapEscaping(r => r.Type);
                     MapEscaping(r => r.Default);
-                    MapEscaping(r => r.Description);
+                    MapEscaping(r => r.Description).Length(int.MaxValue);
                     MapEscaping(r => r.PropertyType);
                     MapEscaping(r => r.GenericType);
                     MapEscaping(r => r.GroupKey);
@@ -192,7 +198,8 @@
             }
         }
 
-        public abstract class Order {
+        public abstract class Order
+        {
             public class Default : OrderSpecification<Message>
             {
                 public override Action<AdHocOrderSpecification<Message>> SortedBy()

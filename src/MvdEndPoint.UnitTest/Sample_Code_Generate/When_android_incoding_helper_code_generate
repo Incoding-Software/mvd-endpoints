@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 
 public class IncodingHelper {
 
-    static String url = "http://localhost:48801/Dispatcher" ;
+    static String url = "http://localhost:48801/Dispatcher/" ;
 	public static String ToValue(Object ob) throws UnsupportedEncodingException {
 		if(ob instanceof java.util.Date)
 			return new SimpleDateFormat("dd/MM/yyyy").format(ob);

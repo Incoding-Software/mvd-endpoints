@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System.Linq;
+    using System.Web.Mvc;
     using CloudIn.Domain.Endpoint;
     using Incoding.CQRS;
 
@@ -40,6 +41,7 @@
         {
             public string Id { get; set; }
 
+            [AllowHtml]
             public string Description { get; set; }
 
             protected override void Execute()
@@ -53,6 +55,7 @@
         {
             public string Id { get; set; }
 
+            [AllowHtml]
             public string Description { get; set; }
 
             protected override void Execute()
@@ -87,6 +90,7 @@
         {
             public string Id { get; set; }
 
+            [AllowHtml]
             public string Description { get; set; }
 
             protected override void Execute()

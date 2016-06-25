@@ -19,7 +19,14 @@
     {
         protected override void Execute()
         {
-            foreach (var endpoint in Dispatcher.Query(new GetEndpointsQuery()))
+            var allEndpoints = Dispatcher.Query(new GetEndpointsQuery());
+            foreach (var delete in Repository.Query<Message>()
+                                             .Select(r => new { Id = r.Id, Type = r.Type })
+                                             .ToList()
+                                             .Where(r => allEndpoints.All(response => response.Type != r.Type)))
+                Repository.Delete<Message>(delete.Id);
+
+            foreach (var endpoint in allEndpoints)
             {
                 var entity = Repository.Query(whereSpecification: new Message.Where.ByFullName(endpoint.Type))
                                        .FirstOrDefault() ?? new Message()

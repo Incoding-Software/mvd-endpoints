@@ -30,7 +30,7 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
         {
             this.Write("package ");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
@@ -39,48 +39,48 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
                     "s;\r\nimport org.json.JSONObject;\r\nimport android.content.Context;\r\nimport android" +
                     ".os.AsyncTask;\r\nimport java.util.HashMap;\r\n\r\npublic class ");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
             this.Write(" extends AsyncTask<String, Integer, String> {\r\n\r\n    ");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("    public ");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n    ");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  } 
             
             #line default
@@ -89,77 +89,77 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
                     "\r\n\tjava.util.HashMap<String, Object> parameters = new java.util.HashMap<String, " +
                     "Object>();\t\r\n\tparameters.put(\"incTypes\",\"");
             
-            #line 31 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Type));
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(IncType));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t");
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t");
             
-            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsCanNull)) { 
             
             #line default
             #line hidden
             this.Write(" if (this.");
             
-            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" != null) ");
             
-            #line 33 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("    parameters.put(index == -1 ? \"");
             
-            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write("\" : String.format(\"[%s].");
             
-            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write("\", index),this.");
             
-            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n    ");
             
-            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
  } 
             
             #line default
             #line hidden
             this.Write("   \r\n\treturn parameters;\r\n   } \r\n\r\n    private Context context;\r\n\r\n    private ");
             
-            #line 41 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 42 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write(" listener;\r\n    \t\r\n\tpublic ");
             
-            #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 44 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
@@ -168,7 +168,7 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
                     "ed void onPostExecute(String s) {\r\n        super.onPostExecute(s);\r\n        try " +
                     "{\r\n            listener.Success( ");
             
-            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
@@ -186,7 +186,7 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
         try {		   
 		   return IncodingHelper.Execute(context, true,""");
             
-            #line 62 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 63 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Type));
             
             #line default
@@ -195,7 +195,7 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
                     "          e.printStackTrace();\r\n        }\r\n        return \"\";\r\n    }\r\n\r\n    publ" +
                     "ic void On(");
             
-            #line 69 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
+            #line 70 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Request.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
@@ -294,6 +294,19 @@ private string Type
     get
     {
         return this._TypeField;
+    }
+}
+
+private string _IncTypeField;
+
+/// <summary>
+/// Access the IncType parameter of the template.
+/// </summary>
+private string IncType
+{
+    get
+    {
+        return this._IncTypeField;
     }
 }
 
@@ -414,6 +427,20 @@ if ((TypeValueAcquired == false))
     if ((data != null))
     {
         this._TypeField = ((string)(data));
+    }
+}
+bool IncTypeValueAcquired = false;
+if (this.Session.ContainsKey("IncType"))
+{
+    this._IncTypeField = ((string)(this.Session["IncType"]));
+    IncTypeValueAcquired = true;
+}
+if ((IncTypeValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IncType");
+    if ((data != null))
+    {
+        this._IncTypeField = ((string)(data));
     }
 }
 bool PropertiesValueAcquired = false;

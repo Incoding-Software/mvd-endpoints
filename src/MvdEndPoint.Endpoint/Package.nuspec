@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Incoding.Endpoint</id>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
     <title>Incoding Endpoint</title>
     <authors>Vlad</authors>
     <owners></owners>
@@ -26,8 +26,8 @@
     <tags></tags>
   </metadata>
   <files>
+    <file src="lib\net45\*.*" target="lib" />
     <file src="content\**" target="content"/>
     <file src="tools\" target="tools" />
-    <file src="lib\net45\*.*" target="lib" />
   </files>
 </package>

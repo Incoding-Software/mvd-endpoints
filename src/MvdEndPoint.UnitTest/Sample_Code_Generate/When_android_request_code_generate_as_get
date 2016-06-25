@@ -16,7 +16,7 @@ public class GetCustomerRequest extends AsyncTask<String, Integer, String> {
 
    public java.util.HashMap<String, Object> GetParameters(Integer index) {
 	java.util.HashMap<String, Object> parameters = new java.util.HashMap<String, Object>();	
-	parameters.put("incTypes","Query");
+	parameters.put("incTypes","GetCustomerQuery");
 		 if (this.Message != null)     parameters.put(index == -1 ? "Message" : String.format("[%s].Message", index),this.Message);
     	    parameters.put(index == -1 ? "Title" : String.format("[%s].Title", index),this.Title);
     	    parameters.put(index == -1 ? "Ids" : String.format("[%s].Ids", index),this.Ids);

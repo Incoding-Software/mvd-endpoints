@@ -1,4 +1,4 @@
-
+@using Incoding.Extensions
 <html>
 <head>
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")"/>
@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/endpoint.css")"/>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"> </script>
+    
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.min.js")"> </script>
@@ -15,9 +16,11 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/endpoint.js")"></script>
+
+    <script src="@Url.Content("~/Content/Trumbowyg-master/dist/trumbowyg.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/Trumbowyg-master/dist/ui/trumbowyg.min.css")">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/androidstudio.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
-
     <style>
         pre { background-color: #282b2e; }
 
@@ -39,9 +42,17 @@
         <div class="switch-inline">
             <label>
                 @(Html.When(JqueryBind.Change)
-                      .OnSuccess(dsl => dsl.WithClass("glyphicon-pushpin")
-                                           .WithClass("glyphicon-pencil").JQuery.Attr.ToggleClass(B.Hidden))
+                      .OnSuccess(dsl =>
+                                 {
+                                     dsl.WithClass("glyphicon-pushpin")
+                                     .Behaviors(instancesDsl =>
+                                                {
+                                                    instancesDsl.JQuery.Attr.AddClass(B.Hidden);
+                                                    instancesDsl.JQuery.Attr.RemoveClass(B.Hidden).If(() => Selector.Jquery.Self());
+                                                });
 
+                                     dsl.WithClass("ce-element").JQuery.Attr.ToggleClass(B.Active);
+                                 })
                       .AsHtmlAttributes()
                       .ToInput(HtmlInputType.CheckBox, ""))
                 <span>YES<i></i>NO</span>

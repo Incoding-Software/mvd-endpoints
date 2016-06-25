@@ -2,9 +2,14 @@
 
 
 $(function () {
-    hljs.initHighlightingOnLoad();
-
+    hljs.initHighlightingOnLoad();    
+    $('textarea').on('tbwblur', function(e) {
+        $(e.currentTarget).trigger('blur');
+    }); 
 });
+
+
+
 function DataToString(target, json) {
     $(target).JSONView(JSON.stringify(json));
 }

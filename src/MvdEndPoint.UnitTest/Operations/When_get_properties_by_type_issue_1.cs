@@ -18,21 +18,43 @@
 
         #endregion
 
+        private static string testResponseType;
+
+        private static string pagingContainerType;
+
         Establish establish = () =>
                               {
                                   GetPropertiesQuery query = Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Type, typeof(PagingResult<TestResponse>)));
 
+                                  testResponseType = Pleasure.Generator.String();
+                                  pagingContainerType = Pleasure.Generator.String();
                                   mockQuery = MockQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>
                                           .When(query)
                                           .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(s => s.Type, typeof(TestResponse))
-                                                                                                       .Tuning(r => r.Device, query.Device), Pleasure.Generator.String())
+                                                                                                       .Tuning(r => r.Device, query.Device), testResponseType)
                                           .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(s => s.Type, typeof(PagingContainer))
-                                                                                                       .Tuning(r => r.Device, query.Device), Pleasure.Generator.String());
+                                                                                                       .Tuning(r => r.Device, query.Device), pagingContainerType);
                               };
 
         Because of = () => mockQuery.Original.Execute();
 
-        It should_be_result = () => mockQuery.ShouldBeIsResult(result => result.ShouldEqualWeakEach(new List<GetPropertiesQuery.Response>()));
+        It should_be_result = () => mockQuery.ShouldBeIsResult(result => result.ShouldEqualWeakEach(new[]
+                                                                                                    {
+                                                                                                            new GetPropertiesQuery.Response()
+                                                                                                            {
+                                                                                                                    Type = testResponseType,
+                                                                                                                    Name = "Items",
+                                                                                                                    Target = typeof(TestResponse),
+                                                                                                                    Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsArray | GetPropertiesQuery.Response.OfAttributes.IsClass
+                                                                                                            },
+                                                                                                            new GetPropertiesQuery.Response()
+                                                                                                            {
+                                                                                                                    Type = pagingContainerType,
+                                                                                                                    Name = "Paging",
+                                                                                                                    Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsClass,
+                                                                                                                    Target = typeof(PagingContainer)
+                                                                                                            }
+                                                                                                    }));
 
         public class TestResponse { }
 

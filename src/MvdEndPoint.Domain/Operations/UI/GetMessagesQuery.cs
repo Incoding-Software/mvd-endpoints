@@ -21,7 +21,7 @@ namespace Incoding.Endpoint
         protected override List<Response> ExecuteResult()
         {
             var res = new List<Response>();
-            foreach (var item in Repository.Query<Message>(orderSpecification:new Message.Order.Default())                                           
+            foreach (var item in Repository.Query(new Message.Order.Default())
                                            .GroupBy(r => r.GroupKey, endpoint => endpoint))
             {
                 if (item.Key != null)
@@ -39,21 +39,6 @@ namespace Incoding.Endpoint
                                       : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString();
 
                     var baseUrl = "{0}://{1}".F(HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
-                    Func<Message.Property, Response.Item> toProperty = r =>
-                                                                       {
-                                                                           var propertyType = Dispatcher.Query(new GetTypeFromPropertyQuery() { Property = r });
-                                                                           return new Response.Item()
-                                                                                  {
-                                                                                          Name = r.Name,
-                                                                                          Id = r.Id,
-                                                                                          Type = propertyType.IsGenericType
-                                                                                                         ? "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name)
-                                                                                                         : propertyType.Name,
-                                                                                          Description = r.Description ?? "Description",
-                                                                                          IsRequired = r.IsRequired,
-                                                                                          Default = r.Default ?? (propertyType.IsValueType ? Activator.CreateInstance(propertyType).With(s => s.ToString().Recovery("null")) : "null")
-                                                                                  };
-                                                                       };
                     res.Add(new Response()
                             {
                                     Id = endpoint.Name.Replace(" ", "_"),
@@ -67,8 +52,8 @@ namespace Incoding.Endpoint
                                     Host = baseUrl,
                                     Result = endpoint.Result,
                                     Group = endpoint.GroupKey.With(s => s.Name),
-                                    PropertiesOfResponse = endpoint.Properties.Where(r => r.Type == Message.Property.TypeOf.Response).Select(toProperty).ToList(),
-                                    PropertiesOfRequest = endpoint.Properties.Where(s => s.Type == Message.Property.TypeOf.Request).Select(toProperty).ToList()
+                                    PropertiesOfResponse = endpoint.Properties.Where(r => r.Type == Message.Property.TypeOf.Response).Select(property => new Response.Item(property)).ToList(),
+                                    PropertiesOfRequest = endpoint.Properties.Where(s => s.Type == Message.Property.TypeOf.Request).Select(property => new Response.Item(property)).ToList()
                             });
                 }
             }
@@ -127,6 +112,20 @@ namespace Incoding.Endpoint
 
             public class Item
             {
+                public Item(Message.Property r)
+                {
+                    var propertyType = new DefaultDispatcher().Query(new GetTypeFromPropertyQuery() { Property = r });
+                    Name = r.Name;
+                    Id = r.Id;
+                    Childrens = r.Childs.Select(property => new Item(property)).ToList();
+                    Type = propertyType.IsGenericType
+                                   ? "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name)
+                                   : propertyType.Name;
+                    Description = r.Description ?? "Description";
+                    IsRequired = r.IsRequired;
+                    Default = r.Default ?? (propertyType.IsValueType ? Activator.CreateInstance(propertyType).With(s => s.ToString().Recovery("null")) : "null");
+                }
+
                 public string Name { get; set; }
 
                 public string Default { get; set; }
@@ -138,6 +137,8 @@ namespace Incoding.Endpoint
                 public bool IsRequired { get; set; }
 
                 public string Id { get; set; }
+
+                public List<Item> Childrens { get; set; }
             }
         }
     }

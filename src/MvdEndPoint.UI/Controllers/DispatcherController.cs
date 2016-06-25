@@ -1,8 +1,10 @@
 namespace MvdEndPoint.UI.Controllers
-{        
-    using Incoding.MvcContrib.MVD;    
-	
+{
+    using System.Web.Mvc;
+    using Incoding.MvcContrib.MVD;
+
+    [ValidateInput(false)]
     public class DispatcherController : DispatcherControllerBase
     {        
     }
-}
+}   

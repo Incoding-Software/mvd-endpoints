@@ -1557,3 +1557,11 @@ a img { border: none }
     margin: 0px 4px 4px 4px;
     box-shadow: rgba(0, 0, 0, 0.1) 1px 1px;
 }
+
+
+
+.ce-element.active {
+    background-color:rgba(243,156,18,.1);
+    outline: none;
+}
+

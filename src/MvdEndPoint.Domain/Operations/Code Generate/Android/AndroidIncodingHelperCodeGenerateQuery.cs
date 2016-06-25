@@ -22,13 +22,13 @@
         protected override string ExecuteResult()
         {
             var template = new Android_IncodingHelper
-                               {
-                                       Session = new Dictionary<string, object>
-                                                     {
-                                                             { "Namespace", Namespace },
-                                                             { "Url", BaseUrl.AppendSegment("Dispatcher") },
-                                                     }
-                               };
+                           {
+                                   Session = new Dictionary<string, object>
+                                             {
+                                                     { "Namespace", Namespace },
+                                                     { "Url", BaseUrl.AppendSegment("Dispatcher") + "/" },
+                                             }
+                           };
             template.Initialize();
             return template.TransformText();
         }
