@@ -204,9 +204,8 @@
             {
                 public override Action<AdHocOrderSpecification<Message>> SortedBy()
                 {
-                    return specification => specification
-                                                    .OrderByDescending(r => r.GroupKey.Name)
-                                                    .OrderBy(r => r.Name);
+                    return specification => specification.OrderByDescending(r => r.GroupKey.Name)
+                                                         .OrderBy(r => r.Name);
                 }
             }
         }

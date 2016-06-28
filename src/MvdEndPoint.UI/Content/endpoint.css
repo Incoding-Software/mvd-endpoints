@@ -412,7 +412,7 @@ a img { border: none }
     position: absolute;
     top: 0;
     z-index: 75;
-    width: 320px;
+    width: 220px;
     background: #fafcfc;
     border-right: 1px solid #f0f4f7
 }
@@ -530,7 +530,7 @@ a img { border: none }
     bottom: 0;
     right: 0;
     position: absolute;
-    left: 300px;
+    left: 220px;
     top: 0;
     z-index: 50;
     box-sizing: border-box;
@@ -1080,7 +1080,7 @@ a img { border: none }
 
     #api-reference #header .header-section.header-section-example { left: 780px }
 
-    #api-reference #sidebar { width: 280px }
+    #api-reference #sidebar { width: 220px }
 
     #api-reference #background { left: 281px }
 
@@ -1216,7 +1216,7 @@ a img { border: none }
         width: 180px
     }
 
-    #api-reference #sidebar { width: 180px }
+    #api-reference #sidebar { width: 220px }
 
     #api-reference #background, #api-reference #content { left: 181px }
 }
@@ -1561,7 +1561,7 @@ a img { border: none }
 
 
 .ce-element.active {
-    background-color:rgba(243,156,18,.1);
+    background-color:rgba(243,156,18,.1) !important;
     outline: none;
 }
 

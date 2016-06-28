@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Sample_Code_Generate\When_http_sample" />
     <None Include="Sample_Code_Generate\When_android_nested_class_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -202,6 +203,7 @@
     <Compile Include="MSpecAssemblyContext.cs" />
     <Compile Include="Operations\Android\When_android_sample_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
+    <Compile Include="Operations\Http\When_http_sample.cs" />
     <Compile Include="Operations\When_get_properties_by_type_issue_1.cs" />
     <Compile Include="Operations\MyClassMyEnumForWhen_get_share_type_from_type.cs" />
     <Compile Include="Operations\MyEnumForWhen_get_share_type_from_type.cs" />

@@ -2,13 +2,18 @@
 
 
 $(function () {
-    hljs.initHighlightingOnLoad();    
-    $('textarea').on('tbwblur', function(e) {
+    hljs.initHighlightingOnLoad();
+    $('textarea').on('tbwblur', function (e) {
         $(e.currentTarget).trigger('blur');
-    }); 
+    });
 });
 
-
+function ScrollTo(id) {
+    if (id == '#')
+        return;
+    var top = $(id).offset().top;
+    if (top > 0) { $('#content').animate({ scrollTop: top }, 1000); }
+}
 
 function DataToString(target, json) {
     $(target).JSONView(JSON.stringify(json));

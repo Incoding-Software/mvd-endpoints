@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Verb" #>
+<#@ parameter type="System.String" name="Url" #>
+
+<#=Verb#> <#=Url#> HTTP/1.1
+Host: @each.For(s => s.Host)
+Accept-Language: en
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest 

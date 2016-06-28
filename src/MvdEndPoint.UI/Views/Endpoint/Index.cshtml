@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/endpoint.css")"/>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.min.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.js")"> </script>
     
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
@@ -72,9 +72,9 @@
                     <li>
                         @(Html.When(JqueryBind.Change)
                               .OnSuccess(dsl =>
-                                         {
-                                             dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
+                                         {                                                                                          
                                              dsl.WithClass(type).JQuery.Attr.RemoveClass(B.Hidden);
+                                             dsl.WithClass(B.Active).Trigger.InitIncoding();
                                          })
                               .AsHtmlAttributes(attr)
                               .ToInput(HtmlInputType.Radio, type))

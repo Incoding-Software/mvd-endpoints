@@ -38,7 +38,7 @@
                 Func<Message.Property.TypeOf, GetEndpointsQuery.Response.Property, Message.Property> toProperty = (type, property) => new Message.Property()
                                                                                                                                       {
                                                                                                                                               Name = property.Name,
-                                                                                                                                              PropertyType = property.Type.FullName,
+                                                                                                                                              PropertyType = property.Type.FullName,                                                                                                                                             
                                                                                                                                               GenericType = property.Type.IsGenericType
                                                                                                                                                                     ? property.Type.GenericTypeArguments[0].FullName
                                                                                                                                                                     : string.Empty,
@@ -65,6 +65,23 @@
 
         public class GetEndpointsQuery : QueryBase<List<GetEndpointsQuery.Response>>
         {
+            public class GetPropertiesFromTypeQuery : QueryBase<List<Response.Property>>
+            {
+                public Type Type { get; set; }
+
+                protected override List<Response.Property> ExecuteResult()
+                {
+                    return Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                               .Where(r => r.CanRead && !r.HasAttribute<IgnoreDataMemberAttribute>())
+                               .Select(r => new Response.Property
+                                            {
+                                                    Name = r.Name,
+                                                    Type = r.PropertyType,
+                                            })
+                               .ToList();
+                }
+            }
+
             protected override List<Response> ExecuteResult()
             {
                 return AppDomain.CurrentDomain.GetAssemblies()
@@ -81,14 +98,7 @@
                                                 if (isArray)
                                                     responseType = responseType.GenericTypeArguments[0];
 
-                                                response.AddRange(responseType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                                                              .Where(r => r.CanRead && !r.HasAttribute<IgnoreDataMemberAttribute>())
-                                                                              .Select(r => new Response.Property
-                                                                                           {
-                                                                                                   Name = r.Name,
-                                                                                                   Type = r.PropertyType,
-                                                                                           })
-                                                                              .ToList());
+                                                response.AddRange(Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = responseType }));
                                             }
 
                                             var properties = instanceType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -123,6 +133,8 @@
                     public Type Type { get; set; }
 
                     public string Name { get; set; }
+
+                    public Property Parent { get; set; }
 
                     #endregion
                 }

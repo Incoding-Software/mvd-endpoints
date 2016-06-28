@@ -167,10 +167,11 @@
                                 <div class="method-example-request include-prompt">
                                     <pre>    
                                         <code class="http hljs">
-<span class="hljs-keyword">@each.For(r => r.Verb)</span> <span class="hljs-string">@each.For(r => r.Url)</span> HTTP/1.1
-<span class="hljs-attribute">Host</span>: @each.For(s => s.Host)
-<span class="hljs-attribute">Content-Type</span>: application/x-www-form-urlencoded; charset=UTF-8
-<span class="hljs-attribute">X-Requested-With</span>: XMLHttpRequest
+@each.For(r => r.Verb) @each.For(r => r.Url) HTTP/1.1
+Host: @each.For(s => s.Host)
+Accept-Language: en
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest  
 </code>
                                    </pre>
                                 </div>
@@ -222,7 +223,7 @@
                             <div class="method-example-part">
                                 <div class="method-example-response">
                                     <div>
-                                        <pre id="@resultId"></pre>
+                                        <pre id="@resultId" style="background: white"></pre>
                                     </div>
                                 </div>
                             </div>

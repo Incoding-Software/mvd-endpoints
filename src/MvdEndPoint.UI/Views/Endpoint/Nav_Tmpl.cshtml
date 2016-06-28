@@ -1,6 +1,17 @@
-﻿@helper Link(string name, string value, string @class)
+﻿@using System.Linq.Expressions
+@helper Link(string name, string value, string @class)
 {
-    @(Html.When(JqueryBind.Click)
+    @(Html.When(JqueryBind.InitIncoding)
+          .OnBegin(dsl => dsl.Break.If(() => value == ""))
+          .OnSuccess(dsl =>
+                     {              
+                         
+                         Expression<Func<bool>> isSelf = () => Selector.JS.Location.Hash == "#" + value;
+                         dsl.Self().JQuery.Attr.AddClass(B.Active).If(isSelf);
+                         dsl.Self().JQuery.Attr.AddClass(B.Active).If(() => Selector.JS.Location.Hash.IsEmpty() && Selector.Jquery.Class(B.Active).Length() == 0);
+                         dsl.Self().Call("ScrollTo", Selector.Jquery.Self().Attr(HtmlAttribute.Href)).If(() => Selector.Jquery.Self().HasClass(B.Active));
+                     })
+          .When(JqueryBind.Click)
           .OnSuccess(dsl =>
                      {
                          dsl.WithClass(B.Active).JQuery.Attr.RemoveClass(B.Active);
@@ -19,7 +30,7 @@
                 @Link(each.For(s => s.Title), each.For(s => s.Title), "sidebar-nav-item expandable")
                 <ul class="sidebar-nav-items loaded" style="height: auto">
                     @using (var innerEach = each.ForEach(s => s.Items))
-                    {
+{
                         <li>
                             @innerEach.IsInline(r => r.CssClass,@<text>
                                                                     @(Html.When(JqueryBind.KeyPress | JqueryBind.FocusOut)

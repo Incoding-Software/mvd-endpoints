@@ -21,16 +21,26 @@ namespace Incoding.Endpoint
         protected override List<Response> ExecuteResult()
         {
             var res = new List<Response>();
-            foreach (var item in Repository.Query(new Message.Order.Default())
-                                           .GroupBy(r => r.GroupKey, endpoint => endpoint))
+            var groupBy = Repository.Query(new Message.Order.Default())
+                                    .ToList()
+                                    .GroupBy(r => r.GroupKey.With(s => s.Id), endpoint => endpoint)
+                                    .ToList();
+            foreach (var item in groupBy)
             {
-                if (item.Key != null)
-                    res.Add(new Response() { Group = item.Key.Name, IsGroup = true, Id = item.Key.Name.Replace(" ", "_"), EntityId = item.Key.Id, Description = item.Key.Description ?? "Description" });
+                if (!item.Any())
+                    continue;
+
+                if (!string.IsNullOrEmpty(item.Key))
+                {
+                    var group = item.First().GroupKey;
+                    res.Add(new Response() { Group = group.Name, IsGroup = true, Id = group.Name.Replace(" ", "_"), EntityId = group.Id, Description = group.Description ?? "Description" });
+                }
 
                 foreach (var endpoint in item)
                 {
                     var instanceType = Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = endpoint.Type });
                     bool isCommand = Dispatcher.Query(new IsCommandTypeQuery(instanceType));
+
                     var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
                     var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(new UrlHelper(HttpContext.Current.Request.RequestContext).Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
 
@@ -44,6 +54,7 @@ namespace Incoding.Endpoint
                                     Id = endpoint.Name.Replace(" ", "_"),
                                     EntityId = endpoint.Id,
                                     Name = endpoint.Name,
+                                    IsGroup = false,
                                     Jira = endpoint.Jira.HasValue ? string.Empty : "https://incoding.atlassian.net/browse/BB-{0}".F(endpoint.Jira),
                                     Description = endpoint.Description ?? "Description",
                                     Verb = isCommand ? "POST" : "GET",
