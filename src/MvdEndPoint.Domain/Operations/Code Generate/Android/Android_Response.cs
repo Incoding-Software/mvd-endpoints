@@ -462,7 +462,7 @@ if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsEnum)) {
             
             #line default
             #line hidden
-            this.Write("\t\t\t\tJSONArray ");
+            this.Write("\t\r\n\t\t\t\tJSONArray ");
             
             #line 72 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Response.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));

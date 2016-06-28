@@ -65,7 +65,7 @@
                 @foreach (var type in new[] { "http", "android", "sandbox" })
                 {
                     var attr = new RouteValueDictionary(new { @class = "language-toggle-source", name = "language-toggle" });
-                    if (type == "http")
+                    if (type == "android")
                     {
                         attr.Add(HtmlAttribute.Checked.ToStringLower(), HtmlAttribute.Checked);
                     }

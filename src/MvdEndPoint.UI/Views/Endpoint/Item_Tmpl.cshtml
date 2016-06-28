@@ -32,8 +32,9 @@
     var contentId = "content" +tag.ToString() + id;
     var textAreaId = "textArea" +tag.ToString()+ id;
     @(Html.When(JqueryBind.DblClick)
+          .OnBegin(dsl => dsl.Break.If(() => !Selector.Jquery.Self().HasClass(B.Active)))
           .OnSuccess(dsl =>
-                     {
+                     {                         
                          dsl.WithId(contentId)
                             .WithId(textAreaId)
                             .JQuery.Attr.ToggleClass(B.Hidden);
@@ -41,11 +42,11 @@
                          if (isWysiwyg)
                          {                             
                              dsl.WithId(textAreaId)
-                             .Behaviors(instancesDsl =>
-                                        {
-                                            instancesDsl.JQuery.PlugIn("trumbowyg", "destroy").If(() => textAreaId.ToId().HasClass(B.Hidden));
-                                            instancesDsl.JQuery.PlugIn("trumbowyg").If(() => !textAreaId.ToId().HasClass(B.Hidden));
-                                        });
+                                .Behaviors(instancesDsl =>
+                                           {
+                                               instancesDsl.JQuery.PlugIn("trumbowyg", "destroy").If(() => textAreaId.ToId().HasClass(B.Hidden));
+                                               instancesDsl.JQuery.PlugIn("trumbowyg").If(() => !textAreaId.ToId().HasClass(B.Hidden));
+                                           });
                              
                          }
                      })
@@ -161,7 +162,7 @@
                                                            </text>)
                         </div>
 
-                        <div class="method-example http">
+                        <div class="method-example http hidden">
                             <div class="method-example-part">
                                 <div class="method-example-request include-prompt">
                                     <pre>    
@@ -175,7 +176,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="method-example android hidden">
+                        <div class="method-example android">
                             <div class="method-example-part">
                                 <div class="method-example-declaration">
                                     <pre>    
@@ -184,7 +185,7 @@
                                     <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
                                                                      {
                                                                              Device = DeviceOfType.Android,
-                                                                             Url = each.For(r => r.Host) + each.For(r => r.Url),
+                                                                             Url = each.For(r => r.Host),
                                                                              Id = each.For(r => r.EntityId)
                                                                      }).AsFile(incFileDownloadName: each.For(s => s.Name) + ".zip")">
                                         download

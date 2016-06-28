@@ -41,13 +41,13 @@
                                     response.Attributes |= Response.OfAttributes.IsBool;
                                 if (r.PropertyType.IsEnum)
                                     response.Attributes |= Response.OfAttributes.IsEnum;
-                                if (r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime)) || !(ReflectionExtensions.IsPrimitive(r.PropertyType) || r.PropertyType.IsEnum))
+                                if (r.PropertyType.IsAnyEquals(typeof(string), typeof(DateTime), typeof(DateTime?)) || !(ReflectionExtensions.IsPrimitive(r.PropertyType) || r.PropertyType.IsEnum))
                                     response.Attributes |= Response.OfAttributes.IsCanNull;
-                                if (r.PropertyType == typeof(DateTime))
+                                if (r.PropertyType.IsAnyEquals(typeof(DateTime), typeof(DateTime?)))
                                     response.Attributes |= Response.OfAttributes.IsDateTime;
                                 if (isArray)
                                     response.Attributes |= Response.OfAttributes.IsArray;
-                                if (!type.IsPrimitive())
+                                if (!type.IsPrimitive())    
                                     response.Attributes |= Response.OfAttributes.IsClass;
 
                                 return response;

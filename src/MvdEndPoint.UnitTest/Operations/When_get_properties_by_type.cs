@@ -37,6 +37,9 @@
             [UsedImplicitly]
             public DateTime DateTime { get; set; }
 
+            [UsedImplicitly]
+            public DateTime? DateTimeAsNullable { get; set; }
+
             [UsedImplicitly, IgnoreDataMember]
             public int Ignore { get; set; }
 
@@ -85,6 +88,8 @@
                     .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
                                                                                  .Tuning(r => r.Type, typeof(DateTime)), dateTimeType)
                     .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                                                                 .Tuning(r => r.Type, typeof(DateTime?)), dateTimeType)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
                                                                                  .Tuning(r => r.Type, typeof(int)), intType)
                     .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
                                                                                  .Tuning(r => r.Type, typeof(bool)), boolType);
@@ -96,6 +101,7 @@
                                                                                             new GetPropertiesQuery.Response { Name = "Sort", Type = intType, Target = typeof(int) },
                                                                                             new GetPropertiesQuery.Response { Name = "Enum", Type = enumType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsEnum, Target = typeof(FakeEnum) },
                                                                                             new GetPropertiesQuery.Response { Name = "DateTime", Type = dateTimeType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsDateTime | GetPropertiesQuery.Response.OfAttributes.IsCanNull, Target = typeof(DateTime) },
+                                                                                            new GetPropertiesQuery.Response { Name = "DateTimeAsNullable", Type = dateTimeType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsDateTime | GetPropertiesQuery.Response.OfAttributes.IsCanNull, Target = typeof(DateTime?) },
                                                                                             new GetPropertiesQuery.Response { Name = "Array", Type = stringType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsArray, Target = typeof(string) },
                                                                                             new GetPropertiesQuery.Response { Name = "Bool", Type = boolType, Attributes = GetPropertiesQuery.Response.OfAttributes.IsBool, Target = typeof(bool) },
                                                                                             new GetPropertiesQuery.Response { Name = "CustomClass", Type = typeof(FakeClass).Name, Attributes = GetPropertiesQuery.Response.OfAttributes.IsCanNull | GetPropertiesQuery.Response.OfAttributes.IsClass, Target = typeof(FakeClass) },

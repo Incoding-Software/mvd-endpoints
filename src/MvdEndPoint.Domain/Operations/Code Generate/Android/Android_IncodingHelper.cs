@@ -57,13 +57,16 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class IncodingHelper {
 
+    public static Map<String,String> Headers = new HashMap<String,String>();
+
     static String url = """);
             
-            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_IncodingHelper.tt"
+            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_IncodingHelper.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
@@ -93,45 +96,47 @@ public class IncodingHelper {
                     "ader(\"Content-Type\", \"multipart/form-data; boundary=----WebKitFormBoundaryEk4quB" +
                     "tC5W6dT4RW\");\r\n                http.setHeader(\"Cookie\",  preferences.getString(\"" +
                     "Set-Cookie\", \"Set-Cookie\"));\r\n                http.setHeader(\"X-Requested-With\"," +
-                    " \"XMLHttpRequest\");\r\n                MultipartEntityBuilder entity = MultipartEn" +
-                    "tityBuilder.create();\r\n                entity.setBoundary(\"----WebKitFormBoundar" +
-                    "yEk4quBtC5W6dT4RW\");\r\n                entity.setMode(HttpMultipartMode.BROWSER_C" +
-                    "OMPATIBLE);\r\n                for (Entry<String, Object> entry : parameters.entry" +
-                    "Set()) {\r\n                    if (entry.getValue() instanceof byte[]) {\r\n       " +
-                    "                 entity.addPart(entry.getKey(), new ByteArrayBody((byte[]) entry" +
-                    ".getValue(), \"filename\"));\r\n                    } else if (entry.getValue() inst" +
-                    "anceof String[]) {\r\n                        String[] valueAsArray = (String[]) e" +
-                    "ntry.getValue();\r\n                        for (String item : valueAsArray) {\r\n  " +
-                    "                          entity.addTextBody(entry.getKey(), ToValue(item));\r\n  " +
-                    "                      }\r\n                    } else\r\n                        try" +
-                    " {                            \r\n                            entity.addTextBody(e" +
-                    "ntry.getKey(), ToValue(entry.getValue()));\r\n                        } catch (Exc" +
-                    "eption e) {\r\n                            e.printStackTrace();\r\n                 " +
-                    "       }\r\n\r\n                }\r\n                http.setEntity(entity.build());\r\n" +
-                    "\r\n                response = new DefaultHttpClient().execute(http);\r\n           " +
-                    " } else {\r\n\r\n                HttpGet http = new HttpGet(url + \"?\" + getQuery(par" +
-                    "ameters));\r\n                http.setHeader(\"Cookie\", preferences.getString(\"Set-" +
-                    "Cookie\", \"Set-Cookie\"));\r\n                http.setHeader(\"X-Requested-With\", \"XM" +
-                    "LHttpRequest\");\r\n                response = new DefaultHttpClient().execute(http" +
-                    ");\r\n            }\r\n\r\n            Header[] cookies = response.getHeaders(\"Set-Coo" +
-                    "kie\");\r\n            if (cookies != null && cookies.length != 0) {\r\n             " +
-                    "   SharedPreferences.Editor edit = preferences.edit();\r\n                String c" +
-                    "ombineCookie = preferences.getString(\"Set-Cookie\", \"Set-Cookie\");\r\n             " +
-                    "   for (Header header : cookies)\r\n                    combineCookie += header.ge" +
-                    "tValue() + \";\";\r\n                edit.putString(\"Set-Cookie\", combineCookie);\r\n " +
-                    "               edit.commit();\r\n            }\r\n            return EntityUtils.toS" +
-                    "tring(response.getEntity());\r\n        }catch(Exception e){\r\n            String s" +
-                    " = \"{\\\"success\\\":false,\\\"data\\\":[{\\\"name\\\":\\\"Network\\\",\\\"isValid\\\":false,\\\"error" +
-                    "Message\\\":\\\"!\\\"}],\\\"redirectTo\\\":\\\"\\\"}\";\r\n            s = s.replace(\"!\",e.getMes" +
-                    "sage().replace(\"\\\"\",\"\'\"));\r\n            return s;\r\n        }\r\n\r\n    }\r\n\r\n    pri" +
-                    "vate static String getQuery(HashMap<String, Object> params) throws UnsupportedEn" +
-                    "codingException {\r\n        StringBuilder result = new StringBuilder();\r\n        " +
-                    "boolean first = true;\r\n\r\n        for(Entry<String, Object> entry : params.entryS" +
-                    "et()) {\r\n            if (first)\r\n                first = false;\r\n            els" +
-                    "e\r\n                result.append(\"&\");\r\n\r\n            result.append(URLEncoder.e" +
-                    "ncode(entry.getKey(), \"UTF-8\"));\r\n            result.append(\"=\");\r\n            r" +
-                    "esult.append(URLEncoder.encode(ToValue(entry.getValue()), \"UTF-8\"));\r\n        }\r" +
-                    "\n\r\n        return result.toString();\r\n    }\r\n\r\n\r\n}");
+                    " \"XMLHttpRequest\");\r\n\t\t\t\tfor(Entry<String,String> map : Headers.entrySet())\r\n   " +
+                    "             {\r\n                    http.setHeader(map.getKey(), map.getValue())" +
+                    ";\r\n                }\r\n                MultipartEntityBuilder entity = MultipartE" +
+                    "ntityBuilder.create();\r\n                entity.setBoundary(\"----WebKitFormBounda" +
+                    "ryEk4quBtC5W6dT4RW\");\r\n                entity.setMode(HttpMultipartMode.BROWSER_" +
+                    "COMPATIBLE);\r\n                for (Entry<String, Object> entry : parameters.entr" +
+                    "ySet()) {\r\n                    if (entry.getValue() instanceof byte[]) {\r\n      " +
+                    "                  entity.addPart(entry.getKey(), new ByteArrayBody((byte[]) entr" +
+                    "y.getValue(), \"filename\"));\r\n                    } else if (entry.getValue() ins" +
+                    "tanceof String[]) {\r\n                        String[] valueAsArray = (String[]) " +
+                    "entry.getValue();\r\n                        for (String item : valueAsArray) {\r\n " +
+                    "                           entity.addTextBody(entry.getKey(), ToValue(item));\r\n " +
+                    "                       }\r\n                    } else\r\n                        tr" +
+                    "y {                            \r\n                            entity.addTextBody(" +
+                    "entry.getKey(), ToValue(entry.getValue()));\r\n                        } catch (Ex" +
+                    "ception e) {\r\n                            e.printStackTrace();\r\n                " +
+                    "        }\r\n\r\n                }\r\n                http.setEntity(entity.build());\r" +
+                    "\n\r\n                response = new DefaultHttpClient().execute(http);\r\n          " +
+                    "  } else {\r\n\r\n                HttpGet http = new HttpGet(url + \"?\" + getQuery(pa" +
+                    "rameters));\r\n                http.setHeader(\"Cookie\", preferences.getString(\"Set" +
+                    "-Cookie\", \"Set-Cookie\"));\r\n                http.setHeader(\"X-Requested-With\", \"X" +
+                    "MLHttpRequest\");\r\n                response = new DefaultHttpClient().execute(htt" +
+                    "p);\r\n            }\r\n\r\n            Header[] cookies = response.getHeaders(\"Set-Co" +
+                    "okie\");\r\n            if (cookies != null && cookies.length != 0) {\r\n            " +
+                    "    SharedPreferences.Editor edit = preferences.edit();\r\n                String " +
+                    "combineCookie = preferences.getString(\"Set-Cookie\", \"Set-Cookie\");\r\n            " +
+                    "    for (Header header : cookies)\r\n                    combineCookie += header.g" +
+                    "etValue() + \";\";\r\n                edit.putString(\"Set-Cookie\", combineCookie);\r\n" +
+                    "                edit.commit();\r\n            }\r\n            return EntityUtils.to" +
+                    "String(response.getEntity());\r\n        }catch(Exception e){\r\n            String " +
+                    "s = \"{\\\"success\\\":false,\\\"data\\\":[{\\\"name\\\":\\\"Network\\\",\\\"isValid\\\":false,\\\"erro" +
+                    "rMessage\\\":\\\"!\\\"}],\\\"redirectTo\\\":\\\"\\\"}\";\r\n            s = s.replace(\"!\",e.getMe" +
+                    "ssage().replace(\"\\\"\",\"\'\"));\r\n            return s;\r\n        }\r\n\r\n    }\r\n\r\n    pr" +
+                    "ivate static String getQuery(HashMap<String, Object> params) throws UnsupportedE" +
+                    "ncodingException {\r\n        StringBuilder result = new StringBuilder();\r\n       " +
+                    " boolean first = true;\r\n\r\n        for(Entry<String, Object> entry : params.entry" +
+                    "Set()) {\r\n            if (first)\r\n                first = false;\r\n            el" +
+                    "se\r\n                result.append(\"&\");\r\n\r\n            result.append(URLEncoder." +
+                    "encode(entry.getKey(), \"UTF-8\"));\r\n            result.append(\"=\");\r\n            " +
+                    "result.append(URLEncoder.encode(ToValue(entry.getValue()), \"UTF-8\"));\r\n        }" +
+                    "\r\n\r\n        return result.toString();\r\n    }\r\n\r\n\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

@@ -68,7 +68,7 @@ public class <#= Name #> {
              <# foreach(var prop in Properties) { #>
                     <#if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsEnum)) { #>
 			    response.<#= prop.Name #> = <#=prop.Type#>.valueOf(data.getInt("<#= prop.Name #>"));
-				    <# } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) { #>
+				    <# } else if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)) { #>	
 				JSONArray <#= prop.Name #>AsArray = item.getJSONArray("<#= prop.Name #>");
 			    response.<#= prop.Name #> = new <#=prop.Type#>[<#= prop.Name #>AsArray.length()];
 			    for(int <#= prop.Name #>Oni = 0;<#= prop.Name #>Oni < <#= prop.Name #>AsArray.length();<#= prop.Name #>Oni++)
