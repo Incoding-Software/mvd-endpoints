@@ -35,18 +35,10 @@
                                                                     Name = endpoint.Name
                                                             };
 
-                Func<Message.Property.TypeOf, GetEndpointsQuery.Response.Property, Message.Property> toProperty = (type, property) => new Message.Property()
-                                                                                                                                      {
-                                                                                                                                              Name = property.Name,
-                                                                                                                                              PropertyType = property.Type.FullName,                                                                                                                                             
-                                                                                                                                              GenericType = property.Type.IsGenericType
-                                                                                                                                                                    ? property.Type.GenericTypeArguments[0].FullName
-                                                                                                                                                                    : string.Empty,
-                                                                                                                                              Type = type
-                                                                                                                                      };
+                
                 var properties = new List<Message.Property>(endpoint.Requests.Count + endpoint.Responses.Count);
-                properties.AddRange(endpoint.Requests.Select(property => toProperty(Message.Property.TypeOf.Request, property)));
-                properties.AddRange(endpoint.Responses.Select(property => toProperty(Message.Property.TypeOf.Response, property)));
+                properties.AddRange(endpoint.Requests.Select(property => new Message.Property(property, Message.Property.TypeOf.Request)));
+                properties.AddRange(endpoint.Responses.Select(property => new Message.Property(property, Message.Property.TypeOf.Response)));
                 foreach (var property in properties)
                 {
                     var exist = entity.Properties.FirstOrDefault(s => s.Name == property.Name && s.Type == property.Type);
@@ -65,23 +57,6 @@
 
         public class GetEndpointsQuery : QueryBase<List<GetEndpointsQuery.Response>>
         {
-            public class GetPropertiesFromTypeQuery : QueryBase<List<Response.Property>>
-            {
-                public Type Type { get; set; }
-
-                protected override List<Response.Property> ExecuteResult()
-                {
-                    return Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                               .Where(r => r.CanRead && !r.HasAttribute<IgnoreDataMemberAttribute>())
-                               .Select(r => new Response.Property
-                                            {
-                                                    Name = r.Name,
-                                                    Type = r.PropertyType,
-                                            })
-                               .ToList();
-                }
-            }
-
             protected override List<Response> ExecuteResult()
             {
                 return AppDomain.CurrentDomain.GetAssemblies()
@@ -98,26 +73,44 @@
                                                 if (isArray)
                                                     responseType = responseType.GenericTypeArguments[0];
 
-                                                response.AddRange(Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = responseType }));
+                                                response.AddRange(Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = responseType, IsWrite = false }));
                                             }
 
-                                            var properties = instanceType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                                                                         .Where(r => r.CanWrite && !r.HasAttribute<IgnoreDataMemberAttribute>())
-                                                                         .Select(r => new Response.Property
-                                                                                      {
-                                                                                              Name = r.Name,
-                                                                                              Type = r.PropertyType,
-                                                                                      })
-                                                                         .ToList();
                                             return new Response
                                                    {
                                                            Responses = response,
                                                            Name = instanceType.Name,
                                                            Type = instanceType.FullName,
-                                                           Requests = properties
+                                                           Requests = Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = instanceType, IsWrite = true })
                                                    };
                                         })
                                 .ToList();
+            }
+
+            public class GetPropertiesFromTypeQuery : QueryBase<List<Response.Property>>
+            {
+                public Type Type { get; set; }
+
+                public bool IsWrite { get; set; }
+
+                protected override List<Response.Property> ExecuteResult()
+                {
+                    var propertyInfos = Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                            .Where(r => (IsWrite ? r.CanWrite : r.CanRead) && !r.HasAttribute<IgnoreDataMemberAttribute>())
+                                            .ToList();
+                    var res = propertyInfos
+                            .Select(r => new Response.Property
+                                         {
+                                                 Name = r.Name,
+                                                 Type = r.PropertyType,
+                                                 Childrens = r.PropertyType.IsPrimitive()
+                                                                     ? new List<Response.Property>()
+                                                                     : Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = r.PropertyType, IsWrite = IsWrite })
+                                         })
+                            .ToList();
+
+                    return res;
+                }
             }
 
             #region Nested classes
@@ -128,13 +121,18 @@
 
                 public class Property
                 {
+                    public Property()
+                    {
+                        Childrens = new List<Property>();
+                    }
+
                     #region Properties
 
                     public Type Type { get; set; }
 
                     public string Name { get; set; }
 
-                    public Property Parent { get; set; }
+                    public List<Property> Childrens { get; set; }
 
                     #endregion
                 }

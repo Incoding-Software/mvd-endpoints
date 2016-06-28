@@ -125,7 +125,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Operations\Code Generate\Http\HttpSampleQuery.cs" />
+    <Compile Include="Operations\Code Generate\Http\HttpSampleCodeGenerateQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommonFileQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WP_Enum.cs">
       <DependentUpon>WP_Enum.tt</DependentUpon>

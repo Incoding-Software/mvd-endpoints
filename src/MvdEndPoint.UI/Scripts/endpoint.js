@@ -8,11 +8,11 @@ $(function () {
     });
 });
 
-function ScrollTo(id) {
+function ScrollTo(id) {  
     if (id == '#')
         return;
-    var top = $(id).offset().top;
-    if (top > 0) { $('#content').animate({ scrollTop: top }, 1000); }
+
+    $('#content').scrollTop($(id).scrollTop() + $('#content').position().top);
 }
 
 function DataToString(target, json) {

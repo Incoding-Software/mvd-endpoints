@@ -30,20 +30,27 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Http
         {
             this.Write("\r\n");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Verb));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
-            this.Write(" HTTP/1.1\r\nHost: @each.For(s => s.Host)\r\nAccept-Language: en\r\nContent-Type: appli" +
-                    "cation/x-www-form-urlencoded; charset=UTF-8\r\nX-Requested-With: XMLHttpRequest ");
+            this.Write(" HTTP/1.1\r\nHost: ");
+            
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Host));
+            
+            #line default
+            #line hidden
+            this.Write("\r\nAccept-Language: en\r\nContent-Type: application/x-www-form-urlencoded; charset=U" +
+                    "TF-8\r\nX-Requested-With: XMLHttpRequest ");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -72,6 +79,19 @@ private string Url
     get
     {
         return this._UrlField;
+    }
+}
+
+private string _HostField;
+
+/// <summary>
+/// Access the Host parameter of the template.
+/// </summary>
+private string Host
+{
+    get
+    {
+        return this._HostField;
     }
 }
 
@@ -109,6 +129,20 @@ if ((UrlValueAcquired == false))
     if ((data != null))
     {
         this._UrlField = ((string)(data));
+    }
+}
+bool HostValueAcquired = false;
+if (this.Session.ContainsKey("Host"))
+{
+    this._HostField = ((string)(this.Session["Host"]));
+    HostValueAcquired = true;
+}
+if ((HostValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Host");
+    if ((data != null))
+    {
+        this._HostField = ((string)(data));
     }
 }
 

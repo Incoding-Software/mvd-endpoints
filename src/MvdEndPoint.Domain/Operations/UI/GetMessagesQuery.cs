@@ -39,16 +39,8 @@ namespace Incoding.Endpoint
                 foreach (var endpoint in item)
                 {
                     var instanceType = Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = endpoint.Type });
-                    bool isCommand = Dispatcher.Query(new IsCommandTypeQuery(instanceType));
 
-                    var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
-                    var getUrl = methodInfo.MakeGenericMethod(instanceType).Invoke(new UrlHelper(HttpContext.Current.Request.RequestContext).Dispatcher(), new[] { Activator.CreateInstance(instanceType) });
-
-                    var url = isCommand
-                                      ? getUrl.ToString()
-                                      : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString();
-
-                    var baseUrl = "{0}://{1}".F(HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
+                    var uri = Dispatcher.Query(new GetUriByTypeQuery() { Type = instanceType });
                     res.Add(new Response()
                             {
                                     Id = endpoint.Name.Replace(" ", "_"),
@@ -57,10 +49,11 @@ namespace Incoding.Endpoint
                                     IsGroup = false,
                                     Jira = endpoint.Jira.HasValue ? string.Empty : "https://incoding.atlassian.net/browse/BB-{0}".F(endpoint.Jira),
                                     Description = endpoint.Description ?? "Description",
-                                    Verb = isCommand ? "POST" : "GET",
-                                    Url = url,
+                                    Verb = uri.Verb,
+                                    Host = uri.Host,
+                                    Url = "{0}://{1}".F(HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority) + uri.Url,
+                                    SampleOfHttp = Dispatcher.Query(new HttpSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
                                     SampleOfAndroid = Dispatcher.Query(new AndroidSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
-                                    Host = baseUrl,
                                     Result = endpoint.Result,
                                     Group = endpoint.GroupKey.With(s => s.Name),
                                     PropertiesOfResponse = endpoint.Properties.Where(r => r.Type == Message.Property.TypeOf.Response).Select(property => new Response.Item(property)).ToList(),
@@ -101,8 +94,6 @@ namespace Incoding.Endpoint
 
             public List<Item> PropertiesOfRequest { get; set; }
 
-            public string Verb { get; set; }
-
             public string Url { get; set; }
 
             public string Jira { get; set; }
@@ -115,11 +106,15 @@ namespace Incoding.Endpoint
 
             public List<Item> PropertiesOfResponse { get; set; }
 
-            public string Host { get; set; }
-
             public string EntityId { get; set; }
 
             public string SampleOfAndroid { get; set; }
+
+            public string SampleOfHttp { get; set; }
+
+            public string Verb { get; set; }
+
+            public string Host { get; set; }
 
             public class Item
             {
@@ -128,7 +123,7 @@ namespace Incoding.Endpoint
                     var propertyType = new DefaultDispatcher().Query(new GetTypeFromPropertyQuery() { Property = r });
                     Name = r.Name;
                     Id = r.Id;
-                    Childrens = r.Childs.Select(property => new Item(property)).ToList();
+                    Childrens = r.Childrens.Select(property => new Item(property)).ToList();
                     Type = propertyType.IsGenericType
                                    ? "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name)
                                    : propertyType.Name;
@@ -151,6 +146,40 @@ namespace Incoding.Endpoint
 
                 public List<Item> Childrens { get; set; }
             }
+        }
+    }
+
+    public class GetUriByTypeQuery : QueryBase<GetUriByTypeQuery.Response>
+    {
+        public Type Type { get; set; }
+
+        protected override Response ExecuteResult()
+        {
+            bool isCommand = Dispatcher.Query(new IsCommandTypeQuery(Type));
+            var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
+            var getUrl = methodInfo.MakeGenericMethod(Type).Invoke(new UrlHelper(HttpContext.Current.Request.RequestContext).Dispatcher(), new[] { Activator.CreateInstance(Type) });
+            return new Response()
+                   {
+                           Verb = isCommand ? "POST" : "GET",
+                           Url = isCommand
+                                         ? getUrl.ToString()
+                                         : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
+                           Scheme = HttpContext.Current.Request.Url.Scheme,
+                           Authority = HttpContext.Current.Request.Url.Authority
+                   };
+        }
+
+        public class Response
+        {
+            public string Verb { get; set; }
+
+            public string Url { get; set; }
+
+            public string Scheme { get; set; }
+
+            public string Authority { get; set; }
+
+            public string Host { get { return "{0}://{1}".F(HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority); } }
         }
     }
 }

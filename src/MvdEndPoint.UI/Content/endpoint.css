@@ -814,7 +814,7 @@ a img { border: none }
 #api-reference #content .method .method-copy .method-list.method-list-child .method-list-title .method-list-child-parent { color: #4c555a }
 
 #api-reference #content .method .method-copy .method-list.method-list-child .method-list-group {
-    display: none;
+   
     margin-top: 0;
     border-color: #e9edf0
 }
@@ -1564,4 +1564,6 @@ a img { border: none }
     background-color:rgba(243,156,18,.1) !important;
     outline: none;
 }
+
+
 

@@ -72,7 +72,8 @@
                     <li>
                         @(Html.When(JqueryBind.Change)
                               .OnSuccess(dsl =>
-                                         {                                                                                          
+                                         {
+                                             dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
                                              dsl.WithClass(type).JQuery.Attr.RemoveClass(B.Hidden);
                                              dsl.WithClass(B.Active).Trigger.InitIncoding();
                                          })

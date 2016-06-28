@@ -11,7 +11,9 @@ namespace Incoding.Endpoint
 
         protected override Type ExecuteResult()
         {
-            var propertyType = Property.PropertyType == "System.Byte[]" ? typeof(byte[]) : Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = Property.PropertyType });
+            var isArray = Property.PropertyType.EndsWith("[]");
+            var clearType = isArray ? Property.PropertyType.Replace("[]","") : Property.PropertyType;
+            var propertyType = Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = clearType });
             if (!string.IsNullOrWhiteSpace(Property.GenericType))
                 propertyType = propertyType.MakeGenericType(Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = Property.GenericType }));
 

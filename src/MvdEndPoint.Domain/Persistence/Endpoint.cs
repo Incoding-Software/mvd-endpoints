@@ -5,9 +5,11 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Linq.Expressions;
     using Incoding;
     using Incoding.Data;
+    using Incoding.Endpoint;
     using Incoding.Quality;
     using JetBrains.Annotations;
 
@@ -60,6 +62,23 @@
                 Request
             }
 
+            [UsedImplicitly, Obsolete(ObsoleteMessage.SerializeConstructor, true), ExcludeFromCodeCoverage]
+            public Property()
+            {
+                Childrens = new List<Property>();
+            }
+
+            public Property(SyncEndpointCommand.GetEndpointsQuery.Response.Property property, TypeOf type)
+            {
+                Name = property.Name;
+                PropertyType = property.Type.FullName;
+                GenericType = property.Type.IsGenericType
+                                      ? property.Type.GenericTypeArguments[0].FullName
+                                      : string.Empty;
+                Type = type;
+                Childrens = property.Childrens.Select(s => new Property(s, type)).ToList();
+            }
+
             [IgnoreCompare("Auto")]
             public new virtual string Id { get; protected set; }
 
@@ -83,7 +102,7 @@
 
             public virtual Property Parent { get; set; }
 
-            public virtual IList<Property> Childs { get; set; }
+            public virtual IList<Property> Childrens { get; set; }
 
             [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
             public class Map : NHibernateEntityMap<Property>
@@ -94,7 +113,7 @@
                     IdGenerateByGuid(r => r.Id);
                     DefaultReference(r => r.Message);
                     DefaultReference(r => r.Parent).Cascade.SaveUpdate();
-                    HasMany(r => r.Childs).Cascade.DeleteOrphan();
+                    HasMany(r => r.Childrens).Cascade.AllDeleteOrphan();
                     MapEscaping(r => r.Name).Length(int.MaxValue);
                     MapEscaping(r => r.Type);
                     MapEscaping(r => r.Default);

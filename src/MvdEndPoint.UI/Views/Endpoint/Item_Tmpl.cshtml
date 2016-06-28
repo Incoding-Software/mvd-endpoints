@@ -15,41 +15,62 @@
                                                                                                                                Id = property.For(s => s.Id),
                                                                                                                                Description = Selector.Jquery.Self()
                                                                                                                        }), true, new { @class = "method-list-item-description ce-element" })
-        @*@property.IsInline(s => s.Childrens,@<text>
-                                                <div class="method-list-item-clearfix"></div>
-                                                <div class="method-list method-list-child">
-                                                    @using (var child = property.ForEach(s => s.Childrens))
-                                                    {
-                                                        @RenderProperty(child)
-                                                    }
-                                                </div>
-                                             </text>)*@
+        @using (property.Is(s => s.Childrens))
+        {
+            <div class="method-list-item-clearfix"></div>
+            <div class="method-list method-list-child">
+                @(Html.When(JqueryBind.Click)
+                      .OnSuccess(dsl =>
+                                 {
+                                     dsl.Self().JQuery.Attr.ToggleClass("expanded");
+                                     dsl.With(r => r.Self().Closest(HtmlTag.Div).Find(s => s.Class("method-list-group"))).JQuery.Attr.ToggleClass(B.Hidden);
+                                 })
+                      .AsHtmlAttributes(new { @class = "method-list-title" })
+                      .ToTag(HtmlTag.H5, "child attributes"))
+                <ul class="method-list-group hidden">
+                    @using (var child = property.ForEach(s => s.Childrens))
+                    {
+                        <li class="method-list-item">
+                            <h3 class="method-list-item-label">
+                                @child.For(s => s.Name)
+                                <span class="method-list-item-validation">@child.For(r => r.Type) value is @child.For(r => r.Default)</span>
+                            </h3>
+                            @EditTextArea(child.For(s => s.Id), HtmlTag.Div, child.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdatePropertyDescriptionCommand()
+                                                                                                                                     {
+                                                                                                                                             Id = child.For(s => s.Id),
+                                                                                                                                             Description = Selector.Jquery.Self()
+                                                                                                                                     }), true, new { @class = "method-list-item-description ce-element" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
     </li>
 }
 
 @helper EditTextArea(string id, HtmlTag tag, MvcHtmlString content, string url, bool isWysiwyg, object attr = null)
-{
-    var contentId = "content" +tag.ToString() + id;
-    var textAreaId = "textArea" +tag.ToString()+ id;
+        {
+            var contentId = "content" +tag.ToString() + id;
+            var textAreaId = "textArea" +tag.ToString()+ id;
     @(Html.When(JqueryBind.DblClick)
           .OnBegin(dsl => dsl.Break.If(() => !Selector.Jquery.Self().HasClass(B.Active)))
           .OnSuccess(dsl =>
-                     {                         
-                         dsl.WithId(contentId)
-                            .WithId(textAreaId)
-                            .JQuery.Attr.ToggleClass(B.Hidden);
+          {
+              dsl.WithId(contentId)
+                 .WithId(textAreaId)
+                 .JQuery.Attr.ToggleClass(B.Hidden);
 
-                         if (isWysiwyg)
-                         {                             
-                             dsl.WithId(textAreaId)
-                                .Behaviors(instancesDsl =>
-                                           {
-                                               instancesDsl.JQuery.PlugIn("trumbowyg", "destroy").If(() => textAreaId.ToId().HasClass(B.Hidden));
-                                               instancesDsl.JQuery.PlugIn("trumbowyg").If(() => !textAreaId.ToId().HasClass(B.Hidden));
-                                           });
-                             
-                         }
-                     })
+              if (isWysiwyg)
+              {
+                  dsl.WithId(textAreaId)
+                     .Behaviors(instancesDsl =>
+                     {
+                         instancesDsl.JQuery.PlugIn("trumbowyg", "destroy").If(() => textAreaId.ToId().HasClass(B.Hidden));
+                         instancesDsl.JQuery.PlugIn("trumbowyg").If(() => !textAreaId.ToId().HasClass(B.Hidden));
+                     });
+
+              }
+          })
           .AsHtmlAttributes(attr)
           .ToTag(tag,
                  @<text>
@@ -85,16 +106,16 @@
                                                    <div class="method-area">
                                                        <div class="method-copy">
                                                            <div class="method-copy-padding">
-                                                               @EditTextArea(each.For(s => s.EntityId) , HtmlTag.H1, each.ForRaw(s => s.Group), Url.Dispatcher().Push(new MessageCommand.UpdateGroupNameCommand()
-                                                                                                                                                                     {
-                                                                                                                                                                             Id = each.For(s => s.EntityId),
-                                                                                                                                                                             Name = Selector.Jquery.Self()
-                                                                                                                                                                     }), false, new { @class = "ce-element" })
+                                                               @EditTextArea(each.For(s => s.EntityId), HtmlTag.H1, each.ForRaw(s => s.Group), Url.Dispatcher().Push(new MessageCommand.UpdateGroupNameCommand()
+                                                          {
+                                                              Id = each.For(s => s.EntityId),
+                                                              Name = Selector.Jquery.Self()
+                                                          }), false, new { @class = "ce-element" })
                                                                @EditTextArea(each.For(s => s.EntityId), HtmlTag.Div, each.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdateGroupDescriptionCommand()
-                                                                                                                                                                            {
-                                                                                                                                                                                    Id = each.For(s => s.EntityId),
-                                                                                                                                                                                    Description = Selector.Jquery.Self()
-                                                                                                                                                                            }), true, new { @class = "ce-element" })
+                                                          {
+                                                              Id = each.For(s => s.EntityId),
+                                                              Description = Selector.Jquery.Self()
+                                                          }), true, new { @class = "ce-element" })
 
                                                            </div>
                                                        </div>
@@ -109,16 +130,16 @@
                         <div class="method-copy">
                             <div class="method-copy-padding">
                                 @EditTextArea(each.For(s => s.EntityId), HtmlTag.H2, each.ForRaw(s => s.Name), Url.Dispatcher().Push(new MessageCommand.UpdateNameCommand()
-                                                                                                                                     {
-                                                                                                                                             Id = each.For(s => s.EntityId),
-                                                                                                                                             Name = Selector.Jquery.Self()
-                                                                                                                                     }), false, new { @class = "ce-element" })
+                           {
+                               Id = each.For(s => s.EntityId),
+                               Name = Selector.Jquery.Self()
+                           }), false, new { @class = "ce-element" })
 
                                 @EditTextArea(each.For(s => s.EntityId), HtmlTag.Div, each.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdateDescriptionCommand()
-                                                                                                                                             {
-                                                                                                                                                     Id = each.For(s => s.EntityId),
-                                                                                                                                                     Description = Selector.Jquery.Self()
-                                                                                                                                             }), true, new { @class = "ce-element" })
+                           {
+                               Id = each.For(s => s.EntityId),
+                               Description = Selector.Jquery.Self()
+                           }), true, new { @class = "ce-element" })
                             </div>
                             <div class="method-list">
                                 <h5 class="method-list-title">
@@ -166,13 +187,7 @@
                             <div class="method-example-part">
                                 <div class="method-example-request include-prompt">
                                     <pre>    
-                                        <code class="http hljs">
-@each.For(r => r.Verb) @each.For(r => r.Url) HTTP/1.1
-Host: @each.For(s => s.Host)
-Accept-Language: en
-Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-X-Requested-With: XMLHttpRequest  
-</code>
+                                        <code class="http hljs">@each.For(s => s.SampleOfHttp)</code>
                                    </pre>
                                 </div>
                             </div>
@@ -184,11 +199,10 @@ X-Requested-With: XMLHttpRequest
                                     <code class="hljs java">@each.For(r => r.SampleOfAndroid)</code>
                                    </pre>
                                     <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
-                                                                     {
-                                                                             Device = DeviceOfType.Android,
-                                                                             Url = each.For(r => r.Host),
-                                                                             Id = each.For(r => r.EntityId)
-                                                                     }).AsFile(incFileDownloadName: each.For(s => s.Name) + ".zip")">
+                                        {
+                                            Device = DeviceOfType.Android,
+                                            Id = each.For(r => r.EntityId)
+                                        }).AsFile(incFileDownloadName: each.For(s => s.Name) + ".zip")">
                                         download
                                     </a> source code
                                 </div>
@@ -199,21 +213,21 @@ X-Requested-With: XMLHttpRequest
                                 <div class="method-example-endpoint">
                                     @{ var resultId = "result-" + each.For(s => s.EntityId); }
                                     @using (Html.When(JqueryBind.Submit)
-                                                .PreventDefault()
-                                                .Submit()
-                                                .OnComplete(dsl => dsl.Self().Call("DataToString", "#" + resultId, Selector.Result))
-                                                .OnError(dsl => dsl.Self().Form.Validation.Refresh())
-                                                .When(JqueryBind.InitIncoding)
-                                                .Ajax(new GetMessageDetailQuery() { Id = each.For(s => s.EntityId) })
-                                                .OnSuccess(dsl =>
-                                                           {
-                                                               dsl.WithClass("input-date").JqueryUI().Datepicker.Open(options => { options.ButtonImageOnly = true; });
-                                                               dsl.WithClass("input-slider").JqueryUI().Spinner.Open(options => { });
-                                                               dsl.Self().Form.Validation.Parse();
-                                                               dsl.WithSelf(s => s.Find(HtmlTag.FieldSet)).JQuery.Dom.WithTemplateByView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml").Html();
-                                                           })
-                                                .AsHtmlAttributes(new { @class = "form-horizontal", method = each.For(s => s.Verb) })
-                                                .ToBeginForm(each.For(r => r.Host) + each.For(r => r.Url)))
+                        .PreventDefault()
+                        .Submit()
+                        .OnComplete(dsl => dsl.Self().Call("DataToString", "#" + resultId, Selector.Result))
+                        .OnError(dsl => dsl.Self().Form.Validation.Refresh())
+                        .When(JqueryBind.InitIncoding)
+                        .Ajax(new GetMessageDetailQuery() { Id = each.For(s => s.EntityId) })
+                        .OnSuccess(dsl =>
+                        {
+                            dsl.WithClass("input-date").JqueryUI().Datepicker.Open(options => { options.ButtonImageOnly = true; });
+                            dsl.WithClass("input-slider").JqueryUI().Spinner.Open(options => { });
+                            dsl.Self().Form.Validation.Parse();
+                            dsl.WithSelf(s => s.Find(HtmlTag.FieldSet)).JQuery.Dom.WithTemplateByView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml").Html();
+                        })
+                        .AsHtmlAttributes(new { @class = "form-horizontal", method = each.For(s => s.Verb) })
+                        .ToBeginForm(each.For(r => r.Host) + each.For(r => r.Url)))
                                     {
                                         <fieldset></fieldset>
                                         <input type="submit" value="Send" class="btn btn-success"/>
@@ -231,7 +245,7 @@ X-Requested-With: XMLHttpRequest
 
                     </div>
                 </section>
-            }
-        }
-    }
+                                                }
+                                            }
+                                        }
 }

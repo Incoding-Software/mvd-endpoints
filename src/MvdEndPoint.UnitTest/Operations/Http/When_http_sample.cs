@@ -11,18 +11,23 @@
 
     #endregion
 
-    [Subject(typeof(HttpSampleQuery))]
-    public class When_http_sample
+    [Subject(typeof(HttpSampleCodeGenerateQuery))]
+    public class When_http_sample_code_generate
     {
         Establish establish = () =>
                               {
-                                  var query = Pleasure.Generator.Invent<HttpSampleQuery>(dsl => dsl.Tuning(r => r.Instance, Pleasure.Generator.Invent<GetCustomerQuery>()));
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_http_sample).Name));
+                                  var query = Pleasure.Generator.Invent<HttpSampleCodeGenerateQuery>(dsl => dsl.Tuning(r => r.Instance, Pleasure.Generator.Invent<GetCustomerQuery>()));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_http_sample_code_generate).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "GetCustomerQuery"));
 
-                                  mockQuery = MockQuery<HttpSampleQuery, string>
+                                  var response = Pleasure.Generator.Invent<GetUriByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Scheme, "http")
+                                                                                                                 .Tuning(r => r.Verb, "POST")
+                                                                                                                 .Tuning(r=>r.Url,"Dispatcher")
+                                                                                                                 .Tuning(r => r.Authority, "localhost"));
+                                  mockQuery = MockQuery<HttpSampleCodeGenerateQuery, string>
                                           .When(query)
+                                          .StubQuery<GetUriByTypeQuery, GetUriByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)), response)
                                           .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), meta);
                               };
 
@@ -44,7 +49,7 @@
 
         #region Establish value
 
-        static MockMessage<HttpSampleQuery, string> mockQuery;
+        static MockMessage<HttpSampleCodeGenerateQuery, string> mockQuery;
 
         static string expected;
 
