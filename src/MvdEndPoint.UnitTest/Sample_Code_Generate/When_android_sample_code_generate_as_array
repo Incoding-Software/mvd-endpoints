@@ -4,13 +4,10 @@ import Incoding.GetCustomerResponse;
 import Incoding.GetCustomerRequest;
 
 GetCustomerRequest request = new GetCustomerRequest(context);
-request.Message = something;
-request.Title = something;
-request.Ids = something;
    
 request.On(new IGetCustomerListene() {
     @Override
-    public void Success(GetCustomerResponse  response) {
+    public void Success(GetCustomerResponse[] response) {
         // do something code
     }
 

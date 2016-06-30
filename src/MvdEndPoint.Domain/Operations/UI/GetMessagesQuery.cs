@@ -46,12 +46,11 @@ namespace Incoding.Endpoint
                                     Id = endpoint.Name.Replace(" ", "_"),
                                     EntityId = endpoint.Id,
                                     Name = endpoint.Name,
-                                    IsGroup = false,
-                                    Jira = endpoint.Jira.HasValue ? string.Empty : "https://incoding.atlassian.net/browse/BB-{0}".F(endpoint.Jira),
+                                    IsGroup = false,                                    
                                     Description = endpoint.Description ?? "Description",
                                     Verb = uri.Verb,
                                     Host = uri.Host,
-                                    Url = "{0}://{1}".F(HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority) + uri.Url,
+                                    Url = uri.Host + uri.Url,
                                     SampleOfHttp = Dispatcher.Query(new HttpSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
                                     SampleOfAndroid = Dispatcher.Query(new AndroidSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
                                     Result = endpoint.Result,
@@ -95,9 +94,7 @@ namespace Incoding.Endpoint
             public List<Item> PropertiesOfRequest { get; set; }
 
             public string Url { get; set; }
-
-            public string Jira { get; set; }
-
+                
             public string Result { get; set; }
 
             public string Group { get; set; }
@@ -158,14 +155,17 @@ namespace Incoding.Endpoint
             bool isCommand = Dispatcher.Query(new IsCommandTypeQuery(Type));
             var methodInfo = typeof(UrlDispatcher).GetMethods().FirstOrDefault(r => r.Name == (isCommand ? "Push" : "Query"));
             var getUrl = methodInfo.MakeGenericMethod(Type).Invoke(new UrlHelper(HttpContext.Current.Request.RequestContext).Dispatcher(), new[] { Activator.CreateInstance(Type) });
+            var scheme = HttpContext.Current.Request.Url.Scheme;
+            var authority = HttpContext.Current.Request.Url.Authority;
             return new Response()
                    {
                            Verb = isCommand ? "POST" : "GET",
                            Url = isCommand
                                          ? getUrl.ToString()
                                          : getUrl.GetType().GetMethod("AsJson").Invoke(getUrl, new object[] { }).ToString(),
-                           Scheme = HttpContext.Current.Request.Url.Scheme,
-                           Authority = HttpContext.Current.Request.Url.Authority
+                           Scheme = scheme,
+                           Authority = authority,
+                           Host = "{0}://{1}".F(scheme, authority)
                    };
         }
 
@@ -179,7 +179,7 @@ namespace Incoding.Endpoint
 
             public string Authority { get; set; }
 
-            public string Host { get { return "{0}://{1}".F(HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority); } }
+            public string Host { get; set; }
         }
     }
 }

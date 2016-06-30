@@ -8,13 +8,6 @@ $(function () {
     });
 });
 
-function ScrollTo(id) {  
-    if (id == '#')
-        return;
-
-    $('#content').scrollTop($(id).scrollTop() + $('#content').position().top);
-}
-
 function DataToString(target, json) {
     $(target).JSONView(JSON.stringify(json));
 }

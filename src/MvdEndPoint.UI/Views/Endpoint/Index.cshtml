@@ -75,7 +75,7 @@
                                          {
                                              dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
                                              dsl.WithClass(type).JQuery.Attr.RemoveClass(B.Hidden);
-                                             dsl.WithClass(B.Active).Trigger.InitIncoding();
+                                             dsl.Self().Eval("document.location = document.location");
                                          })
                               .AsHtmlAttributes(attr)
                               .ToInput(HtmlInputType.Radio, type))

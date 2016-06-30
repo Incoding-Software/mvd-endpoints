@@ -8,6 +8,7 @@
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="Listener" #>
 <#@ parameter type="System.String" name="Response" #>
+<#@ parameter type="System.Boolean" name="ResponseAsArray" #>
 <#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 import <#=Namespace#>.JsonModelStateData;
 import <#=Namespace#>.<#=Listener#>;
@@ -20,7 +21,7 @@ request.<#=pair.Name#> = something;
 <# } #>   
 request.On(new <#=Listener#>() {
     @Override
-    public void Success(<#=Response#> response) {
+    public void Success(<#=Response#><#if(ResponseAsArray){#>[]<#} else {#> <#}#> response) {
         // do something code
     }
 

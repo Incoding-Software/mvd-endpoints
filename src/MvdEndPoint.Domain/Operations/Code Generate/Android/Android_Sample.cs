@@ -30,99 +30,119 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Android
         {
             this.Write("import ");
             
-            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".JsonModelStateData;\r\nimport ");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write(";\r\nimport ");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
             
             #line default
             #line hidden
             this.Write(";\r\nimport ");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 15 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write(" request = new ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Request));
             
             #line default
             #line hidden
             this.Write("(context);\r\n");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("request.");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" = something;\r\n");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
  } 
             
             #line default
             #line hidden
             this.Write("   \r\nrequest.On(new ");
             
-            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Listener));
             
             #line default
             #line hidden
             this.Write("() {\r\n    @Override\r\n    public void Success(");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Response));
+            
+            #line default
+            #line hidden
+            
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+if(ResponseAsArray){
+            
+            #line default
+            #line hidden
+            this.Write("[]");
+            
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+} else {
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Android\Android_Sample.tt"
+}
             
             #line default
             #line hidden
@@ -206,6 +226,19 @@ private string Response
     get
     {
         return this._ResponseField;
+    }
+}
+
+private bool _ResponseAsArrayField;
+
+/// <summary>
+/// Access the ResponseAsArray parameter of the template.
+/// </summary>
+private bool ResponseAsArray
+{
+    get
+    {
+        return this._ResponseAsArrayField;
     }
 }
 
@@ -298,6 +331,20 @@ if ((ResponseValueAcquired == false))
     if ((data != null))
     {
         this._ResponseField = ((string)(data));
+    }
+}
+bool ResponseAsArrayValueAcquired = false;
+if (this.Session.ContainsKey("ResponseAsArray"))
+{
+    this._ResponseAsArrayField = ((bool)(this.Session["ResponseAsArray"]));
+    ResponseAsArrayValueAcquired = true;
+}
+if ((ResponseAsArrayValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ResponseAsArray");
+    if ((data != null))
+    {
+        this._ResponseAsArrayField = ((bool)(data));
     }
 }
 bool PropertiesValueAcquired = false;

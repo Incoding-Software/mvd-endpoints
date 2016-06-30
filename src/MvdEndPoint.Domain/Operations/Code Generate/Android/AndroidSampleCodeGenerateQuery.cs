@@ -16,13 +16,14 @@
             var names = Dispatcher.Query(new GetNameFromTypeQuery(type));
             var tmpl = new Android_Sample()
                        {
-                       Session         = new Dictionary<string, object>
-                                         {                                                 
+                               Session = new Dictionary<string, object>
+                                         {
                                                  { "Type", meta.Name },
                                                  { "Namespace", meta.Namespace },
                                                  { "Listener", names[GetNameFromTypeQuery.ModeOf.Listener] },
                                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] },
-                                                 { "Request", names[GetNameFromTypeQuery.ModeOf.Request] },                                                 
+                                                 { "ResponseAsArray", meta.ResponseAsArray },
+                                                 { "Request", names[GetNameFromTypeQuery.ModeOf.Request] },
                                                  { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },
                                          }
                        };

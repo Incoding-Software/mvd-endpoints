@@ -21,6 +21,7 @@
                                   expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_android_sample_code_generate).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Namespace, "Incoding")
+                                                                                                                .Empty(r => r.ResponseAsArray)
                                                                                                                 .Tuning(r => r.Name, "GetCustomerQuery"));
 
                                   mockQuery = MockQuery<AndroidSampleCodeGenerateQuery, string>

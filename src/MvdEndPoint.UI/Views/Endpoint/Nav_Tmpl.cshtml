@@ -4,19 +4,19 @@
     @(Html.When(JqueryBind.InitIncoding)
           .OnBegin(dsl => dsl.Break.If(() => value == ""))
           .OnSuccess(dsl =>
-                     {              
-                         
-                         Expression<Func<bool>> isSelf = () => Selector.JS.Location.Hash == "#" + value;
-                         dsl.Self().JQuery.Attr.AddClass(B.Active).If(isSelf);
-                         dsl.Self().JQuery.Attr.AddClass(B.Active).If(() => Selector.JS.Location.Hash.IsEmpty() && Selector.Jquery.Class(B.Active).Length() == 0);
-                         dsl.Self().Call("ScrollTo", Selector.Jquery.Self().Attr(HtmlAttribute.Href)).If(() => Selector.Jquery.Self().HasClass(B.Active));
-                     })
+          {
+
+              Expression<Func<bool>> isSelf = () => Selector.JS.Location.Hash == "#" + value;
+              dsl.Self().JQuery.Attr.AddClass(B.Active).If(isSelf);
+              dsl.Self().JQuery.Attr.AddClass(B.Active).If(() => Selector.JS.Location.Hash.IsEmpty() && Selector.Jquery.Class(B.Active).Length() == 0);
+              dsl.Self().Eval("document.location = document.location").If(isSelf);
+          })
           .When(JqueryBind.Click)
           .OnSuccess(dsl =>
-                     {
-                         dsl.WithClass(B.Active).JQuery.Attr.RemoveClass(B.Active);
-                         dsl.Self().JQuery.Attr.AddClass(B.Active);
-                     })
+          {
+              dsl.WithClass(B.Active).JQuery.Attr.RemoveClass(B.Active);
+              dsl.Self().JQuery.Attr.AddClass(B.Active);
+          })
           .AsHtmlAttributes(new { @class = @class, href = "#" + value })
           .ToLink(name))
 }
