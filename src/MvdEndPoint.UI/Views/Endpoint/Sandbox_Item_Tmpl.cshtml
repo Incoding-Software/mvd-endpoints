@@ -4,40 +4,49 @@
         using (var each = template.ForEach())
         {
             <div class="form-group">
-                <label class="control-label control-label col-xs-2" for="@each.For(r => r.Name)">
-                    @each.For(r => r.Name)
-                </label>
-                <div class="col-xs-9">
-                    @using (each.Is(r => r.IsBool))
-                    {
-                        @Html.CheckBox(each.For(r => r.Name))
-                    }
-                    @using (each.Is(r => r.IsFile))
-                    {
-                        <input type="file" name="@each.For(s => s.Name)"/>
-                    }
-                    @using (each.Is(r => r.IsEnum))
-                    {
-                        @Html.DropDownList(each.For(r => r.Name), new SelectList(new string[0]), Html.When(JqueryBind.InitIncoding)
-                                                                                                     .Ajax(new GetEnumForDD { TypeId = each.For(r => r.GUID) })
-                                                                                                     .OnSuccess(dsl => dsl.Self().Insert.WithTemplate(IncodingHtmlHelper.DropDownTemplateId).Html())
-                                                                                                     .AsHtmlAttributes())
-                    }
-                    @using (each.Is(r => r.IsString))
-                    {
-                        @Html.TextBox(each.For(r => r.Name))
-                    }
-                    @using (each.Is(r => r.IsDate))
-                    {
-                        @Html.TextBox(each.For(r => r.Name), "", new { @class = "input-date" })
-                    }
-                    @using (each.Is(r => r.IsNumber))
-                    {
-                        @Html.TextBox(each.For(r => r.Name), "", new { @class = "input-slider" })
-                    }
-                    @Html.ValidationMessage(each.For(r => r.Name))
+                @using (each.Is(r => r.IsBool))
+                {
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBox(each.For(r => r.Name)) @each.For(r => r.Name)
+                            </label>
+                        </div>
+                    </div>
+                }
+                @using (each.Not(s => s.IsBool))
+                {
+                    <label class="control-label col-xs-2" for="@each.For(r => r.Name)">
+                        @each.For(r => r.Name)
+                    </label>
+                    <div class="col-xs-9">
+                        @using (each.Is(r => r.IsFile))
+                        {
+                            <input type="file" name="@each.For(s => s.Name)"/>
+                        }
+                        @using (each.Is(r => r.IsEnum))
+                        {
+                            @Html.DropDownList(each.For(r => r.Name), new SelectList(new string[0]), Html.When(JqueryBind.InitIncoding)
+                                                                                                         .Ajax(new GetEnumForDD { TypeId = each.For(r => r.GUID) })
+                                                                                                         .OnSuccess(dsl => dsl.Self().Insert.WithTemplate(IncodingHtmlHelper.DropDownTemplateId).Html())
+                                                                                                         .AsHtmlAttributes(new {@class= "form-control" }))
+                        }
+                        @using (each.Is(r => r.IsString))
+                        {
+                            @Html.TextBox(each.For(r => r.Name), "", new { @class = "form-control" })
+                        }
+                        @using (each.Is(r => r.IsDate))
+                        {
+                            @Html.TextBox(each.For(r => r.Name), "", new { @class = "form-control" })
+                        }
+                        @using (each.Is(r => r.IsNumber))
+                        {
+                            @Html.TextBox(each.For(r => r.Name), "", new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessage(each.For(r => r.Name))
+                    </div>
+                }
 
-                </div>
             </div>
         }
     }

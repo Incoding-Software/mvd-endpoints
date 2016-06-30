@@ -46,7 +46,7 @@ namespace Incoding.Endpoint
                                     Id = endpoint.Name.Replace(" ", "_"),
                                     EntityId = endpoint.Id,
                                     Name = endpoint.Name,
-                                    IsGroup = false,                                    
+                                    IsGroup = false,
                                     Description = endpoint.Description ?? "Description",
                                     Verb = uri.Verb,
                                     Host = uri.Host,
@@ -94,7 +94,7 @@ namespace Incoding.Endpoint
             public List<Item> PropertiesOfRequest { get; set; }
 
             public string Url { get; set; }
-                
+
             public string Result { get; set; }
 
             public string Group { get; set; }
@@ -126,8 +126,11 @@ namespace Incoding.Endpoint
                                    : propertyType.Name;
                     Description = r.Description ?? "Description";
                     IsRequired = r.IsRequired;
+                    Values = r.Values.Select(s => new KeyValueVm(s)).ToList();
                     Default = r.Default ?? (propertyType.IsValueType ? Activator.CreateInstance(propertyType).With(s => s.ToString().Recovery("null")) : "null");
                 }
+
+                public List<KeyValueVm> Values { get; set; }
 
                 public string Name { get; set; }
 

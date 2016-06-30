@@ -88,7 +88,7 @@ a img { border: none }
     font-weight: 500;
     line-height: 18px;
     text-transform: uppercase;
-    padding: 5px 0;    
+    padding: 5px 0;
 }
 
 #api-reference h4 { color: #4c555a }
@@ -1291,6 +1291,7 @@ a img { border: none }
 
     ) {
     
+    
 
     #api-reference .changes-tooltip:before {
         background-image: url(/img/documentation/api/change-notice-tail-side@2x.png);
@@ -1447,65 +1448,83 @@ a img { border: none }
 
 
 @charset "UTF-8";
+
 .jsonview {
-  font-family: monospace;
-  font-size: 1.1em;
-  white-space: pre-wrap; }
-  .jsonview .prop {
+    font-family: monospace;
+    font-size: 1.1em;
+    white-space: pre-wrap;
+}
+
+.jsonview .prop {
     font-weight: bold;
     text-decoration: none;
-    color: #000; }
-  .jsonview .null {
-    color: red; }
-  .jsonview .undefined {
-    color: red; }
-  .jsonview .bool {
-    color: blue; }
-  .jsonview .num {
-    color: blue; }
-  .jsonview .string {
+    color: #000;
+}
+
+.jsonview .null { color: red; }
+
+.jsonview .undefined { color: red; }
+
+.jsonview .bool { color: blue; }
+
+.jsonview .num { color: blue; }
+
+.jsonview .string {
     color: green;
-    white-space: pre-wrap; }
-    .jsonview .string.multiline {
-      display: inline-block;
-      vertical-align: text-top; }
-  .jsonview .collapser {
+    white-space: pre-wrap;
+}
+
+.jsonview .string.multiline {
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+.jsonview .collapser {
     position: absolute;
     left: -1em;
-    cursor: pointer; }
-  .jsonview .collapsible {
+    cursor: pointer;
+}
+
+.jsonview .collapsible {
     transition: height 1.2s;
-    transition: width 1.2s; }
-  .jsonview .collapsible.collapsed {
+    transition: width 1.2s;
+}
+
+.jsonview .collapsible.collapsed {
     height: .8em;
     width: 1em;
     display: inline-block;
     overflow: hidden;
-    margin: 0; }
-  .jsonview .collapsible.collapsed:before {
+    margin: 0;
+}
+
+.jsonview .collapsible.collapsed:before {
     content: "…";
     width: 1em;
-    margin-left: .2em; }
-  .jsonview .collapser.collapsed {
-    transform: rotate(0deg); }
-  .jsonview .q {
+    margin-left: .2em;
+}
+
+.jsonview .collapser.collapsed { transform: rotate(0deg); }
+
+.jsonview .q {
     display: inline-block;
     width: 0px;
-    color: transparent; }
-  .jsonview li {
-    position: relative; }
-  .jsonview ul {
+    color: transparent;
+}
+
+.jsonview li { position: relative; }
+
+.jsonview ul {
     list-style: none;
     margin: 0 0 0 2em;
-    padding: 0; }
-  .jsonview h1 {
-    font-size: 1.2em; }
+    padding: 0;
+}
+
+.jsonview h1 { font-size: 1.2em; }
 
 /*# sourceMappingURL=jquery.jsonview.css.map */
 
-.switch-inline input[type='checkbox'], .switch input[type='checkbox'] {
-    display: none;
-}
+.switch-inline input[type='checkbox'], .switch input[type='checkbox'] { display: none; }
 
 .switch-inline input[type='checkbox']:checked ~ span, .switch input[type='checkbox']:checked ~ span {
     margin-left: -6px;
@@ -1515,7 +1534,7 @@ a img { border: none }
 }
 
 .switch-inline {
- top: 15px;
+    top: 15px;
     display: inline-block;
     vertical-align: middle;
     width: 56px;
@@ -1544,7 +1563,7 @@ a img { border: none }
     text-shadow: rgba(0, 0, 0, 0.1) 1px 1px;
     transition: all 0.1s ease-in-out;
     -webkit-transition: all 0.1s ease-in-out;
-    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2) inset;
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.2) inset;
 }
 
 .switch-inline i, .switch i {
@@ -1561,9 +1580,122 @@ a img { border: none }
 
 
 .ce-element.active {
-    background-color:rgba(243,156,18,.1) !important;
+    background-color: rgba(243, 156, 18, .1) !important;
     outline: none;
 }
 
+
+
+pre { background-color: #282b2e; }
+
+.field-validation-error { color: red; }
+
+.form-horizontal {
+    border: 1px #888888 solid;
+    padding: 30px 10px;
+}
+
+.panel {
+    background: transparent;
+}
+.form-control {
+        background: transparent;
+    border: none;
+    border-radius: 0px;
+    box-shadow: none;
+    border-bottom: 1px rgba(255, 255, 255, 0.27) solid;
+    color: #888888;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+        
+.form-control:focus:not(select),.form-control:active:not(select) {
+    border-bottom: 1px #0099e5 solid;
+    color: white;
+    outline: none;
+    box-shadow: none;
+}
+
+.control-label,.checkbox label { color: #888888; }
+
+.form-group { height: 30px; }
+
+
+
+
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #29d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 

@@ -48,7 +48,7 @@
                 MapEscaping(r => r.Description).Length(int.MaxValue);
                 MapEscaping(r => r.Result);
                 MapEscaping(r => r.Type);
-                DefaultHasMany(r => r.Properties).Cascade.AllDeleteOrphan();
+                DefaultHasMany(r => r.Properties);
                 DefaultReference(r => r.GroupKey);
             }
         }
@@ -61,6 +61,8 @@
 
                 Request
             }
+
+            private string values = string.Empty;
 
             [UsedImplicitly, Obsolete(ObsoleteMessage.SerializeConstructor, true), ExcludeFromCodeCoverage]
             public Property()
@@ -76,6 +78,7 @@
                                       ? property.Type.GenericTypeArguments[0].FullName
                                       : string.Empty;
                 Type = type;
+                Values = property.Values;
                 Childrens = property.Childrens.Select(s => new Property(s, type)).ToList();
             }
 
@@ -104,6 +107,16 @@
 
             public virtual IList<Property> Childrens { get; set; }
 
+            public virtual List<string> Values
+            {
+                get { return CollectionAsString.Parse(values).ToList(); }
+                set
+                {
+                    this.values = string.Empty;
+                    CollectionAsString.Join(ref this.values, value);
+                }
+            }
+
             [UsedImplicitly, Obsolete(ObsoleteMessage.ClassNotForDirectUsage, true), ExcludeFromCodeCoverage]
             public class Map : NHibernateEntityMap<Property>
             {
@@ -114,10 +127,11 @@
                     DefaultReference(r => r.Message);
                     DefaultReference(r => r.Parent).Cascade.SaveUpdate();
                     HasMany(r => r.Childrens).Cascade.AllDeleteOrphan();
-                    MapEscaping(r => r.Name).Length(int.MaxValue);
+                    MapEscaping(r => r.Name).CustomType("StringClob").CustomSqlType("nvarchar(max)");
+                    MapEscaping(r => r.values).CustomType("StringClob").CustomSqlType("nvarchar(max)");
                     MapEscaping(r => r.Type);
                     MapEscaping(r => r.Default);
-                    MapEscaping(r => r.Description).Length(int.MaxValue);
+                    MapEscaping(r => r.Description).CustomType("StringClob").CustomSqlType("nvarchar(max)");
                     MapEscaping(r => r.PropertyType);
                     MapEscaping(r => r.GenericType);
                     MapEscaping(r => r.GroupKey);
@@ -176,7 +190,7 @@
                     Table("Endpoint_Group_Tbl");
                     IdGenerateByGuid(r => r.Id);
                     MapEscaping(r => r.Name);
-                    MapEscaping(r => r.Description);
+                    MapEscaping(r => r.Description).CustomType("StringClob").CustomSqlType("nvarchar(max)");
                 }
             }
 

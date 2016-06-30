@@ -15,19 +15,13 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/endpoint.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/endpoint.js")"></script>    
+    
 
     <script src="@Url.Content("~/Content/Trumbowyg-master/dist/trumbowyg.min.js")"></script>
     <link rel="stylesheet" href="@Url.Content("~/Content/Trumbowyg-master/dist/ui/trumbowyg.min.css")">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/androidstudio.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
-    <style>
-        pre { background-color: #282b2e; }
-
-        .field-validation-error { color: red; }
-
-        .control-label { color: #d0d4d7; }
-    </style>
 
     <script>
         TemplateFactory.Version = '@Guid.NewGuid().ToString()';
@@ -75,7 +69,7 @@
                                          {
                                              dsl.WithClass("method-example").JQuery.Attr.AddClass(B.Hidden);
                                              dsl.WithClass(type).JQuery.Attr.RemoveClass(B.Hidden);
-                                             dsl.Self().Eval("document.location = document.location");
+                                             dsl.Self().Eval("document.location = document.location").If(() => !Selector.JS.Location.Hash.IsEmpty());
                                          })
                               .AsHtmlAttributes(attr)
                               .ToInput(HtmlInputType.Radio, type))

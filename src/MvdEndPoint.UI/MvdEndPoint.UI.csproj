@@ -54,15 +54,6 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\packages\BmApp\DotNetOpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="EDating.Core">
-      <HintPath>..\packages\BmApp\EDating.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="EDating.Domain">
-      <HintPath>..\packages\BmApp\EDating.Domain.dll</HintPath>
-    </Reference>
-    <Reference Include="EDating.Resources">
-      <HintPath>..\packages\BmApp\EDating.Resources.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -221,6 +212,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\child-list-tail.png" />
     <Content Include="Content\endpoint.css" />
     <Content Include="Content\jquery.pnotify.css" />
@@ -404,6 +396,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Readme\Handlebarsjs_README.md" />
     <Content Include="App_Readme\Handlebarsjs_LICENSE" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\SourceCodePro-Medium.otf.woff" />
     <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <Content Include="Scripts\endpoint.js" />
     <Content Include="Scripts\handlebars.amd.js" />

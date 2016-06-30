@@ -34,11 +34,16 @@
                                                                     Type = endpoint.Type,
                                                                     Name = endpoint.Name
                                                             };
+                Repository.SaveOrUpdate(entity);
 
-                
                 var properties = new List<Message.Property>(endpoint.Requests.Count + endpoint.Responses.Count);
                 properties.AddRange(endpoint.Requests.Select(property => new Message.Property(property, Message.Property.TypeOf.Request)));
                 properties.AddRange(endpoint.Responses.Select(property => new Message.Property(property, Message.Property.TypeOf.Response)));
+                foreach (var delete in Repository.Query(whereSpecification: new Message.Property.Where.ByMessage(entity.Id))
+                                                 .Select(r => new { Name = r.Name, Type = r.Type, Id = r.Id })
+                                                 .ToList()
+                                                 .Where(r => properties.All(s => s.Name != r.Name && s.Type != r.Type)))
+                    Repository.Delete<Message.Property>(delete.Id);
                 foreach (var property in properties)
                 {
                     var exist = entity.Properties.FirstOrDefault(s => s.Name == property.Name && s.Type == property.Type);
@@ -46,12 +51,14 @@
                     {
                         exist.PropertyType = property.PropertyType;
                         exist.GenericType = property.GenericType;
+                        exist.Values = property.Values;
                     }
                     else
-                        entity.Properties.Add(property);
+                    {
+                        property.Message = entity;
+                        Repository.Save(property);
+                    }
                 }
-
-                Repository.SaveOrUpdate(entity);
             }
         }
 
@@ -69,10 +76,6 @@
                                             if (!Dispatcher.Query(new IsCommandTypeQuery(instanceType)))
                                             {
                                                 var responseType = instanceType.BaseType.GenericTypeArguments[0];
-                                                var isArray = !responseType.IsAnyEquals(typeof(string), typeof(byte[])) && responseType.IsImplement<IEnumerable>();
-                                                if (isArray)
-                                                    responseType = responseType.GenericTypeArguments[0];
-
                                                 response.AddRange(Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = responseType, IsWrite = false }));
                                             }
 
@@ -95,6 +98,15 @@
 
                 protected override List<Response.Property> ExecuteResult()
                 {
+                    if (Type.IsImplement<IEnumerable>() && Type != typeof(string))
+                    {
+                        var isArray = Type.GenericTypeArguments.Length == 0;
+                        if (isArray && !Type.GetElementType().IsPrimitive())
+                            Type = Type.GetElementType();
+                        if (!isArray && !Type.GenericTypeArguments[0].IsPrimitive())
+                            Type = Type.GenericTypeArguments[0];
+                    }
+
                     var propertyInfos = Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                                             .Where(r => (IsWrite ? r.CanWrite : r.CanRead) && !r.HasAttribute<IgnoreDataMemberAttribute>())
                                             .ToList();
@@ -103,6 +115,13 @@
                                          {
                                                  Name = r.Name,
                                                  Type = r.PropertyType,
+                                                 Values = r.PropertyType.IsEnum ? Dispatcher.Query(new GetEnumForDD()
+                                                                                                   {
+                                                                                                           TypeId = r.PropertyType.GUID.ToString(),
+                                                                                                   })
+                                                                                            .Items
+                                                                                            .Select(s => s.Text)
+                                                                                            .ToList() : new List<string>(),
                                                  Childrens = r.PropertyType.IsPrimitive()
                                                                      ? new List<Response.Property>()
                                                                      : Dispatcher.Query(new GetPropertiesFromTypeQuery() { Type = r.PropertyType, IsWrite = IsWrite })
@@ -133,6 +152,8 @@
                     public string Name { get; set; }
 
                     public List<Property> Childrens { get; set; }
+
+                    public List<string> Values { get; set; }
 
                     #endregion
                 }
