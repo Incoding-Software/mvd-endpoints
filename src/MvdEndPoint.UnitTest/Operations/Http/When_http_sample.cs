@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Incoding.CQRS;
     using Incoding.Endpoint;
@@ -23,10 +24,17 @@
 
                                   var response = Pleasure.Generator.Invent<GetUriByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Scheme, "http")
                                                                                                                  .Tuning(r => r.Verb, "POST")
-                                                                                                                 .Tuning(r=>r.Url,"Dispatcher")
+                                                                                                                 .Tuning(r => r.Url, "Dispatcher")
                                                                                                                  .Tuning(r => r.Authority, "localhost"));
                                   mockQuery = MockQuery<HttpSampleCodeGenerateQuery, string>
                                           .When(query)
+                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Empty(r => r.Device)
+                                                                                                                      .Tuning(r => r.IsCommand, meta.IsCommand)
+                                                                                                                      .Tuning(s => s.Type, typeof(GetCustomerQuery)), new List<GetPropertiesQuery.Response>()
+                                                                                                                                                                      {
+                                                                                                                                                                              new GetPropertiesQuery.Response() { Name = "Name", Type = "String" },
+                                                                                                                                                                              new GetPropertiesQuery.Response() { Name = "Count", Type = "Int" }
+                                                                                                                                                                      })
                                           .StubQuery<GetUriByTypeQuery, GetUriByTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery)), response)
                                           .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), meta);
                               };

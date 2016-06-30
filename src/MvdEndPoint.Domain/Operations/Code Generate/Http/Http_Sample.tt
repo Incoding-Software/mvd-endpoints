@@ -6,9 +6,12 @@
 <#@ parameter type="System.String" name="Verb" #>
 <#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.String" name="Host" #>
+<#@ parameter type="System.String" name="Body" #>
 
 <#=Verb#> <#=Url#> HTTP/1.1
 Host: <#=Host#>
 Accept-Language: en
 Content-Type: application/x-www-form-urlencoded; charset=UTF-8
 X-Requested-With: XMLHttpRequest 
+
+<#=Body#>

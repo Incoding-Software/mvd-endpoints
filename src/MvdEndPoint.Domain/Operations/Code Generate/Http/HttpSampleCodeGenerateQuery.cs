@@ -3,8 +3,10 @@
     #region << Using >>
 
     using System.Collections.Generic;
+    using System.Linq;
     using Incoding.CQRS;
     using Incoding.Endpoint.Operations.Code_Generate.Http;
+    using Incoding.Extensions;
 
     #endregion
 
@@ -22,7 +24,8 @@
                            {
                                    { "Verb", uri.Verb },
                                    { "Host", uri.Authority },
-                                   { "Url", uri.Url }
+                                   { "Url", uri.Url },
+                                   { "Body", Dispatcher.Query(new GetPropertiesQuery() { Type = type, IsCommand = meta.IsCommand }).Select(r => "{0}=@{1}".F(r.Name, r.Type)).AsString("&") }
                            };
             tmpl.Initialize();
             return tmpl.TransformText();

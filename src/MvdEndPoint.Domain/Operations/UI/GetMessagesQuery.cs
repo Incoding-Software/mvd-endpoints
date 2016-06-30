@@ -117,13 +117,16 @@ namespace Incoding.Endpoint
             {
                 public Item(Message.Property r)
                 {
-                    var propertyType = new DefaultDispatcher().Query(new GetTypeFromPropertyQuery() { Property = r });
+                    var propertyType = new DefaultDispatcher().Query(new GetTypeFromPropertyQuery() { Property = r });                    
                     Name = r.Name;
                     Id = r.Id;
                     Childrens = r.Childrens.Select(property => new Item(property)).ToList();
-                    Type = propertyType.IsGenericType
-                                   ? "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name)
-                                   : propertyType.Name;
+                    if (propertyType.IsEnum)
+                        Type = "Enum";
+                    else if (propertyType.IsGenericType)
+                        Type = "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name);
+                    else
+                                   Type  =  propertyType.Name;
                     Description = r.Description ?? "Description";
                     IsRequired = r.IsRequired;
                     Values = r.Values.Select(s => new KeyValueVm(s)).ToList();

@@ -30,27 +30,33 @@ namespace Incoding.Endpoint.Operations.Code_Generate.Http
         {
             this.Write("\r\n");
             
-            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Verb));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 10 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
             this.Write(" HTTP/1.1\r\nHost: ");
             
-            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Host));
             
             #line default
             #line hidden
             this.Write("\r\nAccept-Language: en\r\nContent-Type: application/x-www-form-urlencoded; charset=U" +
-                    "TF-8\r\nX-Requested-With: XMLHttpRequest ");
+                    "TF-8\r\nX-Requested-With: XMLHttpRequest \r\n\r\n");
+            
+            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\Http\Http_Sample.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Body));
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
@@ -92,6 +98,19 @@ private string Host
     get
     {
         return this._HostField;
+    }
+}
+
+private string _BodyField;
+
+/// <summary>
+/// Access the Body parameter of the template.
+/// </summary>
+private string Body
+{
+    get
+    {
+        return this._BodyField;
     }
 }
 
@@ -143,6 +162,20 @@ if ((HostValueAcquired == false))
     if ((data != null))
     {
         this._HostField = ((string)(data));
+    }
+}
+bool BodyValueAcquired = false;
+if (this.Session.ContainsKey("Body"))
+{
+    this._BodyField = ((string)(this.Session["Body"]));
+    BodyValueAcquired = true;
+}
+if ((BodyValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Body");
+    if ((data != null))
+    {
+        this._BodyField = ((string)(data));
     }
 }
 

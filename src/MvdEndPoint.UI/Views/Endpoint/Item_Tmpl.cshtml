@@ -6,18 +6,19 @@
             @property.IsInline(r => r.IsRequired, @<text><span class="method-list-item-label-badge">required</span></text>)
             @property.NotInline(r => r.IsRequired, @<text><span class="method-list-item-label-details">optional</span></text>)
             <span class="method-list-item-validation">
-                @property.For(r => r.Type) default as @property.For(r => r.Default)
-                @using (property.Is(s => s.Values))
-                {                    
-                    <code class="language-undefined">
+                @property.For(r => r.Type), value is <span class="method-list-item-label-promote">@property.For(r => r.Default)</span>
+            </span>
+            @using (property.Is(s => s.Values))
+            {
+                <span class="method-list-item-validation">
+                    <code>
                         @using (var valueEach = property.ForEach(s => s.Values))
                         {
                             @valueEach.For(s => s.Text)@:,
                         }
                     </code>
-                }
-
-            </span>
+                    </span>
+            }
 
         </h3>
         @EditTextArea(property.For(s => s.Id), HtmlTag.Div, property.ForRaw(s => s.Description), Url.Dispatcher().Push(new MessageCommand.UpdatePropertyDescriptionCommand()
@@ -235,8 +236,6 @@
                                                 .Ajax(new GetMessageDetailQuery() { Id = each.For(s => s.EntityId) })
                                                 .OnSuccess(dsl =>
                                                            {
-                                                               dsl.WithClass("input-date").JqueryUI().Datepicker.Open(options => { options.ButtonImageOnly = true; });
-                                                               dsl.WithClass("input-slider").JqueryUI().Spinner.Open(options => { });
                                                                dsl.Self().Form.Validation.Parse();
                                                                dsl.Self().JQuery.Dom.WithTemplateByView("~/Views/Endpoint/Sandbox_Item_Tmpl.cshtml").Prepend();
                                                            })
