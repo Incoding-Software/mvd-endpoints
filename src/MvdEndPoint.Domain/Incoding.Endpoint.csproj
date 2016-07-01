@@ -120,6 +120,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Operations\Code Generate\Http\CurlSampleCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\Http\Curl_Sample.cs">
+      <DependentUpon>Curl_Sample.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Operations\Code Generate\Http\Http_Sample.cs">
       <DependentUpon>Http_Sample.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -392,6 +398,10 @@
     <Content Include="Operations\Code Generate\Android\Android_Sample.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Android_Sample.cs</LastGenOutput>
+    </Content>
+    <Content Include="Operations\Code Generate\Http\Curl_Sample.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Curl_Sample.cs</LastGenOutput>
     </Content>
     <Content Include="Operations\Code Generate\Http\Http_Sample.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

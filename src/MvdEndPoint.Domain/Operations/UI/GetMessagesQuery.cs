@@ -41,6 +41,7 @@ namespace Incoding.Endpoint
                     var instanceType = Dispatcher.Query(new CreateByTypeQuery.FindTypeByName() { Type = endpoint.Type });
 
                     var uri = Dispatcher.Query(new GetUriByTypeQuery() { Type = instanceType });
+                    var instance = Activator.CreateInstance(instanceType);
                     res.Add(new Response()
                             {
                                     Id = endpoint.Name.Replace(" ", "_"),
@@ -51,8 +52,9 @@ namespace Incoding.Endpoint
                                     Verb = uri.Verb,
                                     Host = uri.Host,
                                     Url = uri.Host + uri.Url,
-                                    SampleOfHttp = Dispatcher.Query(new HttpSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
-                                    SampleOfAndroid = Dispatcher.Query(new AndroidSampleCodeGenerateQuery() { Instance = Activator.CreateInstance(instanceType) }),
+                                    SampleOfCurl = Dispatcher.Query(new CurlSampleCodeGenerateQuery() { Instance = instance }),
+                                    SampleOfHttp = Dispatcher.Query(new HttpSampleCodeGenerateQuery() { Instance = instance }),
+                                    SampleOfAndroid = Dispatcher.Query(new AndroidSampleCodeGenerateQuery() { Instance = instance }),
                                     Result = endpoint.Result,
                                     Group = endpoint.GroupKey.With(s => s.Name),
                                     PropertiesOfResponse = endpoint.Properties.Where(r => r.Type == Message.Property.TypeOf.Response).Select(property => new Response.Item(property)).ToList(),
@@ -105,6 +107,8 @@ namespace Incoding.Endpoint
 
             public string EntityId { get; set; }
 
+            public string SampleOfCurl { get; set; }
+
             public string SampleOfAndroid { get; set; }
 
             public string SampleOfHttp { get; set; }
@@ -117,7 +121,7 @@ namespace Incoding.Endpoint
             {
                 public Item(Message.Property r)
                 {
-                    var propertyType = new DefaultDispatcher().Query(new GetTypeFromPropertyQuery() { Property = r });                    
+                    var propertyType = new DefaultDispatcher().Query(new GetTypeFromPropertyQuery() { Property = r });
                     Name = r.Name;
                     Id = r.Id;
                     Childrens = r.Childrens.Select(property => new Item(property)).ToList();
@@ -126,7 +130,7 @@ namespace Incoding.Endpoint
                     else if (propertyType.IsGenericType)
                         Type = "{0} of {1}".F(propertyType.Name, propertyType.GenericTypeArguments[0].Name);
                     else
-                                   Type  =  propertyType.Name;
+                        Type = propertyType.Name;
                     Description = r.Description ?? "Description";
                     IsRequired = r.IsRequired;
                     Values = r.Values.Select(s => new KeyValueVm(s)).ToList();

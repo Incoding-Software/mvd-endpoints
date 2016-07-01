@@ -1,11 +1,11 @@
 @using Incoding.Extensions
 <html>
 <head>
-    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/endpoint.css")"/>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.9.1.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.2.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.js")"> </script>
     
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
@@ -57,7 +57,7 @@
     <div class="header-section header-section-example">
         <div id="language">
             <ul class="language-toggle">
-                @foreach (var type in new[] { "http", "android", "sandbox" })
+                @foreach (var type in new[] { "http", "curl", "android", "sandbox" })
                 {
                     var attr = new RouteValueDictionary(new { @class = "language-toggle-source", name = "language-toggle" });
                     if (type == "android")

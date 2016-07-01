@@ -1,0 +1,2 @@
+﻿
+curl -X POST -H "Content-Type: application/json; charset=UTF-8" -H "Host: localhost" -H "X-Requested-With: XMLHttpRequest" -d '{"Name":"ValueOfName","Number":1}' Dispatcher
