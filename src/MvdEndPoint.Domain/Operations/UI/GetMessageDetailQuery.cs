@@ -27,7 +27,7 @@
                                                 {
                                                         Name = s.Name,
                                                         IsBool = type.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                                        IsFile = type == typeof(byte[]),
+                                                        IsFile = type.IsAnyEquals(typeof(byte[]), typeof(byte)),
                                                         IsDate = type.IsAnyEquals(typeof(DateTime), typeof(DateTime?)),
                                                         IsNumber = type.IsAnyEquals(typeof(int), typeof(int?), typeof(Decimal), typeof(Decimal?), typeof(float), typeof(float?), typeof(Int64), typeof(Int64?)),
                                                         IsEnum = type.IsEnum,
