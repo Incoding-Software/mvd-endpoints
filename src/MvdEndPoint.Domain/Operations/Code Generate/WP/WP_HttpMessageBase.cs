@@ -7,8 +7,14 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.WP
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using Incoding.Extensions;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -52,44 +58,69 @@ namespace Incoding.Endpoint
             public bool isValid;
         }
 
+		public static Dictionary<string, string> Headers = new Dictionary<string, string>()
+                                                           { { ""X-Requested-With"", ""XMLHttpRequest"" } };
+
         public static string Cookie { get; set; }
 
-        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, StringBuilder postData)
+        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
         {
             string url = string.Format(""");
             
-            #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
             this.Write("/Dispatcher/{0}\", isCommand ? \"Push\" : \"Query\");\r\n            string response = a" +
-                    "wait post(url, postData.ToString());\r\n            IncodingResult<T> result = Jso" +
-                    "nConvert.DeserializeObject<IncodingResult<T>>(response);\r\n            if (result" +
-                    ".success)\r\n                onSuccess(result.data);\r\n            else\r\n          " +
-                    "  {\r\n                var modelState = JsonConvert.DeserializeObject<IncodingResu" +
-                    "lt<ModelState[]>>(response);\r\n                if (modelState.data != null && mod" +
-                    "elState.data.Any())\r\n                    onValidation(modelState.data);\r\n       " +
-                    "         else\r\n                    onError();\r\n            }\r\n        }\r\n\r\n     " +
-                    "   async Task<string> GetWebRequestCallback(HttpWebRequest request)\r\n        {\r\n" +
-                    "            var task = Task<WebResponse>.Factory.FromAsync(request.BeginGetRespo" +
-                    "nse, request.EndGetResponse, null);\r\n            var responseObject = await task" +
-                    ".ContinueWith(r => r.Result);\r\n            if (Cookie == null && request.CookieC" +
-                    "ontainer != null && request.CookieContainer.Count != 0)\r\n                Cookie " +
-                    "= request.CookieContainer.GetCookieHeader(request.RequestUri);\r\n            var " +
-                    "responseStream = responseObject.GetResponseStream();\r\n            var sr = new S" +
-                    "treamReader(responseStream);\r\n            string received = await sr.ReadToEndAs" +
-                    "ync();\r\n\r\n            return received;\r\n        }\r\n\r\n        async Task<string> " +
-                    "post(string url, string postdata)\r\n        {\r\n            var request = WebReque" +
-                    "st.Create(new Uri(url)) as HttpWebRequest;\r\n            request.Method = \"POST\";" +
-                    "\r\n            request.ContentType = \"application/x-www-form-urlencoded\";\r\n      " +
-                    "      request.Headers[\"X-Requested-With\"] = \"XMLHttpRequest\";\r\n            reque" +
-                    "st.CookieContainer = new CookieContainer();\r\n            var data = Encoding.UTF" +
-                    "8.GetBytes(postdata);\r\n\r\n            using (var requestStream = await Task<Strea" +
-                    "m>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream," +
-                    " request))\r\n                await requestStream.WriteAsync(data, 0, data.Length)" +
-                    ";\r\n\r\n            string response = await GetWebRequestCallback(request);\r\n      " +
-                    "      \r\n            return response;\r\n        }\r\n\r\n    }\r\n}\r\n\r\n");
+                    "wait post(url, postData);\r\n            IncodingResult<T> result = JsonConvert.De" +
+                    "serializeObject<IncodingResult<T>>(response);\r\n            if (result.success)\r\n" +
+                    "                onSuccess(result.data);\r\n            else\r\n            {\r\n      " +
+                    "          var modelState = JsonConvert.DeserializeObject<IncodingResult<ModelSta" +
+                    "te[]>>(response);\r\n                if (modelState.data != null && modelState.dat" +
+                    "a.Any())\r\n                    onValidation(modelState.data);\r\n                el" +
+                    "se\r\n                    onError();\r\n            }\r\n        }\r\n\r\n        async Ta" +
+                    "sk<string> GetWebRequestCallback(HttpWebRequest request)\r\n        {\r\n           " +
+                    " var task = Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, reques" +
+                    "t.EndGetResponse, null);\r\n            var responseObject = await task.ContinueWi" +
+                    "th(r => r.Result);\r\n            if (Cookie == null && request.CookieContainer !=" +
+                    " null && request.CookieContainer.Count != 0)\r\n                Cookie = request.C" +
+                    "ookieContainer.GetCookieHeader(request.RequestUri);\r\n            var responseStr" +
+                    "eam = responseObject.GetResponseStream();\r\n            var sr = new StreamReader" +
+                    "(responseStream);\r\n            string received = await sr.ReadToEndAsync();\r\n\r\n " +
+                    "           return received;\r\n        }\r\n\r\n        async Task<string> post(string" +
+                    " url, Dictionary<string, object> postdata)\r\n        {\r\n            var wr = WebR" +
+                    "equest.Create(new Uri(url)) as HttpWebRequest;\r\n            string boundary = \"-" +
+                    "--------------------------\" + DateTime.Now.Ticks.ToString(\"x\");\r\n            byt" +
+                    "e[] boundarybytes = Encoding.ASCII.GetBytes(\"\\r\\n--\" + boundary + \"\\r\\n\");\r\n    " +
+                    "        wr.Method = \"POST\";\r\n            wr.ContentType = \"multipart/form-data; " +
+                    "boundary=\" + boundary;\r\n            foreach (var header in Headers)\r\n           " +
+                    "     wr.Headers.Add(header.Key, header.Value);\r\n            wr.CookieContainer =" +
+                    " new CookieContainer();\r\n\r\n            Stream rs = wr.GetRequestStream();\r\n\r\n   " +
+                    "         foreach (var item in postdata)\r\n            {\r\n                rs.Write" +
+                    "(boundarybytes, 0, boundarybytes.Length);\r\n\r\n                var value = item.Va" +
+                    "lue;\r\n\r\n                if (value != null && value.GetType() == typeof(byte[]))\r" +
+                    "\n                {\r\n                    value = new HttpPostedFileBase()\r\n      " +
+                    "                      {\r\n                                    Content = (byte[])v" +
+                    "alue,\r\n                                    FileName = Guid.NewGuid().ToString()\r" +
+                    "\n                            };\r\n                }\r\n\r\n                if (value " +
+                    "!= null && value.GetType() == typeof(HttpPostedFileBase))\r\n                {\r\n  " +
+                    "                  var postFile = (HttpPostedFileBase)value;\r\n\r\n                 " +
+                    "   string header = string.Format(\"Content-Disposition: form-data; name=\\\"{0}\\\"; " +
+                    "filename=\\\"{1}\\\"\\r\\nContent-Type: {2}\\r\\n\\r\\n\", item.Key, postFile.FileName, \"\")" +
+                    ";\r\n                    byte[] headerbytes = Encoding.UTF8.GetBytes(header);\r\n   " +
+                    "                 rs.Write(headerbytes, 0, headerbytes.Length);\r\n                " +
+                    "    rs.Write(postFile.Content, 0, postFile.Content.Length);\r\n                   " +
+                    " byte[] trailer = Encoding.ASCII.GetBytes(\"\\r\\n--\" + boundary + \"--\\r\\n\");\r\n    " +
+                    "                rs.Write(trailer, 0, trailer.Length);\r\n                }\r\n      " +
+                    "          else\r\n                {\r\n                    string formitem = string." +
+                    "Format(\"Content-Disposition: form-data; name=\\\"{0}\\\"\\r\\n\\r\\n{1}\", item.Key, valu" +
+                    "e);\r\n                    byte[] formitembytes = Encoding.UTF8.GetBytes(formitem)" +
+                    ";\r\n                    rs.Write(formitembytes, 0, formitembytes.Length);\r\n      " +
+                    "          }\r\n            }\r\n            rs.Write(boundarybytes, 0, boundarybytes" +
+                    ".Length);\r\n            rs.Close();\r\n\r\n            string response = await GetWeb" +
+                    "RequestCallback(wr);\r\n\r\n            return response;\r\n        }\r\n\r\n\r\n    }\r\n}\r\n\r" +
+                    "\n");
             return this.GenerationEnvironment.ToString();
         }
         

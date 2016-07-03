@@ -12,16 +12,15 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using Incoding.Extensions;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+    #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public partial class WP_Command : WP_CommandBase
+    public partial class WP_Sample : WP_SampleBase
     {
 #line hidden
         /// <summary>
@@ -29,104 +28,53 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Text;\r\n\r\nnamespace ");
+            this.Write("import ");
             
-            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+            #line 9 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write(";\r\n\r\n");
             
-            #line 16 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write(":HttpMessageBase\r\n    {\r\n         ");
+            this.Write(" request = new ");
             
-            #line 18 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
- foreach(var pair in Properties) { 
-            
-            #line default
-            #line hidden
-            this.Write("        public ");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
-            
-            #line default
-            #line hidden
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
- if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
-            
-            #line default
-            #line hidden
-            this.Write("[]");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
-}
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" {get;set;}\r\n         ");
-            
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("   \r\n\r\n        public async void On(Action<object> onSuccess, Action onError = nu" +
-                    "ll, Action<ModelState[]> onValidation = null)\r\n        {\r\n            var postDa" +
-                    "ta = new Dictionary<string, object>();\r\n            postData.Add(\"incTypes\", \"");
-            
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+            #line 11 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Name));
             
             #line default
             #line hidden
-            this.Write("\");\r\n\t\t    ");
+            this.Write("();\r\n");
             
-            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+            #line 12 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\tpostData.Add(\"");
+            this.Write("request.");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+            #line 13 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
-            this.Write("\", this.");
+            this.Write(" = something;\r\n");
             
-            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\t\t\t    \r\n            ");
-            
-            #line 28 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+            #line 14 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  \r\n            await PostAwait(true, onSuccess, onError,onValidation, postData);" +
-                    "\r\n        }\r\n    }\r\n}\r\n\r\n");
+            this.Write("   \r\nrequest.On(response => { /*do something*/ });");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Command.tt"
+        #line 1 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Sample.tt"
 
 private string _NameField;
 
@@ -235,7 +183,7 @@ if ((PropertiesValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "14.0.0.0")]
-    public class WP_CommandBase
+    public class WP_SampleBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

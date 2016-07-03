@@ -7,7 +7,6 @@
     using System.IO;
     using Incoding.CQRS;
     using Incoding.Endpoint;
-    using Incoding.Extensions;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
 
@@ -16,11 +15,11 @@
     [Subject(typeof(AndroidResponseCodeGenerateQuery))]
     public class When_android_response_code_generate
     {
-        It should_be_multiple = () => Run(expected: File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  "When_android_response_code_generate_as_array")),
+        It should_be_multiple = () => Run(expected: File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", "When_android_response_code_generate_as_array")),
                                           typeOfQuery: typeof(GetCustomersQuery),
                                           typeOfResponse: typeof(List<GetCustomersQuery.Response>));
 
-        It should_be_single = () => Run(expected: File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  "When_android_response_code_generate")),
+        It should_be_single = () => Run(expected: File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", "When_android_response_code_generate")),
                                         typeOfQuery: typeof(GetCustomerQuery),
                                         typeOfResponse: typeof(GetCustomerQuery.Response));
 
@@ -42,7 +41,7 @@
                                      new GetPropertiesQuery.Response() { Name = "Items", Type = "InnerResponse", Attributes = GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsArray, Target = typeof(Nested2) },
                              };
             var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, typeOfQuery.Name)
-                                                                                          .Tuning(r => r.IsCommand, false)                                                                                          
+                                                                                          .Tuning(r => r.IsCommand, false)
                                                                                           .Tuning(r => r.Namespace, "com.qabenchmarking.android.models"));
             var mockQuery = MockQuery<AndroidResponseCodeGenerateQuery, string>
                     .When(query)

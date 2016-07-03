@@ -36,12 +36,15 @@ namespace <#=Namespace#>
             public bool isValid;
         }
 
+		public static Dictionary<string, string> Headers = new Dictionary<string, string>()
+                                                           { { "X-Requested-With", "XMLHttpRequest" } };
+
         public static string Cookie { get; set; }
 
-        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, StringBuilder postData)
+        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
         {
             string url = string.Format("<#=Url#>/Dispatcher/{0}", isCommand ? "Push" : "Query");
-            string response = await post(url, postData.ToString());
+            string response = await post(url, postData);
             IncodingResult<T> result = JsonConvert.DeserializeObject<IncodingResult<T>>(response);
             if (result.success)
                 onSuccess(result.data);
@@ -68,22 +71,60 @@ namespace <#=Namespace#>
             return received;
         }
 
-        async Task<string> post(string url, string postdata)
+        async Task<string> post(string url, Dictionary<string, object> postdata)
         {
-            var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Headers["X-Requested-With"] = "XMLHttpRequest";
-            request.CookieContainer = new CookieContainer();
-            var data = Encoding.UTF8.GetBytes(postdata);
+            var wr = WebRequest.Create(new Uri(url)) as HttpWebRequest;
+            string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+            wr.Method = "POST";
+            wr.ContentType = "multipart/form-data; boundary=" + boundary;
+            foreach (var header in Headers)
+                wr.Headers.Add(header.Key, header.Value);
+            wr.CookieContainer = new CookieContainer();
 
-            using (var requestStream = await Task<Stream>.Factory.FromAsync(request.BeginGetRequestStream, request.EndGetRequestStream, request))
-                await requestStream.WriteAsync(data, 0, data.Length);
+            Stream rs = wr.GetRequestStream();
 
-            string response = await GetWebRequestCallback(request);
-            
+            foreach (var item in postdata)
+            {
+                rs.Write(boundarybytes, 0, boundarybytes.Length);
+
+                var value = item.Value;
+
+                if (value != null && value.GetType() == typeof(byte[]))
+                {
+                    value = new HttpPostedFileBase()
+                            {
+                                    Content = (byte[])value,
+                                    FileName = Guid.NewGuid().ToString()
+                            };
+                }
+
+                if (value != null && value.GetType() == typeof(HttpPostedFileBase))
+                {
+                    var postFile = (HttpPostedFileBase)value;
+
+                    string header = string.Format("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n", item.Key, postFile.FileName, "");
+                    byte[] headerbytes = Encoding.UTF8.GetBytes(header);
+                    rs.Write(headerbytes, 0, headerbytes.Length);
+                    rs.Write(postFile.Content, 0, postFile.Content.Length);
+                    byte[] trailer = Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+                    rs.Write(trailer, 0, trailer.Length);
+                }
+                else
+                {
+                    string formitem = string.Format("Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}", item.Key, value);
+                    byte[] formitembytes = Encoding.UTF8.GetBytes(formitem);
+                    rs.Write(formitembytes, 0, formitembytes.Length);
+                }
+            }
+            rs.Write(boundarybytes, 0, boundarybytes.Length);
+            rs.Close();
+
+            string response = await GetWebRequestCallback(wr);
+
             return response;
         }
+
 
     }
 }

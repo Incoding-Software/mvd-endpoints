@@ -11,13 +11,13 @@ namespace MvdEndPoint.UnitTest
                  public Double[] Values {get;set;}
             
 
-        public async void Execute(Action<object> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+        public async void On(Action<object> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
         {
-            var postData = new StringBuilder();
-            postData.Append("incType=FakeCommand");
-		    			    postData.Append("&Login="+this.Login);           
-            			    postData.Append("&Count="+this.Count);           
-            			    postData.Append("&Values="+this.Values);           
+            var postData = new Dictionary<string, object>();
+            postData.Add("incTypes", "FakeCommand");
+		    			postData.Add("Login", this.Login);			    
+            			postData.Add("Count", this.Count);			    
+            			postData.Add("Values", this.Values);			    
               
             await PostAwait(true, onSuccess, onError,onValidation, postData);
         }

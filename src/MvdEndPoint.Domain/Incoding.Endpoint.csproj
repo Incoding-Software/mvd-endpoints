@@ -132,6 +132,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\Code Generate\Http\HttpSampleCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\WP\WPSampleCodeGenerateQuery.cs" />
+    <Compile Include="Operations\Code Generate\WP\WP_Sample.cs">
+      <DependentUpon>WP_Sample.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Operations\Code Generate\WP\WPGenerateCommonFileQuery.cs" />
     <Compile Include="Operations\Code Generate\WP\WP_Enum.cs">
       <DependentUpon>WP_Enum.tt</DependentUpon>
@@ -406,6 +412,10 @@
     <Content Include="Operations\Code Generate\Http\Http_Sample.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Http_Sample.cs</LastGenOutput>
+    </Content>
+    <Content Include="Operations\Code Generate\WP\WP_Sample.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>WP_Sample.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

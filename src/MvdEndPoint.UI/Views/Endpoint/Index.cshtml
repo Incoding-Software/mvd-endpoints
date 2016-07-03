@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/endpoint.css")"/>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.0.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"> </script>
     
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
@@ -30,6 +30,7 @@
 </head>
 
 <body id="api-reference">
+
 @Html.Incoding().RenderDropDownTemplate()
 <div id="header">
     <div class="header-section header-section-sidebar text-center">
@@ -40,11 +41,11 @@
                       .OnSuccess(dsl =>
                                  {
                                      dsl.WithClass("glyphicon-pushpin")
-                                     .Behaviors(instancesDsl =>
-                                                {
-                                                    instancesDsl.JQuery.Attr.AddClass(B.Hidden);
-                                                    instancesDsl.JQuery.Attr.RemoveClass(B.Hidden).If(() => Selector.Jquery.Self());
-                                                });
+                                        .Behaviors(instancesDsl =>
+                                                   {
+                                                       instancesDsl.JQuery.Attr.AddClass(B.Hidden);
+                                                       instancesDsl.JQuery.Attr.RemoveClass(B.Hidden).If(() => Selector.Jquery.Self());
+                                                   });
 
                                      dsl.WithClass("ce-element").JQuery.Attr.ToggleClass(B.Active);
                                  })
@@ -57,7 +58,7 @@
     <div class="header-section header-section-example">
         <div id="language">
             <ul class="language-toggle">
-                @foreach (var type in new[] { "http", "curl", "android", "sandbox" })
+                @foreach (var type in new[] { "http", "curl", "android", "xamarin", "sandbox" })
                 {
                     var attr = new RouteValueDictionary(new { @class = "language-toggle-source", name = "language-toggle" });
                     if (type == "android")
@@ -90,7 +91,7 @@
         @(Html.When(JqueryBind.None)
               .Ajax(new GetMessagesQuery.AsNav())
               .OnSuccess(dsl => dsl.Self().JQuery.Dom.WithTemplateByView(pathToNavTmpl).Html())
-              .AsHtmlAttributes(new {@class= "sidebar-nav-items loaded",id= typeof(GetMessagesQuery.AsNav).Name })
+              .AsHtmlAttributes(new { @class = "sidebar-nav-items loaded", id = typeof(GetMessagesQuery.AsNav).Name })
               .ToTag(HtmlTag.Ul,@<text>
                                     @Html.Dispatcher().Query(new GetMessagesQuery.AsNav()).AsView(pathToNavTmpl)
                                  </text>))

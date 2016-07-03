@@ -30,11 +30,11 @@ namespace MvdEndPoint.UnitTest
 
         public async void Execute(Action<Response[]> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
         {
-            var postData = new StringBuilder();
-            postData.Append("incType=FakeQuery");
-		    			    postData.Append("&Login="+this.Login);           
-            			    postData.Append("&Count="+this.Count);           
-            			    postData.Append("&Values="+this.Values);           
+            var postData = new Dictionary<string, object>();
+            postData.Add("incTypes", "FakeQuery");
+		    			    postData.Add("Login", this.Login);			             
+            			    postData.Add("Count", this.Count);			             
+            			    postData.Add("Values", this.Values);			             
               
             await PostAwait(false, onSuccess, onError, onValidation, postData);
         }

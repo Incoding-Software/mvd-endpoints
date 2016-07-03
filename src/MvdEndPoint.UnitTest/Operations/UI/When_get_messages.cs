@@ -28,6 +28,7 @@
                                   uri = Pleasure.Generator.Invent<GetUriByTypeQuery.Response>();
                                   httpSample = Pleasure.Generator.String();
                                   curlSample = Pleasure.Generator.String();
+                                  wpSample = Pleasure.Generator.String();
                                   androidSample = Pleasure.Generator.String();
                                   mockQuery = MockQuery<GetMessagesQuery, List<GetMessagesQuery.Response>>
                                           .When(query)
@@ -38,6 +39,8 @@
                                           .StubQuery<GetUriByTypeQuery, GetUriByTypeQuery.Response>(dsl => dsl.Tuning(s => s.Type, typeof(FakeCommand2)), uri)
                                           .StubQuery<CurlSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand()), curlSample)
                                           .StubQuery<CurlSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand2()), curlSample)
+                                          .StubQuery<WPSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand()), wpSample)
+                                          .StubQuery<WPSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand2()), wpSample)
                                           .StubQuery<HttpSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand()), httpSample)
                                           .StubQuery<HttpSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand2()), httpSample)
                                           .StubQuery<AndroidSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand()), androidSample)
@@ -65,6 +68,7 @@
                                                                                                                                                                                                        .Tuning(r => r.PropertiesOfResponse, null)
                                                                                                                                                                                                        .Tuning(r => r.Result, null)
                                                                                                                                                                                                        .Tuning(r => r.SampleOfAndroid, null)
+                                                                                                                                                                                                       .Tuning(r => r.SampleOfXamarin, null)
                                                                                                                                                                                                        .Tuning(r => r.SampleOfCurl, null)
                                                                                                                                                                                                        .Tuning(r => r.SampleOfHttp, null));
                                                                                                                              };
@@ -83,6 +87,7 @@
                                                                                                                                                                                                    .Tuning(r => r.Url, uri.Host + uri.Url)
                                                                                                                                                                                                    .Tuning(r => r.PropertiesOfRequest, new List<GetMessagesQuery.Response.Item>())
                                                                                                                                                                                                    .Tuning(r => r.PropertiesOfResponse, new List<GetMessagesQuery.Response.Item>())
+                                                                                                                                                                                                   .Tuning(r => r.SampleOfXamarin, wpSample)
                                                                                                                                                                                                    .Tuning(r => r.SampleOfCurl, curlSample)
                                                                                                                                                                                                    .Tuning(r => r.SampleOfAndroid, androidSample)
                                                                                                                                                                                                    .Tuning(r => r.SampleOfHttp, httpSample));
@@ -131,6 +136,8 @@
         private static GetUriByTypeQuery.Response uri;
 
         private static string curlSample;
+
+        private static string wpSample;
 
         #endregion
     }

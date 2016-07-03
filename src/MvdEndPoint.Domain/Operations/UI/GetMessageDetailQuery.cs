@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using CloudIn.Domain.Endpoint;
     using Incoding.CQRS;
     using Incoding.Extensions;
@@ -27,7 +28,7 @@
                                                 {
                                                         Name = s.Name,
                                                         IsBool = type.IsAnyEquals(typeof(bool), typeof(bool?)),
-                                                        IsFile = type.IsAnyEquals(typeof(byte[]), typeof(byte)),
+                                                        IsFile = type.IsAnyEquals(typeof(byte[]), typeof(byte), typeof(HttpPostedFileBase), typeof(HttpPostedFile)),
                                                         IsDate = type.IsAnyEquals(typeof(DateTime), typeof(DateTime?)),
                                                         IsNumber = type.IsAnyEquals(typeof(int), typeof(int?), typeof(Decimal), typeof(Decimal?), typeof(float), typeof(float?), typeof(Int64), typeof(Int64?)),
                                                         IsEnum = type.IsEnum,

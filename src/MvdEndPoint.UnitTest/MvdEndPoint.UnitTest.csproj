@@ -213,6 +213,8 @@
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_sample_code_generate_as_array.cs" />
     <Compile Include="Operations\Http\When_curl_sample_code_generate.cs" />
+    <Compile Include="Operations\When_get_meta_from_type.cs" />
+    <Compile Include="Operations\When_get_meta_from_type_without_namespace.cs" />
     <Compile Include="Operations\When_get_type_from_property.cs" />
     <Compile Include="Operations\Http\When_http_sample_code_generate.cs" />
     <Compile Include="Operations\UI\When_get_properties_from_type.cs" />
@@ -261,6 +263,7 @@
     <Compile Include="Operations\Android\When_android_response_code_generate_as_command.cs" />
     <Compile Include="Operations\Android\When_android_request_code_generate_as_get.cs" />
     <Compile Include="Operations\When_meta_from_type_without_service_contract.cs" />
+    <Compile Include="Operations\WP\When_wp_sample_code_generate.cs" />
     <Compile Include="Operations\WP\When_message_to_package_as_wp.cs" />
     <Compile Include="Operations\WP\When_wp_generate_common_enum.cs" />
     <Compile Include="Operations\WP\When_wp_generate_common_class.cs" />
@@ -287,6 +290,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Sample_Code_Generate\When_wp_generate_common_class">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Sample_Code_Generate\When_wp_sample_code_generate">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

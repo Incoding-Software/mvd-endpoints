@@ -39,10 +39,10 @@ namespace <#=Meta.Namespace#>
 
         public async void Execute(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
         {
-            var postData = new StringBuilder();
-            postData.Append("incType=<#=Meta.Name#>");
+            var postData = new Dictionary<string, object>();
+            postData.Add("incTypes", "<#=Meta.Name#>");
 		    <# foreach(var pair in Properties) { #>
-			    postData.Append("&<#=pair.Name#>="+this.<#=pair.Name#>);           
+			    postData.Add("<#=pair.Name#>", this.<#=pair.Name#>);			             
             <# } #>  
             await PostAwait(false, onSuccess, onError, onValidation, postData);
         }

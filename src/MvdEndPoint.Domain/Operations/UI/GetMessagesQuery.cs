@@ -55,6 +55,7 @@ namespace Incoding.Endpoint
                                     SampleOfCurl = Dispatcher.Query(new CurlSampleCodeGenerateQuery() { Instance = instance }),
                                     SampleOfHttp = Dispatcher.Query(new HttpSampleCodeGenerateQuery() { Instance = instance }),
                                     SampleOfAndroid = Dispatcher.Query(new AndroidSampleCodeGenerateQuery() { Instance = instance }),
+                                    SampleOfXamarin = Dispatcher.Query(new WPSampleCodeGenerateQuery() { Instance = instance }),
                                     Result = endpoint.Result,
                                     Group = endpoint.GroupKey.With(s => s.Name),
                                     PropertiesOfResponse = endpoint.Properties.Where(r => r.Type == Message.Property.TypeOf.Response).Select(property => new Response.Item(property)).ToList(),
@@ -110,6 +111,8 @@ namespace Incoding.Endpoint
             public string SampleOfCurl { get; set; }
 
             public string SampleOfAndroid { get; set; }
+
+            public string SampleOfXamarin { get; set; }
 
             public string SampleOfHttp { get; set; }
 

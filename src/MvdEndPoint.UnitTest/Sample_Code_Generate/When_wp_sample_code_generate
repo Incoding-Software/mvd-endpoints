@@ -1,0 +1,8 @@
+﻿import Incoding;
+
+GetCustomerQuery request = new GetCustomerQuery();
+request.Message = something;
+request.Title = something;
+request.Ids = something;
+   
+request.On(response => { /*do something*/ });

@@ -7,10 +7,14 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Incoding.Endpoint
+namespace Incoding.Endpoint.Operations.Code_Generate.WP
 {
+    using System.Linq;
+    using System.Text;
     using System.Collections.Generic;
-
+    using Incoding.Extensions;
+    using System;
+    
     /// <summary>
     /// Class to produce the template output
     /// </summary>
@@ -198,8 +202,8 @@ namespace Incoding.Endpoint
             #line default
             #line hidden
             this.Write("> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)\r\n  " +
-                    "      {\r\n            var postData = new StringBuilder();\r\n            postData.A" +
-                    "ppend(\"incType=");
+                    "      {\r\n            var postData = new Dictionary<string, object>();\r\n         " +
+                    "   postData.Add(\"incTypes\", \"");
             
             #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));
@@ -213,21 +217,21 @@ namespace Incoding.Endpoint
             
             #line default
             #line hidden
-            this.Write("\t\t\t    postData.Append(\"&");
+            this.Write("\t\t\t    postData.Add(\"");
             
             #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
-            this.Write("=\"+this.");
+            this.Write("\", this.");
             
             #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
-            this.Write(");           \r\n            ");
+            this.Write(");\t\t\t             \r\n            ");
             
             #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
@@ -254,12 +258,12 @@ private global::Incoding.Endpoint.GetMetaFromTypeQuery.Response Meta
     }
 }
 
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> _PropertiesField;
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> _PropertiesField;
 
 /// <summary>
 /// Access the Properties parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> Properties
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> Properties
 {
     get
     {
@@ -267,12 +271,12 @@ private global::System.Collections.Generic.List<GetPropertiesQuery.Response> Pro
     }
 }
 
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> _ResponseField;
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> _ResponseField;
 
 /// <summary>
 /// Access the Response parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.List<GetPropertiesQuery.Response> Response
+private global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response> Response
 {
     get
     {
@@ -280,12 +284,12 @@ private global::System.Collections.Generic.List<GetPropertiesQuery.Response> Res
     }
 }
 
-private global::System.Collections.Generic.Dictionary<string,List<GetPropertiesQuery.Response>> _InnerResponsesField;
+private global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>> _InnerResponsesField;
 
 /// <summary>
 /// Access the InnerResponses parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.Dictionary<string,List<GetPropertiesQuery.Response>> InnerResponses
+private global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>> InnerResponses
 {
     get
     {
@@ -318,7 +322,7 @@ if ((MetaValueAcquired == false))
 bool PropertiesValueAcquired = false;
 if (this.Session.ContainsKey("Properties"))
 {
-    this._PropertiesField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(this.Session["Properties"]));
+    this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(this.Session["Properties"]));
     PropertiesValueAcquired = true;
 }
 if ((PropertiesValueAcquired == false))
@@ -326,13 +330,13 @@ if ((PropertiesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Properties");
     if ((data != null))
     {
-        this._PropertiesField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(data));
+        this._PropertiesField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(data));
     }
 }
 bool ResponseValueAcquired = false;
 if (this.Session.ContainsKey("Response"))
 {
-    this._ResponseField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(this.Session["Response"]));
+    this._ResponseField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(this.Session["Response"]));
     ResponseValueAcquired = true;
 }
 if ((ResponseValueAcquired == false))
@@ -340,13 +344,13 @@ if ((ResponseValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Response");
     if ((data != null))
     {
-        this._ResponseField = ((global::System.Collections.Generic.List<GetPropertiesQuery.Response>)(data));
+        this._ResponseField = ((global::System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>)(data));
     }
 }
 bool InnerResponsesValueAcquired = false;
 if (this.Session.ContainsKey("InnerResponses"))
 {
-    this._InnerResponsesField = ((global::System.Collections.Generic.Dictionary<string,List<GetPropertiesQuery.Response>>)(this.Session["InnerResponses"]));
+    this._InnerResponsesField = ((global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>>)(this.Session["InnerResponses"]));
     InnerResponsesValueAcquired = true;
 }
 if ((InnerResponsesValueAcquired == false))
@@ -354,7 +358,7 @@ if ((InnerResponsesValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("InnerResponses");
     if ((data != null))
     {
-        this._InnerResponsesField = ((global::System.Collections.Generic.Dictionary<string,List<GetPropertiesQuery.Response>>)(data));
+        this._InnerResponsesField = ((global::System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>>)(data));
     }
 }
 
