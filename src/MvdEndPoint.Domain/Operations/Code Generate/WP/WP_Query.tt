@@ -54,7 +54,7 @@ namespace <#=Meta.Namespace#>
 
 		}
 
-		public async void On(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+		public async void On(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
 		{
 			var postData = new Dictionary<string, object>();
 			postData.Add("incTypes", "<#=Meta.Name#>");

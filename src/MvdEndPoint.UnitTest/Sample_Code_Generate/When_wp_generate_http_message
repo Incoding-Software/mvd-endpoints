@@ -1,15 +1,17 @@
 ﻿
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
+using Incoding.Extensions;
 using JetBrains.Annotations;
-using System.Runtime.CompilerServices;;
+using Newtonsoft.Json;
 
 namespace Project
 {
@@ -37,25 +39,44 @@ namespace Project
             public string FileName { get; set; }
         }
 
+        public static Action<object, HttpStatusCode> OnError = (o, code) =>
+                                                               {
+                                                                   var message = string.Format("Http request finished with different ({0}) http status OK. Inner data : {1}", code.ToString("G"), o != null ? o.ToString() : "");
+                                                                   throw new ApplicationException(message);
+                                                               };
+
 		public static Dictionary<string, string> Headers = new Dictionary<string, string>()
                                                            { { "X-Requested-With", "XMLHttpRequest" } };
 
         public static string Cookie { get; set; }
 
-        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
+        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action<object, HttpStatusCode> onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
         {
             string url = string.Format("http://test.incoding.biz/ru/Dispatcher/{0}", isCommand ? "Push" : "Query");
             string response = await post(url, postData);
-            IncodingResult<T> result = JsonConvert.DeserializeObject<IncodingResult<T>>(response);
-            if (result.success)
-                onSuccess(result.data);
+            IncodingResult<object> result = JsonConvert.DeserializeObject<IncodingResult<object>>(response);
+            if (result.statusCode == HttpStatusCode.OK)
+            {
+                if (result.success)
+                {
+                    IncodingResult<T> deserializeObject = JsonConvert.DeserializeObject<IncodingResult<T>>(response);
+                    onSuccess(deserializeObject.data);
+                }
+                else
+                {
+                    var modelState = JsonConvert.DeserializeObject<IncodingResult<ModelState[]>>(response);
+                    if (modelState.data != null && modelState.data.Any())
+                    {
+                        if (onValidation == null)
+                            throw new ArgumentNullException("onValidation", "Response have validation errors but onValidation behavior is was missed");
+                        onValidation(modelState.data);
+                    }
+                }
+            }
             else
             {
-                var modelState = JsonConvert.DeserializeObject<IncodingResult<ModelState[]>>(response);
-                if (modelState.data != null && modelState.data.Any())
-                    onValidation(modelState.data);
-                else
-                    onError();
+                var actual = onError ?? OnError;
+                actual(result.data, result.statusCode);
             }
         }
 
@@ -78,6 +99,7 @@ namespace Project
             string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
             byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
             wr.Method = "POST";
+            wr.Timeout = (int)new TimeSpan(0, 0, 5).TotalMilliseconds;
             wr.ContentType = "multipart/form-data; boundary=" + boundary;
             foreach (var header in Headers)
                 wr.Headers.Add(header.Key, header.Value);
@@ -125,6 +147,7 @@ namespace Project
 
             return response;
         }
+
 
 		
 				public event PropertyChangedEventHandler PropertyChanged;

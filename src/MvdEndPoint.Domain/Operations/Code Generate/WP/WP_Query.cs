@@ -265,9 +265,9 @@ if(IsNotifyPropertyChanged){
             
             #line default
             #line hidden
-            this.Write("> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)\r\n\t\t" +
-                    "{\r\n\t\t\tvar postData = new Dictionary<string, object>();\r\n\t\t\tpostData.Add(\"incType" +
-                    "s\", \"");
+            this.Write("> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> " +
+                    "onValidation = null)\r\n\t\t{\r\n\t\t\tvar postData = new Dictionary<string, object>();\r\n" +
+                    "\t\t\tpostData.Add(\"incTypes\", \"");
             
             #line 60 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));

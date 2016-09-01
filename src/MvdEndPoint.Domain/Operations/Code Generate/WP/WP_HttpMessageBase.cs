@@ -30,99 +30,97 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
         public virtual string TransformText()
         {
             this.Write(@"
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
+using Incoding.Extensions;
 using JetBrains.Annotations;
-using System.Runtime.CompilerServices;;
+using Newtonsoft.Json;
 
 namespace ");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class HttpMessageBase");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 if(IsNotifyPropertyChanged){
             
             #line default
             #line hidden
             this.Write(":INotifyPropertyChanged");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 }
             
             #line default
             #line hidden
-            this.Write(@"    {	    
-        public class IncodingResult<T>
-        {
-            public bool success;
-
-            public T data;
-        }
-
-		public class ModelState
-        {
-            public string name;
-
-            public string errorMessage;
-
-            public bool isValid;
-        }
-
-		public class HttpPostedFileBase
-        {
-            public byte[] Content { get; set; }
-
-            public string FileName { get; set; }
-        }
-
-		public static Dictionary<string, string> Headers = new Dictionary<string, string>()
-                                                           { { ""X-Requested-With"", ""XMLHttpRequest"" } };
-
-        public static string Cookie { get; set; }
-
-        protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
-        {
-            string url = string.Format(""");
+            this.Write("    {\t    \r\n        public class IncodingResult<T>\r\n        {\r\n            public" +
+                    " bool success;\r\n\r\n            public T data;\r\n        }\r\n\r\n\t\tpublic class ModelS" +
+                    "tate\r\n        {\r\n            public string name;\r\n\r\n            public string er" +
+                    "rorMessage;\r\n\r\n            public bool isValid;\r\n        }\r\n\r\n\t\tpublic class Htt" +
+                    "pPostedFileBase\r\n        {\r\n            public byte[] Content { get; set; }\r\n\r\n " +
+                    "           public string FileName { get; set; }\r\n        }\r\n\r\n        public sta" +
+                    "tic Action<object, HttpStatusCode> OnError = (o, code) =>\r\n                     " +
+                    "                                          {\r\n                                   " +
+                    "                                var message = string.Format(\"Http request finish" +
+                    "ed with different ({0}) http status OK. Inner data : {1}\", code.ToString(\"G\"), o" +
+                    " != null ? o.ToString() : \"\");\r\n                                                " +
+                    "                   throw new ApplicationException(message);\r\n                   " +
+                    "                                            };\r\n\r\n\t\tpublic static Dictionary<str" +
+                    "ing, string> Headers = new Dictionary<string, string>()\r\n                       " +
+                    "                                    { { \"X-Requested-With\", \"XMLHttpRequest\" } }" +
+                    ";\r\n\r\n        public static string Cookie { get; set; }\r\n\r\n        protected asyn" +
+                    "c Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action<object, HttpStat" +
+                    "usCode> onError, Action<ModelState[]> onValidation, Dictionary<string, object> p" +
+                    "ostData)\r\n        {\r\n            string url = string.Format(\"");
             
-            #line 57 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 65 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
             #line hidden
             this.Write("/Dispatcher/{0}\", isCommand ? \"Push\" : \"Query\");\r\n            string response = a" +
-                    "wait post(url, postData);\r\n            IncodingResult<T> result = JsonConvert.De" +
-                    "serializeObject<IncodingResult<T>>(response);\r\n            if (result.success)\r\n" +
-                    "                onSuccess(result.data);\r\n            else\r\n            {\r\n      " +
-                    "          var modelState = JsonConvert.DeserializeObject<IncodingResult<ModelSta" +
-                    "te[]>>(response);\r\n                if (modelState.data != null && modelState.dat" +
-                    "a.Any())\r\n                    onValidation(modelState.data);\r\n                el" +
-                    "se\r\n                    onError();\r\n            }\r\n        }\r\n\r\n        async Ta" +
-                    "sk<string> GetWebRequestCallback(HttpWebRequest request)\r\n        {\r\n           " +
-                    " var task = Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, reques" +
-                    "t.EndGetResponse, null);\r\n            var responseObject = await task.ContinueWi" +
-                    "th(r => r.Result);\r\n            if (Cookie == null && request.CookieContainer !=" +
-                    " null && request.CookieContainer.Count != 0)\r\n                Cookie = request.C" +
-                    "ookieContainer.GetCookieHeader(request.RequestUri);\r\n            var responseStr" +
-                    "eam = responseObject.GetResponseStream();\r\n            var sr = new StreamReader" +
-                    "(responseStream);\r\n            string received = await sr.ReadToEndAsync();\r\n\r\n " +
-                    "           return received;\r\n        }\r\n\r\n        async Task<string> post(string" +
-                    " url, Dictionary<string, object> postdata)\r\n        {\r\n            var wr = WebR" +
-                    "equest.Create(new Uri(url)) as HttpWebRequest;\r\n            string boundary = \"-" +
-                    "--------------------------\" + DateTime.Now.Ticks.ToString(\"x\");\r\n            byt" +
-                    "e[] boundarybytes = Encoding.ASCII.GetBytes(\"\\r\\n--\" + boundary + \"\\r\\n\");\r\n    " +
-                    "        wr.Method = \"POST\";\r\n            wr.ContentType = \"multipart/form-data; " +
+                    "wait post(url, postData);\r\n            IncodingResult<object> result = JsonConve" +
+                    "rt.DeserializeObject<IncodingResult<object>>(response);\r\n            if (result." +
+                    "statusCode == HttpStatusCode.OK)\r\n            {\r\n                if (result.succ" +
+                    "ess)\r\n                {\r\n                    IncodingResult<T> deserializeObject" +
+                    " = JsonConvert.DeserializeObject<IncodingResult<T>>(response);\r\n                " +
+                    "    onSuccess(deserializeObject.data);\r\n                }\r\n                else\r" +
+                    "\n                {\r\n                    var modelState = JsonConvert.Deserialize" +
+                    "Object<IncodingResult<ModelState[]>>(response);\r\n                    if (modelSt" +
+                    "ate.data != null && modelState.data.Any())\r\n                    {\r\n             " +
+                    "           if (onValidation == null)\r\n                            throw new Argu" +
+                    "mentNullException(\"onValidation\", \"Response have validation errors but onValidat" +
+                    "ion behavior is was missed\");\r\n                        onValidation(modelState.d" +
+                    "ata);\r\n                    }\r\n                }\r\n            }\r\n            else" +
+                    "\r\n            {\r\n                var actual = onError ?? OnError;\r\n             " +
+                    "   actual(result.data, result.statusCode);\r\n            }\r\n        }\r\n\r\n        " +
+                    "async Task<string> GetWebRequestCallback(HttpWebRequest request)\r\n        {\r\n   " +
+                    "         var task = Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse" +
+                    ", request.EndGetResponse, null);\r\n            var responseObject = await task.Co" +
+                    "ntinueWith(r => r.Result);\r\n            if (Cookie == null && request.CookieCont" +
+                    "ainer != null && request.CookieContainer.Count != 0)\r\n                Cookie = r" +
+                    "equest.CookieContainer.GetCookieHeader(request.RequestUri);\r\n            var res" +
+                    "ponseStream = responseObject.GetResponseStream();\r\n            var sr = new Stre" +
+                    "amReader(responseStream);\r\n            string received = await sr.ReadToEndAsync" +
+                    "();\r\n\r\n            return received;\r\n        }\r\n\r\n        async Task<string> pos" +
+                    "t(string url, Dictionary<string, object> postdata)\r\n        {\r\n            var w" +
+                    "r = WebRequest.Create(new Uri(url)) as HttpWebRequest;\r\n            string bound" +
+                    "ary = \"---------------------------\" + DateTime.Now.Ticks.ToString(\"x\");\r\n       " +
+                    "     byte[] boundarybytes = Encoding.ASCII.GetBytes(\"\\r\\n--\" + boundary + \"\\r\\n\"" +
+                    ");\r\n            wr.Method = \"POST\";\r\n            wr.Timeout = (int)new TimeSpan(" +
+                    "0, 0, 5).TotalMilliseconds;\r\n            wr.ContentType = \"multipart/form-data; " +
                     "boundary=\" + boundary;\r\n            foreach (var header in Headers)\r\n           " +
                     "     wr.Headers.Add(header.Key, header.Value);\r\n            wr.CookieContainer =" +
                     " new CookieContainer();\r\n\r\n            Stream rs = wr.GetRequestStream();\r\n\r\n   " +
@@ -148,9 +146,9 @@ if(IsNotifyPropertyChanged){
                     ";\r\n                    rs.Write(formitembytes, 0, formitembytes.Length);\r\n      " +
                     "          }\r\n            }\r\n            rs.Write(boundarybytes, 0, boundarybytes" +
                     ".Length);\r\n            rs.Close();\r\n\r\n            string response = await GetWeb" +
-                    "RequestCallback(wr);\r\n\r\n            return response;\r\n        }\r\n\r\n\t\t\r\n\t\t");
+                    "RequestCallback(wr);\r\n\r\n            return response;\r\n        }\r\n\r\n\r\n\t\t\r\n\t\t");
             
-            #line 140 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 163 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 if(IsNotifyPropertyChanged){
             
             #line default
@@ -164,7 +162,7 @@ if(IsNotifyPropertyChanged){
         }
 		");
             
-            #line 148 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 171 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 }
             
             #line default
