@@ -29,25 +29,36 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing Newtonsoft.Json;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing" +
-                    " System.IO;\r\nusing System.Linq;\r\nusing System.Net;\r\nusing System.Text;\r\nusing Sy" +
-                    "stem.Threading.Tasks;\r\n\r\nnamespace ");
+            this.Write(@"
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel;
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;;
+
+namespace ");
             
-            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class HttpMessageBase");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 if(IsNotifyPropertyChanged){
             
             #line default
             #line hidden
             this.Write(":INotifyPropertyChanged");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 }
             
             #line default
@@ -69,6 +80,13 @@ if(IsNotifyPropertyChanged){
             public bool isValid;
         }
 
+		public class HttpPostedFileBase
+        {
+            public byte[] Content { get; set; }
+
+            public string FileName { get; set; }
+        }
+
 		public static Dictionary<string, string> Headers = new Dictionary<string, string>()
                                                            { { ""X-Requested-With"", ""XMLHttpRequest"" } };
 
@@ -78,7 +96,7 @@ if(IsNotifyPropertyChanged){
         {
             string url = string.Format(""");
             
-            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 57 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
@@ -132,7 +150,7 @@ if(IsNotifyPropertyChanged){
                     ".Length);\r\n            rs.Close();\r\n\r\n            string response = await GetWeb" +
                     "RequestCallback(wr);\r\n\r\n            return response;\r\n        }\r\n\r\n\t\t\r\n\t\t");
             
-            #line 130 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 140 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 if(IsNotifyPropertyChanged){
             
             #line default
@@ -146,7 +164,7 @@ if(IsNotifyPropertyChanged){
         }
 		");
             
-            #line 138 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 148 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
 }
             
             #line default

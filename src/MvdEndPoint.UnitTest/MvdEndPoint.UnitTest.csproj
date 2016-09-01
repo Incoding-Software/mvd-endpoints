@@ -212,6 +212,7 @@
     <Compile Include="Operations\Android\When_android_sample_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_nested_class_code_generate.cs" />
     <Compile Include="Operations\Android\When_android_sample_code_generate_as_array.cs" />
+    <Compile Include="Operations\When_get_uri_by_type.cs" />
     <Compile Include="Operations\Http\When_curl_sample_code_generate.cs" />
     <Compile Include="Operations\When_get_meta_from_type.cs" />
     <Compile Include="Operations\When_get_type_from_property.cs" />
@@ -228,6 +229,8 @@
     <Compile Include="Operations\UI\When_save_Message_Property.cs" />
     <Compile Include="Operations\UI\When_sync_endpoint.cs" />
     <Compile Include="Operations\When_get_share_type_from_type.cs" />
+    <Compile Include="Operations\When_get_values_of_enum_is_null.cs" />
+    <Compile Include="Operations\When_get_values_of_enum_not_enum.cs" />
     <Compile Include="Operations\When_meta_from_type.cs" />
     <Compile Include="Operations\When_get_values_of_enum.cs" />
     <Compile Include="Operations\When_convert_csharp_type_to_wp.cs" />

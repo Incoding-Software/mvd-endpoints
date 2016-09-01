@@ -48,9 +48,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Incoding, Version=1.4.0.217, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Incoding">
       <HintPath>..\packages\Incoding.Framework.1.4.0.3\lib\Incoding.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.2\lib\net20\Ionic.Zip.dll</HintPath>

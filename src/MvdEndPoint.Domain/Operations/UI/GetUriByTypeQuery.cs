@@ -1,5 +1,7 @@
 namespace Incoding.Endpoint
 {
+    #region << Using >>
+
     using System;
     using System.Linq;
     using System.Web;
@@ -8,6 +10,8 @@ namespace Incoding.Endpoint
     using Incoding.Extensions;
     using Incoding.MvcContrib;
     using Incoding.MvcContrib.MVD;
+
+    #endregion
 
     public class GetUriByTypeQuery : QueryBase<GetUriByTypeQuery.Response>
     {

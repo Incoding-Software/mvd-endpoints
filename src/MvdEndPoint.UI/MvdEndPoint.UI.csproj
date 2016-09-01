@@ -93,9 +93,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Incoding, Version=1.4.0.217, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Incoding.MetaLanguage.1.4.0.3\lib\Incoding.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Incoding">
+      <HintPath>..\packages\Incoding.Framework.1.4.0.3\lib\Incoding.dll</HintPath>
     </Reference>
     <Reference Include="Incoding.MetaLanguageContrib, Version=1.3.0.85, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

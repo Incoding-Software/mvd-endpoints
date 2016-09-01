@@ -7,6 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;;
 
 namespace Project
 {
@@ -25,6 +28,13 @@ namespace Project
             public string errorMessage;
 
             public bool isValid;
+        }
+
+		public class HttpPostedFileBase
+        {
+            public byte[] Content { get; set; }
+
+            public string FileName { get; set; }
         }
 
 		public static Dictionary<string, string> Headers = new Dictionary<string, string>()

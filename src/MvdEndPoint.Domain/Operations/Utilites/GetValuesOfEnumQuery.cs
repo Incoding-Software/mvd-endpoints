@@ -16,6 +16,9 @@
 
         protected override List<Response> ExecuteResult()
         {
+            Guard.NotNull("Type", Type);
+            Guard.IsConditional("Type", Type.IsEnum, errorMessage: "{0} provided must be an Enum".F(Type.Name));
+
             return Enum.GetValues(Type)
                        .Cast<Enum>()
                        .Select(r =>
