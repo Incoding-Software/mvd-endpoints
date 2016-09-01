@@ -1,10 +1,15 @@
 namespace MvdEndPoint.UnitTest
 {
+    #region << Using >>
+
     using System;
     using System.Collections.Generic;
     using Incoding.Endpoint;
     using Incoding.MSpecContrib;
     using Machine.Specifications;
+    using Machine.Specifications.Annotations;
+
+    #endregion
 
     [Subject(typeof(GetShareTypeFromTypeQuery))]
     public class When_get_share_type_from_type
@@ -28,14 +33,19 @@ namespace MvdEndPoint.UnitTest
 
         public class FakeClass
         {
+            [UsedImplicitly]
             public string Value { get; set; }
 
+            [UsedImplicitly]
             public int State { get; set; }
 
+            [UsedImplicitly]
             public MyClassMyEnumForWhen_get_share_type_from_type MyClassMyEnumForWhenGetShareTypeFromType { get; set; }
 
+            [UsedImplicitly]
             public MyEnumForWhen_get_share_type_from_type MyEnumForWhenGetShareTypeFromType { get; set; }
 
+            [UsedImplicitly]
             public MyNesteadClass MyClassAsNestead { get; set; }
 
             public class MyNesteadClass { }

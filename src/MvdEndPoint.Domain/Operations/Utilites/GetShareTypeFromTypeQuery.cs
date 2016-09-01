@@ -3,6 +3,7 @@
     #region << Using >>
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -17,11 +18,28 @@
 
         protected override List<Type> ExecuteResult()
         {
-            var propertyInfos = Type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            return propertyInfos
-                       .Where(r => !r.PropertyType.IsNested && (!r.PropertyType.IsTypicalType() || r.PropertyType.IsEnum))
-                       .Select(r => r.PropertyType)
-                       .ToList();
+            var properties = Type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                 .Where(r => !r.PropertyType.IsNested && (!r.PropertyType.IsPrimitive() || r.PropertyType.IsEnum))
+                                 .ToList();
+            var res = new List<Type>();
+            foreach (var type in properties.Select(s => s.PropertyType))
+            {
+                if (type.IsImplement<IEnumerable>())
+                {
+                    var typeArgument = type.GenericTypeArguments[0];
+                    res.Add(typeArgument);
+                    res.AddRange(Dispatcher.Query(new GetShareTypeFromTypeQuery()
+                                                  {
+                                                          Type = typeArgument
+                                                  }));
+                }
+                else
+                {
+                    res.Add(type);
+                }
+            }
+
+            return res;
         }
     }
 }
