@@ -36,7 +36,7 @@
                                           .StubQuery(getEndpointsQuery, responses);
                               };
 
-        Because of = () => mockCommand.Original.Execute();
+        Because of = () => mockCommand.Execute();
 
         It should_be_save = () =>
                             {

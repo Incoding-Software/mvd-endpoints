@@ -27,6 +27,7 @@
                                                                                                                         .ForwardToValue(r => r.GUID, typeof(DateTime).GUID)
                                                                                                                         .ForwardToValue(r => r.IsNumber, false)
                                                                                                                         .ForwardToValue(r => r.IsString, false)
+                                                                                                                        .ForwardToValue(r => r.IsArray, false)
                                                                                                                         .ForwardToValue(r => r.IsFile, false)));
                             };
 
@@ -37,6 +38,7 @@
                                                                                                                         .ForwardToValue(r => r.GUID, typeof(TestEnum).GUID)
                                                                                                                         .ForwardToValue(r => r.IsDate, false)
                                                                                                                         .ForwardToValue(r => r.IsNumber, false)
+                                                                                                                        .ForwardToValue(r => r.IsArray, false)
                                                                                                                         .ForwardToValue(r => r.IsString, false)
                                                                                                                         .ForwardToValue(r => r.IsFile, false)));
                             };
@@ -47,6 +49,7 @@
                                                                                                                                           .ForwardToValue(r => r.IsEnum, false)
                                                                                                                                           .ForwardToValue(r => r.IsDate, false)
                                                                                                                                           .IgnoreBecauseCalculate(r => r.GUID)
+                                                                                                                                          .ForwardToValue(r => r.IsArray, false)
                                                                                                                                           .ForwardToValue(r => r.IsNumber, false)
                                                                                                                                           .ForwardToValue(r => r.IsString, false)
                                                                                                                                           .ForwardToValue(r => r.IsFile, true);
@@ -60,7 +63,8 @@
                                   Run(typeof(string), response => response.ShouldEqualWeakEach(expected, (dsl, i) => dsl.ForwardToValue(r => r.IsBool, false)
                                                                                                                         .ForwardToValue(r => r.IsEnum, false)
                                                                                                                         .ForwardToValue(r => r.GUID, typeof(string).GUID)
-                                                                                                                        .ForwardToValue(r => r.IsDate, false)
+                                                                                                                        .ForwardToValue(r => r.IsDate, false)                                                                                                                        
+                                                                                                                        .ForwardToValue(r => r.IsArray, false)
                                                                                                                         .ForwardToValue(r => r.IsNumber, false)
                                                                                                                         .ForwardToValue(r => r.IsString, true)
                                                                                                                         .ForwardToValue(r => r.IsFile, false)));

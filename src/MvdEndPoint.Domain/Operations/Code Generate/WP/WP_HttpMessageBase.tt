@@ -6,6 +6,7 @@
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsNotifyPropertyChanged" #>
 
 using Newtonsoft.Json;
 using System;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace <#=Namespace#>
 {
-    public class HttpMessageBase
+    public class HttpMessageBase<#if(IsNotifyPropertyChanged){#>:INotifyPropertyChanged<#}#>
     {	    
         public class IncodingResult<T>
         {
@@ -125,7 +126,16 @@ namespace <#=Namespace#>
             return response;
         }
 
+		
+		<#if(IsNotifyPropertyChanged){#>
+		public event PropertyChangedEventHandler PropertyChanged;
 
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));      
+        }
+		<#}#>
     }
 }
 

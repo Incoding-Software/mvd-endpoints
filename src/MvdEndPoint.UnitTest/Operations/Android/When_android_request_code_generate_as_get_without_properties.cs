@@ -33,7 +33,7 @@
                                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Listener, "IFakeOn" },
                                                                                                                                                                                 { GetNameFromTypeQuery.ModeOf.Response, "Response" }
                                                                                                                                                                         })
-                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Language, Language.JavaCE)
                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
                                                                                                                       .Tuning(r => r.Type, query.Type), new List<GetPropertiesQuery.Response>());
                               };

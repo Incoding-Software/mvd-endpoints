@@ -20,12 +20,10 @@
         protected override void Execute()
         {
             var allEndpoints = Dispatcher.Query(new GetEndpointsQuery());
-            foreach (var delete in Repository.Query<Message>()
-                                             .Select(r => new { Id = r.Id, Type = r.Type })
-                                             .ToList()
-                                             .Where(r => allEndpoints.All(response => response.Type != r.Type)))
-                Repository.Delete<Message>(delete.Id);
-
+            Dispatcher.Push(new RemoveMissedTypesCommand()
+                            {
+                                    Endpoints = allEndpoints
+                            });
             foreach (var endpoint in allEndpoints)
             {
                 var entity = Repository.Query(whereSpecification: new Message.Where.ByFullName(endpoint.Type))
@@ -34,19 +32,23 @@
                                                                     Type = endpoint.Type,
                                                                     Name = endpoint.Name
                                                             };
-                Repository.SaveOrUpdate(entity);
-
                 var properties = new List<Message.Property>(endpoint.Requests.Count + endpoint.Responses.Count);
                 properties.AddRange(endpoint.Requests.Select(property => new Message.Property(property, Message.Property.TypeOf.Request)));
                 properties.AddRange(endpoint.Responses.Select(property => new Message.Property(property, Message.Property.TypeOf.Response)));
-                foreach (var delete in Repository.Query(whereSpecification: new Message.Property.Where.ByMessage(entity.Id))
-                                                 .Select(r => new { Name = r.Name, Type = r.Type, Id = r.Id })
-                                                 .ToList()
-                                                 .Where(r => properties.All(s => s.Name != r.Name && s.Type != r.Type)))
-                    Repository.Delete<Message.Property>(delete.Id);
+
+                //foreach (var delete in entity.Properties
+                //                             .ToList()
+                //                             .Where(r => properties.All(s => s.Name != r.Name)))
+                //{                    
+                //    entity.Properties.Remove(delete);
+                //    Repository.Delete(delete);
+                //}
+
+                Repository.SaveOrUpdate(entity);
+
                 foreach (var property in properties)
                 {
-                    var exist = entity.Properties.FirstOrDefault(s => s.Name == property.Name && s.Type == property.Type);
+                    var exist = entity.Properties.FirstOrDefault(s => s.Name == property.Name);
                     if (exist != null)
                     {
                         exist.PropertyType = property.PropertyType;
@@ -59,6 +61,26 @@
                         Repository.Save(property);
                     }
                 }
+            }
+        }
+
+        public class RemoveMissedTypesCommand : CommandBase
+        {
+            public List<GetEndpointsQuery.Response> Endpoints { get; set; }
+
+            protected override void Execute()
+            {
+                //var propertiesTypes = Endpoints.Select(s => s.Requests).SelectMany(s => s).Select(s => s.Type).ToList();
+                //propertiesTypes.AddRange(Endpoints.Select(s => s.Responses).SelectMany(s => s).Select(s => s.Type).ToList());
+                //foreach (var delete in Repository.Query<Message.Property>()
+                //                                 .ToList()
+                //                                 .Where(r => propertiesTypes.Where(s => !s.IsPrimitive()).All(response => response.FullName != r.PropertyType)))
+                //    Repository.Delete(delete);
+
+                foreach (var delete in Repository.Query<Message>()
+                                                 .ToList()
+                                                 .Where(r => Endpoints.All(response => response.Type != r.Type)))
+                    Repository.Delete(delete);
             }
         }
 

@@ -33,15 +33,26 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
                     " System.IO;\r\nusing System.Linq;\r\nusing System.Net;\r\nusing System.Text;\r\nusing Sy" +
                     "stem.Threading.Tasks;\r\n\r\nnamespace ");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 20 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(@"
-{
-    public class HttpMessageBase
-    {	    
+            this.Write("\r\n{\r\n    public class HttpMessageBase");
+            
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+if(IsNotifyPropertyChanged){
+            
+            #line default
+            #line hidden
+            this.Write(":INotifyPropertyChanged");
+            
+            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write(@"    {	    
         public class IncodingResult<T>
         {
             public bool success;
@@ -67,7 +78,7 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
         {
             string url = string.Format(""");
             
-            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Url));
             
             #line default
@@ -119,8 +130,28 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
                     ";\r\n                    rs.Write(formitembytes, 0, formitembytes.Length);\r\n      " +
                     "          }\r\n            }\r\n            rs.Write(boundarybytes, 0, boundarybytes" +
                     ".Length);\r\n            rs.Close();\r\n\r\n            string response = await GetWeb" +
-                    "RequestCallback(wr);\r\n\r\n            return response;\r\n        }\r\n\r\n\r\n    }\r\n}\r\n\r" +
-                    "\n");
+                    "RequestCallback(wr);\r\n\r\n            return response;\r\n        }\r\n\r\n\t\t\r\n\t\t");
+            
+            #line 130 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+if(IsNotifyPropertyChanged){
+            
+            #line default
+            #line hidden
+            this.Write(@"		public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));      
+        }
+		");
+            
+            #line 138 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_HttpMessageBase.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -149,6 +180,19 @@ private string Namespace
     get
     {
         return this._NamespaceField;
+    }
+}
+
+private bool _IsNotifyPropertyChangedField;
+
+/// <summary>
+/// Access the IsNotifyPropertyChanged parameter of the template.
+/// </summary>
+private bool IsNotifyPropertyChanged
+{
+    get
+    {
+        return this._IsNotifyPropertyChangedField;
     }
 }
 
@@ -186,6 +230,20 @@ if ((NamespaceValueAcquired == false))
     if ((data != null))
     {
         this._NamespaceField = ((string)(data));
+    }
+}
+bool IsNotifyPropertyChangedValueAcquired = false;
+if (this.Session.ContainsKey("IsNotifyPropertyChanged"))
+{
+    this._IsNotifyPropertyChangedField = ((bool)(this.Session["IsNotifyPropertyChanged"]));
+    IsNotifyPropertyChangedValueAcquired = true;
+}
+if ((IsNotifyPropertyChangedValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("IsNotifyPropertyChanged");
+    if ((data != null))
+    {
+        this._IsNotifyPropertyChangedField = ((bool)(data));
     }
 }
 

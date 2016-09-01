@@ -47,7 +47,7 @@ namespace Incoding.Endpoint
                        .Distinct()
                        .ToDictionary(r => r.Name, r => Dispatcher.Query(new GetPropertiesQuery()
                                                                         {
-                                                                                Device = DeviceOfType.WP,
+                                                                                Language = Language.Csharp,
                                                                                 IsCommand = false,
                                                                                 Type = r
                                                                         }));

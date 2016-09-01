@@ -28,7 +28,7 @@ namespace MvdEndPoint.UnitTest
                                   type = Pleasure.Generator.String();
                                   mockQuery = MockQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>
                                           .When(query)
-                                          .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                                          .StubQuery(Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                                                          .Tuning(r => r.Type, typeof(string))), type);
                               };
 

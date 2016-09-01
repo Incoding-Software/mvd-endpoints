@@ -150,6 +150,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Operations\UI\GetTypeFromPropertyQuery.cs" />
+    <Compile Include="Operations\UI\GetUriByTypeQuery.cs" />
     <Compile Include="Operations\UI\MessageCommand.cs" />
     <Compile Include="Operations\UI\GetMessagesQuery.cs" />
     <Compile Include="Operations\Utilites\GetShareTypeFromTypeQuery.cs" />
@@ -228,7 +229,7 @@
     <Compile Include="Operations\Code Generate\Ios\IosResponseCodeGenerateQuery.cs" />
     <Compile Include="Operations\Utilites\HasQueryResponseAsArrayQuery.cs" />
     <Compile Include="Operations\Utilites\IsCommandTypeQuery.cs" />
-    <Compile Include="Operations\DeviceOfType.cs" />
+    <Compile Include="Operations\Language.cs" />
     <Compile Include="Operations\Code Generate\Ios\Ios_Response_h.cs">
       <DependentUpon>Ios_Response_h.tt</DependentUpon>
       <AutoGen>True</AutoGen>

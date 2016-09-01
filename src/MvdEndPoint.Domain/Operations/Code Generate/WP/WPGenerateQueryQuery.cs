@@ -24,10 +24,11 @@
             var responseOfType = Type.BaseType.GetGenericArguments()[0];
             engine.Session = new Dictionary<string, object>()
                              {
-                                     { "Meta", meta }, 
-                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
-                                     { "Response", Dispatcher.Query(new GetPropertiesQuery() { Type = responseOfType, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) }, 
-                                     { "InnerResponses", Dispatcher.Query(new GetInnerResponseTypesQuery() { Type = Type }) }
+                                     { "Meta", meta },
+                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Language = Language.Csharp, IsCommand = meta.IsCommand }) },
+                                     { "Response", Dispatcher.Query(new GetPropertiesQuery() { Type = responseOfType, Language = Language.Csharp, IsCommand = meta.IsCommand }) },
+                                     { "InnerResponses", Dispatcher.Query(new GetInnerResponseTypesQuery() { Type = Type }) },
+                                     { "IsNotifyPropertyChanged", meta.IsNotifyPropertyChanged },
                              };
             engine.Initialize();
             return engine.TransformText();

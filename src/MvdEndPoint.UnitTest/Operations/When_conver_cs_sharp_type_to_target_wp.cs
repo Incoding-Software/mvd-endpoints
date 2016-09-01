@@ -9,7 +9,7 @@
     {
         Establish establish = () =>
                               {
-                                  ConvertCSharpTypeToTargetQuery query = Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.WP)
+                                  ConvertCSharpTypeToTargetQuery query = Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Language, Language.Csharp)
                                                                                                                                              .Tuning(r => r.Type, typeof(string)));
                                   expected = Pleasure.Generator.String();
 

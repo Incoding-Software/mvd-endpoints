@@ -31,9 +31,9 @@
                                   mockQuery = MockQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>
                                           .When(query)
                                           .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(s => s.Type, typeof(TestResponse))
-                                                                                                       .Tuning(r => r.Device, query.Device), testResponseType)
+                                                                                                       .Tuning(r => r.Language, query.Language), testResponseType)
                                           .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(s => s.Type, typeof(PagingContainer))
-                                                                                                       .Tuning(r => r.Device, query.Device), pagingContainerType);
+                                                                                                       .Tuning(r => r.Language, query.Language), pagingContainerType);
                               };
 
         Because of = () => mockQuery.Original.Execute();

@@ -33,7 +33,7 @@
                                   mockQuery = MockQuery<WPSampleCodeGenerateQuery, string>
                                           .When(query)
                                           .StubQuery(Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(GetCustomerQuery))), meta)
-                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.WP)
+                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Language, Language.Csharp)
                                                                                                              .Tuning(r => r.IsCommand, meta.IsCommand)
                                                                                                              .Tuning(r => r.Type, typeof(GetCustomerQuery))), new List<GetPropertiesQuery.Response>
                                                                                                                                                               {

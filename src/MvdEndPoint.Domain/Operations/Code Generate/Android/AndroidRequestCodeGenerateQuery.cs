@@ -31,7 +31,7 @@
                                                  { "Name", names[GetNameFromTypeQuery.ModeOf.Request] },
                                                  { "Type", meta.IsCommand ? "Push" : "Query" },
                                                  { "IncType", meta.Name },
-                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },
+                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = Type, Language = Language.JavaCE, IsCommand = meta.IsCommand }) },
                                                  { "MappingJsonMethodByType", AndroidNestedClassCodeGenerateQuery.MappingJsonMethodByType }
                                          }
                        };

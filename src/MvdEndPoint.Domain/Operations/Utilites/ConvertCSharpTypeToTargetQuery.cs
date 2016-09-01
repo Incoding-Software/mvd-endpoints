@@ -17,13 +17,13 @@ namespace Incoding.Endpoint
     {
         protected override string ExecuteResult()
         {
-            switch (Device)
+            switch (Language)
             {
-                case DeviceOfType.Android:
+                case Language.JavaCE:
                     return Dispatcher.Query(new ToJavaQuery { Type = Type });
-                case DeviceOfType.Ios:
+                case Language.ObjectiveC:
                     return Dispatcher.Query(new ToIosQuery { Type = Type });
-                case DeviceOfType.WP:
+                case Language.Csharp:
                     return Dispatcher.Query(new ToWPQuery() { Type = Type });
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -187,7 +187,7 @@ namespace Incoding.Endpoint
 
         #region Properties
 
-        public DeviceOfType Device { get; set; }
+        public Language Language { get; set; }
 
         public Type Type { get; set; }
 

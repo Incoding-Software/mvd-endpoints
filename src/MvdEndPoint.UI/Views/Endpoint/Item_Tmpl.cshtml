@@ -1,4 +1,5 @@
-﻿@helper RenderProperty(ITemplateSyntax<GetMessagesQuery.Response.Item> property)
+﻿@using Language = Incoding.Endpoint.Language
+@helper RenderProperty(ITemplateSyntax<GetMessagesQuery.Response.Item> property)
 {
     <li class="method-list-item">
         <h3 class="method-list-item-label">
@@ -219,7 +220,7 @@
                                    </pre>
                                     <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
                                                                      {
-                                                                             Device = DeviceOfType.WP,
+                                                                             Language = Language.Csharp,
                                                                              Id = each.For(r => r.EntityId)
                                                                      }).AsFile(incFileDownloadName: each.For(s => s.Name) + ".zip")">
                                         download
@@ -236,7 +237,7 @@
                                    </pre>
                                     <a href="@Url.Dispatcher().Query(new DownloadSourceCodeQuery()
                                                                      {
-                                                                             Device = DeviceOfType.Android,
+                                                                             Language = Language.JavaCE,
                                                                              Id = each.For(r => r.EntityId)
                                                                      }).AsFile(incFileDownloadName: each.For(s => s.Name) + ".zip")">
                                         download

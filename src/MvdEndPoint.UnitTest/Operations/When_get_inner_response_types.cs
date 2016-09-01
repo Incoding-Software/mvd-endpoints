@@ -67,10 +67,10 @@
                                   mockQuery = MockQuery<GetInnerResponseTypesQuery, Dictionary<string, List<GetPropertiesQuery.Response>>>
                                           .When(query)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, typeof(Res1))
-                                                                                                                      .Tuning(r => r.Device, DeviceOfType.WP)
+                                                                                                                      .Tuning(r => r.Language, Language.Csharp)
                                                                                                                       .Tuning(r => r.IsCommand, false), propertiesOfRes1)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, typeof(Res2))
-                                                                                                                      .Tuning(r => r.Device, DeviceOfType.WP)
+                                                                                                                      .Tuning(r => r.Language, Language.Csharp)
                                                                                                                       .Tuning(r => r.IsCommand, false), propertiesOfRes2);
                               };
 

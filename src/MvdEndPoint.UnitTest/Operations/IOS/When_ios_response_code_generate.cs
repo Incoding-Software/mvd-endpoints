@@ -68,7 +68,7 @@
                                                                                                                             {
                                                                                                                                     { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" },
                                                                                                                             })
-                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Ios)
+                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Language, Language.ObjectiveC)
                                                                                        .Tuning(r => r.Type, typeof(GetCustomerQuery.Response))), withoutProperties ? new List<GetPropertiesQuery.Response>()
                                                                                                                                                          : new List<GetPropertiesQuery.Response>
                                                                                                                                                            {

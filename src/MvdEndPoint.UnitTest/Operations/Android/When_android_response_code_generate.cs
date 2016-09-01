@@ -53,7 +53,7 @@
                                meta)
                     .StubQuery<GetNameFromTypeQuery, Dictionary<GetNameFromTypeQuery.ModeOf, string>>(dsl => dsl.Tuning(r => r.Type, query.Type), new Dictionary<GetNameFromTypeQuery.ModeOf, string>()
                                                                                                                                                   { { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" } })
-                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                    .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Language, Language.JavaCE)
                                                                                        .Tuning(r => r.IsCommand, false)
                                                                                        .Tuning(r => r.Type, typeOfResponse)), properties);
 

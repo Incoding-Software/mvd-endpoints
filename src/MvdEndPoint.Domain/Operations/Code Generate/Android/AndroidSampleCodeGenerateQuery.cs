@@ -24,7 +24,7 @@
                                                  { "Response", names[GetNameFromTypeQuery.ModeOf.Response] },
                                                  { "ResponseAsArray", meta.ResponseAsArray },
                                                  { "Request", names[GetNameFromTypeQuery.ModeOf.Request] },
-                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = type, Device = DeviceOfType.Android, IsCommand = meta.IsCommand }) },
+                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = type, Language = Language.JavaCE, IsCommand = meta.IsCommand }) },
                                          }
                        };
             tmpl.Initialize();

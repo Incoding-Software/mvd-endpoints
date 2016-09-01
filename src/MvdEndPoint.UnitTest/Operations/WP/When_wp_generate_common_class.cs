@@ -26,7 +26,7 @@
                                           .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, query.Type), meta)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, query.Type)
                                                                                                                       .Tuning(r => r.IsCommand, false)
-                                                                                                                      .Tuning(r => r.Device, DeviceOfType.WP)
+                                                                                                                      .Tuning(r => r.Language, Language.Csharp)
                                                                                                             , new List<GetPropertiesQuery.Response>()
                                                                                                               {
                                                                                                                       new GetPropertiesQuery.Response() { Type = "String", Name = "Login" },

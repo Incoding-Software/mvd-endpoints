@@ -29,11 +29,11 @@
                                     type = r.PropertyType.GetElementType() ?? r.PropertyType.GenericTypeArguments[0];
                                 var response = new Response
                                                {
-                                                       Name = r.Name,
+                                                       Name = r.Name,                                                       
                                                        Target = type,
                                                        Type = Dispatcher.Query(new ConvertCSharpTypeToTargetQuery()
                                                                                {
-                                                                                       Device = Device,
+                                                                                       Language = Language,
                                                                                        Type = type
                                                                                })
                                                };
@@ -94,7 +94,7 @@
 
         public Type Type { get; set; }
 
-        public DeviceOfType Device { get; set; }
+        public Language Language { get; set; }
 
         public bool IsCommand { get; set; }
 

@@ -47,7 +47,7 @@
                 var properties = Dispatcher.Query(new GetPropertiesQuery
                                                   {
                                                           Type = responseType,
-                                                          Device = DeviceOfType.Android,
+                                                          Language = Language.JavaCE,
                                                           IsCommand = false
                                                   });
 

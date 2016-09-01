@@ -36,7 +36,7 @@
                 session.Set("Properties", Dispatcher.Query(new GetPropertiesQuery
                                                            {
                                                                    Type = Type.BaseType.GenericTypeArguments[0], 
-                                                                   Device = DeviceOfType.Ios
+                                                                   Language = Language.ObjectiveC
                                                            }));
             }
 

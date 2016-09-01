@@ -77,21 +77,21 @@
 
             var mockQuery = MockQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>
                     .When(query)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(FakeClass)), typeof(FakeClass).Name)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(FakeClass[])), typeof(FakeClass).Name)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(string)), stringType)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(FakeEnum)), enumType)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(DateTime)), dateTimeType)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(DateTime?)), dateTimeType)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(int)), intType)
-                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Device, query.Device)
+                    .StubQuery<ConvertCSharpTypeToTargetQuery, string>(dsl => dsl.Tuning(r => r.Language, query.Language)
                                                                                  .Tuning(r => r.Type, typeof(bool)), boolType);
 
             mockQuery.Execute();

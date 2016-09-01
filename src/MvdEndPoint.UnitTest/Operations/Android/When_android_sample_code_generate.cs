@@ -33,7 +33,7 @@
                                                                                                                                                                                               { GetNameFromTypeQuery.ModeOf.Listener, "IGetCustomerListene" },
                                                                                                                                                                                               { GetNameFromTypeQuery.ModeOf.Response, "GetCustomerResponse" }
                                                                                                                                                                                       })
-                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                          .StubQuery(Pleasure.Generator.Invent<GetPropertiesQuery>(dsl => dsl.Tuning(r => r.Language, Language.JavaCE)
                                                                                                              .Tuning(r => r.IsCommand, meta.IsCommand)
                                                                                                              .Tuning(r => r.Type, typeof(GetCustomerQuery))), new List<GetPropertiesQuery.Response>
                                                                                                                                                               {

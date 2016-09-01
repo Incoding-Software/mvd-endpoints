@@ -21,10 +21,11 @@
                                   var type = typeof(FakeQuery);
                                   var query = Pleasure.Generator.Invent<WPGenerateQueryQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate",  typeof(When_wp_generate_query).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_wp_generate_query).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, type.Name)
                                                                                                                 .Tuning(r => r.ResponseAsArray, true)
+                                                                                                                .Tuning(s => s.IsNotifyPropertyChanged, false)
                                                                                                                 .Tuning(r => r.Namespace, type.Namespace));
                                   var properties = Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Login")
                                                                                                                                     .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsCanNull)
@@ -44,11 +45,11 @@
                                                                                                                                                                               })
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                                                      .Tuning(r => r.Device, DeviceOfType.WP),
+                                                                                                                      .Tuning(r => r.Language, Language.Csharp),
                                                                                                             properties)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery.Response))
                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                                                      .Tuning(r => r.Device, DeviceOfType.WP),
+                                                                                                                      .Tuning(r => r.Language, Language.Csharp),
                                                                                                             properties);
                               };
 

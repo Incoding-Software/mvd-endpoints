@@ -36,7 +36,7 @@ namespace Incoding.Endpoint
                            {
                                    { "Namespace", Namespace },
                                    { "Name", Dispatcher.Query(new GetNameFromTypeQuery(Type))[GetNameFromTypeQuery.ModeOf.Nested] },
-                                   { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.Android, IsCommand = false }) },
+                                   { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Language = Language.JavaCE, IsCommand = false }) },
                                    { "MappingJsonMethodByType", MappingJsonMethodByType }
                            };
             tmpl.Initialize();

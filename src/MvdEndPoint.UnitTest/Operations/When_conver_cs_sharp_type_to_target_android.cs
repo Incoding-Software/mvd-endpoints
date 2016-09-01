@@ -13,7 +13,7 @@
     {
         Establish establish = () =>
                               {
-                                  ConvertCSharpTypeToTargetQuery query = Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Device, DeviceOfType.Android)
+                                  ConvertCSharpTypeToTargetQuery query = Pleasure.Generator.Invent<ConvertCSharpTypeToTargetQuery>(dsl => dsl.Tuning(r => r.Language, Language.JavaCE)
                                                                                                                                              .Tuning(r => r.Type, typeof(string))
                                           );
                                   expected = Pleasure.Generator.String();

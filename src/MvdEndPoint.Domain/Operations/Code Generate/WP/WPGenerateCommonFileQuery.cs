@@ -21,7 +21,7 @@
                 engine.Session = new Dictionary<string, object>()
                              {
                                      { "Meta", meta },
-                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.WP }) },
+                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Language = Language.Csharp }) },
                              };
                 engine.Initialize();
                 return engine.TransformText();

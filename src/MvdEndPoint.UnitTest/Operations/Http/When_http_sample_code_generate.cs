@@ -28,7 +28,7 @@
                                                                                                                  .Tuning(r => r.Authority, "localhost"));
                                   mockQuery = MockQuery<HttpSampleCodeGenerateQuery, string>
                                           .When(query)
-                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Empty(r => r.Device)
+                                          .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Empty(r => r.Language)
                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
                                                                                                                       .Tuning(s => s.Type, typeof(GetCustomerQuery)), new List<GetPropertiesQuery.Response>()
                                                                                                                                                                       {

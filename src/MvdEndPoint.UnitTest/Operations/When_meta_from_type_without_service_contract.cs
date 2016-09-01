@@ -16,6 +16,7 @@
                                   GetMetaFromTypeQuery query = Pleasure.Generator.Invent<GetMetaFromTypeQuery>(dsl => dsl.Tuning(r => r.Type, typeof(FakeMetaClass)));
                                   expected = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, "FakeMetaClass")
                                                                                                                 .Tuning(r => r.IsCommand, false)
+                                                                                                                .Tuning(s => s.IsNotifyPropertyChanged, true)
                                                                                                                 .Tuning(r => r.ResponseAsArray, false)
                                                                                                                 .Tuning(r => r.ResponseAsImage, false)
                                                                                                                 .Tuning(r => r.Namespace, "Incoding"));

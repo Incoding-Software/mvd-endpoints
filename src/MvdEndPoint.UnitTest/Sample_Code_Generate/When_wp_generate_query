@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace MvdEndPoint.UnitTest
 {
@@ -28,7 +29,7 @@ namespace MvdEndPoint.UnitTest
 
         }
 
-        public async void Execute(Action<Response[]> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+        public async void On(Action<Response[]> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
         {
             var postData = new Dictionary<string, object>();
             postData.Add("incTypes", "FakeQuery");

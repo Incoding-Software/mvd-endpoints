@@ -22,7 +22,7 @@
                                   mockQuery = MockQuery<AndroidNestedClassCodeGenerateQuery, string>
                                           .When(query)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.IsCommand, false)
-                                                                                                                      .Tuning(r => r.Device, DeviceOfType.Android)
+                                                                                                                      .Tuning(r => r.Language, Language.JavaCE)
                                                                                                                       .Tuning(r => r.Type, query.Type)
                                                                                                             , Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Type, ConvertCSharpTypeToTargetQuery.ToJavaQuery.String)
                                                                                                                                                                                                .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsArray)

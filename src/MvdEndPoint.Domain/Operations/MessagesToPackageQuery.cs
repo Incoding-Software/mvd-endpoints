@@ -29,21 +29,21 @@
                                        .With(r => r.Namespace)
                                        .Recovery(() => types.First().Module.Name.Replace(".dll", string.Empty));
 
-            switch (Device)
+            switch (Language)
             {
-                case DeviceOfType.Android:
+                case Language.JavaCE:
                     return Dispatcher.Query(new AsAndroidQuery
                                             {
                                                     BaseUrl = BaseUrl,
                                                     Types = types
                                             });
-                case DeviceOfType.Ios:
+                case Language.ObjectiveC:
                     return Dispatcher.Query(new AsIosQuery()
                                             {
                                                     BaseUrl = BaseUrl,
                                                     Types = types
                                             });
-                case DeviceOfType.WP:
+                case Language.Csharp:
                     return Dispatcher.Query(new AsWPQuery()
                                             {
                                                     BaseUrl = BaseUrl,
@@ -187,7 +187,7 @@
 
         #region Properties
 
-        public DeviceOfType Device { get; set; }
+        public Language Language { get; set; }
 
         public string Names { get; set; }
 

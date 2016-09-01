@@ -24,8 +24,9 @@
             engine.Session = new Dictionary<string, object>()
                              {
                                      { "Name", meta.Name },
-                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) },
-                                     { "Namespace", meta.Namespace }
+                                     { "Properties", Dispatcher.Query(new GetPropertiesQuery() { Type = Type, Language = Language.Csharp, IsCommand = meta.IsCommand }) },
+                                     { "Namespace", meta.Namespace },
+                                     { "IsNotifyPropertyChanged", meta.IsNotifyPropertyChanged },
                              };
             engine.Initialize();
             return engine.TransformText();

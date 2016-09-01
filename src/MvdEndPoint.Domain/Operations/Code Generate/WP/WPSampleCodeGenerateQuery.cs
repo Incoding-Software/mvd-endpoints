@@ -22,7 +22,7 @@
                                          {
                                                  { "Name", meta.Name },
                                                  { "Namespace", meta.Namespace },
-                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = type, Device = DeviceOfType.WP, IsCommand = meta.IsCommand }) },
+                                                 { "Properties", Dispatcher.Query(new GetPropertiesQuery { Type = type, Language = Language.Csharp, IsCommand = meta.IsCommand }) },
                                          }
                        };
             tmpl.Initialize();

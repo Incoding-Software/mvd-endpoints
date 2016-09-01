@@ -29,7 +29,8 @@
                            ResponseAsArray = isContract && Dispatcher.Query(new HasQueryResponseAsArrayQuery(Type)),
                            ResponseAsImage = isContract && Dispatcher.Query(new HasQueryResponseAsImageQuery { Type = Type }),
                            IsCommand = isContract && Dispatcher.Query(new IsCommandTypeQuery(Type)),
-                           Namespace = @namespace
+                           Namespace = @namespace,
+                           IsNotifyPropertyChanged = true
                    };
         }
 
@@ -48,6 +49,8 @@
             public bool ResponseAsImage { get; set; }
 
             public bool ResponseAsArray { get; set; }
+
+            public bool IsNotifyPropertyChanged { get; set; }
 
             #endregion
         }

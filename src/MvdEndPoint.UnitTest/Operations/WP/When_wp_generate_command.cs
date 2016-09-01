@@ -58,7 +58,7 @@
                                           .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, type), meta)
                                           .StubQuery<GetPropertiesQuery, List<GetPropertiesQuery.Response>>(dsl => dsl.Tuning(r => r.Type, type)
                                                                                                                                       .Tuning(r => r.IsCommand, meta.IsCommand)
-                                                                                                                                      .Tuning(r => r.Device, DeviceOfType.WP), 
+                                                                                                                                      .Tuning(r => r.Language, Language.Csharp), 
                                                                                                                             properties);
                               };
 
