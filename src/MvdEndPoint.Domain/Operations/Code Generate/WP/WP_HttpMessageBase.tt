@@ -4,50 +4,33 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Incoding.Extensions" #>
-<#@ parameter type="System.String" name="Url" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Boolean" name="IsNotifyPropertyChanged" #>
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Incoding.Extensions;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
 
 namespace <#=Namespace#>
 {
-    public class HttpMessageBase<#if(IsNotifyPropertyChanged){#>:INotifyPropertyChanged<#}#>
-    {	    
-        public class IncodingResult<T>
-        {
-            public bool success;
+    #region << Using >>
 
-            public T data;
-        }
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Threading.Tasks;    
+    using JetBrains.Annotations;
+    using Newtonsoft.Json;
 
-		public class ModelState
-        {
-            public string name;
+    #endregion
 
-            public string errorMessage;
+    public class HttpMessageBase : INotifyPropertyChanged
+    {
+        public static Action OnBefore = () => { };
 
-            public bool isValid;
-        }
-
-		public class HttpPostedFileBase
-        {
-            public byte[] Content { get; set; }
-
-            public string FileName { get; set; }
-        }
+        public static Action OnAfter = () => { };
 
         public static Action<object, HttpStatusCode> OnError = (o, code) =>
                                                                {
@@ -55,14 +38,16 @@ namespace <#=Namespace#>
                                                                    throw new ApplicationException(message);
                                                                };
 
-		public static Dictionary<string, string> Headers = new Dictionary<string, string>()
-                                                           { { "X-Requested-With", "XMLHttpRequest" } };
+        public static readonly ConcurrentDictionary<string, string> Headers = new ConcurrentDictionary<string, string>();
 
-        public static string Cookie { get; set; }
+        protected static string Cookie { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected async Task PostAwait<T>(bool isCommand, Action<T> onSuccess, Action<object, HttpStatusCode> onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
         {
-            string url = string.Format("<#=Url#>/Dispatcher/{0}", isCommand ? "Push" : "Query");
+            OnBefore();
+            string url = string.Format("http://{0}/Dispatcher/{1}", ConfigurationManager.AppSettings["incoding:domain"], isCommand ? "Push" : "Query");
             string response = await post(url, postData);
             IncodingResult<object> result = JsonConvert.DeserializeObject<IncodingResult<object>>(response);
             if (result.statusCode == HttpStatusCode.OK)
@@ -71,6 +56,7 @@ namespace <#=Namespace#>
                 {
                     IncodingResult<T> deserializeObject = JsonConvert.DeserializeObject<IncodingResult<T>>(response);
                     onSuccess(deserializeObject.data);
+                    OnAfter();
                 }
                 else
                 {
@@ -90,10 +76,53 @@ namespace <#=Namespace#>
             }
         }
 
+        protected async Task<T> PostAwait<T>(bool isCommand, Action<object, HttpStatusCode> onError, Action<ModelState[]> onValidation, Dictionary<string, object> postData)
+        {
+            OnBefore();
+            string url = string.Format("http://{0}/Dispatcher/{1}", ConfigurationManager.AppSettings["incoding:domain"], isCommand ? "Push" : "Query");
+            string response = await post(url, postData);
+            IncodingResult<object> result = JsonConvert.DeserializeObject<IncodingResult<object>>(response);
+            if (result.statusCode == HttpStatusCode.OK)
+            {
+                if (result.success)
+                {
+                    IncodingResult<T> deserializeObject = JsonConvert.DeserializeObject<IncodingResult<T>>(response);
+                    return deserializeObject.data;
+                }
+                else
+                {
+                    var modelState = JsonConvert.DeserializeObject<IncodingResult<ModelState[]>>(response);
+                    if (modelState.data != null && modelState.data.Any())
+                    {
+                        if (onValidation == null)
+                            throw new ArgumentNullException("onValidation", "Response have validation errors but onValidation behavior is was missed");
+                        onValidation(modelState.data);
+                    }
+                }
+            }
+            else
+            {
+                var actual = onError ?? OnError;
+                actual(result.data, result.statusCode);
+            }
+            throw new ArgumentException();
+        }
+
         async Task<string> GetWebRequestCallback(HttpWebRequest request)
         {
             var task = Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
-            var responseObject = await task.ContinueWith(r => r.Result);
+
+            WebResponse responseObject;
+            if (task.Exception == null)
+                responseObject = task.Result;
+            else
+            {
+                WebException ex = task.Exception.InnerException as WebException;
+                responseObject = ex.Response;
+            }
+            if (responseObject?.ContentType != "application/json; charset=utf-8")
+                throw new WebException();
+
             if (Cookie == null && request.CookieContainer != null && request.CookieContainer.Count != 0)
                 Cookie = request.CookieContainer.GetCookieHeader(request.RequestUri);
             var responseStream = responseObject.GetResponseStream();
@@ -109,7 +138,7 @@ namespace <#=Namespace#>
             string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
             byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
             wr.Method = "POST";
-            wr.Timeout = (int)new TimeSpan(0, 0, 5).TotalMilliseconds;
+            wr.Timeout = 800000;
             wr.ContentType = "multipart/form-data; boundary=" + boundary;
             foreach (var header in Headers)
                 wr.Headers.Add(header.Key, header.Value);
@@ -158,17 +187,35 @@ namespace <#=Namespace#>
             return response;
         }
 
-
-		
-		<#if(IsNotifyPropertyChanged){#>
-		public event PropertyChangedEventHandler PropertyChanged;
-
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));      
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-		<#}#>
+
+        public class HttpPostedFileBase
+        {
+            public byte[] Content { get; set; }
+
+            public string FileName { get; set; }
+        }
+
+        public class IncodingResult<T>
+        {
+            public T data;
+
+            public HttpStatusCode statusCode;
+
+            public bool success;
+        }
+
+        public class ModelState
+        {
+            public string errorMessage;
+
+            public bool isValid;
+
+            public string name;
+        }
     }
 }
-

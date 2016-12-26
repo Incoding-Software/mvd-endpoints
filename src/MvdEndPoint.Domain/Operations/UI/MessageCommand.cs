@@ -99,5 +99,17 @@
                 message.Description = Description;
             }
         }
+
+        public class TogglePropertyOptionalCommand : CommandBase
+        {
+            public string Id { get; set; }
+
+            protected override void Execute()
+            {
+                var message = Repository.GetById<Message.Property>(Id);
+                message.IsRequired = !message.IsRequired;
+            }
+        }
+
     }
 }

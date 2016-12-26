@@ -57,7 +57,8 @@ namespace Incoding.Endpoint
                                     Result = endpoint.Result,
                                     Group = endpoint.GroupKey.With(s => s.Name),
                                     PropertiesOfResponse = endpoint.Properties.Where(r => r.Type == Message.Property.TypeOf.Response).Select(property => new Response.Item(property)).ToList(),
-                                    PropertiesOfRequest = endpoint.Properties.Where(s => s.Type == Message.Property.TypeOf.Request).Select(property => new Response.Item(property)).ToList()
+                                    PropertiesOfRequest = endpoint.Properties.Where(s => s.Type == Message.Property.TypeOf.Request).Select(property => new Response.Item(property)).ToList(),
+                                    Details = Dispatcher.Query(new GetMessageDetailQuery() { Id = endpoint.Id })
                             });
                 }
             }
@@ -117,6 +118,8 @@ namespace Incoding.Endpoint
             public string Verb { get; set; }
 
             public string Host { get; set; }
+
+            public List<GetMessageDetailQuery.Response> Details { get; set; }
 
             public class Item
             {

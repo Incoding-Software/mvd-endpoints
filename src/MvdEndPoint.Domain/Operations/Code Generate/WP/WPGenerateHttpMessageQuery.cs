@@ -14,10 +14,8 @@
         {
             var engine = new WP_HttpMessageBase();
             engine.Session = new Dictionary<string, object>()
-                             {
-                                     { "Url", Url },
-                                     { "Namespace", Namespace },
-                                     { "IsNotifyPropertyChanged", true },
+                             {                                     
+                                     { "Namespace", Namespace },                                     
                              };
             engine.Initialize();
             return engine.TransformText();
@@ -25,8 +23,7 @@
 
         #region Properties
 
-        public string Url { get; set; }
-
+        
         public string Namespace { get; set; }
 
         #endregion

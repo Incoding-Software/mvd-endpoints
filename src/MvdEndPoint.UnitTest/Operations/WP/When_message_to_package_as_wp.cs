@@ -36,8 +36,7 @@
                                   var intContent = Pleasure.Generator.String();
                                   mockQuery = MockQuery<MessagesToPackageQuery.AsWPQuery, byte[]>
                                           .When(query)
-                                          .StubQuery<WPGenerateHttpMessageQuery, string>(dsl => dsl.Tuning(r => r.Url, query.BaseUrl)
-                                                                                                   .Tuning(r => r.Namespace, query.Namespace), httpMessageContent)
+                                          .StubQuery<WPGenerateHttpMessageQuery, string>(dsl => dsl.Tuning(r => r.Namespace, query.Namespace), httpMessageContent)
                                           .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(string)), metaForString)
                                           .StubQuery<GetMetaFromTypeQuery, GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Type, typeof(FakeQuery)), metaForInt)
                                           .StubQuery<WPGenerateCommandQuery, string>(dsl => dsl.Tuning(r => r.Type, typeof(string)), commandContent)

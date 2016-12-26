@@ -6,6 +6,7 @@
 <#@ import namespace="Incoding.Extensions" #>
 <#@ parameter type="System.String" name="Name" #>
 <#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="IsNotifyPropertyChanged" #>
 <#@ parameter type="System.Collections.Generic.List<Incoding.Endpoint.GetPropertiesQuery.Response>" name="Properties" #>
 
 using System;
@@ -16,11 +17,25 @@ namespace <#=Namespace#>
 {
     public class <#=Name#>:HttpMessageBase
     {
-         <# foreach(var pair in Properties) { #>
-        public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
-         <# } #>   
+         
+		 <# foreach(var pair in Properties) { #>
+		 <#if(IsNotifyPropertyChanged){#>
+				 private <#=pair.Type#> _<#= pair.Name #>;
+		public <#=pair.Type#> <#= pair.Name #>
+		{
+			get { return this._<#= pair.Name #>; }
+			set
+			{
+				this._<#= pair.Name #> = value;
+				OnPropertyChanged();
+			}
+		}
+		 <#}else{#>
+		public <#= pair.Type #><# if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){#>[]<#}#> <#= pair.Name #> {get;set;}
+		<#}#>
+		 <# } #>  
 
-        public async void On(Action<object> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+        public async void On(Action<object> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
         {
             var postData = new Dictionary<string, object>();
             postData.Add("incTypes", "<#=Name#>");

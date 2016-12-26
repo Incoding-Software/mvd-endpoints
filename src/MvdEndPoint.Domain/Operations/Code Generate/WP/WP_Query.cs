@@ -29,281 +29,311 @@ namespace Incoding.Endpoint.Operations.Code_Generate.WP
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Text;\r\nusing System.Collections.Generic;\r\n\r\nnamespa" +
-                    "ce ");
+            this.Write("\r\nusing System;\r\nusing System.Text;\r\nusing System.Collections.Generic;\r\nusing Sys" +
+                    "tem.Net;\r\n using System.Threading.Tasks;\r\n\r\nnamespace ");
             
-            #line 17 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\tpublic class ");
             
-            #line 19 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 21 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));
             
             #line default
             #line hidden
             this.Write(":HttpMessageBase\r\n\t{\r\n\t\t \r\n\t\t ");
             
-            #line 22 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t\t ");
             
-            #line 23 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 if(IsNotifyPropertyChanged){
             
             #line default
             #line hidden
             this.Write("\t\t\t\t private ");
             
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             this.Write(" _");
             
-            #line 24 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 26 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\tpublic ");
             
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             this.Write(" ");
-            
-            #line 25 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n\t\t{\r\n\t\t\tget { return this._");
             
             #line 27 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
+            this.Write("\r\n\t\t{\r\n\t\t\tget { return this._");
+            
+            #line 29 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
+            
+            #line default
+            #line hidden
             this.Write("; }\r\n\t\t\tset\r\n\t\t\t{\r\n\t\t\t\tthis._");
             
-            #line 30 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 32 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" = value;\r\n\t\t\t\tOnPropertyChanged();\r\n\t\t\t}\r\n\t\t}\r\n\t\t ");
             
-            #line 34 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }else{
             
             #line default
             #line hidden
             this.Write("\t\tpublic ");
             
-            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             
-            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 35 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" {get;set;}\r\n\t\t");
             
-            #line 36 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 38 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
             #line hidden
             this.Write("\t\t ");
             
-            #line 37 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 39 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
             this.Write("   \r\n\t\t \r\n\r\n\t\tpublic class Response\r\n\t\t{\t\t  \r\n\t\t");
             
-            #line 42 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 44 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in InnerResponses) { 
             
             #line default
             #line hidden
             this.Write("\t\t   public class ");
             
-            #line 43 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Key));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t   {\r\n\t\t\t");
             
-            #line 45 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var prop in pair.Value) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tpublic ");
             
-            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Type));
             
             #line default
             #line hidden
             
-            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  if(prop.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 46 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 48 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
             this.Write(" {get;set;}\r\n\t\t\t");
             
-            #line 47 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t   }        \r\n\t\t");
             
-            #line 49 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
             this.Write("  \r\n\t\t\t\t\t\t \r\n\t\t");
             
-            #line 51 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 53 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in Response) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic ");
             
-            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Type));
             
             #line default
             #line hidden
             
-            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  if(pair.Attributes.HasFlag(GetPropertiesQuery.Response.OfAttributes.IsArray)){
             
             #line default
             #line hidden
             this.Write("[]");
             
-            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
 }
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 52 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 54 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(" {get;set;}\r\n\t\t ");
             
-            #line 53 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 55 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  \r\n\r\n\t\t}\r\n\r\n\t\tpublic async void On(Action<Response");
+            this.Write("  \r\n\r\n\t\t}\r\n\r\n\t\t public Dictionary<string, object> GetPostData()\r\n        {\r\n     " +
+                    "       var postData = new Dictionary<string, object>();\r\n\t\t\tpostData.Add(\"incTyp" +
+                    "es\", \"");
             
-            #line 57 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
- if(Meta.ResponseAsArray){
-            
-            #line default
-            #line hidden
-            this.Write("[]");
-            
-            #line 57 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
-}
-            
-            #line default
-            #line hidden
-            this.Write("> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> " +
-                    "onValidation = null)\r\n\t\t{\r\n\t\t\tvar postData = new Dictionary<string, object>();\r\n" +
-                    "\t\t\tpostData.Add(\"incTypes\", \"");
-            
-            #line 60 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 62 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Meta.Name));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t\t\t");
             
-            #line 61 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 63 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  foreach(var pair in Properties) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\tpostData.Add(\"");
             
-            #line 62 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 64 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write("\", this.");
             
-            #line 62 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 64 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(pair.Name));
             
             #line default
             #line hidden
             this.Write(");\t\t\t             \r\n\t\t\t");
             
-            #line 63 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+            #line 65 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  \r\n\t\t\tawait PostAwait(false, onSuccess, onError, onValidation, postData);\r\n\t\t}\r\n" +
-                    "\t}\r\n}\r\n\r\n");
+            this.Write("  \r\n\t\t\treturn postData;\r\n        }\r\n\r\n\t\tpublic async void On(Action<Response");
+            
+            #line 69 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ if(Meta.ResponseAsArray){
+            
+            #line default
+            #line hidden
+            this.Write("[]");
+            
+            #line 69 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> " +
+                    "onValidation = null)\r\n\t\t{\r\n\t\t\tawait PostAwait(false, onSuccess, onError, onValid" +
+                    "ation, GetPostData());\r\n\t\t}\r\n\r\n\t\tpublic Task<Response");
+            
+            #line 74 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ if(Meta.ResponseAsArray){
+            
+            #line default
+            #line hidden
+            this.Write("[]");
+            
+            #line 74 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("> Get(Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValid" +
+                    "ation = null)\r\n        {\r\n            return PostAwait<Response");
+            
+            #line 76 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+ if(Meta.ResponseAsArray){
+            
+            #line default
+            #line hidden
+            this.Write("[]");
+            
+            #line 76 "C:\Workspace\mvd-endpoints\src\MvdEndPoint.Domain\Operations\Code Generate\WP\WP_Query.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write(">(false, onError, onValidation, GetPostData());\r\n        }\r\n\t}\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

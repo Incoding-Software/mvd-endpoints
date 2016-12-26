@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<package >
+
+<package>
   <metadata>
     <id>Incoding.Endpoint</id>
     <version>1.0.3</version>
@@ -20,6 +21,11 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <copyright>Copyright  2013 - 2016</copyright>
+    <dependencies>
+      <group>
+        <dependency id="DotNetZip" version="1.9.2" />
+      </group>
+    </dependencies>
     <references>
       <reference file="Incoding.Endpoint.dll" />
     </references>
@@ -27,7 +33,7 @@
   </metadata>
   <files>
     <file src="lib\net45\*.*" target="lib" />
-    <file src="content\**" target="content"/>
+    <file src="content\**" target="content" />
     <file src="tools\" target="tools" />
   </files>
 </package>

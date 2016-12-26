@@ -8,10 +8,37 @@ namespace MvdEndPoint.UnitTest
     public class FakeCommand:HttpMessageBase
     {
          
-		 		 		public String Login {get;set;}
-				 		 		public Int32 Count {get;set;}
-				 		 		public Double[] Values {get;set;}
-				   
+		 		 				 private String _Login;
+		public String Login
+		{
+			get { return this._Login; }
+			set
+			{
+				this._Login = value;
+				OnPropertyChanged();
+			}
+		}
+		 		 		 				 private Int32 _Count;
+		public Int32 Count
+		{
+			get { return this._Count; }
+			set
+			{
+				this._Count = value;
+				OnPropertyChanged();
+			}
+		}
+		 		 		 				 private Double _Values;
+		public Double Values
+		{
+			get { return this._Values; }
+			set
+			{
+				this._Values = value;
+				OnPropertyChanged();
+			}
+		}
+		 		   
 
         public async void On(Action<object> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
         {

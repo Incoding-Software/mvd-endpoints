@@ -47,6 +47,10 @@
                                           .StubQuery<AndroidSampleCodeGenerateQuery, string>(dsl => dsl.Tuning(s => s.Instance, new FakeCommand2()), androidSample)
                                           .StubQuery(orderSpecification: new Message.Order.Default(),
                                                      entities: expected);
+
+                                  details = Pleasure.Generator.Invent<List<GetMessageDetailQuery.Response>>();
+                                  foreach (var message in expected)
+                                      mockQuery.StubQuery<GetMessageDetailQuery, List<GetMessageDetailQuery.Response>>(dsl => dsl.Tuning(s => s.Id, message.Id), details);
                               };
 
         Because of = () => mockQuery.Execute();
@@ -60,6 +64,7 @@
                                                                                                                                                                                                        .Tuning(r => r.Name, null)
                                                                                                                                                                                                        .Tuning(r => r.Description, @group.Description)
                                                                                                                                                                                                        .Tuning(r => r.IsGroup, true)
+                                                                                                                                                                                                       .Tuning(s => s.Details, null)
                                                                                                                                                                                                        .Tuning(r => r.EntityId, @group.Id)
                                                                                                                                                                                                        .Tuning(r => r.Host, null)
                                                                                                                                                                                                        .Tuning(r => r.Verb, null)
@@ -83,6 +88,7 @@
                                                                                                                                                                                                    .Tuning(r => r.EntityId, message.Id)
                                                                                                                                                                                                    .Tuning(r => r.Host, uri.Host)
                                                                                                                                                                                                    .Tuning(r => r.Verb, uri.Verb)
+                                                                                                                                                                                                   .Tuning(s => s.Details, details)
                                                                                                                                                                                                    .Tuning(r => r.Result, message.Result)
                                                                                                                                                                                                    .Tuning(r => r.Url, uri.Host + uri.Url)
                                                                                                                                                                                                    .Tuning(r => r.PropertiesOfRequest, new List<GetMessagesQuery.Response.Item>())
@@ -138,6 +144,8 @@
         private static string curlSample;
 
         private static string wpSample;
+
+        private static List<GetMessageDetailQuery.Response> details;
 
         #endregion
     }

@@ -2,43 +2,57 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace MvdEndPoint.UnitTest
 {
-    public class FakeQuery:HttpMessageBase
-    {
-                 public String Login {get;set;}
-                 public Int32 Count {get;set;}
-                 public Double[] Values {get;set;}
-            
+	public class FakeQuery:HttpMessageBase
+	{
+		 
+		 		 		public String Login {get;set;}
+				 		 		public Int32 Count {get;set;}
+				 		 		public Double[] Values {get;set;}
+				    
+		 
 
 		public class Response
-        {		  
-	    	       public class MyClass
-	       {
-	        			public String Login {get;set;}
+		{		  
+				   public class MyClass
+		   {
+						public String Login {get;set;}
 						public Int32 Count {get;set;}
 						public Double[] Values {get;set;}
-				       }        
-          
-        				 
-                public String Login {get;set;}
-                 public Int32 Count {get;set;}
-                 public Double[] Values {get;set;}
-           
+					   }        
+		  
+						 
+				public String Login {get;set;}
+		 		public Int32 Count {get;set;}
+		 		public Double[] Values {get;set;}
+		   
 
-        }
+		}
 
-        public async void On(Action<Response[]> onSuccess, Action onError = null, Action<ModelState[]> onValidation = null)
+		 public Dictionary<string, object> GetPostData()
         {
             var postData = new Dictionary<string, object>();
-            postData.Add("incTypes", "FakeQuery");
-		    			    postData.Add("Login", this.Login);			             
-            			    postData.Add("Count", this.Count);			             
-            			    postData.Add("Values", this.Values);			             
-              
-            await PostAwait(false, onSuccess, onError, onValidation, postData);
+			postData.Add("incTypes", "FakeQuery");
+							postData.Add("Login", this.Login);			             
+							postData.Add("Count", this.Count);			             
+							postData.Add("Values", this.Values);			             
+			  
+			return postData;
         }
-    }
+
+		public async void On(Action<Response[]> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
+		{
+			await PostAwait(false, onSuccess, onError, onValidation, GetPostData());
+		}
+
+		public Task<Response[]> Get(Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
+        {
+            return PostAwait<Response[]>(false, onError, onValidation, GetPostData());
+        }
+	}
 }
 

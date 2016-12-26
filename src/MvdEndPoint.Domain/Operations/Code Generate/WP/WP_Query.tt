@@ -13,6 +13,8 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Net;
+ using System.Threading.Tasks;
 
 namespace <#=Meta.Namespace#>
 {
@@ -54,15 +56,25 @@ namespace <#=Meta.Namespace#>
 
 		}
 
-		public async void On(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
-		{
-			var postData = new Dictionary<string, object>();
+		 public Dictionary<string, object> GetPostData()
+        {
+            var postData = new Dictionary<string, object>();
 			postData.Add("incTypes", "<#=Meta.Name#>");
 			<# foreach(var pair in Properties) { #>
 				postData.Add("<#=pair.Name#>", this.<#=pair.Name#>);			             
 			<# } #>  
-			await PostAwait(false, onSuccess, onError, onValidation, postData);
+			return postData;
+        }
+
+		public async void On(Action<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> onSuccess, Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
+		{
+			await PostAwait(false, onSuccess, onError, onValidation, GetPostData());
 		}
+
+		public Task<Response<# if(Meta.ResponseAsArray){#>[]<#}#>> Get(Action<object, HttpStatusCode> onError = null, Action<ModelState[]> onValidation = null)
+        {
+            return PostAwait<Response<# if(Meta.ResponseAsArray){#>[]<#}#>>(false, onError, onValidation, GetPostData());
+        }
 	}
 }
 

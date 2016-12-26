@@ -160,7 +160,6 @@
                 var zipQuery = new ToZipQuery();
                 zipQuery.Entries.Add("HttpMessageBase.cs", Dispatcher.Query(new WPGenerateHttpMessageQuery()
                                                                             {
-                                                                                    Url = BaseUrl,
                                                                                     Namespace = Namespace
                                                                             }));
 

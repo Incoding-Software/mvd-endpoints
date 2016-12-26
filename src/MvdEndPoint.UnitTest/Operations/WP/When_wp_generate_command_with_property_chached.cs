@@ -1,7 +1,5 @@
-﻿namespace MvdEndPoint.UnitTest
+namespace MvdEndPoint.UnitTest
 {
-    #region << Using >>
-
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -10,20 +8,18 @@
     using Incoding.MSpecContrib;
     using Machine.Specifications;
 
-    #endregion
-
     [Subject(typeof(WPGenerateHttpMessageQuery))]
-    public class When_wp_generate_command
+    public class When_wp_generate_command_with_property_changed
     {
         Establish establish = () =>
                               {
                                   var type = typeof(FakeCommand);
                                   var query = Pleasure.Generator.Invent<WPGenerateCommandQuery>(dsl => dsl.Tuning(r => r.Type, type));
 
-                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_wp_generate_command).Name));
+                                  expected = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sample_Code_Generate", typeof(When_wp_generate_command_with_property_changed).Name));
 
                                   var meta = Pleasure.Generator.Invent<GetMetaFromTypeQuery.Response>(dsl => dsl.Tuning(r => r.Name, type.Name)
-                                                                                                                .Tuning(s => s.IsNotifyPropertyChanged, false)
+                                                                                                                .Tuning(s => s.IsNotifyPropertyChanged, true)
                                                                                                                 .Tuning(r => r.Namespace, type.Namespace));
                                   var properties = Pleasure.ToList(Pleasure.Generator.Invent<GetPropertiesQuery.Response>(dsl => dsl.Tuning(r => r.Name, "Login")
                                                                                                                                     .Tuning(r => r.Attributes, GetPropertiesQuery.Response.OfAttributes.IsClass | GetPropertiesQuery.Response.OfAttributes.IsCanNull)
