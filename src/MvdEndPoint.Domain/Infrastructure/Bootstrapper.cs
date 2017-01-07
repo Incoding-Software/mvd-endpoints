@@ -16,6 +16,7 @@ namespace Incoding.Endpoint
     
     using Incoding.Extensions;
     using Incoding.MvcContrib;
+    using MongoDB.Bson.Serialization;
     using NHibernate.Context;
 	using NHibernate.Tool.hbm2ddl;
 	using StructureMap.Graph;
@@ -34,16 +35,13 @@ namespace Incoding.Endpoint
                                                                                                      {
                                                                                                          registry.For<IDispatcher>().Use<DefaultDispatcher>();                                                                                                         
                                                                                                          registry.For<ITemplateFactory>().Singleton().Use<TemplateHandlebarsFactory>();
-																										 
 
-                                                                                                         var configure = Fluently
-                                                                                                                 .Configure()
-                                                                                                                 .Database(MsSqlConfiguration.MsSql2008.ConnectionString(ConfigurationManager.ConnectionStrings["Main"].ConnectionString))
-                                                                                                                 .Mappings(configuration => configuration.FluentMappings.AddFromAssembly(typeof(Bootstrapper).Assembly))
-																												 .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true));                                                                                                                 ;                                                                                                         
-                                                                                                         registry.For<INhibernateSessionFactory>().Singleton().Use(() => new NhibernateSessionFactory(configure));
-                                                                                                         registry.For<IUnitOfWorkFactory>().Use<NhibernateUnitOfWorkFactory>();
-                                                                                                         registry.For<IRepository>().Use<NhibernateRepository>();
+
+                                                                                                         BsonClassMap.RegisterClassMap<IncEntityBase>(map => map.UnmapProperty(r => r.Id));
+                                                                                                         registry.For<IMongoDbSessionFactory>().Use(() => new MongoDbSessionFactory("mongodb://localhost:27017/thetracker"));
+                                                                                                         registry.For<IUnitOfWorkFactory>().Singleton().Use<MongoDbUnitOfWorkFactory>();
+                                                                                                         registry.For<IUnitOfWork>().Singleton().Use<MongoDbUnitOfWork>();
+                                                                                                         registry.For<IRepository>().Use<MongoDbRepository>();
 
                                                                                                          registry.Scan(r =>
                                                                                                                            {

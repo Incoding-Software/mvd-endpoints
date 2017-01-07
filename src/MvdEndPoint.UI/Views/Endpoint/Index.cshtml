@@ -1,3 +1,5 @@
+@using System.Data
+@using Incoding.CQRS
 @using Incoding.Extensions
 <html>
 <head>
@@ -83,7 +85,11 @@
     </div>
 </div>
 @{
-    var data = Html.Dispatcher().Query(new GetMessagesQuery());
+    var data = Html.Dispatcher().Query(new GetMessagesQuery(),new MessageExecuteSetting()
+                                                              {
+                                                                      IsolationLevel = IsolationLevel.ReadUncommitted,
+                                                                      DataBaseInstance = "Endpoint"
+                                                              });
     var pathToNavTmpl = "~/Views/Endpoint/Nav_Tmpl.cshtml";
 }
 <div id="sidebar">

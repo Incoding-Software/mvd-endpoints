@@ -12,8 +12,10 @@
     using Incoding.Endpoint;
     using Incoding.Quality;
     using JetBrains.Annotations;
+    using MongoDB.Bson.Serialization.Attributes;
 
     #endregion
+
 
     public class Message : IncEntityBase
     {
@@ -28,6 +30,7 @@
 
         public virtual string Description { get; set; }
 
+        [BsonIgnore]
         public virtual IList<Property> Properties { get { return this.properties; } set { this.properties = value; } }
 
         public virtual Group GroupKey { get; set; }

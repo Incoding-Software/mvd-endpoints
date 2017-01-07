@@ -4,6 +4,7 @@ namespace Incoding.Endpoint
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using CloudIn.Domain.Endpoint;
     using Incoding.CQRS;
@@ -14,6 +15,7 @@ namespace Incoding.Endpoint
 
     #endregion
 
+    [MessageExecuteSetting(DataBaseInstance = "Endpoint",IsolationLevel = IsolationLevel.ReadUncommitted)]
     public class GetMessagesQuery : QueryBase<List<GetMessagesQuery.Response>>
     {
         protected override List<Response> ExecuteResult()

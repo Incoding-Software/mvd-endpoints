@@ -13,6 +13,7 @@
 
     #endregion
 
+    [MessageExecuteSetting(DataBaseInstance = "Endpoint")]
     public class GetMessageDetailQuery : QueryBase<List<GetMessageDetailQuery.Response>>
     {
         public string Id { get; set; }

@@ -5,6 +5,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Serialization;
@@ -15,6 +16,7 @@
 
     #endregion
 
+    [MessageExecuteSetting(DataBaseInstance = "Endpoint",IsolationLevel = IsolationLevel.ReadCommitted)]
     public class SyncEndpointCommand : CommandBase
     {
         protected override void Execute()

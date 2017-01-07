@@ -2,6 +2,7 @@
 {
     #region << Using >>
 
+    using System.Data;
     using System.Linq;
     using System.Web.Mvc;
     using CloudIn.Domain.Endpoint;
@@ -11,6 +12,7 @@
 
     public class MessageCommand
     {
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint",IsolationLevel = IsolationLevel.ReadCommitted)]
         public class UpdateNameCommand : CommandBase
         {
             public string Id { get; set; }
@@ -24,6 +26,7 @@
             }
         }
 
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint", IsolationLevel = IsolationLevel.ReadCommitted)]
         public class UpdateGroupNameCommand : CommandBase
         {
             public string Id { get; set; }
@@ -37,6 +40,7 @@
             }
         }
 
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint", IsolationLevel = IsolationLevel.ReadCommitted)]
         public class UpdateGroupDescriptionCommand : CommandBase
         {
             public string Id { get; set; }
@@ -51,6 +55,7 @@
             }
         }
 
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint", IsolationLevel = IsolationLevel.ReadCommitted)]
         public class UpdateDescriptionCommand : CommandBase
         {
             public string Id { get; set; }
@@ -65,6 +70,7 @@
             }
         }
 
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint", IsolationLevel = IsolationLevel.ReadCommitted)]
         public class JoinToGroupCommand : CommandBase
         {
             public string MessageId { get; set; }
@@ -86,6 +92,7 @@
             }
         }
 
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint", IsolationLevel = IsolationLevel.ReadCommitted)]
         public class UpdatePropertyDescriptionCommand : CommandBase
         {
             public string Id { get; set; }
@@ -100,6 +107,7 @@
             }
         }
 
+        [MessageExecuteSetting(DataBaseInstance = "Endpoint", IsolationLevel = IsolationLevel.ReadCommitted)]
         public class TogglePropertyOptionalCommand : CommandBase
         {
             public string Id { get; set; }
@@ -110,6 +118,5 @@
                 message.IsRequired = !message.IsRequired;
             }
         }
-
     }
 }
